@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 
 const COLUMNS = [
   "AI",
@@ -18,6 +20,7 @@ const ROWS_COUNT = 10;
 export function ProgressTable() {
   // Generate 10 empty rows
   const rows = Array.from({ length: ROWS_COUNT }, (_, i) => i);
+  const [activeTab, setActiveTab] = useState(0);
 
   return (
     <div className="w-full max-w-7xl mx-auto p-4 md:p-6 lg:p-8">
@@ -32,61 +35,66 @@ export function ProgressTable() {
 
       <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 shadow-sm overflow-hidden transition-colors duration-200">
         <div className="w-full overflow-hidden">
-          {/* Header Row */}
-          <div className="grid grid-cols-10 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 transition-colors duration-200">
-            {COLUMNS.map((column, index) => (
-              <div
-                key={`header-${index}`}
-                className={`
-                  py-2 px-1 md:p-3 lg:p-4
-                  flex items-center justify-center
-                  text-center break-words hyphens-auto leading-tight
-                  text-[8px] sm:text-[9px] md:text-[10px] lg:text-xs xl:text-sm
-                  font-bold tracking-widest text-slate-700 dark:text-slate-300
-                  uppercase transition-colors duration-200
-                  ${index !== COLUMNS.length - 1 ? 'border-r border-slate-200 dark:border-slate-800' : ''}
-                `}
-                style={{ wordBreak: 'break-word', hyphens: 'auto' }}
-              >
-                {column}
-              </div>
-            ))}
+          {/* Header Row - Tabs */}
+          <div className="flex flex-wrap md:flex-nowrap border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 transition-colors duration-200 overflow-x-auto">
+            {COLUMNS.map((column, index) => {
+              const isActive = index === activeTab;
+              return (
+                <button
+                  key={`header-${index}`}
+                  onClick={() => setActiveTab(index)}
+                  className={`
+                    flex-1 min-w-fit
+                    py-3 px-2 md:p-3 lg:p-4
+                    flex items-center justify-center
+                    text-center whitespace-nowrap md:whitespace-normal md:break-words md:hyphens-auto leading-tight
+                    text-[10px] sm:text-xs md:text-xs lg:text-sm
+                    font-bold tracking-widest
+                    uppercase transition-all duration-200
+                    border-b-2
+                    ${
+                      isActive
+                        ? "text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400 bg-white dark:bg-slate-950"
+                        : "text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/50"
+                    }
+                    ${index !== COLUMNS.length - 1 ? "border-r border-slate-200 dark:border-slate-800" : ""}
+                  `}
+                  style={{ wordBreak: 'break-word', hyphens: 'auto' }}
+                >
+                  {column}
+                </button>
+              );
+            })}
           </div>
 
-          {/* Body Rows */}
+          {/* Body Rows - Selected Tab Content */}
           <div className="flex flex-col">
             {rows.map((rowIdx) => (
               <div
                 key={`row-${rowIdx}`}
                 className={`
-                  grid grid-cols-10
                   ${rowIdx !== rows.length - 1 ? 'border-b border-slate-200 dark:border-slate-800' : ''}
                   transition-colors duration-200
                   group
                 `}
               >
-                {COLUMNS.map((_, colIdx) => (
-                  <div
-                    key={`cell-${rowIdx}-${colIdx}`}
-                    className={`
-                      relative
-                      aspect-[4/5] sm:aspect-[4/3] md:aspect-auto md:h-16 lg:h-20
-                      p-1 md:p-2 lg:p-3
-                      flex items-center justify-center
-                      transition-all duration-300 ease-in-out
-                      hover:bg-indigo-50 dark:hover:bg-indigo-900/30
-                      hover:scale-[1.05] hover:z-10 hover:shadow-md
-                      hover:rounded-md
-                      cursor-default
-                      ${colIdx !== COLUMNS.length - 1 ? 'border-r border-slate-200 dark:border-slate-800' : ''}
-                    `}
-                  >
-                    {/* Empty cell content - to be filled later */}
-                    <div className="w-full h-full rounded flex items-center justify-center text-[10px] md:text-sm text-slate-400 dark:text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity">
-                      {/* {rowIdx},{colIdx} */}
-                    </div>
+                <div
+                  className={`
+                    relative
+                    h-12 sm:h-14 md:h-16 lg:h-20
+                    p-2 md:p-3
+                    flex items-center justify-center
+                    transition-all duration-300 ease-in-out
+                    hover:bg-indigo-50 dark:hover:bg-indigo-900/30
+                    hover:z-10 hover:shadow-md
+                    cursor-default
+                  `}
+                >
+                  {/* Empty row content - to be filled later */}
+                  <div className="w-full h-full rounded flex items-center justify-center text-[10px] md:text-sm text-slate-400 dark:text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                    {/* Progress Step {rowIdx + 1} for {COLUMNS[activeTab]} */}
                   </div>
-                ))}
+                </div>
               </div>
             ))}
           </div>
