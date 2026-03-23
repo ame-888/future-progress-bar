@@ -1,6 +1,7 @@
 import { ModeToggle } from "@/components/mode-toggle";
 import { ProgressTable } from "@/components/progress-table";
 import { MissionButton } from "@/components/mission-button";
+import { GamificationExplanation } from "@/components/gamification-explanation";
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
       <ModeToggle />
       <div className="flex flex-col items-center justify-center min-h-screen py-12 md:py-24">
         <ProgressTable />
+        <GamificationExplanation />
       </div>
     </main>
   );
