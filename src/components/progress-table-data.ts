@@ -13,6 +13,7 @@ export type Measurement = {
   id: string;
   title: string;
   currentValue: number;
+  baseValue?: number; // Starting value before level 1
   unit: string;
   levels: MeasurementLevel[];
   history: MeasurementHistory[];
@@ -36,38 +37,50 @@ export const DOMAINS: DomainData[] = [
         id: "lev-1",
         title: "Average lifespan in the world",
         currentValue: 73.8,
+        baseValue: 70,
         unit: "years",
         levels: [
-          { level: 1, goal: 75 },
-          { level: 2, goal: 80 },
-          { level: 3, goal: 90 },
-          { level: 4, goal: 100 },
+          { level: 1, goal: 80 },
+          { level: 2, goal: 90 },
+          { level: 3, goal: 100 },
+          { level: 4, goal: 120 },
+          { level: 5, goal: 150 },
+          { level: 6, goal: 200 },
+          { level: 7, goal: 500 },
         ],
         history: [],
       },
       {
         id: "lev-2",
-        title: "Average lifespan in the number 1 country (Monaco)",
+        title: "Average lifespan in the number 1 country",
         currentValue: 86.73,
+        baseValue: 80,
         unit: "years",
         levels: [
           { level: 1, goal: 90 },
           { level: 2, goal: 100 },
-          { level: 3, goal: 110 },
-          { level: 4, goal: 120 },
+          { level: 3, goal: 120 },
+          { level: 4, goal: 150 },
+          { level: 5, goal: 200 },
+          { level: 6, goal: 500 },
+          { level: 7, goal: 1000 },
         ],
         history: [],
       },
       {
         id: "lev-3",
-        title: "Oldest verified human (Jeanne Calment)",
+        title: "Oldest verified human",
         currentValue: 122.45, // 122 years and 164 days
+        baseValue: 120,
         unit: "years",
         levels: [
           { level: 1, goal: 125 },
           { level: 2, goal: 130 },
           { level: 3, goal: 140 },
           { level: 4, goal: 150 },
+          { level: 5, goal: 200 },
+          { level: 6, goal: 500 },
+          { level: 7, goal: 1000 },
         ],
         history: [],
       },
@@ -75,12 +88,16 @@ export const DOMAINS: DomainData[] = [
         id: "lev-4",
         title: "Number of supercentenarians alive",
         currentValue: 217,
+        baseValue: 200,
         unit: "people",
         levels: [
           { level: 1, goal: 300 },
-          { level: 2, goal: 500 },
-          { level: 3, goal: 1000 },
-          { level: 4, goal: 5000 },
+          { level: 2, goal: 3000 },
+          { level: 3, goal: 30000 },
+          { level: 4, goal: 300000 },
+          { level: 5, goal: 3000000 },
+          { level: 6, goal: 30000000 },
+          { level: 7, goal: 300000000 },
         ],
         history: [],
       },

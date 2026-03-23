@@ -80,6 +80,7 @@ export function ProgressTable() {
 
 function MeasurementCard({ measurement }: { measurement: Measurement }) {
   const [isHistoryExpanded, setIsHistoryExpanded] = useState(false);
+  const [isLevelsExpanded, setIsLevelsExpanded] = useState(false);
 
   // Find the current level based on currentValue and goals
   // The levels array should be sorted by goal ascending
@@ -90,18 +91,18 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
 
   // Calculate next goal and previous goal value
   let nextGoal = null;
-  let previousGoalValue = 0; // Default previous goal value is 0
+  let previousGoalValue = measurement.baseValue || 0; // Default previous goal value is baseValue
 
   if (isCompleted) {
     nextGoal = measurement.levels[measurement.levels.length - 1];
     previousGoalValue = measurement.levels.length > 1
       ? measurement.levels[measurement.levels.length - 2].goal
-      : 0;
+      : measurement.baseValue || 0;
   } else if (currentLevelIdx !== -1) {
     nextGoal = measurement.levels[currentLevelIdx];
     previousGoalValue = currentLevelIdx > 0
       ? measurement.levels[currentLevelIdx - 1].goal
-      : 0;
+      : measurement.baseValue || 0;
   }
 
   // Calculate percentage
@@ -115,9 +116,9 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
   }
 
   return (
-    <div className="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50 transition-colors duration-200 shadow-sm">
-      <div className="p-4 md:p-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-4 gap-4">
+    <div className="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50 transition-colors duration-200 shadow-sm relative">
+      <div className="p-4 md:p-6 relative">
+        <div className="flex flex-col md:flex-row md:items-start justify-between mb-4 gap-4">
           <div>
             <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-1">
               {measurement.title}
@@ -160,22 +161,58 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
           </div>
         )}
 
-        {/* History Toggle */}
-        <button
-          onClick={() => setIsHistoryExpanded(!isHistoryExpanded)}
-          className="flex items-center text-sm font-medium text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors mt-4"
-        >
-          {isHistoryExpanded ? (
-            <>
-              <ChevronUpIcon className="w-4 h-4 mr-1" /> Hide History
-            </>
-          ) : (
-            <>
-              <ChevronDownIcon className="w-4 h-4 mr-1" /> View History
-            </>
-          )}
-        </button>
+        <div className="flex gap-4 mt-4">
+          <button
+            onClick={() => setIsLevelsExpanded(!isLevelsExpanded)}
+            className="flex items-center text-xs font-bold text-white bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-600 dark:hover:bg-emerald-700 transition-colors px-3 py-1.5 rounded-md uppercase tracking-wider"
+          >
+            Levels
+          </button>
+          {/* History Toggle */}
+          <button
+            onClick={() => setIsHistoryExpanded(!isHistoryExpanded)}
+            className="flex items-center text-sm font-medium text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors"
+          >
+            {isHistoryExpanded ? (
+              <>
+                <ChevronUpIcon className="w-4 h-4 mr-1" /> Hide History
+              </>
+            ) : (
+              <>
+                <ChevronDownIcon className="w-4 h-4 mr-1" /> View History
+              </>
+            )}
+          </button>
+        </div>
       </div>
+
+      {/* Levels Section */}
+      {isLevelsExpanded && (
+        <div className="border-t border-slate-100 dark:border-slate-800/50 bg-emerald-50/50 dark:bg-emerald-900/10 p-4 md:p-6 transition-all duration-200">
+          <h4 className="text-sm font-bold text-emerald-800 dark:text-emerald-400 mb-3 uppercase tracking-wider">
+            Goal Levels
+          </h4>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+            {measurement.levels.map((level) => (
+              <div
+                key={level.level}
+                className={`p-3 rounded-lg border ${
+                  measurement.currentValue >= level.goal
+                    ? 'bg-emerald-100 border-emerald-200 dark:bg-emerald-900/30 dark:border-emerald-800/50'
+                    : 'bg-white border-slate-200 dark:bg-slate-900 dark:border-slate-800'
+                }`}
+              >
+                <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
+                  Level {level.level}
+                </div>
+                <div className="font-bold text-slate-900 dark:text-slate-100">
+                  {level.goal} <span className="text-xs font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* History Section */}
       {isHistoryExpanded && (
