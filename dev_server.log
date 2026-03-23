@@ -1,0 +1,17 @@
+
+> tmp-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.1 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+✓ Ready in 825ms
+
+○ Compiling / ...
+ GET / 200 in 6.2s (next.js: 5.5s, application-code: 673ms)
+ GET / 200 in 335ms (next.js: 6ms, application-code: 329ms)
+ GET / 200 in 633ms (next.js: 10ms, application-code: 624ms)
+[browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template).
+ GET / 200 in 1055ms (next.js: 16ms, application-code: 1039ms)
+[browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template).
+[?25h
