@@ -48,7 +48,9 @@ export const DOMAINS: DomainData[] = [
           { level: 6, goal: 200 },
           { level: 7, goal: 500 },
         ],
-        history: [],
+        history: [
+          { date: "MARCH - 2026", value: 73.8 }
+        ],
       },
       {
         id: "lev-2",
@@ -65,7 +67,9 @@ export const DOMAINS: DomainData[] = [
           { level: 6, goal: 500 },
           { level: 7, goal: 1000 },
         ],
-        history: [],
+        history: [
+          { date: "MARCH - 2026", value: 86.73 }
+        ],
       },
       {
         id: "lev-3",
@@ -82,7 +86,9 @@ export const DOMAINS: DomainData[] = [
           { level: 6, goal: 500 },
           { level: 7, goal: 1000 },
         ],
-        history: [],
+        history: [
+          { date: "MARCH - 2026", value: 122.45 }
+        ],
       },
       {
         id: "lev-4",
@@ -99,7 +105,9 @@ export const DOMAINS: DomainData[] = [
           { level: 6, goal: 30000000 },
           { level: 7, goal: 300000000 },
         ],
-        history: [],
+        history: [
+          { date: "MARCH - 2026", value: 217 }
+        ],
       },
     ],
   },

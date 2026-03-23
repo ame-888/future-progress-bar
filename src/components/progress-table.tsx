@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { DOMAINS, Measurement } from "./progress-table-data";
-import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon, ChevronUpIcon, CheckCircleIcon } from "@heroicons/react/24/solid";
 
 export function ProgressTable() {
   const [activeTab, setActiveTab] = useState(3); // Start with LEV for now since it has data
@@ -44,7 +44,7 @@ export function ProgressTable() {
                     text-[10px] sm:text-xs md:text-xs lg:text-sm
                     font-bold tracking-widest
                     uppercase transition-all duration-200
-                    border-b-2
+                    border-b-2 cursor-pointer
                     ${
                       isActive
                         ? "text-white dark:text-slate-900 border-slate-900 dark:border-white bg-slate-900 dark:bg-white"
@@ -84,7 +84,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
 
   // Find the current level based on currentValue and goals
   // The levels array should be sorted by goal ascending
-  let currentLevelIdx = measurement.levels.findIndex(level => measurement.currentValue < level.goal);
+  const currentLevelIdx = measurement.levels.findIndex(level => measurement.currentValue < level.goal);
 
   // If all goals are met, it will remain -1. Let's handle that by capping it.
   const isCompleted = currentLevelIdx === -1 && measurement.levels.length > 0;
@@ -123,23 +123,11 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
             <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-1">
               {measurement.title}
             </h3>
-            <div className="text-slate-500 dark:text-slate-400 text-sm">
-              Current: <strong className="text-slate-800 dark:text-slate-200 text-lg">{measurement.currentValue}</strong> {measurement.unit}
-            </div>
           </div>
           <div className="text-left md:text-right">
             {isCompleted ? (
               <div className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400">
                 All goals achieved!
-              </div>
-            ) : nextGoal ? (
-              <div className="flex flex-col items-start md:items-end">
-                <span className="text-xs font-medium text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-1">
-                  Level {nextGoal.level} Goal
-                </span>
-                <span className="text-lg font-bold text-slate-900 dark:text-white">
-                  {nextGoal.goal} <span className="text-sm font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span>
-                </span>
               </div>
             ) : null}
           </div>
@@ -147,16 +135,45 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
 
         {/* Progress Bar */}
         {nextGoal && !isCompleted && (
-          <div className="mb-4">
-            <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
-              <span>{previousGoalValue} {measurement.unit}</span>
-              <span>{Math.round(percentage)}%</span>
+          <div className="mb-4 mt-12 relative">
+            {/* Dynamic Current Value Marker */}
+            <div
+              className="absolute -top-10 transition-all duration-1000 ease-out z-10"
+              style={{
+                left: `${percentage}%`,
+                transform: 'translateX(-50%)'
+              }}
+            >
+              <div className="bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 px-3 py-1.5 rounded-md text-sm font-bold shadow-md whitespace-nowrap relative flex flex-col items-center">
+                <span>{measurement.currentValue} <span className="font-normal text-xs">{measurement.unit}</span></span>
+                {/* Little triangle pointing down */}
+                <div className="absolute -bottom-1 w-2 h-2 bg-slate-800 dark:bg-slate-200 rotate-45"></div>
+              </div>
             </div>
-            <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-3 md:h-4 overflow-hidden relative">
+
+            <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-3 md:h-4 overflow-visible relative mt-2">
               <div
                 className="bg-indigo-500 dark:bg-indigo-400 h-full rounded-full transition-all duration-1000 ease-out"
                 style={{ width: `${percentage}%` }}
               ></div>
+            </div>
+            <div className="flex justify-between mt-2">
+              <div className="flex flex-col items-start">
+                <span className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
+                  Starting Value
+                </span>
+                <span className="text-lg font-bold text-slate-900 dark:text-white">
+                  {previousGoalValue} <span className="text-sm font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span>
+                </span>
+              </div>
+              <div className="flex flex-col items-end">
+                <span className="text-xs font-medium text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-1">
+                  Level {nextGoal.level} Goal
+                </span>
+                <span className="text-lg font-bold text-slate-900 dark:text-white">
+                  {nextGoal.goal} <span className="text-sm font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span>
+                </span>
+              </div>
             </div>
           </div>
         )}
@@ -164,14 +181,14 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
         <div className="flex gap-4 mt-4">
           <button
             onClick={() => setIsLevelsExpanded(!isLevelsExpanded)}
-            className="flex items-center text-xs font-bold text-white bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-600 dark:hover:bg-emerald-700 transition-colors px-3 py-1.5 rounded-md uppercase tracking-wider"
+            className="flex items-center text-xs font-bold text-white bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-600 dark:hover:bg-emerald-700 transition-colors px-3 py-1.5 rounded-md uppercase tracking-wider cursor-pointer"
           >
             Levels
           </button>
           {/* History Toggle */}
           <button
             onClick={() => setIsHistoryExpanded(!isHistoryExpanded)}
-            className="flex items-center text-sm font-medium text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors"
+            className="flex items-center text-sm font-medium text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors cursor-pointer"
           >
             {isHistoryExpanded ? (
               <>
@@ -193,23 +210,29 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
             Goal Levels
           </h4>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-            {measurement.levels.map((level) => (
-              <div
-                key={level.level}
-                className={`p-3 rounded-lg border ${
-                  measurement.currentValue >= level.goal
-                    ? 'bg-emerald-100 border-emerald-200 dark:bg-emerald-900/30 dark:border-emerald-800/50'
-                    : 'bg-white border-slate-200 dark:bg-slate-900 dark:border-slate-800'
-                }`}
-              >
-                <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
-                  Level {level.level}
+            {measurement.levels.map((level) => {
+              const isCleared = measurement.currentValue >= level.goal;
+              return (
+                <div
+                  key={level.level}
+                  className={`p-3 rounded-lg border relative overflow-hidden ${
+                    isCleared
+                      ? 'bg-emerald-500 border-emerald-600 text-white dark:bg-emerald-600 dark:border-emerald-700'
+                      : 'bg-white border-slate-200 dark:bg-slate-900 dark:border-slate-800'
+                  }`}
+                >
+                  <div className={`text-xs font-semibold uppercase tracking-wider mb-1 flex items-center justify-between ${
+                    isCleared ? 'text-emerald-100' : 'text-slate-500 dark:text-slate-400'
+                  }`}>
+                    <span>Level {level.level}</span>
+                    {isCleared && <CheckCircleIcon className="w-4 h-4 text-white" />}
+                  </div>
+                  <div className={`font-bold ${isCleared ? 'text-white' : 'text-slate-900 dark:text-slate-100'}`}>
+                    {level.goal} <span className={`text-xs font-normal ${isCleared ? 'text-emerald-100' : 'text-slate-500 dark:text-slate-400'}`}>{measurement.unit}</span>
+                  </div>
                 </div>
-                <div className="font-bold text-slate-900 dark:text-slate-100">
-                  {level.goal} <span className="text-xs font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}
@@ -228,7 +251,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
             <div className="space-y-3">
               {measurement.history.map((record, idx) => (
                 <div key={idx} className="flex justify-between items-center text-sm border-b border-slate-200 dark:border-slate-800 pb-2 last:border-0 last:pb-0">
-                  <span className="text-slate-500 dark:text-slate-400">{record.date}</span>
+                  <span className="text-slate-500 dark:text-slate-400">{record.date || "MARCH - 2026"}</span>
                   <div className="text-right">
                     <span className="font-medium text-slate-800 dark:text-slate-200 mr-2">
                       {record.value} {measurement.unit}

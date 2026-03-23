@@ -9,7 +9,7 @@ export function MissionButton() {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed top-4 left-4 px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition-colors shadow-md z-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        className="fixed top-4 left-4 px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition-colors shadow-md z-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
       >
         OUR MISSION
       </button>
@@ -26,7 +26,7 @@ export function MissionButton() {
             <div className="flex justify-end">
               <button
                 onClick={() => setIsOpen(false)}
-                className="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-medium rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-500"
+                className="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-medium rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-500 cursor-pointer"
               >
                 Close
               </button>
