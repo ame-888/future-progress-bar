@@ -28,6 +28,13 @@ export function ProgressTable() {
     audio.play().catch(e => console.error("Audio playback failed", e));
   };
 
+  const levContent = [
+    <span key="1">Average lifespan in the world: <strong className="font-bold text-slate-900 dark:text-white">73.8</strong> years</span>,
+    <span key="2">Average lifespan in the number 1 country: Monaco, <strong className="font-bold text-slate-900 dark:text-white">86.73</strong> years</span>,
+    <span key="3">Oldest verified human: Jeanne Calment, <strong className="font-bold text-slate-900 dark:text-white">122</strong> years and <strong className="font-bold text-slate-900 dark:text-white">164</strong> days</span>,
+    <span key="4">Number of supercentenarians alive: <strong className="font-bold text-slate-900 dark:text-white">217</strong></span>,
+  ];
+
   return (
     <div className="w-full mx-auto p-4 md:p-6 lg:p-8">
       <div className="mb-6 flex flex-col items-center text-center">
@@ -96,10 +103,15 @@ export function ProgressTable() {
                     cursor-default
                   `}
                 >
-                  {/* Empty row content - to be filled later */}
-                  <div className="w-full h-full rounded flex items-center justify-center text-[10px] md:text-sm text-slate-400 dark:text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity">
-                    {/* Progress Step {rowIdx + 1} for {COLUMNS[activeTab]} */}
-                  </div>
+                  {COLUMNS[activeTab] === "LEV" && rowIdx < levContent.length ? (
+                    <div className="w-full h-full rounded flex items-center justify-center text-sm md:text-base text-slate-700 dark:text-slate-300 transition-opacity">
+                      {levContent[rowIdx]}
+                    </div>
+                  ) : (
+                    <div className="w-full h-full rounded flex items-center justify-center text-[10px] md:text-sm text-slate-400 dark:text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                      {/* Progress Step {rowIdx + 1} for {COLUMNS[activeTab]} */}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

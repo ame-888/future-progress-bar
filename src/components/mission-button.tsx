@@ -21,7 +21,7 @@ export function MissionButton() {
               Our Mission
             </h2>
             <p className="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
-              This site's intent is keeping track of innovation
+              This site&apos;s intent is keeping track of innovation
             </p>
             <div className="flex justify-end">
               <button
