@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { DOMAINS, Measurement } from "./progress-table-data";
-import { ChevronDownIcon, ChevronUpIcon, CheckCircleIcon } from "@heroicons/react/24/solid";
+import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 
 export function ProgressTable() {
   const [activeTab, setActiveTab] = useState(3); // Start with LEV for now since it has data
@@ -79,41 +79,46 @@ export function ProgressTable() {
 }
 
 function MeasurementCard({ measurement }: { measurement: Measurement }) {
-  const [isHistoryExpanded, setIsHistoryExpanded] = useState(false);
   const [isLevelsExpanded, setIsLevelsExpanded] = useState(false);
 
-  // Find the current level based on currentValue and goals
   // The levels array should be sorted by goal ascending
-  const currentLevelIdx = measurement.levels.findIndex(level => measurement.currentValue < level.goal);
+  const activeLevelIdx = measurement.levels.findIndex(level => measurement.currentValue < level.goal);
+  const initialLevelIdx = activeLevelIdx === -1 ? measurement.levels.length - 1 : activeLevelIdx;
+  const [viewLevelIdx, setViewLevelIdx] = useState(initialLevelIdx);
 
-  // If all goals are met, it will remain -1. Let's handle that by capping it.
-  const isCompleted = currentLevelIdx === -1 && measurement.levels.length > 0;
+  const canGoLeft = viewLevelIdx > 0;
+  const canGoRight = viewLevelIdx < measurement.levels.length - 1;
 
-  // Calculate next goal and previous goal value
-  let nextGoal = null;
-  let previousGoalValue = measurement.baseValue || 0; // Default previous goal value is baseValue
+  const handleGoLeft = () => {
+    if (canGoLeft) setViewLevelIdx(viewLevelIdx - 1);
+  };
 
-  if (isCompleted) {
-    nextGoal = measurement.levels[measurement.levels.length - 1];
-    previousGoalValue = measurement.levels.length > 1
-      ? measurement.levels[measurement.levels.length - 2].goal
-      : measurement.baseValue || 0;
-  } else if (currentLevelIdx !== -1) {
-    nextGoal = measurement.levels[currentLevelIdx];
-    previousGoalValue = currentLevelIdx > 0
-      ? measurement.levels[currentLevelIdx - 1].goal
-      : measurement.baseValue || 0;
-  }
+  const handleGoRight = () => {
+    if (canGoRight) setViewLevelIdx(viewLevelIdx + 1);
+  };
 
-  // Calculate percentage
+  const currentLevelGoal = measurement.levels[viewLevelIdx];
+  const previousGoalValue = viewLevelIdx > 0 ? measurement.levels[viewLevelIdx - 1].goal : measurement.baseValue || 0;
+
+  // Calculate percentage for the currently viewed level
   let percentage = 0;
-  if (isCompleted) {
+  let displayValue = measurement.currentValue;
+
+  if (measurement.currentValue >= currentLevelGoal.goal) {
     percentage = 100;
-  } else if (nextGoal) {
-    const range = nextGoal.goal - previousGoalValue;
+    displayValue = currentLevelGoal.goal; // Cap display at 100% of this level
+  } else if (measurement.currentValue <= previousGoalValue) {
+    percentage = 0;
+    displayValue = previousGoalValue;
+  } else {
+    const range = currentLevelGoal.goal - previousGoalValue;
     const progress = measurement.currentValue - previousGoalValue;
     percentage = Math.max(0, Math.min(100, (progress / range) * 100));
   }
+
+  // Should we show the actual current value marker, or just a generic completion marker?
+  const isViewingCompletedLevel = measurement.currentValue >= currentLevelGoal.goal;
+  const isViewingFutureLevel = measurement.currentValue <= previousGoalValue;
 
   return (
     <div className="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50 transition-colors duration-200 shadow-sm relative">
@@ -125,7 +130,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
             </h3>
           </div>
           <div className="text-left md:text-right">
-            {isCompleted ? (
+            {measurement.currentValue >= measurement.levels[measurement.levels.length - 1].goal ? (
               <div className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400">
                 All goals achieved!
               </div>
@@ -134,47 +139,74 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
         </div>
 
         {/* Progress Bar */}
-        {nextGoal && !isCompleted && (
-          <div className="mb-4 mt-12 relative">
-            {/* Dynamic Current Value Marker */}
-            <div
-              className="absolute -top-10 transition-all duration-1000 ease-out z-10"
-              style={{
-                left: `${percentage}%`,
-                transform: 'translateX(-50%)'
-              }}
+        {currentLevelGoal && (
+          <div className="mb-4 mt-12 relative flex items-center gap-4">
+            <button
+              onClick={handleGoLeft}
+              disabled={!canGoLeft}
+              className={`p-1 rounded-full ${canGoLeft ? 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer' : 'text-slate-300 dark:text-slate-700 cursor-not-allowed'}`}
             >
-              <div className="bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 px-3 py-1.5 rounded-md text-sm font-bold shadow-md whitespace-nowrap relative flex flex-col items-center">
-                <span>{measurement.currentValue} <span className="font-normal text-xs">{measurement.unit}</span></span>
-                {/* Little triangle pointing down */}
-                <div className="absolute -bottom-1 w-2 h-2 bg-slate-800 dark:bg-slate-200 rotate-45"></div>
-              </div>
-            </div>
+              <ChevronLeftIcon className="w-6 h-6" />
+            </button>
+            <div className="flex-1 relative">
+              {/* Dynamic Current Value Marker */}
+              {!isViewingFutureLevel && (
+                <div
+                  className="absolute transition-all duration-1000 ease-out z-10"
+                  style={{
+                    left: `${percentage}%`,
+                    transform: 'translateX(-50%)',
+                    top: '-40px' // Adjust the top position to accommodate the date text
+                  }}
+                >
+                  <div className="flex flex-col items-center">
+                    <div className="bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 px-3 py-1.5 rounded-md text-sm font-bold shadow-md whitespace-nowrap relative flex flex-col items-center">
+                      <span>{measurement.currentValue} <span className="font-normal text-xs">{measurement.unit}</span></span>
+                      {/* Little triangle pointing down */}
+                      <div className="absolute -bottom-1 w-2 h-2 bg-slate-800 dark:bg-slate-200 rotate-45"></div>
+                    </div>
+                    {/* Vertical line through progress bar */}
+                    <div className="w-0.5 h-10 bg-slate-800 dark:bg-slate-200 opacity-30 my-1"></div>
+                    {/* Date text underneath */}
+                    <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 whitespace-nowrap mt-1">
+                      {measurement.history.length > 0 ? measurement.history[measurement.history.length - 1].date : "MARCH - 2026"}
+                    </div>
+                  </div>
+                </div>
+              )}
 
-            <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-3 md:h-4 overflow-visible relative mt-2">
-              <div
-                className="bg-indigo-500 dark:bg-indigo-400 h-full rounded-full transition-all duration-1000 ease-out"
-                style={{ width: `${percentage}%` }}
-              ></div>
-            </div>
-            <div className="flex justify-between mt-2">
-              <div className="flex flex-col items-start">
-                <span className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
-                  Starting Value
-                </span>
-                <span className="text-lg font-bold text-slate-900 dark:text-white">
-                  {previousGoalValue} <span className="text-sm font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span>
-                </span>
+              <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-3 md:h-4 overflow-visible relative mt-8">
+                <div
+                  className="bg-indigo-500 dark:bg-indigo-400 h-full rounded-full transition-all duration-1000 ease-out"
+                  style={{ width: `${percentage}%` }}
+                ></div>
               </div>
-              <div className="flex flex-col items-end">
-                <span className="text-xs font-medium text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-1">
-                  Level {nextGoal.level} Goal
-                </span>
-                <span className="text-lg font-bold text-slate-900 dark:text-white">
-                  {nextGoal.goal} <span className="text-sm font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span>
-                </span>
+              <div className="flex justify-between mt-12">
+                <div className="flex flex-col items-start">
+                  <span className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
+                    Starting Value
+                  </span>
+                  <span className="text-lg font-bold text-slate-900 dark:text-white">
+                    {previousGoalValue} <span className="text-sm font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span>
+                  </span>
+                </div>
+                <div className="flex flex-col items-end">
+                  <span className="text-xs font-medium text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-1">
+                    Level {currentLevelGoal.level} Goal
+                  </span>
+                  <span className="text-lg font-bold text-slate-900 dark:text-white">
+                    {currentLevelGoal.goal} <span className="text-sm font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span>
+                  </span>
+                </div>
               </div>
             </div>
+            <button
+              onClick={handleGoRight}
+              disabled={!canGoRight}
+              className={`p-1 rounded-full ${canGoRight ? 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer' : 'text-slate-300 dark:text-slate-700 cursor-not-allowed'}`}
+            >
+              <ChevronRightIcon className="w-6 h-6" />
+            </button>
           </div>
         )}
 
@@ -184,21 +216,6 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
             className="flex items-center text-xs font-bold text-white bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-600 dark:hover:bg-emerald-700 transition-colors px-3 py-1.5 rounded-md uppercase tracking-wider cursor-pointer"
           >
             Levels
-          </button>
-          {/* History Toggle */}
-          <button
-            onClick={() => setIsHistoryExpanded(!isHistoryExpanded)}
-            className="flex items-center text-sm font-medium text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors cursor-pointer"
-          >
-            {isHistoryExpanded ? (
-              <>
-                <ChevronUpIcon className="w-4 h-4 mr-1" /> Hide History
-              </>
-            ) : (
-              <>
-                <ChevronDownIcon className="w-4 h-4 mr-1" /> View History
-              </>
-            )}
           </button>
         </div>
       </div>
@@ -237,37 +254,6 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
         </div>
       )}
 
-      {/* History Section */}
-      {isHistoryExpanded && (
-        <div className="border-t border-slate-100 dark:border-slate-800/50 bg-slate-50/50 dark:bg-slate-900/30 p-4 md:p-6 transition-all duration-200">
-          <h4 className="text-sm font-bold text-slate-700 dark:text-slate-300 mb-3 uppercase tracking-wider">
-            Historical Data
-          </h4>
-          {measurement.history.length === 0 ? (
-            <p className="text-sm text-slate-500 dark:text-slate-400 italic">
-              No historical data available for this measurement.
-            </p>
-          ) : (
-            <div className="space-y-3">
-              {measurement.history.map((record, idx) => (
-                <div key={idx} className="flex justify-between items-center text-sm border-b border-slate-200 dark:border-slate-800 pb-2 last:border-0 last:pb-0">
-                  <span className="text-slate-500 dark:text-slate-400">{record.date || "MARCH - 2026"}</span>
-                  <div className="text-right">
-                    <span className="font-medium text-slate-800 dark:text-slate-200 mr-2">
-                      {record.value} {measurement.unit}
-                    </span>
-                    {record.note && (
-                      <span className="text-slate-400 dark:text-slate-500 text-xs hidden sm:inline-block">
-                        ({record.note})
-                      </span>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
     </div>
   );
 }

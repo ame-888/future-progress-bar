@@ -5,17 +5,10 @@
 ▲ Next.js 16.2.1 (Turbopack)
 - Local:         http://localhost:3000
 - Network:       http://192.168.0.2:3000
-✓ Ready in 537ms
-Attention: Next.js now collects completely anonymous telemetry regarding usage.
-This information is used to shape Next.js' roadmap and prioritize features.
-You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
-https://nextjs.org/telemetry
-
+✓ Ready in 549ms
 
 ○ Compiling / ...
- GET / 200 in 4.6s (next.js: 4.2s, application-code: 388ms)
+ GET / 200 in 6.1s (next.js: 5.7s, application-code: 432ms)
 [browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template).
- GET / 200 in 92ms (next.js: 5ms, application-code: 87ms)
-[browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template).
- GET / 200 in 74ms (next.js: 3ms, application-code: 70ms)
+ GET / 200 in 114ms (next.js: 6ms, application-code: 109ms)
 [browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template).
