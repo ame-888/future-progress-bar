@@ -7,12 +7,20 @@ export function MissionButton() {
 
   return (
     <>
-      <button
-        onClick={() => setIsOpen(true)}
-        className="fixed top-4 left-4 px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition-colors shadow-md z-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
-      >
-        OUR MISSION
-      </button>
+      <div className="fixed top-4 left-4 z-50 flex flex-col gap-2">
+        <button
+          onClick={() => setIsOpen(true)}
+          className="px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition-colors shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
+        >
+          OUR MISSION
+        </button>
+        <button
+          onClick={() => {}}
+          className="px-4 py-2 rounded-md bg-red-600 hover:bg-red-700 text-white font-semibold transition-colors shadow-md focus:outline-none focus:ring-2 focus:ring-red-500 cursor-pointer text-sm"
+        >
+          REPORT ERROR
+        </button>
+      </div>
 
       {isOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4 transition-opacity">
