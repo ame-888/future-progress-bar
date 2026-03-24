@@ -145,7 +145,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
             <button
               onClick={handleGoLeft}
               disabled={!canGoLeft}
-              className={`p-1 rounded-full ${canGoLeft ? 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer' : 'text-slate-300 dark:text-slate-700 cursor-not-allowed'}`}
+              className={`p-1 rounded-full transition-opacity ${canGoLeft ? 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer' : 'opacity-0 pointer-events-none'}`}
             >
               <ChevronLeftIcon className="w-6 h-6" />
             </button>
@@ -157,7 +157,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                   style={{
                     left: `${percentage}%`,
                     transform: 'translateX(-50%)',
-                    top: '-60px' // Adjust the top position to accommodate the date text
+                    top: '-32px' // Adjust the top position to accommodate the date text
                   }}
                 >
                   <div className="flex flex-col items-center">
@@ -167,7 +167,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                       <div className="absolute -bottom-1 w-2 h-2 bg-slate-800 dark:bg-slate-200 rotate-45"></div>
                     </div>
                     {/* Vertical line through progress bar */}
-                    <div className="w-0.5 h-20 bg-slate-800 dark:bg-slate-200 opacity-30 my-1"></div>
+                    <div className="w-0.5 h-12 bg-slate-800 dark:bg-slate-200 opacity-30 my-1"></div>
                     {/* Date text underneath */}
                     <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 whitespace-nowrap mt-1">
                       {measurement.history.length > 0 ? measurement.history[measurement.history.length - 1].date : "MARCH - 2026"}
@@ -204,7 +204,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
             <button
               onClick={handleGoRight}
               disabled={!canGoRight}
-              className={`p-1 rounded-full ${canGoRight ? 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer' : 'text-slate-300 dark:text-slate-700 cursor-not-allowed'}`}
+              className={`p-1 rounded-full transition-opacity ${canGoRight ? 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer' : 'opacity-0 pointer-events-none'}`}
             >
               <ChevronRightIcon className="w-6 h-6" />
             </button>
