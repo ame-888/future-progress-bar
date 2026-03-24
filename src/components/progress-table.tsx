@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { DOMAINS, Measurement } from "./progress-table-data";
 import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import { LevProgressGraph } from "./lev-progress-graph";
 
 export function ProgressTable() {
   const [activeTab, setActiveTab] = useState(3); // Start with LEV for now since it has data
@@ -62,6 +63,8 @@ export function ProgressTable() {
 
           {/* Body Rows - Selected Tab Content */}
           <div className="flex flex-col p-4 md:p-6 lg:p-8 space-y-6">
+            {activeDomain.id === "lev" && <LevProgressGraph />}
+
             {activeDomain.measurements.length === 0 ? (
               <div className="py-12 text-center text-slate-500 dark:text-slate-400">
                 Data for {activeDomain.name} is coming soon.
