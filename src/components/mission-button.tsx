@@ -20,9 +20,23 @@ export function MissionButton() {
             <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
               Our Mission
             </h2>
-            <p className="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
-              This site&apos;s intent is keeping track of innovation
-            </p>
+            <div className="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed space-y-4">
+              <p>
+                This site&apos;s intent is keeping track of innovation and humanity&apos;s technological and biological breakthroughs.
+              </p>
+              <p>
+                We monitor critical domains that will shape our future, including:
+              </p>
+              <ul className="list-disc pl-5 space-y-1">
+                <li><strong>LEV (Longevity Escape Velocity)</strong>: Extending human lifespan and healthspan.</li>
+                <li><strong>AI (Artificial Intelligence)</strong>: The path to AGI and beyond.</li>
+                <li><strong>BCI (Brain-Computer Interfaces)</strong>: Merging human minds with technology.</li>
+                <li><strong>Cultured Meat</strong>: Sustainable, cruelty-free cellular agriculture.</li>
+                <li><strong>Nuclear Fusion</strong>: Boundless clean energy.</li>
+                <li><strong>Space Exploration</strong>: Humanity&apos;s journey to becoming a multi-planetary species.</li>
+                <li><strong>And more...</strong></li>
+              </ul>
+            </div>
             <div className="flex justify-end">
               <button
                 onClick={() => setIsOpen(false)}
