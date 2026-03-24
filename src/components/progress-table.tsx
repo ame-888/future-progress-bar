@@ -79,8 +79,6 @@ export function ProgressTable() {
 }
 
 function MeasurementCard({ measurement }: { measurement: Measurement }) {
-  const [isLevelsExpanded, setIsLevelsExpanded] = useState(false);
-
   // The levels array should be sorted by goal ascending
   const activeLevelIdx = measurement.levels.findIndex(level => measurement.currentValue < level.goal);
   const initialLevelIdx = activeLevelIdx === -1 ? measurement.levels.length - 1 : activeLevelIdx;
@@ -156,7 +154,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                   style={{
                     left: `${percentage}%`,
                     transform: 'translateX(-50%)',
-                    top: '-40px' // Adjust the top position to accommodate the date text
+                    top: '-60px' // Adjust the top position to accommodate the date text
                   }}
                 >
                   <div className="flex flex-col items-center">
@@ -166,7 +164,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                       <div className="absolute -bottom-1 w-2 h-2 bg-slate-800 dark:bg-slate-200 rotate-45"></div>
                     </div>
                     {/* Vertical line through progress bar */}
-                    <div className="w-0.5 h-10 bg-slate-800 dark:bg-slate-200 opacity-30 my-1"></div>
+                    <div className="w-0.5 h-20 bg-slate-800 dark:bg-slate-200 opacity-30 my-1"></div>
                     {/* Date text underneath */}
                     <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 whitespace-nowrap mt-1">
                       {measurement.history.length > 0 ? measurement.history[measurement.history.length - 1].date : "MARCH - 2026"}
@@ -209,50 +207,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
             </button>
           </div>
         )}
-
-        <div className="flex gap-4 mt-4">
-          <button
-            onClick={() => setIsLevelsExpanded(!isLevelsExpanded)}
-            className="flex items-center text-xs font-bold text-white bg-emerald-500 hover:bg-emerald-600 dark:bg-emerald-600 dark:hover:bg-emerald-700 transition-colors px-3 py-1.5 rounded-md uppercase tracking-wider cursor-pointer"
-          >
-            Levels
-          </button>
-        </div>
       </div>
-
-      {/* Levels Section */}
-      {isLevelsExpanded && (
-        <div className="border-t border-slate-100 dark:border-slate-800/50 bg-emerald-50/50 dark:bg-emerald-900/10 p-4 md:p-6 transition-all duration-200">
-          <h4 className="text-sm font-bold text-emerald-800 dark:text-emerald-400 mb-3 uppercase tracking-wider">
-            Goal Levels
-          </h4>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-            {measurement.levels.map((level) => {
-              const isCleared = measurement.currentValue >= level.goal;
-              return (
-                <div
-                  key={level.level}
-                  className={`p-3 rounded-lg border relative overflow-hidden ${
-                    isCleared
-                      ? 'bg-emerald-500 border-emerald-600 text-white dark:bg-emerald-600 dark:border-emerald-700'
-                      : 'bg-white border-slate-200 dark:bg-slate-900 dark:border-slate-800'
-                  }`}
-                >
-                  <div className={`text-xs font-semibold uppercase tracking-wider mb-1 flex items-center justify-between ${
-                    isCleared ? 'text-emerald-100' : 'text-slate-500 dark:text-slate-400'
-                  }`}>
-                    <span>Level {level.level}</span>
-                    {isCleared && <CheckCircleIcon className="w-4 h-4 text-white" />}
-                  </div>
-                  <div className={`font-bold ${isCleared ? 'text-white' : 'text-slate-900 dark:text-slate-100'}`}>
-                    {level.goal} <span className={`text-xs font-normal ${isCleared ? 'text-emerald-100' : 'text-slate-500 dark:text-slate-400'}`}>{measurement.unit}</span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
 
     </div>
   );
