@@ -65,7 +65,7 @@ export function LevProgressGraph() {
         </p>
       </div>
 
-      <div className="p-4 md:p-6 h-[400px] w-full">
+      <div className="p-4 md:p-6 h-[400px] w-full relative">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={LEV_LIFESPAN_DATA}

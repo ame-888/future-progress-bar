@@ -34,7 +34,7 @@ export function ProgressTable() {
       <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 shadow-sm overflow-hidden transition-colors duration-200">
         <div className="w-full overflow-hidden">
           {/* Header Row - Tabs */}
-          <div className="flex flex-wrap md:flex-nowrap border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 transition-colors duration-200 overflow-x-auto">
+          <div className="flex flex-wrap border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 transition-colors duration-200">
             {DOMAINS.map((domain, index) => {
               const isActive = index === activeTab;
               return (
@@ -43,11 +43,11 @@ export function ProgressTable() {
                   onClick={() => handleTabClick(index)}
                   className={`
                     flex-1 min-w-fit
-                    py-3 px-2 md:p-3 lg:p-4
+                    py-2 px-1 sm:py-3 sm:px-2
                     flex items-center justify-center
-                    text-center whitespace-nowrap md:whitespace-normal md:break-words md:hyphens-auto leading-tight
-                    text-[10px] sm:text-xs md:text-xs lg:text-sm
-                    font-bold tracking-widest
+                    text-center whitespace-nowrap sm:whitespace-normal sm:break-words sm:hyphens-auto leading-tight
+                    text-[9px] sm:text-[10px] md:text-[11px] lg:text-xs
+                    font-bold tracking-wider sm:tracking-widest
                     uppercase transition-all duration-200
                     border-b-2 cursor-pointer
                     ${

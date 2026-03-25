@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   LineChart,
   Line,
@@ -13,6 +13,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { NUCLEAR_FUSION_DATA, NuclearFusionDataPoint } from "./nuclear-fusion-graph-data";
+import { GraphScaleToggle } from "./graph-scale-toggle";
 
 interface CustomTooltipProps {
   active?: boolean;
@@ -41,6 +42,19 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
 };
 
 export function NuclearFusionGraph() {
+  const [isLogScale, setIsLogScale] = useState(false);
+
+  const scaleType = isLogScale ? "log" : "linear";
+
+  // Need safe data since log doesn't work with 0 or negative
+  const chartData = NUCLEAR_FUSION_DATA.map(d => ({
+    ...d,
+    safeLawson: d.lawsonCriterion <= 0 ? 0.01 : d.lawsonCriterion
+  }));
+
+  const yAxisDomain = isLogScale ? [0.01, 100] : [0, 55];
+  const ticks = isLogScale ? [0.01, 0.1, 1, 10, 100] : undefined;
+
   return (
     <div className="w-full mb-8 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50 shadow-sm">
       <div className="p-4 md:p-6 border-b border-slate-200 dark:border-slate-800">
@@ -52,10 +66,13 @@ export function NuclearFusionGraph() {
         </p>
       </div>
 
-      <div className="p-4 md:p-6 h-[400px] w-full">
+      <div className="p-4 md:p-6 h-[400px] w-full relative">
+        <div className="absolute top-4 left-4 md:top-6 md:left-6 z-10">
+          <GraphScaleToggle isLogScale={isLogScale} onToggle={setIsLogScale} />
+        </div>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
-            data={NUCLEAR_FUSION_DATA}
+            data={chartData}
             margin={{
               top: 20,
               right: 30,
@@ -71,7 +88,9 @@ export function NuclearFusionGraph() {
               tickMargin={10}
             />
             <YAxis
-              domain={[0, 55]}
+              scale={scaleType}
+              domain={yAxisDomain}
+              ticks={ticks}
               stroke="#64748b"
               tick={{ fill: '#64748b' }}
               tickFormatter={(value) => `${value.toFixed(1)}`}
@@ -115,7 +134,7 @@ export function NuclearFusionGraph() {
 
             <Line
               type="monotone"
-              dataKey="lawsonCriterion"
+              dataKey={isLogScale ? "safeLawson" : "lawsonCriterion"}
               stroke="#f97316"
               strokeWidth={3}
               dot={{ r: 4, fill: '#f97316', strokeWidth: 2, stroke: '#ffffff' }}
