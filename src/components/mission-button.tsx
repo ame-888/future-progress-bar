@@ -7,7 +7,7 @@ export function MissionButton() {
 
   return (
     <>
-      <div className="fixed top-4 left-4 z-50 flex flex-col gap-2">
+      <div className="absolute top-4 left-4 z-50 flex flex-col gap-2">
         <button
           onClick={() => setIsOpen(true)}
           className="px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition-colors shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"

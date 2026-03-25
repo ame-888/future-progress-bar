@@ -64,19 +64,21 @@ export function BciGraph() {
 
   return (
     <div className="w-full mb-8 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50 shadow-sm">
-      <div className="p-4 md:p-6 border-b border-slate-200 dark:border-slate-800">
-        <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">
-          Stevenson's Law: BCI Channel Capacity
-        </h2>
-        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-          Tracking the maximum number of simultaneous channels/electrodes we can record from (The absolute limit of human engineering).
-        </p>
+      <div className="p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 flex justify-between items-start gap-4">
+        <div>
+          <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">
+            Stevenson's Law: BCI Channel Capacity
+          </h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+            Tracking the maximum number of simultaneous channels/electrodes we can record from (The absolute limit of human engineering).
+          </p>
+        </div>
+        <div className="flex-shrink-0 mt-1">
+          <GraphScaleToggle isLogScale={isLogScale} onToggle={setIsLogScale} />
+        </div>
       </div>
 
       <div className="p-4 md:p-6 h-[400px] w-full relative">
-        <div className="absolute top-4 left-4 md:top-6 md:left-6 z-10">
-          <GraphScaleToggle isLogScale={isLogScale} onToggle={setIsLogScale} />
-        </div>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={BCI_DATA}
