@@ -29,6 +29,7 @@ export type DomainData = {
 export const DOMAINS: DomainData[] = [
   { id: "ai", name: "AI", measurements: [] },
   { id: "bci", name: "BCI", measurements: [] },
+  { id: "quantum-computing", name: "QUANTUM COMPUTING", measurements: [] },
   {
     id: "cultured-meat",
     name: "CULTURED MEAT",
