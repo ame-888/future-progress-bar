@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   LineChart,
   Line,
@@ -12,6 +12,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { BCI_DATA, BciDataPoint } from "./bci-graph-data";
+import { GraphScaleToggle } from "./graph-scale-toggle";
 
 interface CustomTooltipProps {
   active?: boolean;
@@ -53,6 +54,14 @@ const formatYAxisTick = (value: number) => {
 };
 
 export function BciGraph() {
+  const [isLogScale, setIsLogScale] = useState(true);
+
+  const scaleType = isLogScale ? "log" : "linear";
+  const yAxisDomain = isLogScale ? [100, 1000000] : [0, 1000000];
+  const ticks = isLogScale
+    ? [100, 1000, 10000, 100000, 1000000]
+    : [0, 200000, 400000, 600000, 800000, 1000000];
+
   return (
     <div className="w-full mb-8 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50 shadow-sm">
       <div className="p-4 md:p-6 border-b border-slate-200 dark:border-slate-800">
@@ -64,7 +73,10 @@ export function BciGraph() {
         </p>
       </div>
 
-      <div className="p-4 md:p-6 h-[400px] w-full">
+      <div className="p-4 md:p-6 h-[400px] w-full relative">
+        <div className="absolute top-4 left-4 md:top-6 md:left-6 z-10">
+          <GraphScaleToggle isLogScale={isLogScale} onToggle={setIsLogScale} />
+        </div>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={BCI_DATA}
@@ -86,9 +98,9 @@ export function BciGraph() {
               allowDecimals={false}
             />
             <YAxis
-              scale="log"
-              domain={[100, 1000000]}
-              ticks={[100, 1000, 10000, 100000, 1000000]}
+              scale={scaleType}
+              domain={yAxisDomain}
+              ticks={ticks}
               stroke="#64748b"
               tick={{ fill: '#64748b' }}
               tickFormatter={formatYAxisTick}

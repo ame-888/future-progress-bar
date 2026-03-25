@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   LineChart,
   Line,
@@ -12,6 +12,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { QUANTUM_COMPUTING_DATA, QuantumComputingDataPoint } from "./quantum-computing-graph-data";
+import { GraphScaleToggle } from "./graph-scale-toggle";
 
 interface CustomTooltipProps {
   active?: boolean;
@@ -32,9 +33,6 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
             <span className="font-semibold">Algorithmic Qubits (AQ):</span>{" "}
             {data.aq}
           </p>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            {data.description}
-          </p>
         </div>
       </div>
     );
@@ -43,6 +41,18 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
 };
 
 export function QuantumComputingGraph() {
+  const [isLogScale, setIsLogScale] = useState(false);
+
+  // Recharts log scale doesn't work well with 0.
+  const chartData = QUANTUM_COMPUTING_DATA.map(d => ({
+    ...d,
+    safeAq: d.aq === 0 ? 0.1 : d.aq
+  }));
+
+  const scaleType = isLogScale ? "log" : "linear";
+  const yAxisDomain = isLogScale ? [0.1, 100] : [0, 100];
+  const ticks = isLogScale ? [0.1, 1, 10, 100] : [0, 20, 40, 60, 80, 100];
+
   return (
     <div className="w-full mb-8 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50 shadow-sm">
       <div className="p-4 md:p-6 border-b border-slate-200 dark:border-slate-800">
@@ -54,10 +64,13 @@ export function QuantumComputingGraph() {
         </p>
       </div>
 
-      <div className="p-4 md:p-6 h-[400px] w-full">
+      <div className="p-4 md:p-6 h-[400px] w-full relative">
+        <div className="absolute top-4 left-4 md:top-6 md:left-6 z-10">
+          <GraphScaleToggle isLogScale={isLogScale} onToggle={setIsLogScale} />
+        </div>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
-            data={QUANTUM_COMPUTING_DATA}
+            data={chartData}
             margin={{
               top: 30,
               right: 30,
@@ -76,10 +89,12 @@ export function QuantumComputingGraph() {
               allowDecimals={false}
             />
             <YAxis
-              domain={[0, 100]}
-              ticks={[0, 20, 40, 60, 80, 100]}
+              scale={scaleType}
+              domain={yAxisDomain}
+              ticks={ticks}
               stroke="#64748b"
               tick={{ fill: '#64748b' }}
+              tickFormatter={(val) => val === 0.1 ? '0' : val.toString()}
             />
             <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#94a3b8', strokeWidth: 1, strokeDasharray: '5 5' }} />
 
@@ -113,7 +128,7 @@ export function QuantumComputingGraph() {
 
             <Line
               type="monotone"
-              dataKey="aq"
+              dataKey={isLogScale ? "safeAq" : "aq"}
               stroke="#8b5cf6"
               strokeWidth={3}
               dot={{ r: 4, fill: '#8b5cf6', strokeWidth: 2, stroke: '#ffffff' }}
