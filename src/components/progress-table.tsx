@@ -103,6 +103,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
 
   const currentLevelGoal = measurement.levels[viewLevelIdx];
   const previousGoalValue = viewLevelIdx > 0 ? measurement.levels[viewLevelIdx - 1].goal : measurement.baseValue || 0;
+  const previousGoalLabel = viewLevelIdx > 0 ? measurement.levels[viewLevelIdx - 1].label : undefined;
 
   // Calculate percentage for the currently viewed level
   let percentage = 0;
@@ -191,7 +192,9 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                     Starting Value
                   </span>
                   <span className="text-lg font-bold text-slate-900 dark:text-white">
-                    {previousGoalValue} <span className="text-sm font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span>
+                    {previousGoalLabel ? previousGoalLabel : (
+                      <>{previousGoalValue} <span className="text-sm font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span></>
+                    )}
                   </span>
                 </div>
                 <div className="flex flex-col items-end">
@@ -199,7 +202,9 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                     Level {currentLevelGoal.level} Goal
                   </span>
                   <span className="text-lg font-bold text-slate-900 dark:text-white">
-                    {currentLevelGoal.goal} <span className="text-sm font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span>
+                    {currentLevelGoal.label ? currentLevelGoal.label : (
+                      <>{currentLevelGoal.goal} <span className="text-sm font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span></>
+                    )}
                   </span>
                 </div>
               </div>
