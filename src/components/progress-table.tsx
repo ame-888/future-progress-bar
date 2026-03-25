@@ -70,7 +70,7 @@ export function ProgressTable() {
             {activeDomain.id === "nuclear-fusion" && <NuclearFusionGraph />}
             {activeDomain.id === "bci" && <BciGraph />}
 
-            {activeDomain.measurements.length === 0 ? (
+            {activeDomain.measurements.length === 0 && activeDomain.id !== "bci" ? (
               <div className="py-12 text-center text-slate-500 dark:text-slate-400">
                 Data for {activeDomain.name} is coming soon.
               </div>
