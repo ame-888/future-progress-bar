@@ -5,6 +5,7 @@ import { DOMAINS, Measurement } from "./progress-table-data";
 import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { LevProgressGraph } from "./lev-progress-graph";
 import { NuclearFusionGraph } from "./nuclear-fusion-graph";
+import { BciGraph } from "./bci-graph";
 import { useSound } from "./sound-provider";
 
 export function ProgressTable() {
@@ -67,6 +68,7 @@ export function ProgressTable() {
           <div className="flex flex-col p-4 md:p-6 lg:p-8 space-y-6">
             {activeDomain.id === "lev" && <LevProgressGraph />}
             {activeDomain.id === "nuclear-fusion" && <NuclearFusionGraph />}
+            {activeDomain.id === "bci" && <BciGraph />}
 
             {activeDomain.measurements.length === 0 ? (
               <div className="py-12 text-center text-slate-500 dark:text-slate-400">
