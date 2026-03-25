@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { DOMAINS, Measurement } from "./progress-table-data";
 import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import { BeakerIcon, CpuChipIcon, FireIcon, HeartIcon, SparklesIcon, RocketLaunchIcon, GlobeAltIcon, WindowIcon } from "@heroicons/react/24/outline";
 import { LevProgressGraph } from "./lev-progress-graph";
 import { QuantumComputingGraph } from "./quantum-computing-graph";
 import { NuclearFusionGraph } from "./nuclear-fusion-graph";
@@ -20,18 +21,44 @@ export function ProgressTable() {
 
   const activeDomain = DOMAINS[activeTab];
 
+  const getDomainIcon = (id: string) => {
+    switch (id) {
+      case "lev":
+        return <HeartIcon className="w-64 h-64 text-indigo-500/5 dark:text-indigo-400/10 pointer-events-none" />;
+      case "ai":
+        return <SparklesIcon className="w-64 h-64 text-indigo-500/5 dark:text-indigo-400/10 pointer-events-none" />;
+      case "bci":
+        return <CpuChipIcon className="w-64 h-64 text-indigo-500/5 dark:text-indigo-400/10 pointer-events-none" />;
+      case "cultured-meat":
+        return <BeakerIcon className="w-64 h-64 text-indigo-500/5 dark:text-indigo-400/10 pointer-events-none" />;
+      case "nuclear-fusion":
+        return <FireIcon className="w-64 h-64 text-indigo-500/5 dark:text-indigo-400/10 pointer-events-none" />;
+      case "space-exploration":
+        return <RocketLaunchIcon className="w-64 h-64 text-indigo-500/5 dark:text-indigo-400/10 pointer-events-none" />;
+      case "quantum-computing":
+        return <WindowIcon className="w-64 h-64 text-indigo-500/5 dark:text-indigo-400/10 pointer-events-none" />;
+      default:
+        return <GlobeAltIcon className="w-64 h-64 text-indigo-500/5 dark:text-indigo-400/10 pointer-events-none" />;
+    }
+  };
+
   return (
     <div className="w-full mx-auto p-4 md:p-6 lg:p-8">
-      <div className="mb-6 flex flex-col items-center text-center">
-        <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-2">
-          Future Progress Bar
-        </h1>
-        <p className="text-slate-500 dark:text-slate-400 max-w-2xl">
-          Tracking the frontiers of human innovation across 11 critical domains.
-        </p>
+      <div className="mb-6 flex flex-col items-center text-center relative overflow-hidden py-4">
+        <div className="absolute inset-0 flex items-center justify-center z-0">
+          {getDomainIcon(activeDomain.id)}
+        </div>
+        <div className="relative z-10 flex flex-col items-center">
+          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-2">
+            Future Progress Bar
+          </h1>
+          <p className="text-slate-500 dark:text-slate-400 max-w-2xl">
+            Tracking the frontiers of human innovation across 11 critical domains.
+          </p>
+        </div>
       </div>
 
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 shadow-sm overflow-hidden transition-colors duration-200">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 shadow-sm overflow-hidden transition-colors duration-200 relative z-10">
         <div className="w-full overflow-hidden">
           {/* Header Row - Tabs */}
           <div className="flex flex-wrap border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 transition-colors duration-200">
@@ -67,6 +94,12 @@ export function ProgressTable() {
 
           {/* Body Rows - Selected Tab Content */}
           <div className="flex flex-col p-4 md:p-6 lg:p-8 space-y-6">
+            {activeDomain.description && (
+              <div className="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 text-sm md:text-base leading-relaxed">
+                {activeDomain.description}
+              </div>
+            )}
+
             {activeDomain.id === "lev" && <LevProgressGraph />}
             {activeDomain.id === "nuclear-fusion" && <NuclearFusionGraph />}
             {activeDomain.id === "bci" && <BciGraph />}

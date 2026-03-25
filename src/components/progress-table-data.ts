@@ -23,13 +23,24 @@ export type Measurement = {
 export type DomainData = {
   id: string;
   name: string;
+  description?: string;
   measurements: Measurement[];
 };
 
 export const DOMAINS: DomainData[] = [
   { id: "ai", name: "AI", measurements: [] },
-  { id: "bci", name: "BCI", measurements: [] },
-  { id: "quantum-computing", name: "QUANTUM COMPUTING", measurements: [] },
+  {
+    id: "bci",
+    name: "BCI",
+    description: "Stands for Brain-Machine Interface, a piece of tech that directly communicates with the human brain, capable of receiving signals, sending them, or sometimes both.",
+    measurements: []
+  },
+  {
+    id: "quantum-computing",
+    name: "QUANTUM COMPUTING",
+    description: "A new paradigm of computation utilizing quantum mechanics to solve problems exponentially faster than classical computers, opening doors to advanced materials, chemistry, and cryptography.",
+    measurements: []
+  },
   {
     id: "cultured-meat",
     name: "CULTURED MEAT",
@@ -113,6 +124,7 @@ export const DOMAINS: DomainData[] = [
   {
     id: "lev",
     name: "LEV",
+    description: "Stands for Longevity Escape Velocity, the point at which life expectancy increases longer than the time that is passing, effectively meaning humans can theoretically live indefinitely.",
     measurements: [
       {
         id: "lev-1",
@@ -195,6 +207,7 @@ export const DOMAINS: DomainData[] = [
   {
     id: "nuclear-fusion",
     name: "NUCLEAR FUSION",
+    description: "The process that powers the sun, merging atomic nuclei to release massive amounts of clean, boundless energy. We track the race to make it a practical power source on Earth.",
     measurements: [
       {
         id: "fusion-1",
