@@ -9,6 +9,7 @@ import {
   CartesianGrid,
   Tooltip,
   ReferenceLine,
+  ReferenceArea,
   ResponsiveContainer,
 } from "recharts";
 import { NUCLEAR_FUSION_DATA, NuclearFusionDataPoint } from "./nuclear-fusion-graph-data";
@@ -70,23 +71,43 @@ export function NuclearFusionGraph() {
               tickMargin={10}
             />
             <YAxis
-              domain={[0, 9]}
+              domain={[0, 55]}
               stroke="#64748b"
               tick={{ fill: '#64748b' }}
               tickFormatter={(value) => `${value.toFixed(1)}`}
             />
             <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#94a3b8', strokeWidth: 1, strokeDasharray: '5 5' }} />
 
-            {/* Breakeven Threshold (Golden Line) */}
+            {/* Perpetual Ignition Zone */}
+            <ReferenceArea
+              y1={30}
+              y2={50}
+              fill="#fbbf24"
+              fillOpacity={0.2}
+              strokeOpacity={0}
+            />
+            <ReferenceLine
+              y={40}
+              stroke="none"
+              label={{
+                position: 'center',
+                value: 'Perpetual Ignition Zone',
+                fill: '#fbbf24',
+                fontSize: 14,
+                fontWeight: 'bold'
+              }}
+            />
+
+            {/* Breakeven Threshold (Silver Line) */}
             <ReferenceLine
               y={5.0}
-              stroke="#fbbf24"
+              stroke="#94a3b8"
               strokeWidth={2}
               strokeDasharray="4 4"
               label={{
                 position: 'top',
                 value: 'Scientific Breakeven (5.0 × 10²¹)',
-                fill: '#fbbf24',
+                fill: '#94a3b8',
                 fontSize: 12,
                 fontWeight: 'bold'
               }}

@@ -14,9 +14,6 @@ export function GamificationExplanation() {
               <strong className="text-slate-800 dark:text-slate-200">Levels &amp; Goals:</strong> Each measurement has a series of target "Levels." A progress bar shows exactly how close we are to reaching the next milestone.
             </li>
             <li>
-              <strong className="text-slate-800 dark:text-slate-200">History:</strong> Expand the history section on any measurement to see how it has improved over time.
-            </li>
-            <li>
               <strong className="text-slate-800 dark:text-slate-200">Domains:</strong> Switch between tabs at the top to see progress in different frontier technologies, such as Longevity Escape Velocity (LEV), AI, Nuclear Fusion, and Cultured Meat.
             </li>
           </ul>
