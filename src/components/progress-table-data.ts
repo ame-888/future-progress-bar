@@ -28,7 +28,12 @@ export type DomainData = {
 };
 
 export const DOMAINS: DomainData[] = [
-  { id: "ai", name: "AI", measurements: [] },
+  {
+    id: "ai",
+    name: "AI",
+    description: "Stands for Artificial Intelligence, focusing on creating systems capable of human-level or superhuman reasoning, creativity, and problem-solving.",
+    measurements: []
+  },
   {
     id: "bci",
     name: "BCI",
@@ -44,6 +49,7 @@ export const DOMAINS: DomainData[] = [
   {
     id: "cultured-meat",
     name: "CULTURED MEAT",
+    description: "Real meat produced by cultivating animal cells directly, eliminating the need to raise and slaughter animals while significantly reducing environmental impact.",
     measurements: [
       {
         id: "cultured-meat-1",
@@ -279,9 +285,34 @@ export const DOMAINS: DomainData[] = [
       },
     ],
   },
-  { id: "robotics", name: "ROBOTICS", measurements: [] },
-  { id: "self-driving-car", name: "SELF-DRIVING CAR", measurements: [] },
-  { id: "space-exploration", name: "SPACE EXPLORATION", measurements: [] },
-  { id: "superconductor", name: "SUPERCONDUCTOR", measurements: [] },
-  { id: "vr", name: "VR", measurements: [] },
+  {
+    id: "robotics",
+    name: "ROBOTICS",
+    description: "The engineering of machines capable of carrying out complex physical tasks autonomously or semi-autonomously in unstructured environments.",
+    measurements: []
+  },
+  {
+    id: "self-driving-car",
+    name: "SELF-DRIVING CAR",
+    description: "Vehicles equipped with sensors and AI that can navigate and operate safely without human intervention across all driving conditions.",
+    measurements: []
+  },
+  {
+    id: "space-exploration",
+    name: "SPACE EXPLORATION",
+    description: "The physical exploration of outer space, aiming to establish permanent human presence beyond Earth and utilize extraterrestrial resources.",
+    measurements: []
+  },
+  {
+    id: "superconductor",
+    name: "SUPERCONDUCTOR",
+    description: "Materials that conduct electricity with zero resistance. We are specifically tracking the race toward room-temperature, ambient-pressure superconductors.",
+    measurements: []
+  },
+  {
+    id: "vr",
+    name: "VR",
+    description: "Stands for Virtual Reality, immersive digital environments. We focus on true 'Full Dive' VR capabilities involving direct neural stimulation.",
+    measurements: []
+  },
 ];

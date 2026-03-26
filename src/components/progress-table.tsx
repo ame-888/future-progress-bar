@@ -3,11 +3,12 @@
 import React, { useState } from "react";
 import { DOMAINS, Measurement } from "./progress-table-data";
 import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import { BeakerIcon, CpuChipIcon, FireIcon, HeartIcon, SparklesIcon, RocketLaunchIcon, GlobeAltIcon, WindowIcon } from "@heroicons/react/24/outline";
+import { BeakerIcon, CpuChipIcon, FireIcon, HeartIcon, SparklesIcon, RocketLaunchIcon, GlobeAltIcon, WindowIcon, EyeIcon, SwatchIcon, WrenchScrewdriverIcon, BoltIcon, TruckIcon } from "@heroicons/react/24/solid";
 import { LevProgressGraph } from "./lev-progress-graph";
 import { QuantumComputingGraph } from "./quantum-computing-graph";
 import { NuclearFusionGraph } from "./nuclear-fusion-graph";
 import { BciGraph } from "./bci-graph";
+import { VrGraph } from "./vr-graph";
 import { useSound } from "./sound-provider";
 
 export function ProgressTable() {
@@ -22,30 +23,39 @@ export function ProgressTable() {
   const activeDomain = DOMAINS[activeTab];
 
   const getDomainIcon = (id: string) => {
+    const className = "w-[24rem] h-[24rem] md:w-[32rem] md:h-[32rem] text-indigo-500/10 dark:text-indigo-400/10 pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2";
     switch (id) {
       case "lev":
-        return <HeartIcon className="w-64 h-64 text-indigo-500/5 dark:text-indigo-400/10 pointer-events-none" />;
+        return <HeartIcon className={className} />;
       case "ai":
-        return <SparklesIcon className="w-64 h-64 text-indigo-500/5 dark:text-indigo-400/10 pointer-events-none" />;
+        return <SparklesIcon className={className} />;
       case "bci":
-        return <CpuChipIcon className="w-64 h-64 text-indigo-500/5 dark:text-indigo-400/10 pointer-events-none" />;
+        return <CpuChipIcon className={className} />;
       case "cultured-meat":
-        return <BeakerIcon className="w-64 h-64 text-indigo-500/5 dark:text-indigo-400/10 pointer-events-none" />;
+        return <BeakerIcon className={className} />;
       case "nuclear-fusion":
-        return <FireIcon className="w-64 h-64 text-indigo-500/5 dark:text-indigo-400/10 pointer-events-none" />;
+        return <FireIcon className={className} />;
       case "space-exploration":
-        return <RocketLaunchIcon className="w-64 h-64 text-indigo-500/5 dark:text-indigo-400/10 pointer-events-none" />;
+        return <RocketLaunchIcon className={className} />;
       case "quantum-computing":
-        return <WindowIcon className="w-64 h-64 text-indigo-500/5 dark:text-indigo-400/10 pointer-events-none" />;
+        return <WindowIcon className={className} />;
+      case "robotics":
+        return <WrenchScrewdriverIcon className={className} />;
+      case "self-driving-car":
+        return <TruckIcon className={className} />;
+      case "superconductor":
+        return <BoltIcon className={className} />;
+      case "vr":
+        return <EyeIcon className={className} />;
       default:
-        return <GlobeAltIcon className="w-64 h-64 text-indigo-500/5 dark:text-indigo-400/10 pointer-events-none" />;
+        return <SwatchIcon className={className} />;
     }
   };
 
   return (
     <div className="w-full mx-auto p-4 md:p-6 lg:p-8">
-      <div className="mb-6 flex flex-col items-center text-center relative overflow-hidden py-4">
-        <div className="absolute inset-0 flex items-center justify-center z-0">
+      <div className="mb-6 flex flex-col items-center text-center relative overflow-hidden py-12 md:py-20">
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
           {getDomainIcon(activeDomain.id)}
         </div>
         <div className="relative z-10 flex flex-col items-center">
@@ -104,6 +114,7 @@ export function ProgressTable() {
             {activeDomain.id === "nuclear-fusion" && <NuclearFusionGraph />}
             {activeDomain.id === "bci" && <BciGraph />}
             {activeDomain.id === "quantum-computing" && <QuantumComputingGraph />}
+            {activeDomain.id === "vr" && <VrGraph />}
 
             {activeDomain.measurements.length === 0 ? (
               <div className="py-12 text-center text-slate-500 dark:text-slate-400">
