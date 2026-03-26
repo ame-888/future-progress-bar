@@ -58,7 +58,7 @@ export function LevProgressGraph() {
     <div className="w-full mb-8 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50 shadow-sm">
       <div className="p-4 md:p-6 border-b border-slate-200 dark:border-slate-800">
         <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">
-          Longevity Escape Velocity (LEV) Progress
+          Annual Increase in Lifespan
         </h2>
         <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
           Tracking the annual increase in global average lifespan. LEV is achieved when this gain consistently exceeds +1.0 year per year.
