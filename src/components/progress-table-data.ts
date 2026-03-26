@@ -1,5 +1,4 @@
 export type MeasurementHistory = {
-  date: string;
   value: number;
   note?: string;
 };
@@ -60,7 +59,7 @@ export const DOMAINS: DomainData[] = [
           { level: 6, goal: 50 },
           { level: 7, goal: 100 },
         ],
-        history: [{ date: "MARCH - 2026", value: 0.001 }],
+        history: [{ value: 0.001 }],
       },
       {
         id: "cultured-meat-2",
@@ -79,7 +78,7 @@ export const DOMAINS: DomainData[] = [
         ],
         history: [
           {
-            date: "MARCH - 2026",
+
             value: 4,
             note: "USA, Israel, Australia and Singapore",
           },
@@ -100,7 +99,7 @@ export const DOMAINS: DomainData[] = [
           { level: 6, goal: 170 },
           { level: 7, goal: 195 },
         ],
-        history: [{ date: "MARCH - 2026", value: 28 }],
+        history: [{ value: 28 }],
       },
       {
         id: "cultured-meat-4",
@@ -117,7 +116,7 @@ export const DOMAINS: DomainData[] = [
           { level: 6, goal: 130 },
           { level: 7, goal: 195 },
         ],
-        history: [{ date: "MARCH - 2026", value: 0 }],
+        history: [{ value: 0 }],
       },
     ],
   },
@@ -142,7 +141,7 @@ export const DOMAINS: DomainData[] = [
           { level: 7, goal: 500 },
         ],
         history: [
-          { date: "MARCH - 2026", value: 73.8 }
+          { value: 73.8 }
         ],
       },
       {
@@ -161,7 +160,7 @@ export const DOMAINS: DomainData[] = [
           { level: 7, goal: 1000 },
         ],
         history: [
-          { date: "MARCH - 2026", value: 86.73 }
+          { value: 86.73 }
         ],
       },
       {
@@ -180,7 +179,7 @@ export const DOMAINS: DomainData[] = [
           { level: 7, goal: 1000 },
         ],
         history: [
-          { date: "MARCH - 2026", value: 122.45 }
+          { value: 122.45 }
         ],
       },
       {
@@ -199,7 +198,7 @@ export const DOMAINS: DomainData[] = [
           { level: 7, goal: 300000000 },
         ],
         history: [
-          { date: "MARCH - 2026", value: 217 }
+          { value: 217 }
         ],
       },
     ],
@@ -224,7 +223,7 @@ export const DOMAINS: DomainData[] = [
           { level: 6, goal: 2500 },
           { level: 7, goal: 10000 },
         ],
-        history: [{ date: "MARCH - 2026", value: 0 }],
+        history: [{ value: 0 }],
       },
       {
         id: "fusion-2",
@@ -241,7 +240,7 @@ export const DOMAINS: DomainData[] = [
           { level: 6, goal: 40 },
           { level: 7, goal: 75 },
         ],
-        history: [{ date: "MARCH - 2026", value: 0 }],
+        history: [{ value: 0 }],
       },
       {
         id: "fusion-3",
@@ -258,7 +257,7 @@ export const DOMAINS: DomainData[] = [
           { level: 6, goal: 43800, label: "5 Years" },
           { level: 7, goal: 438000, label: "50 Years" },
         ],
-        history: [{ date: "MARCH - 2026", value: 0 }],
+        history: [{ value: 0 }],
       },
       {
         id: "fusion-4",
@@ -275,7 +274,7 @@ export const DOMAINS: DomainData[] = [
           { level: 6, goal: 2500 },
           { level: 7, goal: 5000 },
         ],
-        history: [{ date: "MARCH - 2026", value: 0 }],
+        history: [{ value: 0 }],
       },
     ],
   },
@@ -283,7 +282,25 @@ export const DOMAINS: DomainData[] = [
     id: "quantum-computing",
     name: "QUANTUM COMPUTING",
     description: "A new paradigm of computation utilizing quantum mechanics to solve problems exponentially faster than classical computers, opening doors to advanced materials, chemistry, and cryptography.",
-    measurements: []
+    measurements: [
+      {
+        id: "qc-1",
+        title: "Physical Qubit Count",
+        currentValue: 6100,
+        baseValue: 0,
+        unit: "qubits",
+        levels: [
+          { level: 1, goal: 10000 },
+          { level: 2, goal: 50000 },
+          { level: 3, goal: 100000 },
+          { level: 4, goal: 500000 },
+          { level: 5, goal: 1000000 },
+          { level: 6, goal: 10000000 },
+          { level: 7, goal: 1000000000 },
+        ],
+        history: [{ value: 6100 }],
+      },
+    ]
   },
   {
     id: "robotics",
@@ -301,7 +318,42 @@ export const DOMAINS: DomainData[] = [
     id: "space-exploration",
     name: "SPACE EXPLORATION",
     description: "The physical exploration of outer space, aiming to establish permanent human presence beyond Earth and utilize extraterrestrial resources.",
-    measurements: []
+    measurements: [
+      {
+        id: "space-1",
+        title: "Maximum Simultaneous Human Population in Space",
+        currentValue: 20,
+        baseValue: 0,
+        unit: "humans",
+        levels: [
+          { level: 1, goal: 30 },
+          { level: 2, goal: 50 },
+          { level: 3, goal: 100 },
+          { level: 4, goal: 500 },
+          { level: 5, goal: 1000 },
+          { level: 6, goal: 10000 },
+          { level: 7, goal: 1000000 },
+        ],
+        history: [{ value: 20 }],
+      },
+      {
+        id: "space-2",
+        title: "Payload Mass to LEO (Single Launch)",
+        currentValue: 150,
+        baseValue: 0,
+        unit: "metric tonnes",
+        levels: [
+          { level: 1, goal: 500 },
+          { level: 2, goal: 1000 },
+          { level: 3, goal: 5000 },
+          { level: 4, goal: 10000 },
+          { level: 5, goal: 50000 },
+          { level: 6, goal: 100000 },
+          { level: 7, goal: 1000000 },
+        ],
+        history: [{ value: 150 }],
+      },
+    ]
   },
   {
     id: "superconductor",

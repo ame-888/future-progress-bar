@@ -222,10 +222,6 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                     </div>
                     {/* Vertical line through progress bar */}
                     <div className="w-0.5 h-12 bg-slate-800 dark:bg-slate-200 opacity-30 my-1"></div>
-                    {/* Date text underneath */}
-                    <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 whitespace-nowrap mt-1">
-                      {measurement.history.length > 0 ? measurement.history[measurement.history.length - 1].date : "MARCH - 2026"}
-                    </div>
                   </div>
                 </div>
               )}
