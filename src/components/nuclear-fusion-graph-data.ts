@@ -30,4 +30,5 @@ export const NUCLEAR_FUSION_DATA: NuclearFusionDataPoint[] = [
   { year: 2023, lawsonCriterion: 6.0 },
   { year: 2024, lawsonCriterion: 7.0 },
   { year: 2025, lawsonCriterion: 8.0 },
+  { year: 2026, lawsonCriterion: 8.0 },
 ];
