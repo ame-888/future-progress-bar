@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DOMAINS, Measurement } from "./progress-table-data";
+import { useRouter, useSearchParams } from "next/navigation";
 import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { BeakerIcon, CpuChipIcon, FireIcon, HeartIcon, SparklesIcon, RocketLaunchIcon, GlobeAltIcon, WindowIcon, EyeIcon, SwatchIcon, WrenchScrewdriverIcon, BoltIcon, TruckIcon } from "@heroicons/react/24/solid";
 import { LevProgressGraph } from "./lev-progress-graph";
@@ -13,13 +14,44 @@ import { SuperconductorGraph } from "./superconductor-graph";
 import { useSound } from "./sound-provider";
 
 export function ProgressTable() {
-  const [activeTab, setActiveTab] = useState(3); // Start with LEV for now since it has data
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const tabParam = searchParams.get('tab');
+
+  const [activeTab, setActiveTab] = useState(-1);
   const { playSound } = useSound();
+
+  useEffect(() => {
+    // Only run this once on mount or when tabParam changes, but use setTimeout to avoid synchronous setState warning
+    const timeoutId = setTimeout(() => {
+      let initialTab = 0; // default to AI (index 0)
+
+      if (tabParam) {
+        const index = DOMAINS.findIndex(d => d.id.toLowerCase() === tabParam.toLowerCase());
+        if (index !== -1) initialTab = index;
+      } else {
+        const savedTabId = localStorage.getItem('lastActiveTab');
+        if (savedTabId) {
+          const index = DOMAINS.findIndex(d => d.id === savedTabId);
+          if (index !== -1) initialTab = index;
+        }
+      }
+
+      setActiveTab(initialTab);
+    }, 0);
+
+    return () => clearTimeout(timeoutId);
+  }, [tabParam]);
 
   const handleTabClick = (index: number) => {
     setActiveTab(index);
+    localStorage.setItem('lastActiveTab', DOMAINS[index].id);
+    router.push(`/?tab=${DOMAINS[index].id}`, { scroll: false });
     playSound('/click.wav');
   };
+
+  // Don't render until we know the initial tab (to avoid hydration mismatch or flash of wrong tab)
+  if (activeTab === -1) return null;
 
   const activeDomain = DOMAINS[activeTab];
 
@@ -87,6 +119,7 @@ export function ProgressTable() {
                     text-[9px] sm:text-[10px] md:text-[11px] lg:text-xs
                     font-bold tracking-wider sm:tracking-widest
                     uppercase transition-all duration-200
+                    active:scale-95
                     border-b-2 cursor-pointer
                     ${
                       isActive
