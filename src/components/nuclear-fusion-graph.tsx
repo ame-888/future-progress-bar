@@ -31,7 +31,6 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
         <p className="font-bold text-slate-900 dark:text-white text-lg mb-1">{label}</p>
         <div className="flex flex-col gap-1">
           <p className="text-sm text-slate-600 dark:text-slate-300">
-            <span className="font-semibold">Lawson Criterion:</span>{" "}
             {data.lawsonCriterion.toFixed(2)} &times; 10<sup>21</sup>
           </p>
         </div>
@@ -63,7 +62,7 @@ export function NuclearFusionGraph() {
             Lawson Criterion
           </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-            Tracking the required product of plasma density, temperature, and confinement time needed to achieve a net energy output
+            Tracking the best achieved product of plasma density, temperature, and confinement time
           </p>
         </div>
         <div className="flex-shrink-0 mt-1">

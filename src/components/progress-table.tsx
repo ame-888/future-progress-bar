@@ -6,7 +6,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { BeakerIcon, CpuChipIcon, FireIcon, HeartIcon, SparklesIcon, RocketLaunchIcon, GlobeAltIcon, WindowIcon, EyeIcon, SwatchIcon, WrenchScrewdriverIcon, BoltIcon, TruckIcon } from "@heroicons/react/24/solid";
 import { LevProgressGraph } from "./lev-progress-graph";
-import { QuantumComputingGraph } from "./quantum-computing-graph";
 import { NuclearFusionGraph } from "./nuclear-fusion-graph";
 import { BciGraph } from "./bci-graph";
 import { VrGraph } from "./vr-graph";
@@ -147,7 +146,6 @@ export function ProgressTable() {
             {activeDomain.id === "lev" && <LevProgressGraph />}
             {activeDomain.id === "nuclear-fusion" && <NuclearFusionGraph />}
             {activeDomain.id === "bci" && <BciGraph />}
-            {activeDomain.id === "quantum-computing" && <QuantumComputingGraph />}
             {activeDomain.id === "vr" && <VrGraph />}
             {activeDomain.id === "superconductor" && <SuperconductorGraph />}
 

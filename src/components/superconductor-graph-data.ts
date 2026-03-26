@@ -30,4 +30,5 @@ export const SUPERCONDUCTOR_DATA: SuperconductorDataPoint[] = [
   { year: 2023, tc: 133 },
   { year: 2024, tc: 133 },
   { year: 2025, tc: 133 },
+  { year: 2026, tc: 151 },
 ];
