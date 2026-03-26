@@ -60,10 +60,10 @@ export function NuclearFusionGraph() {
       <div className="p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 flex justify-between items-start gap-4">
         <div>
           <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">
-            Nuclear Fusion Progress
+            Lawson Criterion
           </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-            Tracking the Lawson Criterion over time.
+            Tracking the required product of plasma density, temperature, and confinement time needed to achieve a net energy output
           </p>
         </div>
         <div className="flex-shrink-0 mt-1">

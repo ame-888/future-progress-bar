@@ -8,10 +8,10 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  ReferenceLine,
+  ReferenceArea,
   ResponsiveContainer,
 } from "recharts";
-import { QUANTUM_COMPUTING_DATA, QuantumComputingDataPoint } from "./quantum-computing-graph-data";
+import { SUPERCONDUCTOR_DATA, SuperconductorDataPoint } from "./superconductor-graph-data";
 import { GraphScaleToggle } from "./graph-scale-toggle";
 
 interface CustomTooltipProps {
@@ -23,15 +23,14 @@ interface CustomTooltipProps {
 
 const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
-    const data = payload[0].payload as QuantumComputingDataPoint;
+    const data = payload[0].payload as SuperconductorDataPoint;
 
     return (
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3 rounded-lg shadow-lg max-w-xs sm:max-w-sm">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3 rounded-lg shadow-lg">
         <p className="font-bold text-slate-900 dark:text-white text-lg mb-1">{label}</p>
         <div className="flex flex-col gap-1">
           <p className="text-sm text-slate-600 dark:text-slate-300">
-            <span className="font-semibold">Algorithmic Qubits (AQ):</span>{" "}
-            {data.aq}
+            <span className="font-semibold">{data.tc} K</span>
           </p>
         </div>
       </div>
@@ -40,28 +39,22 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   return null;
 };
 
-export function QuantumComputingGraph() {
+export function SuperconductorGraph() {
   const [isLogScale, setIsLogScale] = useState(false);
 
-  // Recharts log scale doesn't work well with 0.
-  const chartData = QUANTUM_COMPUTING_DATA.map(d => ({
-    ...d,
-    safeAq: d.aq === 0 ? 0.1 : d.aq
-  }));
-
   const scaleType = isLogScale ? "log" : "linear";
-  const yAxisDomain = isLogScale ? [0.1, 100] : [0, 100];
-  const ticks = isLogScale ? [0.1, 1, 10, 100] : [0, 20, 40, 60, 80, 100];
+  const yAxisDomain = isLogScale ? [10, 1000] : [0, 400];
+  const ticks = isLogScale ? [10, 100, 1000] : [0, 100, 200, 300, 400];
 
   return (
     <div className="w-full mb-8 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50 shadow-sm">
       <div className="p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 flex justify-between items-start gap-4">
         <div>
           <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">
-            Algorithmic Qubits (AQ)
+            Highest critical temperature (Tc) at ambient pressure
           </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-            Tracking the progress of Algorithmic Qubits representing the usable computational power of quantum systems.
+            Tracking the race to discover room-temperature, ambient-pressure superconductors.
           </p>
         </div>
         <div className="flex-shrink-0 mt-1">
@@ -72,7 +65,7 @@ export function QuantumComputingGraph() {
       <div className="p-4 md:p-6 h-[400px] w-full relative">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
-            data={chartData}
+            data={SUPERCONDUCTOR_DATA}
             margin={{
               top: 30,
               right: 30,
@@ -96,45 +89,27 @@ export function QuantumComputingGraph() {
               ticks={ticks}
               stroke="#64748b"
               tick={{ fill: '#64748b' }}
-              tickFormatter={(val) => val === 0.1 ? '0' : val.toString()}
+              tickFormatter={(val) => val.toString()}
             />
             <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#94a3b8', strokeWidth: 1, strokeDasharray: '5 5' }} />
 
-            <ReferenceLine
-              y={50}
-              stroke="#cbd5e1"
-              strokeWidth={2}
-              strokeDasharray="4 4"
-              label={{
-                position: 'top',
-                value: 'The Classical Wall (AQ 50)',
-                fill: '#94a3b8',
-                fontSize: 12,
-                fontWeight: 'bold'
-              }}
-            />
-
-            <ReferenceLine
-              y={100}
+            {/* Room Temperature Golden Zone */}
+            <ReferenceArea
+              y1={293}
+              y2={298}
+              fill="#fbbf24"
+              fillOpacity={0.2}
               stroke="#fbbf24"
-              strokeWidth={2}
-              strokeDasharray="4 4"
-              label={{
-                position: 'top',
-                value: 'Broad Quantum Advantage (AQ 100)',
-                fill: '#fbbf24',
-                fontSize: 12,
-                fontWeight: 'bold'
-              }}
+              strokeOpacity={0.5}
             />
 
             <Line
               type="monotone"
-              dataKey={isLogScale ? "safeAq" : "aq"}
-              stroke="#8b5cf6"
+              dataKey="tc"
+              stroke="#0ea5e9"
               strokeWidth={3}
-              dot={{ r: 4, fill: '#8b5cf6', strokeWidth: 2, stroke: '#ffffff' }}
-              activeDot={{ r: 6, fill: '#7c3aed', strokeWidth: 2, stroke: '#ffffff' }}
+              dot={{ r: 4, fill: '#0ea5e9', strokeWidth: 2, stroke: '#ffffff' }}
+              activeDot={{ r: 6, fill: '#0284c7', strokeWidth: 2, stroke: '#ffffff' }}
             />
           </LineChart>
         </ResponsiveContainer>

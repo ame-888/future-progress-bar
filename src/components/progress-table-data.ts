@@ -41,12 +41,6 @@ export const DOMAINS: DomainData[] = [
     measurements: []
   },
   {
-    id: "quantum-computing",
-    name: "QUANTUM COMPUTING",
-    description: "A new paradigm of computation utilizing quantum mechanics to solve problems exponentially faster than classical computers, opening doors to advanced materials, chemistry, and cryptography.",
-    measurements: []
-  },
-  {
     id: "cultured-meat",
     name: "CULTURED MEAT",
     description: "Real meat produced by cultivating animal cells directly, eliminating the need to raise and slaughter animals while significantly reducing environmental impact.",
@@ -284,6 +278,12 @@ export const DOMAINS: DomainData[] = [
         history: [{ date: "MARCH - 2026", value: 0 }],
       },
     ],
+  },
+  {
+    id: "quantum-computing",
+    name: "QUANTUM COMPUTING",
+    description: "A new paradigm of computation utilizing quantum mechanics to solve problems exponentially faster than classical computers, opening doors to advanced materials, chemistry, and cryptography.",
+    measurements: []
   },
   {
     id: "robotics",

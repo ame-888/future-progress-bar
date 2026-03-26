@@ -67,7 +67,7 @@ export function BciGraph() {
       <div className="p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 flex justify-between items-start gap-4">
         <div>
           <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">
-            Stevenson's Law: BCI Channel Capacity
+            Stevenson's Law
           </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
             Tracking the maximum number of simultaneous channels/electrodes we can record from (The absolute limit of human engineering).

@@ -9,6 +9,7 @@ import { QuantumComputingGraph } from "./quantum-computing-graph";
 import { NuclearFusionGraph } from "./nuclear-fusion-graph";
 import { BciGraph } from "./bci-graph";
 import { VrGraph } from "./vr-graph";
+import { SuperconductorGraph } from "./superconductor-graph";
 import { useSound } from "./sound-provider";
 
 export function ProgressTable() {
@@ -115,6 +116,7 @@ export function ProgressTable() {
             {activeDomain.id === "bci" && <BciGraph />}
             {activeDomain.id === "quantum-computing" && <QuantumComputingGraph />}
             {activeDomain.id === "vr" && <VrGraph />}
+            {activeDomain.id === "superconductor" && <SuperconductorGraph />}
 
             {activeDomain.measurements.length === 0 ? (
               <div className="py-12 text-center text-slate-500 dark:text-slate-400">
