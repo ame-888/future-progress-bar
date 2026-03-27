@@ -204,13 +204,13 @@ export const DOMAINS: DomainData[] = [
         baseValue: 70,
         unit: "years",
         levels: [
-          { level: 1, goal: 80 },
-          { level: 2, goal: 90 },
-          { level: 3, goal: 100 },
-          { level: 4, goal: 120 },
-          { level: 5, goal: 150 },
-          { level: 6, goal: 200 },
-          { level: 7, goal: 500 },
+          { level: 1, goal: 80, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2044 }, { name: "GPT-5.4 Thinking", year: 2082 }] },
+          { level: 2, goal: 90, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2090 }, { name: "GPT-5.4 Thinking", year: 2168 }] },
+          { level: 3, goal: 100, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2160 }, { name: "GPT-5.4 Thinking", year: 2258 }] },
+          { level: 4, goal: 120, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2260 }, { name: "GPT-5.4 Thinking", year: 2428 }] },
+          { level: 5, goal: 150, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2380 }, { name: "GPT-5.4 Thinking", year: 2708 }] },
+          { level: 6, goal: 200, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2600 }, { name: "GPT-5.4 Thinking", year: 3208 }] },
+          { level: 7, goal: 500, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 4500 }, { name: "GPT-5.4 Thinking", year: 6208 }] },
         ],
         history: [
           { value: 73.8 }
@@ -242,13 +242,13 @@ export const DOMAINS: DomainData[] = [
         baseValue: 120,
         unit: "years",
         levels: [
-          { level: 1, goal: 125 },
-          { level: 2, goal: 130 },
-          { level: 3, goal: 140 },
-          { level: 4, goal: 150 },
-          { level: 5, goal: 200 },
-          { level: 6, goal: 500 },
-          { level: 7, goal: 1000 },
+          { level: 1, goal: 125, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2060 }, { name: "GPT-5.4 Thinking", year: 2087 }] },
+          { level: 2, goal: 130, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2115 }, { name: "GPT-5.4 Thinking", year: 2164 }] },
+          { level: 3, goal: 140, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2240 }, { name: "GPT-5.4 Thinking", year: 2318 }] },
+          { level: 4, goal: 150, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2380 }, { name: "GPT-5.4 Thinking", year: 2560 }] },
+          { level: 5, goal: 200, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2600 }, { name: "GPT-5.4 Thinking", year: 4200 }] },
+          { level: 6, goal: 500, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 4000 }, { name: "GPT-5.4 Thinking", year: 13000 }] },
+          { level: 7, goal: 1000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 8500 }, { name: "GPT-5.4 Thinking", year: 30000 }] },
         ],
         history: [
           { value: 122.45 }
