@@ -11,6 +11,7 @@ import { BciGraph } from "./bci-graph";
 import { VrGraph } from "./vr-graph";
 import { SuperconductorGraph } from "./superconductor-graph";
 import { RoboticsGraph } from "./robotics-graph";
+import { FictionalFuture } from "./fictional-future";
 import { useSound } from "./sound-provider";
 
 export function ProgressTable() {
@@ -56,7 +57,7 @@ export function ProgressTable() {
   const activeDomain = DOMAINS[activeTab];
 
   const getDomainIcon = (id: string) => {
-    const className = "w-[24rem] h-[24rem] md:w-[32rem] md:h-[32rem] text-indigo-500/10 dark:text-indigo-400/10 pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2";
+    const className = "w-[24rem] h-[24rem] md:w-[32rem] md:h-[32rem] text-indigo-500/10 dark:text-indigo-400/10 pointer-events-none absolute left-1/2 top-1/2 animate-float";
     switch (id) {
       case "lev":
         return <HeartIcon className={className} />;
@@ -160,6 +161,8 @@ export function ProgressTable() {
                 <MeasurementCard key={measurement.id} measurement={measurement} />
               ))
             )}
+
+            <FictionalFuture domainId={activeDomain.id} />
           </div>
         </div>
       </div>
