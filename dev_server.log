@@ -5,7 +5,7 @@
 ▲ Next.js 16.2.1 (Turbopack)
 - Local:         http://localhost:3000
 - Network:       http://192.168.0.2:3000
-✓ Ready in 538ms
+✓ Ready in 1092ms
 Attention: Next.js now collects completely anonymous telemetry regarding usage.
 This information is used to shape Next.js' roadmap and prioritize features.
 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
@@ -13,33 +13,18 @@ https://nextjs.org/telemetry
 
 
 ○ Compiling / ...
- GET /?tab=space-exploration 200 in 8.5s (next.js: 7.7s, application-code: 817ms)
+ GET / 200 in 10.1s (next.js: 9.3s, application-code: 820ms)
 [browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template).
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
- GET /?tab=space-exploration 200 in 101ms (next.js: 6ms, application-code: 95ms)
+ GET /?tab=quantum-computing 200 in 243ms (next.js: 25ms, application-code: 218ms)
+ GET / 200 in 261ms (next.js: 8ms, application-code: 253ms)
 [browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template).
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
- GET /?tab=space-exploration 200 in 110ms (next.js: 4ms, application-code: 106ms)
+ GET /?tab=quantum-computing 200 in 55ms (next.js: 4ms, application-code: 51ms)
+ GET / 200 in 138ms (next.js: 4ms, application-code: 133ms)
 [browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template).
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
+ GET /?tab=quantum-computing 200 in 72ms (next.js: 4ms, application-code: 68ms)
+ GET / 200 in 97ms (next.js: 4ms, application-code: 93ms)
+[browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template).
+ GET /?tab=quantum-computing 200 in 63ms (next.js: 5ms, application-code: 58ms)
+ GET / 200 in 87ms (next.js: 5ms, application-code: 82ms)
+[browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template).
+ GET /?tab=quantum-computing 200 in 65ms (next.js: 6ms, application-code: 59ms)
