@@ -12,6 +12,7 @@ import { VrGraph } from "./vr-graph";
 import { SuperconductorGraph } from "./superconductor-graph";
 import { RoboticsGraph } from "./robotics-graph";
 import { SpaceExplorationGraph } from "./space-exploration-graph";
+import { QuantumComputingGraph } from "./quantum-computing-graph";
 import { FictionalFuture } from "./fictional-future";
 import { useSound } from "./sound-provider";
 
@@ -153,6 +154,7 @@ export function ProgressTable() {
             {activeDomain.id === "superconductor" && <SuperconductorGraph />}
             {activeDomain.id === "robotics" && <RoboticsGraph />}
             {activeDomain.id === "space-exploration" && <SpaceExplorationGraph />}
+            {activeDomain.id === "quantum-computing" && <QuantumComputingGraph />}
 
             {activeDomain.measurements.length === 0 ? (
               <div className="py-12 text-center text-slate-500 dark:text-slate-400">
