@@ -235,17 +235,38 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
     ? measurement.currentValue >= previousGoalValue
     : measurement.currentValue <= previousGoalValue;
 
+  const allGoalsAchieved = isLowerBetter
+    ? measurement.currentValue <= measurement.levels[measurement.levels.length - 1].goal
+    : measurement.currentValue >= measurement.levels[measurement.levels.length - 1].goal;
+
+  // Calculate actual current level
+  let actualCurrentLevel = 0;
+  for (const level of measurement.levels) {
+    const isLevelAchieved = isLowerBetter
+      ? measurement.currentValue <= level.goal
+      : measurement.currentValue >= level.goal;
+
+    if (isLevelAchieved) {
+      actualCurrentLevel = level.level;
+    } else {
+      break;
+    }
+  }
+
   return (
     <div className="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50 transition-colors duration-200 shadow-sm relative">
       <div className="p-4 md:p-6 relative">
         <div className="flex flex-col md:flex-row md:items-start justify-between mb-4 gap-4">
-          <div>
-            <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-1">
+          <div className="flex flex-wrap items-center gap-3">
+            <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white">
               {measurement.title}
             </h3>
+            <div className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${actualCurrentLevel > 0 ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400' : 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-300'}`}>
+              Current Level: {allGoalsAchieved ? `${measurement.levels.length} - MAX` : actualCurrentLevel}
+            </div>
           </div>
           <div className="text-left md:text-right">
-            {measurement.currentValue >= measurement.levels[measurement.levels.length - 1].goal ? (
+            {allGoalsAchieved ? (
               <div className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400">
                 All goals achieved!
               </div>
