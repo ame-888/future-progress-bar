@@ -80,11 +80,11 @@ const FICTIONAL_FUTURES: Record<string, FictionalFutureData> = {
     ]
   },
   "quantum-computing": {
-    title: "Steins;Gate",
+    title: "Diaspora (Greg Egan)",
     points: [
-      "Explores manipulating timelines and processing information across different realities, akin to how quantum computers calculate.",
-      "Quantum computers use 'superposition' to process massive amounts of data simultaneously, solving problems that would take classical computers millennia.",
-      "While we aren't sending D-Mails to the past, quantum computing will allow us to simulate complex molecules instantly, curing diseases and discovering new materials."
+      "Explores a post-human future where consciousness exists entirely as digital software, running on incredibly complex, distributed computing networks.",
+      "These software minds explore advanced mathematics, multi-dimensional physics, and universe-scale simulations that go far beyond classical computing limits.",
+      "Real-world quantum computing aims to unlock exactly this kind of exponential computational power, enabling us to perfectly simulate complex molecules and unlock the deepest secrets of physics."
     ]
   },
   vr: {
