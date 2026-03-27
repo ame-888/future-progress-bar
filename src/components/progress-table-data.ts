@@ -15,6 +15,7 @@ export type Measurement = {
   currentValue: number;
   baseValue?: number; // Starting value before level 1
   unit: string;
+  isLowerBetter?: boolean; // If true, reaching a lower value means progress
   levels: MeasurementLevel[];
   history: MeasurementHistory[];
 };
@@ -434,6 +435,76 @@ export const DOMAINS: DomainData[] = [
     id: "vr",
     name: "VR",
     description: "Stands for Virtual Reality, immersive digital environments. We focus on true 'Full Dive' VR capabilities involving direct neural stimulation.",
-    measurements: []
+    measurements: [
+      {
+        id: "vr-1",
+        title: "Weight of the lightest standalone 6DOF VR headset",
+        currentValue: 140,
+        baseValue: 140,
+        unit: "grams",
+        isLowerBetter: true,
+        levels: [
+          { level: 1, goal: 130 },
+          { level: 2, goal: 115 },
+          { level: 3, goal: 100 },
+          { level: 4, goal: 75 },
+          { level: 5, goal: 50 },
+          { level: 6, goal: 25 },
+          { level: 7, goal: 15 },
+        ],
+        history: [{ value: 140 }]
+      },
+      {
+        id: "vr-2",
+        title: "Maximum Horizontal Field of View (FOV) in a consumer headset",
+        currentValue: 160,
+        baseValue: 160,
+        unit: "degrees",
+        levels: [
+          { level: 1, goal: 167 },
+          { level: 2, goal: 175 },
+          { level: 3, goal: 182 },
+          { level: 4, goal: 190 },
+          { level: 5, goal: 200 },
+          { level: 6, goal: 210 },
+          { level: 7, goal: 220 },
+        ],
+        history: [{ value: 160 }]
+      },
+      {
+        id: "vr-3",
+        title: "Longest continuous session in a Full-Dive environment",
+        currentValue: 0,
+        baseValue: 0,
+        unit: "hours",
+        levels: [
+          { level: 1, goal: 5 / 3600, label: "5 seconds" },
+          { level: 2, goal: 5 / 60, label: "5 minutes" },
+          { level: 3, goal: 5, label: "5 hours" },
+          { level: 4, goal: 24, label: "1 day" },
+          { level: 5, goal: 120, label: "5 days" },
+          { level: 6, goal: 1200, label: "50 days" },
+          { level: 7, goal: 8760, label: "365 days" },
+        ],
+        history: [{ value: 0 }]
+      },
+      {
+        id: "vr-4",
+        title: "Global Daily Active Users (DAU) in Full-Dive VR",
+        currentValue: 0,
+        baseValue: 0,
+        unit: "users",
+        levels: [
+          { level: 1, goal: 2 },
+          { level: 2, goal: 60 },
+          { level: 3, goal: 1800, label: "1.8K" },
+          { level: 4, goal: 54000, label: "54K" },
+          { level: 5, goal: 1600000, label: "1.6M" },
+          { level: 6, goal: 48000000, label: "48M" },
+          { level: 7, goal: 1440000000, label: "1.44B" },
+        ],
+        history: [{ value: 0 }]
+      }
+    ]
   },
 ];
