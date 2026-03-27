@@ -339,23 +339,46 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                   </span>
 
                   {(currentLevelGoal.aiPredictions && currentLevelGoal.aiPredictions.length > 0) || currentLevelGoal.realityYear ? (
-                    <div className="mt-3 flex flex-col items-end text-xs space-y-1">
+                    <div className="mt-3 flex flex-col items-end text-xs space-y-1.5">
                       {currentLevelGoal.realityYear && (
-                        <div className="flex items-center gap-1.5 text-slate-800 dark:text-slate-200">
+                        <div className="flex items-center gap-1.5 text-slate-800 dark:text-slate-200 mb-1">
                           <span className="font-semibold">Reality:</span>
                           <span className="bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400 px-1.5 py-0.5 rounded font-mono font-medium">
                             {currentLevelGoal.realityYear}
                           </span>
                         </div>
                       )}
-                      {currentLevelGoal.aiPredictions?.map((pred, idx) => (
-                        <div key={idx} className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
-                          <span className="font-medium">{pred.name}:</span>
-                          <span className="bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">
-                            {pred.year}
+                      {currentLevelGoal.aiPredictions && currentLevelGoal.aiPredictions.length > 0 && (
+                        <>
+                          <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 tracking-wider mb-0.5 mt-1 bg-slate-100 dark:bg-slate-800/50 px-2 py-0.5 rounded-full border border-slate-200 dark:border-slate-700/50">
+                            PREDICTIONS BY
                           </span>
-                        </div>
-                      ))}
+                          {[...currentLevelGoal.aiPredictions]
+                            .sort((a, b) => a.year - b.year)
+                            .map((pred, idx) => {
+                              // Determine color based on AI name
+                              let colorClass = "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300";
+                              let yearBgClass = "bg-slate-200/50 dark:bg-slate-700/50";
+
+                              if (pred.name.toLowerCase().includes("grok")) {
+                                colorClass = "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-400 border border-yellow-200/50 dark:border-yellow-800/50";
+                                yearBgClass = "bg-yellow-200/50 dark:bg-yellow-800/50";
+                              } else if (pred.name.toLowerCase().includes("claude")) {
+                                colorClass = "bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-400 border border-orange-200/50 dark:border-orange-800/50";
+                                yearBgClass = "bg-orange-200/50 dark:bg-orange-800/50";
+                              }
+
+                              return (
+                                <div key={idx} className={`flex items-center gap-1.5 px-2 py-1 rounded-md ${colorClass} shadow-sm`}>
+                                  <span className="font-medium">{pred.name}:</span>
+                                  <span className={`px-1.5 py-0.5 rounded font-mono font-semibold ${yearBgClass}`}>
+                                    {pred.year}
+                                  </span>
+                                </div>
+                              );
+                            })}
+                        </>
+                      )}
                     </div>
                   ) : null}
                 </div>
