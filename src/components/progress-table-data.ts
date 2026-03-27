@@ -370,6 +370,40 @@ export const DOMAINS: DomainData[] = [
         ],
         history: [{ value: 6100 }],
       },
+      {
+        id: "qc-2",
+        title: "Two-Qubit Gate Fidelity",
+        currentValue: 99.99,
+        baseValue: 99.9,
+        unit: "%",
+        levels: [
+          { level: 1, goal: 99.999 },
+          { level: 2, goal: 99.9999 },
+          { level: 3, goal: 99.99999 },
+          { level: 4, goal: 99.999999 },
+          { level: 5, goal: 99.9999999 },
+          { level: 6, goal: 99.99999999 },
+          { level: 7, goal: 99.999999999 },
+        ],
+        history: [{ value: 99.99 }],
+      },
+      {
+        id: "qc-3",
+        title: "Quantum Volume",
+        currentValue: 33554432,
+        baseValue: 16777216, // 2^24
+        unit: "",
+        levels: [
+          { level: 1, goal: 1073741824, label: "2^30" }, // 2^30
+          { level: 2, goal: 1099511627776, label: "2^40" }, // 2^40
+          { level: 3, goal: 1125899906842624, label: "2^50" }, // 2^50
+          { level: 4, goal: 18446744073709551616, label: "2^64" }, // 2^64
+          { level: 5, goal: 37778931862957161709568, label: "2^75" }, // 2^75
+          { level: 6, goal: 38685626227668133590597632, label: "2^85" }, // 2^85
+          { level: 7, goal: 1267650600228229401496703205376, label: "2^100" }, // 2^100
+        ],
+        history: [{ value: 33554432 }],
+      },
     ]
   },
   {
