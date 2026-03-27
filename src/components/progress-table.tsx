@@ -88,11 +88,11 @@ export function ProgressTable() {
 
   return (
     <div className="w-full mx-auto p-4 md:p-6 lg:p-8">
-      <div className="mb-6 flex flex-col items-center text-center relative overflow-hidden py-12 md:py-20">
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+      <div className="mb-6 flex flex-col items-center text-center relative py-12 md:py-20">
+        <div className="absolute inset-x-0 -top-24 bottom-0 z-0 pointer-events-none overflow-visible">
           {getDomainIcon(activeDomain.id)}
         </div>
-        <div className="relative z-10 flex flex-col items-center">
+        <div className="relative z-10 flex flex-col items-center mt-8">
           <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-2">
             Future Progress Bar
           </h1>
