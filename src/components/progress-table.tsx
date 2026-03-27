@@ -366,6 +366,9 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                               } else if (pred.name.toLowerCase().includes("claude")) {
                                 colorClass = "bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-400 border border-orange-200/50 dark:border-orange-800/50";
                                 yearBgClass = "bg-orange-200/50 dark:bg-orange-800/50";
+                              } else if (pred.name.toLowerCase().includes("gemini")) {
+                                colorClass = "bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-400 border border-sky-200/50 dark:border-sky-800/50";
+                                yearBgClass = "bg-sky-200/50 dark:bg-sky-800/50";
                               }
 
                               return (
