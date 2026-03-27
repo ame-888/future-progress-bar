@@ -7,6 +7,8 @@ export type MeasurementLevel = {
   level: number;
   goal: number;
   label?: string; // Optional custom string to display for the goal (e.g., "1 Week", "1 Month")
+  realityYear?: number;
+  aiPredictions?: { name: string; year: number }[];
 };
 
 export type Measurement = {
@@ -80,13 +82,13 @@ export const DOMAINS: DomainData[] = [
         baseValue: 0,
         unit: "countries",
         levels: [
-          { level: 1, goal: 3 },
-          { level: 2, goal: 10 },
-          { level: 3, goal: 30 },
-          { level: 4, goal: 75 },
-          { level: 5, goal: 120 },
-          { level: 6, goal: 170 },
-          { level: 7, goal: 195 },
+          { level: 1, goal: 3, aiPredictions: [{ name: "Grok 4.20", year: 2027 }] },
+          { level: 2, goal: 10, aiPredictions: [{ name: "Grok 4.20", year: 2030 }] },
+          { level: 3, goal: 30, aiPredictions: [{ name: "Grok 4.20", year: 2035 }] },
+          { level: 4, goal: 75, aiPredictions: [{ name: "Grok 4.20", year: 2040 }] },
+          { level: 5, goal: 120, aiPredictions: [{ name: "Grok 4.20", year: 2045 }] },
+          { level: 6, goal: 170, aiPredictions: [{ name: "Grok 4.20", year: 2052 }] },
+          { level: 7, goal: 195, aiPredictions: [{ name: "Grok 4.20", year: 2060 }] },
         ],
         history: [{ value: 1 }],
       },

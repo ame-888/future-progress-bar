@@ -337,6 +337,27 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                       <>{currentLevelGoal.goal} <span className="text-sm font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span></>
                     )}
                   </span>
+
+                  {(currentLevelGoal.aiPredictions && currentLevelGoal.aiPredictions.length > 0) || currentLevelGoal.realityYear ? (
+                    <div className="mt-3 flex flex-col items-end text-xs space-y-1">
+                      {currentLevelGoal.realityYear && (
+                        <div className="flex items-center gap-1.5 text-slate-800 dark:text-slate-200">
+                          <span className="font-semibold">Reality:</span>
+                          <span className="bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400 px-1.5 py-0.5 rounded font-mono font-medium">
+                            {currentLevelGoal.realityYear}
+                          </span>
+                        </div>
+                      )}
+                      {currentLevelGoal.aiPredictions?.map((pred, idx) => (
+                        <div key={idx} className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
+                          <span className="font-medium">{pred.name}:</span>
+                          <span className="bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded font-mono">
+                            {pred.year}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
               </div>
             </div>
