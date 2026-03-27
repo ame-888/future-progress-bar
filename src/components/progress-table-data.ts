@@ -440,7 +440,7 @@ export const DOMAINS: DomainData[] = [
         id: "vr-1",
         title: "Weight of the lightest standalone 6DOF VR headset",
         currentValue: 140,
-        baseValue: 140,
+        baseValue: 150,
         unit: "grams",
         isLowerBetter: true,
         levels: [
@@ -458,7 +458,7 @@ export const DOMAINS: DomainData[] = [
         id: "vr-2",
         title: "Maximum Horizontal Field of View (FOV) in a consumer headset",
         currentValue: 160,
-        baseValue: 160,
+        baseValue: 150,
         unit: "degrees",
         levels: [
           { level: 1, goal: 167 },
