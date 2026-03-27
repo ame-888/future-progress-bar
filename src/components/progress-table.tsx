@@ -171,8 +171,14 @@ export function ProgressTable() {
 }
 
 function MeasurementCard({ measurement }: { measurement: Measurement }) {
-  // The levels array should be sorted by goal ascending
-  const activeLevelIdx = measurement.levels.findIndex(level => measurement.currentValue < level.goal);
+  const isLowerBetter = measurement.isLowerBetter;
+
+  // For lower is better, a goal is reached if currentValue <= goal
+  const activeLevelIdx = measurement.levels.findIndex(level => {
+    return isLowerBetter
+      ? measurement.currentValue > level.goal
+      : measurement.currentValue < level.goal;
+  });
   const initialLevelIdx = activeLevelIdx === -1 ? measurement.levels.length - 1 : activeLevelIdx;
   const [viewLevelIdx, setViewLevelIdx] = useState(initialLevelIdx);
 
@@ -195,21 +201,39 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
   let percentage = 0;
   let displayValue = measurement.currentValue;
 
-  if (measurement.currentValue >= currentLevelGoal.goal) {
-    percentage = 100;
-    displayValue = currentLevelGoal.goal; // Cap display at 100% of this level
-  } else if (measurement.currentValue <= previousGoalValue) {
-    percentage = 0;
-    displayValue = previousGoalValue;
+  if (isLowerBetter) {
+    if (measurement.currentValue <= currentLevelGoal.goal) {
+      percentage = 100;
+      displayValue = currentLevelGoal.goal;
+    } else if (measurement.currentValue >= previousGoalValue) {
+      percentage = 0;
+      displayValue = previousGoalValue;
+    } else {
+      const range = previousGoalValue - currentLevelGoal.goal;
+      const progress = previousGoalValue - measurement.currentValue;
+      percentage = Math.max(0, Math.min(100, (progress / range) * 100));
+    }
   } else {
-    const range = currentLevelGoal.goal - previousGoalValue;
-    const progress = measurement.currentValue - previousGoalValue;
-    percentage = Math.max(0, Math.min(100, (progress / range) * 100));
+    if (measurement.currentValue >= currentLevelGoal.goal) {
+      percentage = 100;
+      displayValue = currentLevelGoal.goal; // Cap display at 100% of this level
+    } else if (measurement.currentValue <= previousGoalValue) {
+      percentage = 0;
+      displayValue = previousGoalValue;
+    } else {
+      const range = currentLevelGoal.goal - previousGoalValue;
+      const progress = measurement.currentValue - previousGoalValue;
+      percentage = Math.max(0, Math.min(100, (progress / range) * 100));
+    }
   }
 
   // Should we show the actual current value marker, or just a generic completion marker?
-  const isViewingCompletedLevel = measurement.currentValue >= currentLevelGoal.goal;
-  const isViewingFutureLevel = measurement.currentValue <= previousGoalValue;
+  const isViewingCompletedLevel = isLowerBetter
+    ? measurement.currentValue <= currentLevelGoal.goal
+    : measurement.currentValue >= currentLevelGoal.goal;
+  const isViewingFutureLevel = isLowerBetter
+    ? measurement.currentValue >= previousGoalValue
+    : measurement.currentValue <= previousGoalValue;
 
   return (
     <div className="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50 transition-colors duration-200 shadow-sm relative">
