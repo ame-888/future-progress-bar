@@ -1,43 +1,43 @@
 export type QuantumComputingDataPoint = {
   year: number;
-  aq: number;
+  logicalQubits: number;
   description: string;
 };
 
 export const QUANTUM_COMPUTING_DATA: QuantumComputingDataPoint[] = [
   {
     year: 2000,
-    aq: 2,
-    description: 'Early Nuclear Magnetic Resonance (NMR) experiments. Barely universal, highly noisy.',
+    logicalQubits: 0,
+    description: 'For two decades, physicists are just trying to get physical hardware to work. "Logical" error-corrected qubits exist entirely on chalkboards as theoretical math.',
   },
   {
-    year: 2006,
-    aq: 4,
-    description: 'Early ion trap systems successfully entangle a handful of qubits.',
+    year: 2021,
+    logicalQubits: 1,
+    description: 'A team at the University of Maryland/IonQ manages to create a single fault-tolerant logical qubit, proving the math actually works in the real world.',
   },
   {
-    year: 2016,
-    aq: 5,
-    description: 'IBM puts the first 5-qubit machine on the cloud for public access.',
-  },
-  {
-    year: 2019,
-    aq: 15,
-    description: 'Google\'s Sycamore processor achieves "Quantum Supremacy." They had 53 physical qubits, but due to noise, the algorithmic depth was much lower.',
-  },
-  {
-    year: 2020,
-    aq: 20,
-    description: 'Companies like Quantinuum and IonQ begin seriously scaling hardware with intense focus on error correction.',
+    year: 2022,
+    logicalQubits: 2,
+    description: 'Google and other labs manage to string together a couple of logical qubits, proving that adding more physical qubits can actively reduce error rates.',
   },
   {
     year: 2023,
-    aq: 29,
-    description: 'IonQ Forte pushes the boundary of what trapped ions can achieve without full fault tolerance.',
+    logicalQubits: 48,
+    description: 'A massive paradigm shift. A joint team from Harvard, MIT, and QuEra abandons superconducting chips, uses lasers to trap neutral atoms, and suddenly jumps the world record to 48.',
+  },
+  {
+    year: 2024,
+    logicalQubits: 48,
+    description: 'The industry spends the year focusing on quality over quantity. Microsoft partners with Atom Computing and Quantinuum to create 24 logical qubits with record-shattering low error rates, though Harvard\'s 48 remains the raw volume record.',
   },
   {
     year: 2025,
-    aq: 36,
-    description: 'The current State of the Art. In mid-to-late 2025, Quantinuum hit a massive Quantum Volume record ($2^{23}$), and IonQ demonstrated world-record 99.99% two-qubit gate fidelities, laying the final groundwork needed to push toward the AQ 100 zone.',
+    logicalQubits: 96,
+    description: 'Harvard and QuEra scale up their architecture, publishing a landmark paper demonstrating algorithms running on 96 logical qubits, proving that scaling the system up continues to drive errors down.',
+  },
+  {
+    year: 2026,
+    logicalQubits: 96,
+    description: 'The standing record as of early 2026. IBM, Google, Microsoft, and QuEra are now in an all-out sprint to be the first to reach the 1,000 Logical Qubit Holy Grail by the end of the decade.',
   },
 ];
