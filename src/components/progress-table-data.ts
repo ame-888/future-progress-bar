@@ -45,7 +45,7 @@ export const DOMAINS: DomainData[] = [
       {
         id: "bci-1",
         title: "Number of People with a Next-Gen BCI",
-        currentValue: 85,
+        currentValue: 127,
         baseValue: 0,
         unit: "people",
         levels: [
@@ -57,7 +57,17 @@ export const DOMAINS: DomainData[] = [
           { level: 6, goal: 100000000, aiPredictions: [{ name: "Grok 4.20", year: 2045 }, { name: "Claude 4.6 Sonnet", year: 2050 }, { name: "Gemini 3.1 Pro Preview", year: 2055 }, { name: "GPT-5.4 Thinking Mini", year: 2094 }] },
           { level: 7, goal: 1000000000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2058 }, { name: "Grok 4.20", year: 2060 }, { name: "Gemini 3.1 Pro Preview", year: 2065 }, { name: "GPT-5.4 Thinking Mini", year: 2125 }] },
         ],
-        history: [{ value: 85 }],
+        history: [{
+          value: 127,
+          details: [
+            "Blackrock Neurotech: Over 40 people (estimated)",
+            "Neuralink: 21 people",
+            "ONWARD Medical: 5 people",
+            "Paradromics: 1 person (temporary acute implant)",
+            "Precision Neuroscience: Over 50 people (estimated)",
+            "Synchron: 10 people"
+          ]
+        }],
       },
       {
         id: "bci-2",
@@ -147,7 +157,7 @@ export const DOMAINS: DomainData[] = [
       {
         id: "cultured-meat-2",
         title: "Countries allowing sale to humans",
-        currentValue: 4,
+        currentValue: 5,
         baseValue: 0,
         unit: "countries",
         levels: [
@@ -161,9 +171,14 @@ export const DOMAINS: DomainData[] = [
         ],
         history: [
           {
-
-            value: 4,
-            note: "USA, Israel, Australia and Singapore",
+            value: 5,
+            details: [
+              "Singapore (2020)",
+              "USA (2023)",
+              "Israel (2024)",
+              "Australia (2025)",
+              "New Zealand (2025)"
+            ]
           },
         ],
       },
@@ -262,7 +277,10 @@ export const DOMAINS: DomainData[] = [
           { level: 7, goal: 1000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 8500 }, { name: "GPT-5.4 Thinking Mini", year: 30000 }] },
         ],
         history: [
-          { value: 122.45 }
+          {
+            value: 122.45,
+            details: ["Jeanne Calment (deceased): 122 years and 164 days"]
+          }
         ],
       },
       {
