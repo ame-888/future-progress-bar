@@ -1,6 +1,7 @@
 export type MeasurementHistory = {
   value: number;
   note?: string;
+  details?: string[];
 };
 
 export type MeasurementLevel = {
@@ -90,7 +91,7 @@ export const DOMAINS: DomainData[] = [
           { level: 6, goal: 170, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2050 }, { name: "Grok 4.20", year: 2052 }, { name: "Claude 4.6 Sonnet", year: 2060 }, { name: "GPT-5.4 Thinking Mini", year: 2092 }] },
           { level: 7, goal: 195, aiPredictions: [{ name: "Grok 4.20", year: 2060 }, { name: "Gemini 3.1 Pro Preview", year: 2065 }, { name: "Claude 4.6 Sonnet", year: 2072 }, { name: "GPT-5.4 Thinking Mini", year: 2125 }] },
         ],
-        history: [{ value: 1 }],
+        history: [{ value: 1, details: ["China (2026)"] }],
       },
       {
         id: "bci-4",

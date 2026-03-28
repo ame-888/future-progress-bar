@@ -343,6 +343,18 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                       <>{previousGoalValue} <span className="text-sm font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span></>
                     )}
                   </span>
+
+                  {/* Render details if available on the current history */}
+                  {measurement.history && measurement.history.length > 0 && measurement.history[measurement.history.length - 1].details && (
+                    <div className="mt-3 flex flex-col items-start text-xs space-y-1.5 w-full">
+                      {measurement.history[measurement.history.length - 1].details?.map((detail, idx) => (
+                        <div key={idx} className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-slate-100 text-slate-700 dark:bg-slate-800/80 dark:text-slate-300 shadow-sm border border-slate-200/50 dark:border-slate-700/50 w-full max-w-xs">
+                          <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 dark:bg-indigo-500 shrink-0"></span>
+                          <span className="font-medium truncate">{detail}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
                 <div className="flex flex-col items-end">
                   <span className="text-xs font-medium text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-1">
