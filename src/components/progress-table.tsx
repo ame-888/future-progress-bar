@@ -346,9 +346,12 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
 
                   {/* Render details if available on the current history */}
                   {measurement.history && measurement.history.length > 0 && measurement.history[measurement.history.length - 1].details && (
-                    <div className="mt-3 flex flex-col items-start text-xs space-y-1.5 w-full">
+                    <div className="mt-4 flex flex-col items-start text-xs space-y-2 w-full">
+                      <div className="font-bold text-[10px] text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-1">
+                        AS OF TODAY
+                      </div>
                       {measurement.history[measurement.history.length - 1].details?.map((detail, idx) => (
-                        <div key={idx} className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-slate-100 text-slate-700 dark:bg-slate-800/80 dark:text-slate-300 shadow-sm border border-slate-200/50 dark:border-slate-700/50 w-full max-w-xs">
+                        <div key={idx} className="flex items-center gap-1.5 px-2 py-1.5 rounded-md bg-slate-100 text-slate-700 dark:bg-slate-800/80 dark:text-slate-300 shadow-sm border border-slate-200/50 dark:border-slate-700/50 w-full max-w-xs">
                           <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 dark:bg-indigo-500 shrink-0"></span>
                           <span className="font-medium truncate">{detail}</span>
                         </div>
