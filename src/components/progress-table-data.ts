@@ -62,7 +62,7 @@ export const DOMAINS: DomainData[] = [
       {
         id: "bci-2",
         title: "Number of Countries Testing Next-Gen BCIs in Humans",
-        currentValue: 8,
+        currentValue: 6,
         baseValue: 0,
         unit: "countries",
         levels: [
@@ -74,7 +74,17 @@ export const DOMAINS: DomainData[] = [
           { level: 6, goal: 180, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2063 }, { name: "GPT-5.4 Thinking Mini", year: 2067 }, { name: "Gemini 3.1 Pro Preview", year: 2078 }, { name: "Grok 4.20", year: 2080 }] },
           { level: 7, goal: 195, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2070 }, { name: "GPT-5.4 Thinking Mini", year: 2074 }, { name: "Gemini 3.1 Pro Preview", year: 2090 }, { name: "Grok 4.20", year: 2100 }] },
         ],
-        history: [{ value: 8 }],
+        history: [{
+          value: 6,
+          details: [
+            "USA (2004)",
+            "Australia (2019)",
+            "Canada (2024)",
+            "China (2025)",
+            "UAE (2025)",
+            "UK (2025)"
+          ]
+        }],
       },
       {
         id: "bci-3",

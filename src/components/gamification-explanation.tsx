@@ -1,4 +1,4 @@
-import { StarIcon, ChartBarIcon, ViewColumnsIcon } from "@heroicons/react/24/solid";
+import { StarIcon, ChartBarIcon, ViewColumnsIcon, QueueListIcon } from "@heroicons/react/24/solid";
 
 export function GamificationExplanation() {
   return (
@@ -48,6 +48,20 @@ export function GamificationExplanation() {
               </h3>
               <p>
                 There are currently 11 fields being tracked by this website. Switch between them to see what is the current state for each of them.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col md:flex-row gap-4 items-start">
+            <div className="flex-shrink-0 bg-rose-100 dark:bg-rose-900/30 p-3 rounded-full">
+              <QueueListIcon className="w-6 h-6 text-rose-500" />
+            </div>
+            <div>
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2 uppercase tracking-wide">
+                Current State Lists
+              </h3>
+              <p>
+                Sometimes a number alone doesn't tell the whole story. For certain measurements, like the number of countries adopting a new technology, you will see a detailed list titled <strong className="text-slate-800 dark:text-slate-200">AS OF TODAY</strong> underneath the current value. These lists provide a breakdown of the specific milestones making up that total count.
               </p>
             </div>
           </div>
