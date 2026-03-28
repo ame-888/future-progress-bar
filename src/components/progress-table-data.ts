@@ -531,13 +531,13 @@ export const DOMAINS: DomainData[] = [
         baseValue: 0,
         unit: "users",
         levels: [
-          { level: 1, goal: 2 },
-          { level: 2, goal: 60 },
-          { level: 3, goal: 1800, label: "1.8K" },
-          { level: 4, goal: 54000, label: "54K" },
-          { level: 5, goal: 1600000, label: "1.6M" },
-          { level: 6, goal: 48000000, label: "48M" },
-          { level: 7, goal: 1440000000, label: "1.44B" },
+          { level: 1, goal: 2, aiPredictions: [{ name: "Grok 4.20", year: 2035 }, { name: "Gemini 3.1 Pro Preview", year: 2038 }, { name: "Claude 4.6 Sonnet", year: 2047 }, { name: "GPT-5.4 Thinking", year: 2056 }] },
+          { level: 2, goal: 60, aiPredictions: [{ name: "Grok 4.20", year: 2036 }, { name: "Gemini 3.1 Pro Preview", year: 2042 }, { name: "Claude 4.6 Sonnet", year: 2051 }, { name: "GPT-5.4 Thinking", year: 2060 }] },
+          { level: 3, goal: 1800, label: "1.8K", aiPredictions: [{ name: "Grok 4.20", year: 2037 }, { name: "Gemini 3.1 Pro Preview", year: 2048 }, { name: "Claude 4.6 Sonnet", year: 2055 }, { name: "GPT-5.4 Thinking", year: 2064 }] },
+          { level: 4, goal: 54000, label: "54K", aiPredictions: [{ name: "Grok 4.20", year: 2038 }, { name: "Gemini 3.1 Pro Preview", year: 2054 }, { name: "Claude 4.6 Sonnet", year: 2060 }, { name: "GPT-5.4 Thinking", year: 2069 }] },
+          { level: 5, goal: 1600000, label: "1.6M", aiPredictions: [{ name: "Grok 4.20", year: 2040 }, { name: "Gemini 3.1 Pro Preview", year: 2059 }, { name: "Claude 4.6 Sonnet", year: 2066 }, { name: "GPT-5.4 Thinking", year: 2075 }] },
+          { level: 6, goal: 48000000, label: "48M", aiPredictions: [{ name: "Grok 4.20", year: 2043 }, { name: "Gemini 3.1 Pro Preview", year: 2065 }, { name: "Claude 4.6 Sonnet", year: 2073 }, { name: "GPT-5.4 Thinking", year: 2084 }] },
+          { level: 7, goal: 1440000000, label: "1.44B", aiPredictions: [{ name: "Grok 4.20", year: 2055 }, { name: "Gemini 3.1 Pro Preview", year: 2073 }, { name: "Claude 4.6 Sonnet", year: 2082 }, { name: "GPT-5.4 Thinking", year: 2101 }] },
         ],
         history: [{ value: 0 }]
       }
