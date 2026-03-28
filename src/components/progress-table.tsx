@@ -205,7 +205,34 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
   let percentage = 0;
   let displayValue = measurement.currentValue;
 
-  if (isLowerBetter) {
+  const isQc3 = measurement.id === "qc-3";
+  let powerMarkers: number[] = [];
+
+  if (isQc3) {
+    const logCurrent = Math.log2(measurement.currentValue);
+    const logGoal = Math.log2(currentLevelGoal.goal);
+    const logPrevious = Math.log2(previousGoalValue || 1); // fallback to 1 to avoid log2(0)
+
+    // Generate power markers (integers between logPrevious and logGoal, exclusive of ends, or inclusive if we want)
+    // Actually we want dots strictly between previous and goal.
+    for (let p = Math.ceil(logPrevious); p <= Math.floor(logGoal); p++) {
+      if (p > logPrevious && p < logGoal) {
+        powerMarkers.push(p);
+      }
+    }
+
+    if (measurement.currentValue >= currentLevelGoal.goal) {
+      percentage = 100;
+      displayValue = currentLevelGoal.goal;
+    } else if (measurement.currentValue <= previousGoalValue) {
+      percentage = 0;
+      displayValue = previousGoalValue;
+    } else {
+      const range = logGoal - logPrevious;
+      const progress = logCurrent - logPrevious;
+      percentage = Math.max(0, Math.min(100, (progress / range) * 100));
+    }
+  } else if (isLowerBetter) {
     if (measurement.currentValue <= currentLevelGoal.goal) {
       percentage = 100;
       displayValue = currentLevelGoal.goal;
@@ -332,6 +359,24 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                   className="bg-indigo-500 dark:bg-indigo-400 h-full rounded-full transition-all duration-1000 ease-out"
                   style={{ width: `${percentage}%` }}
                 ></div>
+                {isQc3 && powerMarkers.map((power) => {
+                  const logGoal = Math.log2(currentLevelGoal.goal);
+                  const logPrevious = Math.log2(previousGoalValue || 1);
+                  const posPercent = ((power - logPrevious) / (logGoal - logPrevious)) * 100;
+
+                  return (
+                    <div
+                      key={power}
+                      className="absolute top-1/2 -translate-y-1/2 flex flex-col items-center pointer-events-none"
+                      style={{ left: `${posPercent}%` }}
+                    >
+                      <div className="w-2 h-2 rounded-full bg-slate-400 dark:bg-slate-500 z-10"></div>
+                      <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 mt-3 absolute top-full">
+                        {power}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
               <div className="flex justify-between mt-12">
                 <div className="flex flex-col items-start">
@@ -340,7 +385,9 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                   </span>
                   <span className="text-lg font-bold text-slate-900 dark:text-white">
                     {previousGoalLabel ? previousGoalLabel : (
-                      <>{previousGoalValue} <span className="text-sm font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span></>
+                      isQc3 ? `2^${Math.log2(previousGoalValue || 1)}` : (
+                        <>{previousGoalValue} <span className="text-sm font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span></>
+                      )
                     )}
                   </span>
 
