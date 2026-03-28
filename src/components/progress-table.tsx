@@ -206,7 +206,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
   let displayValue = measurement.currentValue;
 
   const isQc3 = measurement.id === "qc-3";
-  let powerMarkers: number[] = [];
+  const powerMarkers: number[] = [];
 
   if (isQc3) {
     const logCurrent = Math.log2(measurement.currentValue);
@@ -344,7 +344,11 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                 >
                   <div className="flex flex-col items-center">
                     <div className="bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 px-3 py-1.5 rounded-md text-sm font-bold shadow-md whitespace-nowrap relative flex flex-col items-center">
-                      <span>{measurement.currentValue} <span className="font-normal text-xs">{measurement.unit}</span></span>
+                      {isQc3 ? (
+                        <span>2<sup>{Math.log2(measurement.currentValue)}</sup> <span className="font-normal text-xs">{measurement.unit}</span></span>
+                      ) : (
+                        <span>{measurement.currentValue} <span className="font-normal text-xs">{measurement.unit}</span></span>
+                      )}
                       {/* Little triangle pointing down */}
                       <div className="absolute -bottom-1 w-2 h-2 bg-slate-800 dark:bg-slate-200 rotate-45"></div>
                     </div>
@@ -370,10 +374,8 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                       className="absolute top-1/2 -translate-y-1/2 flex flex-col items-center pointer-events-none"
                       style={{ left: `${posPercent}%` }}
                     >
-                      <div className="w-2 h-2 rounded-full bg-slate-400 dark:bg-slate-500 z-10"></div>
-                      <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 mt-3 absolute top-full">
-                        {power}
-                      </span>
+                      <div className="w-5 h-5 rounded-full bg-slate-400 dark:bg-slate-500 z-10"></div>
+                      <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 mt-3 absolute top-full">2<sup>{power}</sup></span>
                     </div>
                   );
                 })}
