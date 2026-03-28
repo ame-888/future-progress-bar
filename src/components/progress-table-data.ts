@@ -205,13 +205,13 @@ export const DOMAINS: DomainData[] = [
         baseValue: 0,
         unit: "countries",
         levels: [
-          { level: 1, goal: 1, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2026 }, { name: "Claude 4.6 Sonnet", year: 2051 }, { name: "Grok 4.20", year: 2060 }] },
-          { level: 2, goal: 5, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2038 }, { name: "Claude 4.6 Sonnet", year: 2063 }, { name: "Grok 4.20", year: 2085 }] },
-          { level: 3, goal: 15, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2054 }, { name: "Claude 4.6 Sonnet", year: 2079 }, { name: "Grok 4.20", year: 2110 }] },
-          { level: 4, goal: 30, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2072 }, { name: "Claude 4.6 Sonnet", year: 2092 }, { name: "Grok 4.20", year: 2140 }] },
-          { level: 5, goal: 75, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2110 }, { name: "Claude 4.6 Sonnet", year: 2118 }, { name: "Grok 4.20", year: 2175 }] },
-          { level: 6, goal: 130, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2151 }, { name: "GPT-5.4 Thinking Mini", year: 2155 }, { name: "Grok 4.20", year: 2210 }] },
-          { level: 7, goal: 195, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2210 }, { name: "GPT-5.4 Thinking Mini", year: 2210 }, { name: "Grok 4.20", year: 2250 }] },
+          { level: 1, goal: 1, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2026 }, { name: "Claude 4.6 Sonnet", year: 2051 }, { name: "Gemini 3.1 Pro Preview", year: 2055 }, { name: "Grok 4.20", year: 2060 }] },
+          { level: 2, goal: 5, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2038 }, { name: "Claude 4.6 Sonnet", year: 2063 }, { name: "Gemini 3.1 Pro Preview", year: 2070 }, { name: "Grok 4.20", year: 2085 }] },
+          { level: 3, goal: 15, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2054 }, { name: "Claude 4.6 Sonnet", year: 2079 }, { name: "Gemini 3.1 Pro Preview", year: 2085 }, { name: "Grok 4.20", year: 2110 }] },
+          { level: 4, goal: 30, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2072 }, { name: "Claude 4.6 Sonnet", year: 2092 }, { name: "Gemini 3.1 Pro Preview", year: 2100 }, { name: "Grok 4.20", year: 2140 }] },
+          { level: 5, goal: 75, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2110 }, { name: "Claude 4.6 Sonnet", year: 2118 }, { name: "Gemini 3.1 Pro Preview", year: 2130 }, { name: "Grok 4.20", year: 2175 }] },
+          { level: 6, goal: 130, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2151 }, { name: "GPT-5.4 Thinking Mini", year: 2155 }, { name: "Gemini 3.1 Pro Preview", year: 2160 }, { name: "Grok 4.20", year: 2210 }] },
+          { level: 7, goal: 195, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2200 }, { name: "Claude 4.6 Sonnet", year: 2210 }, { name: "GPT-5.4 Thinking Mini", year: 2210 }, { name: "Grok 4.20", year: 2250 }] },
         ],
         history: [{ value: 0 }],
       },
@@ -257,7 +257,10 @@ export const DOMAINS: DomainData[] = [
           { level: 7, goal: 1000 },
         ],
         history: [
-          { value: 86.73 }
+          {
+            value: 86.73,
+            details: ["Monaco"]
+          }
         ],
       },
       {
@@ -468,7 +471,12 @@ export const DOMAINS: DomainData[] = [
           { level: 6, goal: 10000, aiPredictions: [{ name: "Grok 4.20", year: 2085 }, { name: "Claude 4.6 Sonnet", year: 2100 }, { name: "Gemini 3.1 Pro Preview", year: 2130 }, { name: "GPT-5.4 Thinking Mini", year: 2145 }] },
           { level: 7, goal: 1000000, aiPredictions: [{ name: "Grok 4.20", year: 2100 }, { name: "Claude 4.6 Sonnet", year: 2165 }, { name: "Gemini 3.1 Pro Preview", year: 2250 }, { name: "GPT-5.4 Thinking Mini", year: 2280 }] },
         ],
-        history: [{ value: 20 }],
+        history: [
+          {
+            value: 20,
+            details: ["Jan 26, 2024: 20 people (11 ISS, 3 Tiangong, 6 Suborbital)"]
+          }
+        ],
       },
       {
         id: "space-2",
