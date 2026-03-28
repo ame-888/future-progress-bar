@@ -257,6 +257,22 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
     }
   }
 
+  const getLevelMedalInfo = (level: number) => {
+    switch (level) {
+      case 0: return { name: "Stone", className: "bg-stone-200 text-stone-800 dark:bg-stone-800 dark:text-stone-300 border border-stone-300 dark:border-stone-700" };
+      case 1: return { name: "Iron", className: "bg-slate-300 text-slate-800 dark:bg-slate-700 dark:text-slate-200 border border-slate-400 dark:border-slate-600" };
+      case 2: return { name: "Copper", className: "bg-orange-200 text-orange-900 dark:bg-orange-900/50 dark:text-orange-300 border border-orange-400 dark:border-orange-700" };
+      case 3: return { name: "Bronze", className: "bg-amber-700/30 text-amber-900 dark:bg-amber-900/60 dark:text-amber-400 border border-amber-700/50 dark:border-amber-700/60" };
+      case 4: return { name: "Silver", className: "bg-gradient-to-r from-slate-100 via-slate-300 to-slate-100 text-slate-800 dark:from-slate-700 dark:via-slate-500 dark:to-slate-700 dark:text-slate-100 border border-slate-400 dark:border-slate-500 shadow-sm" };
+      case 5: return { name: "Gold", className: "bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-200 text-yellow-900 dark:from-yellow-700 dark:via-yellow-500 dark:to-yellow-700 dark:text-yellow-100 border border-yellow-500 dark:border-yellow-600 shadow-md" };
+      case 6: return { name: "Platinum", className: "bg-gradient-to-r from-teal-100 via-cyan-200 to-teal-100 text-teal-900 dark:from-teal-900 dark:via-cyan-700 dark:to-teal-900 dark:text-cyan-100 border border-cyan-400 dark:border-cyan-600 shadow-lg" };
+      case 7: return { name: "Antimatter", className: "bg-gradient-to-r from-purple-900 via-black to-purple-900 text-purple-200 dark:from-purple-950 dark:via-black dark:to-purple-950 border border-purple-500/50 shadow-[0_0_10px_rgba(168,85,247,0.5)]" };
+      default: return { name: "Unknown", className: "bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-300" };
+    }
+  };
+
+  const currentMedal = getLevelMedalInfo(actualCurrentLevel);
+
   return (
     <div className="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50 transition-colors duration-200 shadow-sm relative">
       <div className="p-4 md:p-6 relative">
@@ -265,8 +281,8 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
             <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white">
               {measurement.title}
             </h3>
-            <div className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${actualCurrentLevel > 0 ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400' : 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-300'}`}>
-              Current Level: {allGoalsAchieved ? `${measurement.levels.length} - MAX` : actualCurrentLevel}
+            <div className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${currentMedal.className}`}>
+              Current Level: {allGoalsAchieved ? `${measurement.levels.length} - MAX` : actualCurrentLevel} ({currentMedal.name})
             </div>
           </div>
           <div className="text-left md:text-right">
