@@ -33,7 +33,7 @@ export function GamificationExplanation() {
                 The Progress Bars
               </h3>
               <p>
-                They are specific numbers being tracked to show progress around the subject. They are divided in "LEVELS", from 0 to 7. To reach a higher LEVEL, a PROGRESS BAR must meet a certain minimum value. Feel free to see the requirements using the arrows. Level 7 can be quite crazy!
+                They are specific numbers being tracked to show progress around the subject. They are divided in "LEVELS", from 0 (Stone) to 7 (Antimatter). To reach a higher LEVEL, a PROGRESS BAR must meet a certain minimum value. Feel free to see the requirements using the arrows. Level 7 can be quite crazy!
               </p>
             </div>
           </div>
