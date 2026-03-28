@@ -318,13 +318,13 @@ export const DOMAINS: DomainData[] = [
         baseValue: 0,
         unit: "plants",
         levels: [
-          { level: 1, goal: 1 },
-          { level: 2, goal: 5 },
-          { level: 3, goal: 20 },
-          { level: 4, goal: 100 },
-          { level: 5, goal: 500 },
-          { level: 6, goal: 2500 },
-          { level: 7, goal: 10000 },
+          { level: 1, goal: 1, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2038 }] },
+          { level: 2, goal: 5, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2042 }] },
+          { level: 3, goal: 20, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2047 }] },
+          { level: 4, goal: 100, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2053 }] },
+          { level: 5, goal: 500, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2060 }] },
+          { level: 6, goal: 2500, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2068 }] },
+          { level: 7, goal: 10000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2077 }] },
         ],
         history: [{ value: 0 }],
       },
@@ -335,13 +335,13 @@ export const DOMAINS: DomainData[] = [
         baseValue: 0,
         unit: "%",
         levels: [
-          { level: 1, goal: 0.1 },
-          { level: 2, goal: 1 },
-          { level: 3, goal: 5 },
-          { level: 4, goal: 10 },
-          { level: 5, goal: 25 },
-          { level: 6, goal: 40 },
-          { level: 7, goal: 75 },
+          { level: 1, goal: 0.1, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2048 }] },
+          { level: 2, goal: 1, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2058 }] },
+          { level: 3, goal: 5, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2067 }] },
+          { level: 4, goal: 10, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2074 }] },
+          { level: 5, goal: 25, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2083 }] },
+          { level: 6, goal: 40, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2092 }] },
+          { level: 7, goal: 75, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2110 }] },
         ],
         history: [{ value: 0 }],
       },
@@ -401,7 +401,12 @@ export const DOMAINS: DomainData[] = [
           { level: 6, goal: 10000000 },
           { level: 7, goal: 1000000000 },
         ],
-        history: [{ value: 6100 }],
+        history: [
+          {
+            value: 6100,
+            details: ["A Endres Lab team at the Caltech, led by Professor Manuel Endres (2025)"]
+          }
+        ],
       },
       {
         id: "qc-2",
@@ -435,7 +440,12 @@ export const DOMAINS: DomainData[] = [
           { level: 6, goal: 38685626227668133590597632, label: "2^85" }, // 2^85
           { level: 7, goal: 1267650600228229401496703205376, label: "2^100" }, // 2^100
         ],
-        history: [{ value: 33554432 }],
+        history: [
+          {
+            value: 33554432,
+            details: ["The company Quantinuum on its System Model H2 (2025)"]
+          }
+        ],
       },
     ]
   },
@@ -510,7 +520,7 @@ export const DOMAINS: DomainData[] = [
     measurements: [
       {
         id: "vr-1",
-        title: "Weight of the lightest standalone 6DOF VR headset",
+        title: "Weight of the lightest standalone 6DOF VR headset commercially available",
         currentValue: 140,
         baseValue: 150,
         unit: "grams",
@@ -524,7 +534,12 @@ export const DOMAINS: DomainData[] = [
           { level: 6, goal: 25 },
           { level: 7, goal: 15 },
         ],
-        history: [{ value: 140 }]
+        history: [
+          {
+            value: 140,
+            details: ["Pimax Dream Air SE from Pimax (2025)"]
+          }
+        ]
       },
       {
         id: "vr-2",
