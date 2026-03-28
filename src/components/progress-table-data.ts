@@ -44,8 +44,8 @@ export const DOMAINS: DomainData[] = [
     measurements: [
       {
         id: "bci-1",
-        title: "Number of People with a Next-Gen BCI",
-        currentValue: 127,
+        title: "Number of People with Chronic, Next-Gen, Cortex reading BCI",
+        currentValue: 92,
         baseValue: 0,
         unit: "people",
         levels: [
@@ -58,14 +58,13 @@ export const DOMAINS: DomainData[] = [
           { level: 7, goal: 1000000000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2058 }, { name: "Grok 4.20", year: 2060 }, { name: "Gemini 3.1 Pro Preview", year: 2065 }, { name: "GPT-5.4 Thinking Mini", year: 2125 }] },
         ],
         history: [{
-          value: 127,
+          value: 92,
           details: [
-            "Blackrock Neurotech: Over 40 people (estimated)",
-            "Neuralink: 21 people",
-            "ONWARD Medical: 5 people",
-            "Paradromics: 1 person (temporary acute implant)",
-            "Precision Neuroscience: Over 50 people (estimated)",
-            "Synchron: 10 people"
+            "Blackrock Neurotech (USA): around 50 users (estimated).",
+            "Neuralink (USA): 21",
+            "Synchron (USA / Australia): 10",
+            "Clinatec / CEA / Onward Medical (France / Switzerland): 7",
+            "Tsinghua University / Neuracle Technology (China): 3"
           ]
         }],
       },
@@ -98,7 +97,7 @@ export const DOMAINS: DomainData[] = [
       },
       {
         id: "bci-3",
-        title: "Number of Countries Allowing Next-Gen BCI for Medical Use",
+        title: "Number of Countries Allowing Chronic, Next-Gen, Cortex reading BCI for Medical Use",
         currentValue: 1,
         baseValue: 0,
         unit: "countries",
@@ -115,7 +114,7 @@ export const DOMAINS: DomainData[] = [
       },
       {
         id: "bci-4",
-        title: "Number of Countries Allowing BCI for Elective/Free Use",
+        title: "Number of Countries Allowing Chronic, Next-Gen, Cortex reading BCI for Elective/Free Use",
         currentValue: 0,
         baseValue: 0,
         unit: "countries",
@@ -144,13 +143,13 @@ export const DOMAINS: DomainData[] = [
         baseValue: 0,
         unit: "%",
         levels: [
-          { level: 1, goal: 0.1, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2032 }, { name: "GPT-5.4 Thinking Mini", year: 2031 }] },
-          { level: 2, goal: 1, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2038 }, { name: "GPT-5.4 Thinking Mini", year: 2038 }] },
-          { level: 3, goal: 5, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2045 }, { name: "GPT-5.4 Thinking Mini", year: 2047 }] },
-          { level: 4, goal: 15, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2053 }, { name: "GPT-5.4 Thinking Mini", year: 2058 }] },
-          { level: 5, goal: 30, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2061 }, { name: "GPT-5.4 Thinking Mini", year: 2070 }] },
-          { level: 6, goal: 50, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2071 }, { name: "GPT-5.4 Thinking Mini", year: 2085 }] },
-          { level: 7, goal: 100, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2105 }, { name: "GPT-5.4 Thinking Mini", year: 2150 }] },
+          { level: 1, goal: 0.1, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2032 }, { name: "GPT-5.4 Thinking Mini", year: 2031 }, { name: "Gemini 3.1 Pro Preview", year: 2028 }] },
+          { level: 2, goal: 1, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2038 }, { name: "GPT-5.4 Thinking Mini", year: 2038 }, { name: "Gemini 3.1 Pro Preview", year: 2031 }] },
+          { level: 3, goal: 5, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2045 }, { name: "GPT-5.4 Thinking Mini", year: 2047 }, { name: "Gemini 3.1 Pro Preview", year: 2034 }] },
+          { level: 4, goal: 15, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2053 }, { name: "GPT-5.4 Thinking Mini", year: 2058 }, { name: "Gemini 3.1 Pro Preview", year: 2037 }] },
+          { level: 5, goal: 30, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2061 }, { name: "GPT-5.4 Thinking Mini", year: 2070 }, { name: "Gemini 3.1 Pro Preview", year: 2040 }] },
+          { level: 6, goal: 50, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2071 }, { name: "GPT-5.4 Thinking Mini", year: 2085 }, { name: "Gemini 3.1 Pro Preview", year: 2046 }] },
+          { level: 7, goal: 100, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2105 }, { name: "GPT-5.4 Thinking Mini", year: 2150 }, { name: "Gemini 3.1 Pro Preview", year: 2095 }] },
         ],
         history: [{ value: 0.001 }],
       },
