@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { DOMAINS, Measurement } from "./progress-table-data";
 import { useRouter, useSearchParams } from "next/navigation";
-import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 import { BeakerIcon, CpuChipIcon, FireIcon, HeartIcon, SparklesIcon, RocketLaunchIcon, GlobeAltIcon, WindowIcon, EyeIcon, SwatchIcon, WrenchScrewdriverIcon, BoltIcon, TruckIcon } from "@heroicons/react/24/solid";
 import { LevProgressGraph } from "./lev-progress-graph";
 import { NuclearFusionGraph } from "./nuclear-fusion-graph";
@@ -350,9 +350,23 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                       )}
                       {currentLevelGoal.aiPredictions && currentLevelGoal.aiPredictions.length > 0 && (
                         <>
-                          <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 tracking-wider mb-0.5 mt-1 bg-slate-100 dark:bg-slate-800/50 px-2 py-0.5 rounded-full border border-slate-200 dark:border-slate-700/50">
-                            PREDICTIONS BY
-                          </span>
+                          <div className="flex items-center gap-1 mb-0.5 mt-1">
+                            <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 tracking-wider bg-slate-100 dark:bg-slate-800/50 px-2 py-0.5 rounded-full border border-slate-200 dark:border-slate-700/50">
+                              PREDICTIONS BY
+                            </span>
+                            <div className="relative group flex items-center">
+                              <QuestionMarkCircleIcon className="w-4 h-4 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 cursor-pointer transition-colors" />
+                              <div className="absolute right-0 bottom-full mb-2 w-64 md:w-80 p-3 bg-slate-900/95 dark:bg-slate-800/95 text-slate-100 dark:text-slate-200 text-xs rounded-lg shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 z-50 backdrop-blur-sm border border-slate-700/50 text-left">
+                                <span className="font-bold block mb-1">DISCLAIMER:</span>
+                                The predictions gathered here are not intended to show the definitive accuracy of each model. Due to how LLMs work, each attempt to get a prediction will result in different results. As such, there may be inconsistent predictions (such as stating BCI medical-only use will be approved in less countries than free elective use at a certain year). Therefore, the purposes of the AI predictions are:
+                                <br/><br/>
+                                <span className="font-semibold text-indigo-300">Number 1:</span> To have a baseline for what the average expectation is for each milestone<br/>
+                                <span className="font-semibold text-indigo-300">Number 2:</span> To have fun with how precise or unprecise the models can be
+                                {/* Little triangle pointing down */}
+                                <div className="absolute -bottom-1 right-1 w-3 h-3 bg-slate-900/95 dark:bg-slate-800/95 border-b border-r border-slate-700/50 rotate-45 transform translate-y-px"></div>
+                              </div>
+                            </div>
+                          </div>
                           {[...currentLevelGoal.aiPredictions]
                             .sort((a, b) => a.year - b.year)
                             .map((pred, idx) => {
