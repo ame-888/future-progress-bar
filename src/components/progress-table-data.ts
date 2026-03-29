@@ -541,7 +541,28 @@ export const DOMAINS: DomainData[] = [
     id: "superconductor",
     name: "SUPERCONDUCTOR",
     description: "Materials that conduct electricity with zero resistance. We are specifically tracking the race toward room-temperature, ambient-pressure superconductors.",
-    measurements: []
+    measurements: [
+      {
+        id: "superconductor-1",
+        title: "Lowest critical pressure at room temperature",
+        currentValue: 250,
+        baseValue: 500,
+        unit: "GPa",
+        isLowerBetter: true,
+        levels: [
+          { level: 1, goal: 100 },
+          { level: 2, goal: 20 },
+          { level: 3, goal: 5 },
+          { level: 4, goal: 1 },
+          { level: 5, goal: 0.101325, label: "1000 atm" },
+          { level: 6, goal: 0.00506625, label: "50 atm" },
+          { level: 7, goal: 0.000101325, label: "1 atm" },
+        ],
+        history: [
+          { value: 250, details: ["A ternary Lanthanum-Scandium-Hydrogen (La-Sc-H) system (2025)"] }
+        ]
+      }
+    ]
   },
   {
     id: "vr",
