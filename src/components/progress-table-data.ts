@@ -60,7 +60,7 @@ export const DOMAINS: DomainData[] = [
       {
         id: "bci-1",
         title: "Number of People with Chronic, Next-Gen, Cortex reading BCI",
-        currentValue: 92,
+        currentValue: 91,
         baseValue: 0,
         unit: "people",
         levels: [
@@ -73,7 +73,7 @@ export const DOMAINS: DomainData[] = [
           { level: 7, goal: 1000000000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2058 }, { name: "Grok 4.20", year: 2060 }, { name: "Gemini 3.1 Pro Preview", year: 2065 }, { name: "GPT-5.4 Thinking Mini", year: 2125 }] },
         ],
         history: [{
-          value: 92,
+          value: 91,
           details: [
             "Blackrock Neurotech (USA): around 50 users (estimated).",
             "Neuralink (USA): 21",
