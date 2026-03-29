@@ -54,6 +54,27 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
 };
 
 export function LevProgressGraph() {
+  // Calculate dynamic offset for the split color
+  const dataMax = Math.max(...LEV_LIFESPAN_DATA.map((d) => d.lifespanGain));
+  const dataMin = Math.min(...LEV_LIFESPAN_DATA.map((d) => d.lifespanGain));
+
+  // The threshold where the color should split (1.0 yr/yr)
+  const threshold = 1.0;
+
+  let splitOffset = 0;
+  if (dataMax <= threshold) {
+    splitOffset = 0;
+  } else if (dataMin >= threshold) {
+    splitOffset = 1;
+  } else {
+    // Recharts gradient offsets are calculated from top (0%) to bottom (100%)
+    // Top represents dataMax, bottom represents dataMin.
+    splitOffset = (dataMax - threshold) / (dataMax - dataMin);
+  }
+
+  // Convert to percentage string for the SVG gradient
+  const splitPercentage = `${(splitOffset * 100).toFixed(2)}%`;
+
   return (
     <div className="w-full mb-8 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50 shadow-sm">
       <div className="p-4 md:p-6 border-b border-slate-200 dark:border-slate-800">
@@ -78,12 +99,12 @@ export function LevProgressGraph() {
           >
             <defs>
               <linearGradient id="splitColor" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="25%" stopColor="#22c55e" stopOpacity={0.8} />
-                <stop offset="25%" stopColor="#ef4444" stopOpacity={0.8} />
+                <stop offset={splitPercentage} stopColor="#22c55e" stopOpacity={0.8} />
+                <stop offset={splitPercentage} stopColor="#ef4444" stopOpacity={0.8} />
               </linearGradient>
               <linearGradient id="splitColorLine" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="25%" stopColor="#16a34a" />
-                <stop offset="25%" stopColor="#dc2626" />
+                <stop offset={splitPercentage} stopColor="#16a34a" />
+                <stop offset={splitPercentage} stopColor="#dc2626" />
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.2} />
