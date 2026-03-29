@@ -335,7 +335,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
               {/* Dynamic Current Value Marker */}
               {!isViewingFutureLevel && (
                 <div
-                  className="absolute transition-all duration-1000 ease-out z-10"
+                  className={`absolute transition-all duration-1000 ease-out ${isQc3 ? 'z-0' : 'z-10'}`}
                   style={{
                     left: `${percentage}%`,
                     transform: 'translateX(-50%)',
@@ -343,7 +343,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                   }}
                 >
                   <div className="flex flex-col items-center">
-                    <div className="bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 px-3 py-1.5 rounded-md text-sm font-bold shadow-md whitespace-nowrap relative flex flex-col items-center">
+                    <div className="bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 px-3 py-1.5 rounded-md text-sm font-bold shadow-md whitespace-nowrap relative flex flex-col items-center z-10">
                       {isQc3 ? (
                         <span>2<sup>{Math.log2(measurement.currentValue)}</sup> <span className="font-normal text-xs">{measurement.unit}</span></span>
                       ) : (
@@ -353,7 +353,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                       <div className="absolute -bottom-1 w-2 h-2 bg-slate-800 dark:bg-slate-200 rotate-45"></div>
                     </div>
                     {/* Vertical line through progress bar */}
-                    <div className="w-0.5 h-12 bg-slate-800 dark:bg-slate-200 opacity-30 my-1"></div>
+                    <div className={`w-0.5 ${isQc3 ? 'h-10' : 'h-12'} bg-slate-800 dark:bg-slate-200 opacity-30 my-1`}></div>
                   </div>
                 </div>
               )}
@@ -374,10 +374,10 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                   return (
                     <div
                       key={power}
-                      className="absolute top-1/2 -translate-y-1/2 flex flex-col items-center pointer-events-none"
+                      className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none z-10"
                       style={{ left: `${posPercent}%` }}
                     >
-                      <div className={`w-5 h-5 rounded-full z-10 transition-colors duration-1000 ${isReached ? "bg-indigo-500 dark:bg-indigo-400" : "bg-slate-400 dark:bg-slate-500"}`}></div>
+                      <div className={`w-5 h-5 rounded-full transition-colors duration-1000 ${isReached ? "bg-indigo-500 dark:bg-indigo-400" : "bg-slate-400 dark:bg-slate-500"}`}></div>
                       <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 mt-3 absolute top-full">2<sup>{power}</sup></span>
                     </div>
                   );
