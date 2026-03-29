@@ -558,7 +558,7 @@ export const DOMAINS: DomainData[] = [
           { level: 6, goal: 210 },
           { level: 7, goal: 220 },
         ],
-        history: [{ value: 160, details: ["Pimax 8KX (OBS: This came with trade-offs like noticeable edge distortion, lower effective resolution in the periphery, reduced binocular overlap in extreme cases, and higher GPU demands)"] }]
+        history: [{ value: 160, details: ["Pimax 8KX (OBS: it had significant trade-offs such as edge distortion, lower effective peripheral resolution and higher GPU demands)"] }]
       },
       {
         id: "vr-3",
