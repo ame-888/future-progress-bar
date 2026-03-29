@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   AreaChart,
   Area,
@@ -11,16 +11,17 @@ import {
   ReferenceLine,
   ResponsiveContainer,
 } from "recharts";
-import { LEV_LIFESPAN_DATA, LevLifespanDataPoint } from "./lev-graph-data";
+import { LEV_DATA_BY_REGION, LevLifespanDataPoint } from "./lev-graph-data";
 
 interface CustomTooltipProps {
   active?: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   payload?: any[];
   label?: string;
+  region: string;
 }
 
-const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
+const CustomTooltip = ({ active, payload, label, region }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload as LevLifespanDataPoint;
     const isPositive = data.lifespanGain >= 0;
@@ -28,12 +29,14 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
     // Only show note for 2022 as requested by the user
     const shouldShowNote = data.year === 2022 && data.note;
 
+    const displayName = region === "World" ? "Global" : region;
+
     return (
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3 rounded-lg shadow-lg">
         <p className="font-bold text-slate-900 dark:text-white text-lg mb-1">{label}</p>
         <div className="flex flex-col gap-1">
           <p className="text-sm text-slate-600 dark:text-slate-300">
-            <span className="font-semibold">Global Average:</span> {data.globalAverage.toFixed(3)} years
+            <span className="font-semibold">{displayName} Average:</span> {data.average.toFixed(3)} years
           </p>
           <p className="text-sm text-slate-600 dark:text-slate-300">
             <span className="font-semibold">Exact Lifespan Gain:</span>{" "}
@@ -54,9 +57,22 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
 };
 
 export function LevProgressGraph() {
+  const [selectedRegion, setSelectedRegion] = useState<string>("World");
+
+  const regionOptions = [
+    { value: "World", label: "🌍 World" },
+    { value: "Brazil", label: "🇧🇷 Brazil" },
+    { value: "USA", label: "🇺🇸 USA" },
+    { value: "India", label: "🇮🇳 India" },
+    { value: "Russia", label: "🇷🇺 Russia" },
+    { value: "China", label: "🇨🇳 China" },
+  ];
+
+  const currentData = LEV_DATA_BY_REGION[selectedRegion] || LEV_DATA_BY_REGION["World"];
+
   // Calculate dynamic offset for the split color
-  const dataMax = Math.max(...LEV_LIFESPAN_DATA.map((d) => d.lifespanGain));
-  const dataMin = Math.min(...LEV_LIFESPAN_DATA.map((d) => d.lifespanGain));
+  const dataMax = Math.max(...currentData.map((d) => d.lifespanGain));
+  const dataMin = Math.min(...currentData.map((d) => d.lifespanGain));
 
   // The threshold where the color should split (1.0 yr/yr)
   const threshold = 1.0;
@@ -75,21 +91,38 @@ export function LevProgressGraph() {
   // Convert to percentage string for the SVG gradient
   const splitPercentage = `${(splitOffset * 100).toFixed(2)}%`;
 
+  const displayName = selectedRegion === "World" ? "global" : selectedRegion;
+
   return (
     <div className="w-full mb-8 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50 shadow-sm">
-      <div className="p-4 md:p-6 border-b border-slate-200 dark:border-slate-800">
-        <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">
-          Annual Increase in Lifespan
-        </h2>
-        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-          Tracking the annual increase in global average lifespan. LEV is achieved when this gain consistently exceeds +1.0 year per year.
-        </p>
+      <div className="p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+        <div>
+          <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">
+            Annual Increase in Lifespan
+          </h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-2xl">
+            Tracking the annual increase in {displayName} average lifespan. LEV is achieved when this gain consistently exceeds +1.0 year per year.
+          </p>
+        </div>
+        <div className="flex-shrink-0">
+          <select
+            value={selectedRegion}
+            onChange={(e) => setSelectedRegion(e.target.value)}
+            className="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-pointer outline-none"
+          >
+            {regionOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div className="p-4 md:p-6 h-[400px] w-full relative">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
-            data={LEV_LIFESPAN_DATA}
+            data={currentData}
             margin={{
               top: 20,
               right: 30,
@@ -120,7 +153,7 @@ export function LevProgressGraph() {
               tick={{ fill: '#64748b' }}
               tickFormatter={(value) => `${value > 0 ? '+' : ''}${value.toFixed(1)}`}
             />
-            <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#94a3b8', strokeWidth: 1, strokeDasharray: '5 5' }} />
+            <Tooltip content={<CustomTooltip region={selectedRegion} />} cursor={{ stroke: '#94a3b8', strokeWidth: 1, strokeDasharray: '5 5' }} />
 
             {/* Zero line */}
             <ReferenceLine y={0} stroke="#64748b" strokeOpacity={0.5} />
