@@ -3,11 +3,8 @@ from playwright.sync_api import sync_playwright
 def verify():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        context = browser.new_context(viewport={"width": 1280, "height": 720})
+        context = browser.new_context(viewport={"width": 1280, "height": 3000}) # Tall viewport to capture all content
         page = context.new_page()
-
-        # Start recording if needed, though simple screenshots are faster
-        context.tracing.start(screenshots=True, snapshots=True, sources=True)
 
         print("Navigating to Quantum Computing tab...")
         page.goto("http://localhost:3000/?tab=quantum-computing")
@@ -18,10 +15,8 @@ def verify():
         # Give it a second for transitions
         page.wait_for_timeout(2000)
 
-        # Take screenshot of the quantum volume section
-        qc_card = page.locator("text=Quantum Volume").locator("..").locator("..")
-        qc_card.screenshot(path="quantum-volume.png")
-        print("Screenshot saved to quantum-volume.png")
+        page.screenshot(path="full-quantum.png")
+        print("Screenshot saved to full-quantum.png")
 
         print("Navigating to VR tab...")
         page.goto("http://localhost:3000/?tab=vr")
@@ -32,10 +27,8 @@ def verify():
         # Give it a second for transitions
         page.wait_for_timeout(2000)
 
-        # Take screenshot of the VR section
-        vr_card = page.locator("text=Maximum Horizontal Field of View").locator("..").locator("..")
-        vr_card.screenshot(path="vr-fov.png")
-        print("Screenshot saved to vr-fov.png")
+        page.screenshot(path="full-vr.png")
+        print("Screenshot saved to full-vr.png")
 
         browser.close()
 
