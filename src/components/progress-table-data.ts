@@ -188,15 +188,24 @@ export const DOMAINS: DomainData[] = [
         baseValue: 0,
         unit: "countries",
         levels: [
-          { level: 1, goal: 40, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2028 }, { name: "GPT-5.4 Thinking Mini", year: 2035 }, { name: "Claude 4.6 Sonnet", year: 2037 }] },
-          { level: 2, goal: 60, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2031 }, { name: "GPT-5.4 Thinking Mini", year: 2039 }, { name: "Claude 4.6 Sonnet", year: 2043 }] },
-          { level: 3, goal: 80, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2034 }, { name: "GPT-5.4 Thinking Mini", year: 2043 }, { name: "Claude 4.6 Sonnet", year: 2050 }] },
-          { level: 4, goal: 110, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2038 }, { name: "GPT-5.4 Thinking Mini", year: 2049 }, { name: "Claude 4.6 Sonnet", year: 2058 }] },
-          { level: 5, goal: 140, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2044 }, { name: "GPT-5.4 Thinking Mini", year: 2055 }, { name: "Claude 4.6 Sonnet", year: 2067 }] },
-          { level: 6, goal: 170, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2051 }, { name: "GPT-5.4 Thinking Mini", year: 2062 }, { name: "Claude 4.6 Sonnet", year: 2078 }] },
-          { level: 7, goal: 195, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2062 }, { name: "GPT-5.4 Thinking Mini", year: 2074 }, { name: "Claude 4.6 Sonnet", year: 2094 }] },
+          { level: 1, goal: 40, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2028 }, { name: "Grok 4.20", year: 2028 }, { name: "GPT-5.4 Thinking Mini", year: 2035 }, { name: "Claude 4.6 Sonnet", year: 2037 }] },
+          { level: 2, goal: 60, aiPredictions: [{ name: "Grok 4.20", year: 2030 }, { name: "Gemini 3.1 Pro Preview", year: 2031 }, { name: "GPT-5.4 Thinking Mini", year: 2039 }, { name: "Claude 4.6 Sonnet", year: 2043 }] },
+          { level: 3, goal: 80, aiPredictions: [{ name: "Grok 4.20", year: 2032 }, { name: "Gemini 3.1 Pro Preview", year: 2034 }, { name: "GPT-5.4 Thinking Mini", year: 2043 }, { name: "Claude 4.6 Sonnet", year: 2050 }] },
+          { level: 4, goal: 110, aiPredictions: [{ name: "Grok 4.20", year: 2035 }, { name: "Gemini 3.1 Pro Preview", year: 2038 }, { name: "GPT-5.4 Thinking Mini", year: 2049 }, { name: "Claude 4.6 Sonnet", year: 2058 }] },
+          { level: 5, goal: 140, aiPredictions: [{ name: "Grok 4.20", year: 2040 }, { name: "Gemini 3.1 Pro Preview", year: 2044 }, { name: "GPT-5.4 Thinking Mini", year: 2055 }, { name: "Claude 4.6 Sonnet", year: 2067 }] },
+          { level: 6, goal: 170, aiPredictions: [{ name: "Grok 4.20", year: 2045 }, { name: "Gemini 3.1 Pro Preview", year: 2051 }, { name: "GPT-5.4 Thinking Mini", year: 2062 }, { name: "Claude 4.6 Sonnet", year: 2078 }] },
+          { level: 7, goal: 195, aiPredictions: [{ name: "Grok 4.20", year: 2055 }, { name: "Gemini 3.1 Pro Preview", year: 2062 }, { name: "GPT-5.4 Thinking Mini", year: 2074 }, { name: "Claude 4.6 Sonnet", year: 2094 }] },
         ],
-        history: [{ value: 28 }],
+        history: [
+          {
+            value: 28,
+            details: [
+              "EU, except Italy. A total of 26 countries (2023)",
+              "UK (2024)",
+              "Singapore (2025)"
+            ]
+          }
+        ],
       },
       {
         id: "cultured-meat-4",
