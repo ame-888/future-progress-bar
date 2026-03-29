@@ -346,13 +346,13 @@ export const DOMAINS: DomainData[] = [
         baseValue: 0,
         unit: "plants",
         levels: [
-          { level: 1, goal: 1, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2038 }] },
-          { level: 2, goal: 5, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2042 }] },
-          { level: 3, goal: 20, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2047 }] },
-          { level: 4, goal: 100, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2053 }] },
-          { level: 5, goal: 500, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2060 }] },
-          { level: 6, goal: 2500, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2068 }] },
-          { level: 7, goal: 10000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2077 }] },
+          { level: 1, goal: 1, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2032 }, { name: "Grok 4.20", year: 2032 }, { name: "Claude 4.6 Sonnet", year: 2038 }, { name: "Gemini 3.1 Pro Preview", year: 2040 }] },
+          { level: 2, goal: 5, aiPredictions: [{ name: "Grok 4.20", year: 2036 }, { name: "GPT-5.4 Thinking Mini", year: 2038 }, { name: "Claude 4.6 Sonnet", year: 2042 }, { name: "Gemini 3.1 Pro Preview", year: 2047 }] },
+          { level: 3, goal: 20, aiPredictions: [{ name: "Grok 4.20", year: 2042 }, { name: "GPT-5.4 Thinking Mini", year: 2044 }, { name: "Claude 4.6 Sonnet", year: 2047 }, { name: "Gemini 3.1 Pro Preview", year: 2054 }] },
+          { level: 4, goal: 100, aiPredictions: [{ name: "Grok 4.20", year: 2050 }, { name: "GPT-5.4 Thinking Mini", year: 2051 }, { name: "Claude 4.6 Sonnet", year: 2053 }, { name: "Gemini 3.1 Pro Preview", year: 2062 }] },
+          { level: 5, goal: 500, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2059 }, { name: "Claude 4.6 Sonnet", year: 2060 }, { name: "Grok 4.20", year: 2062 }, { name: "Gemini 3.1 Pro Preview", year: 2075 }] },
+          { level: 6, goal: 2500, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2068 }, { name: "GPT-5.4 Thinking Mini", year: 2068 }, { name: "Grok 4.20", year: 2078 }, { name: "Gemini 3.1 Pro Preview", year: 2090 }] },
+          { level: 7, goal: 10000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2077 }, { name: "GPT-5.4 Thinking Mini", year: 2078 }, { name: "Grok 4.20", year: 2095 }, { name: "Gemini 3.1 Pro Preview", year: 2115 }] },
         ],
         history: [{ value: 0 }],
       },
@@ -521,7 +521,7 @@ export const DOMAINS: DomainData[] = [
       {
         id: "space-2",
         title: "Payload Mass to LEO (Single Launch)",
-        currentValue: 150,
+        currentValue: 95,
         baseValue: 0,
         unit: "metric tonnes",
         levels: [
@@ -533,7 +533,7 @@ export const DOMAINS: DomainData[] = [
           { level: 6, goal: 100000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2091 }, { name: "GPT-5.4 Thinking Mini", year: 2115 }, { name: "Grok 4.20", year: 2145 }, { name: "Gemini 3.1 Pro Preview", year: 2250 }] },
           { level: 7, goal: 1000000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2133 }, { name: "GPT-5.4 Thinking Mini", year: 2155 }, { name: "Grok 4.20", year: 2200 }, { name: "Gemini 3.1 Pro Preview", year: 2350 }] },
         ],
-        history: [{ value: 150 }],
+        history: [{ value: 95, details: ["NASA’s Space Launch System (SLS) Block 1 (2022)"] }],
       },
     ]
   },
