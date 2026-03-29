@@ -1,41 +1,16 @@
+
+> tmp-app@0.1.0 dev
+> next dev
+
 ▲ Next.js 16.2.1 (Turbopack)
 - Local:         http://localhost:3000
 - Network:       http://192.168.0.2:3000
-✓ Ready in 559ms
+✓ Ready in 519ms
 
 ○ Compiling / ...
- GET / 200 in 7.4s (next.js: 6.7s, application-code: 699ms)
+ GET / 200 in 9.2s (next.js: 8.4s, application-code: 820ms)
 [browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template).
- GET /?tab=nuclear-fusion 200 in 103ms (next.js: 5ms, application-code: 98ms)
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
- GET /?tab=space-exploration 200 in 51ms (next.js: 6ms, application-code: 45ms)
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
- GET / 200 in 86ms (next.js: 5ms, application-code: 81ms)
-[browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template).
- GET /?tab=nuclear-fusion 200 in 53ms (next.js: 4ms, application-code: 49ms)
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
- GET /?tab=space-exploration 200 in 50ms (next.js: 6ms, application-code: 44ms)
+ GET /?tab=nuclear-fusion 200 in 56ms (next.js: 6ms, application-code: 51ms)
 [browser] The width(-1) and height(-1) of chart should be greater than 0,
        please check the style of container, or the props width(100%) and height(100%),
        or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
