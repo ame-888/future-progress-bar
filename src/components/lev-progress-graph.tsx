@@ -2,8 +2,8 @@
 
 import React from "react";
 import {
-  LineChart,
-  Line,
+  AreaChart,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -67,7 +67,7 @@ export function LevProgressGraph() {
 
       <div className="p-4 md:p-6 h-[400px] w-full relative">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart
+          <AreaChart
             data={LEV_LIFESPAN_DATA}
             margin={{
               top: 20,
@@ -76,6 +76,16 @@ export function LevProgressGraph() {
               bottom: 10,
             }}
           >
+            <defs>
+              <linearGradient id="splitColor" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="25%" stopColor="#22c55e" stopOpacity={0.8} />
+                <stop offset="25%" stopColor="#ef4444" stopOpacity={0.8} />
+              </linearGradient>
+              <linearGradient id="splitColorLine" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="25%" stopColor="#16a34a" />
+                <stop offset="25%" stopColor="#dc2626" />
+              </linearGradient>
+            </defs>
             <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.2} />
             <XAxis
               dataKey="year"
@@ -109,15 +119,16 @@ export function LevProgressGraph() {
               }}
             />
 
-            <Line
+            <Area
               type="monotone"
               dataKey="lifespanGain"
-              stroke="#6366f1"
+              stroke="url(#splitColorLine)"
               strokeWidth={3}
+              fill="url(#splitColor)"
               dot={{ r: 4, fill: '#6366f1', strokeWidth: 2, stroke: '#ffffff' }}
               activeDot={{ r: 6, fill: '#4f46e5', strokeWidth: 2, stroke: '#ffffff' }}
             />
-          </LineChart>
+          </AreaChart>
         </ResponsiveContainer>
       </div>
     </div>
