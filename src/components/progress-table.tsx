@@ -366,7 +366,10 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                 {isQc3 && powerMarkers.map((power) => {
                   const logGoal = Math.log2(currentLevelGoal.goal);
                   const logPrevious = Math.log2(previousGoalValue || 1);
+                  const logCurrent = Math.log2(measurement.currentValue);
                   const posPercent = ((power - logPrevious) / (logGoal - logPrevious)) * 100;
+
+                  const isReached = logCurrent >= power;
 
                   return (
                     <div
@@ -374,7 +377,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                       className="absolute top-1/2 -translate-y-1/2 flex flex-col items-center pointer-events-none"
                       style={{ left: `${posPercent}%` }}
                     >
-                      <div className="w-5 h-5 rounded-full bg-slate-400 dark:bg-slate-500 z-10"></div>
+                      <div className={`w-5 h-5 rounded-full z-10 transition-colors duration-1000 ${isReached ? "bg-indigo-500 dark:bg-indigo-400" : "bg-slate-400 dark:bg-slate-500"}`}></div>
                       <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 mt-3 absolute top-full">2<sup>{power}</sup></span>
                     </div>
                   );
@@ -387,7 +390,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                   </span>
                   <span className="text-lg font-bold text-slate-900 dark:text-white">
                     {previousGoalLabel ? previousGoalLabel : (
-                      isQc3 ? `2^${Math.log2(previousGoalValue || 1)}` : (
+                      isQc3 ? <>2<sup>{Math.log2(previousGoalValue || 1)}</sup></> : (
                         <>{previousGoalValue} <span className="text-sm font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span></>
                       )
                     )}
@@ -414,7 +417,9 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                   </span>
                   <span className="text-lg font-bold text-slate-900 dark:text-white">
                     {currentLevelGoal.label ? currentLevelGoal.label : (
-                      <>{currentLevelGoal.goal} <span className="text-sm font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span></>
+                      isQc3 ? <>2<sup>{Math.log2(currentLevelGoal.goal)}</sup></> : (
+                        <>{currentLevelGoal.goal} <span className="text-sm font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span></>
+                      )
                     )}
                   </span>
 

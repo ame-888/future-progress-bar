@@ -404,7 +404,7 @@ export const DOMAINS: DomainData[] = [
         history: [
           {
             value: 6100,
-            details: ["A Endres Lab team at the Caltech, led by Professor Manuel Endres (2025)"]
+            details: ["An Endres Lab team at the Caltech, led by Professor Manuel Endres (2025)"]
           }
         ],
       },
@@ -432,20 +432,19 @@ export const DOMAINS: DomainData[] = [
         baseValue: 16777216, // 2^24
         unit: "",
         levels: [
-          { level: 1, goal: 1073741824, label: "2^30" }, // 2^30
-          { level: 2, goal: 1099511627776, label: "2^40" }, // 2^40
-          { level: 3, goal: 1125899906842624, label: "2^50" }, // 2^50
-          { level: 4, goal: 18446744073709551616, label: "2^64" }, // 2^64
-          { level: 5, goal: 37778931862957161709568, label: "2^75" }, // 2^75
-          { level: 6, goal: 38685626227668133590597632, label: "2^85" }, // 2^85
-          { level: 7, goal: 1267650600228229401496703205376, label: "2^100" }, // 2^100
+          { level: 1, goal: 1073741824 }, // 2^30
+          { level: 2, goal: 1099511627776 }, // 2^40
+          { level: 3, goal: 1125899906842624 }, // 2^50
+          { level: 4, goal: 18446744073709551616 }, // 2^64
+          { level: 5, goal: 37778931862957161709568 }, // 2^75
+          { level: 6, goal: 38685626227668133590597632 }, // 2^85
+          { level: 7, goal: 1267650600228229401496703205376 }, // 2^100
         ],
         history: [
           {
             value: 33554432,
             details: [
-              "The company Quantinuum on its System Model H2 (2025)",
-              "Quantinuum's trapped-ion System Model H2-2"
+              "The company Quantinuum on its System Model H2 (2025)"
             ]
           }
         ],
@@ -559,7 +558,7 @@ export const DOMAINS: DomainData[] = [
           { level: 6, goal: 210 },
           { level: 7, goal: 220 },
         ],
-        history: [{ value: 160 }]
+        history: [{ value: 160, details: ["Pimax 8KX (OBS: This came with trade-offs like noticeable edge distortion, lower effective resolution in the periphery, reduced binocular overlap in extreme cases, and higher GPU demands)"] }]
       },
       {
         id: "vr-3",
