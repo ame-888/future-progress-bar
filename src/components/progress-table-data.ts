@@ -432,13 +432,13 @@ export const DOMAINS: DomainData[] = [
         baseValue: 16777216, // 2^24
         unit: "",
         levels: [
-          { level: 1, goal: 1073741824 }, // 2^30
-          { level: 2, goal: 1099511627776 }, // 2^40
-          { level: 3, goal: 1125899906842624 }, // 2^50
-          { level: 4, goal: 18446744073709551616 }, // 2^64
-          { level: 5, goal: 37778931862957161709568 }, // 2^75
-          { level: 6, goal: 38685626227668133590597632 }, // 2^85
-          { level: 7, goal: 1267650600228229401496703205376 }, // 2^100
+          { level: 1, goal: 1073741824, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2027 }, { name: "Grok 4.20", year: 2027 }] }, // 2^30
+          { level: 2, goal: 1099511627776, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2030 }, { name: "Grok 4.20", year: 2029 }] }, // 2^40
+          { level: 3, goal: 1125899906842624, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2033 }, { name: "Grok 4.20", year: 2031 }] }, // 2^50
+          { level: 4, goal: 18446744073709551616, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2037 }, { name: "Grok 4.20", year: 2033 }] }, // 2^64
+          { level: 5, goal: 37778931862957161709568, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2041 }, { name: "Grok 4.20", year: 2035 }] }, // 2^75
+          { level: 6, goal: 38685626227668133590597632, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2044 }, { name: "Grok 4.20", year: 2037 }] }, // 2^85
+          { level: 7, goal: 1267650600228229401496703205376, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2050 }, { name: "Grok 4.20", year: 2040 }] }, // 2^100
         ],
         history: [
           {
