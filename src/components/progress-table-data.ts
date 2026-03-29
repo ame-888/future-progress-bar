@@ -30,6 +30,21 @@ export type DomainData = {
   measurements: Measurement[];
 };
 
+function getEthelAgeString() {
+  const birthDate = new Date(1909, 7, 21); // August 21, 1909
+  const today = new Date();
+  let years = today.getFullYear() - birthDate.getFullYear();
+  let lastBirthday = new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate());
+
+  if (today < lastBirthday) {
+    years--;
+    lastBirthday = new Date(today.getFullYear() - 1, birthDate.getMonth(), birthDate.getDate());
+  }
+
+  const diffDays = Math.floor((today.getTime() - lastBirthday.getTime()) / (1000 * 60 * 60 * 24));
+  return `Ethel Caterham (alive): ${years} years and ${diffDays} days`;
+}
+
 export const DOMAINS: DomainData[] = [
   {
     id: "ai",
@@ -184,7 +199,7 @@ export const DOMAINS: DomainData[] = [
       {
         id: "cultured-meat-3",
         title: "Countries allowing sale to pets",
-        currentValue: 28,
+        currentValue: 29,
         baseValue: 0,
         unit: "countries",
         levels: [
@@ -198,11 +213,12 @@ export const DOMAINS: DomainData[] = [
         ],
         history: [
           {
-            value: 28,
+            value: 29,
             details: [
               "EU, except Italy. A total of 26 countries (2023)",
               "UK (2024)",
-              "Singapore (2025)"
+              "Singapore (2025)",
+              "Australia (2026)"
             ]
           }
         ],
@@ -238,13 +254,13 @@ export const DOMAINS: DomainData[] = [
         baseValue: 70,
         unit: "years",
         levels: [
-          { level: 1, goal: 80, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2044 }, { name: "GPT-5.4 Thinking Mini", year: 2082 }] },
-          { level: 2, goal: 90, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2090 }, { name: "GPT-5.4 Thinking Mini", year: 2168 }] },
-          { level: 3, goal: 100, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2160 }, { name: "GPT-5.4 Thinking Mini", year: 2258 }] },
-          { level: 4, goal: 120, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2260 }, { name: "GPT-5.4 Thinking Mini", year: 2428 }] },
-          { level: 5, goal: 150, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2380 }, { name: "GPT-5.4 Thinking Mini", year: 2708 }] },
-          { level: 6, goal: 200, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2600 }, { name: "GPT-5.4 Thinking Mini", year: 3208 }] },
-          { level: 7, goal: 500, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 4500 }, { name: "GPT-5.4 Thinking Mini", year: 6208 }] },
+          { level: 1, goal: 80, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2044 }, { name: "Grok 4.20", year: 2068 }, { name: "Gemini 3.1 Pro Preview", year: 2073 }, { name: "GPT-5.4 Thinking Mini", year: 2082 }] },
+          { level: 2, goal: 90, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2090 }, { name: "Grok 4.20", year: 2105 }, { name: "Gemini 3.1 Pro Preview", year: 2115 }, { name: "GPT-5.4 Thinking Mini", year: 2168 }] },
+          { level: 3, goal: 100, aiPredictions: [{ name: "Grok 4.20", year: 2135 }, { name: "Claude 4.6 Sonnet", year: 2160 }, { name: "Gemini 3.1 Pro Preview", year: 2160 }, { name: "GPT-5.4 Thinking Mini", year: 2258 }] },
+          { level: 4, goal: 120, aiPredictions: [{ name: "Grok 4.20", year: 2185 }, { name: "Gemini 3.1 Pro Preview", year: 2220 }, { name: "Claude 4.6 Sonnet", year: 2260 }, { name: "GPT-5.4 Thinking Mini", year: 2428 }] },
+          { level: 5, goal: 150, aiPredictions: [{ name: "Grok 4.20", year: 2260 }, { name: "Gemini 3.1 Pro Preview", year: 2300 }, { name: "Claude 4.6 Sonnet", year: 2380 }, { name: "GPT-5.4 Thinking Mini", year: 2708 }] },
+          { level: 6, goal: 200, aiPredictions: [{ name: "Grok 4.20", year: 2450 }, { name: "Gemini 3.1 Pro Preview", year: 2450 }, { name: "Claude 4.6 Sonnet", year: 2600 }, { name: "GPT-5.4 Thinking Mini", year: 3208 }] },
+          { level: 7, goal: 500, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2900 }, { name: "Grok 4.20", year: 2950 }, { name: "Claude 4.6 Sonnet", year: 4500 }, { name: "GPT-5.4 Thinking Mini", year: 6208 }] },
         ],
         history: [
           { value: 73.8 }
@@ -279,18 +295,21 @@ export const DOMAINS: DomainData[] = [
         baseValue: 120,
         unit: "years",
         levels: [
-          { level: 1, goal: 125, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2060 }, { name: "GPT-5.4 Thinking Mini", year: 2087 }] },
-          { level: 2, goal: 130, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2115 }, { name: "GPT-5.4 Thinking Mini", year: 2164 }] },
-          { level: 3, goal: 140, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2240 }, { name: "GPT-5.4 Thinking Mini", year: 2318 }] },
-          { level: 4, goal: 150, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2380 }, { name: "GPT-5.4 Thinking Mini", year: 2560 }] },
-          { level: 5, goal: 200, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2600 }, { name: "GPT-5.4 Thinking Mini", year: 4200 }] },
-          { level: 6, goal: 500, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 4000 }, { name: "GPT-5.4 Thinking Mini", year: 13000 }] },
-          { level: 7, goal: 1000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 8500 }, { name: "GPT-5.4 Thinking Mini", year: 30000 }] },
+          { level: 1, goal: 125, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2037 }, { name: "Grok 4.20", year: 2045 }, { name: "Claude 4.6 Sonnet", year: 2060 }, { name: "GPT-5.4 Thinking Mini", year: 2087 }] },
+          { level: 2, goal: 130, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2050 }, { name: "Grok 4.20", year: 2058 }, { name: "Claude 4.6 Sonnet", year: 2115 }, { name: "GPT-5.4 Thinking Mini", year: 2164 }] },
+          { level: 3, goal: 140, aiPredictions: [{ name: "Grok 4.20", year: 2075 }, { name: "Gemini 3.1 Pro Preview", year: 2110 }, { name: "Claude 4.6 Sonnet", year: 2240 }, { name: "GPT-5.4 Thinking Mini", year: 2318 }] },
+          { level: 4, goal: 150, aiPredictions: [{ name: "Grok 4.20", year: 2095 }, { name: "Gemini 3.1 Pro Preview", year: 2120 }, { name: "Claude 4.6 Sonnet", year: 2380 }, { name: "GPT-5.4 Thinking Mini", year: 2560 }] },
+          { level: 5, goal: 200, aiPredictions: [{ name: "Grok 4.20", year: 2150 }, { name: "Gemini 3.1 Pro Preview", year: 2170 }, { name: "Claude 4.6 Sonnet", year: 2600 }, { name: "GPT-5.4 Thinking Mini", year: 4200 }] },
+          { level: 6, goal: 500, aiPredictions: [{ name: "Grok 4.20", year: 2280 }, { name: "Gemini 3.1 Pro Preview", year: 2470 }, { name: "Claude 4.6 Sonnet", year: 4000 }, { name: "GPT-5.4 Thinking Mini", year: 13000 }] },
+          { level: 7, goal: 1000, aiPredictions: [{ name: "Grok 4.20", year: 2450 }, { name: "Gemini 3.1 Pro Preview", year: 2970 }, { name: "Claude 4.6 Sonnet", year: 8500 }, { name: "GPT-5.4 Thinking Mini", year: 30000 }] },
         ],
         history: [
           {
             value: 122.45,
-            details: ["Jeanne Calment (deceased): 122 years and 164 days"]
+            details: [
+              "Jeanne Calment (deceased): 122 years and 164 days",
+              getEthelAgeString()
+            ]
           }
         ],
       },
