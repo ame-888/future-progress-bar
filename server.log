@@ -1,16 +1,12 @@
-
-> tmp-app@0.1.0 dev
-> next dev
-
 ▲ Next.js 16.2.1 (Turbopack)
 - Local:         http://localhost:3000
 - Network:       http://192.168.0.2:3000
-✓ Ready in 519ms
+✓ Ready in 525ms
 
 ○ Compiling / ...
- GET / 200 in 9.2s (next.js: 8.4s, application-code: 820ms)
+ GET / 200 in 9.4s (next.js: 8.6s, application-code: 743ms)
 [browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template).
- GET /?tab=nuclear-fusion 200 in 56ms (next.js: 6ms, application-code: 51ms)
+ GET /?tab=lev 200 in 154ms (next.js: 30ms, application-code: 125ms)
 [browser] The width(-1) and height(-1) of chart should be greater than 0,
        please check the style of container, or the props width(100%) and height(100%),
        or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the

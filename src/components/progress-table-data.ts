@@ -30,7 +30,7 @@ export type DomainData = {
   measurements: Measurement[];
 };
 
-function getEthelAgeString() {
+const cachedEthelAgeString = (function getEthelAgeStringCached() {
   const birthDate = new Date(1909, 7, 21); // August 21, 1909
   const today = new Date();
   let years = today.getFullYear() - birthDate.getFullYear();
@@ -43,6 +43,10 @@ function getEthelAgeString() {
 
   const diffDays = Math.floor((today.getTime() - lastBirthday.getTime()) / (1000 * 60 * 60 * 24));
   return `Ethel Caterham (alive): ${years} years and ${diffDays} days`;
+})();
+
+function getEthelAgeString() {
+  return cachedEthelAgeString;
 }
 
 export const DOMAINS: DomainData[] = [
