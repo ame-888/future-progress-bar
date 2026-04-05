@@ -144,7 +144,7 @@ export function ProgressTable() {
             Future Progress Bar
           </h1>
           <p className="text-slate-500 dark:text-slate-400 max-w-2xl">
-            Tracking the frontiers of human innovation across 11 critical domains.
+            Tracking the frontiers of human innovation across 12 critical domains.
           </p>
         </div>
       </div>
