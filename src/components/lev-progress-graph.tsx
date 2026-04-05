@@ -97,8 +97,11 @@ export function LevProgressGraph() {
     <div className="w-full mb-8 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50 shadow-sm">
       <div className="p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:justify-between md:items-start gap-4">
         <div>
-          <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">
+          <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             Annual Increase in Lifespan
+            <span className="text-xs font-semibold px-2 py-1 bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400 rounded-full uppercase tracking-wider">
+              North Star
+            </span>
           </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-2xl">
             Tracking the annual increase in {displayName} average lifespan. LEV is achieved when this gain consistently exceeds +1.0 year per year.

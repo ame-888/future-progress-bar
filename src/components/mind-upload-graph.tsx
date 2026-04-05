@@ -52,9 +52,14 @@ const CustomTooltip = ({ active, payload, label, isLogScale }: CustomTooltipProp
             );
           })}
 
-          {payload[0] && payload[0].payload.note && (
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 italic max-w-[200px]">
-              {payload[0].payload.note}
+          {payload[0] && payload[0].payload.maxNeuronsNote && (
+            <p className="text-xs text-[#6366f1] mt-1 italic max-w-[250px]">
+              {payload[0].payload.maxNeuronsNote}
+            </p>
+          )}
+          {payload[0] && payload[0].payload.completeBrainNote && (
+            <p className="text-xs text-[#10b981] mt-1 italic max-w-[250px]">
+              {payload[0].payload.completeBrainNote}
             </p>
           )}
         </div>
