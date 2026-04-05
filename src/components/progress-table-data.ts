@@ -352,6 +352,12 @@ export const DOMAINS: DomainData[] = [
     ],
   },
   {
+    id: "mind-upload",
+    name: "MIND UPLOAD",
+    description: "A tech that's being developed by mapping the brain, in order to one day simulate it.",
+    measurements: []
+  },
+  {
     id: "nuclear-fusion",
     name: "NUCLEAR FUSION",
     description: "The process that powers the sun, merging atomic nuclei to release massive amounts of clean, boundless energy. We track the race to make it a practical power source on Earth.",
@@ -650,12 +656,6 @@ export const DOMAINS: DomainData[] = [
         ]
       }
     ]
-  },
-  {
-    id: "mind-upload",
-    name: "MIND UPLOAD",
-    description: "A tech that's being developed by mapping the brain, in order to one day simulate it.",
-    measurements: []
   },
   {
     id: "vr",

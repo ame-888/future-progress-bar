@@ -50,8 +50,11 @@ export function SuperconductorGraph() {
     <div className="w-full mb-8 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50 shadow-sm">
       <div className="p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 flex justify-between items-start gap-4">
         <div>
-          <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">
+          <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             Highest critical temperature (Tc) at ambient pressure
+            <span className="text-xs font-semibold px-2 py-1 bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400 rounded-full uppercase tracking-wider">
+              North Star
+            </span>
           </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
             Tracking the race to discover room-temperature, ambient-pressure superconductors.
