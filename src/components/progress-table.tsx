@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { DOMAINS, Measurement } from "./progress-table-data";
+import { MAIN_DOMAINS, Measurement, SubDomainData, MainDomainData } from "./progress-table-data";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon, QuestionMarkCircleIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 import { BeakerIcon, CpuChipIcon, FireIcon, HeartIcon, SparklesIcon, RocketLaunchIcon, GlobeAltIcon, WindowIcon, EyeIcon, SwatchIcon, WrenchScrewdriverIcon, BoltIcon, TruckIcon, CloudArrowUpIcon } from "@heroicons/react/24/solid";
@@ -22,45 +22,70 @@ export function ProgressTable() {
   const searchParams = useSearchParams();
   const tabParam = searchParams.get('tab');
 
-  const [activeTab, setActiveTab] = useState(-1);
+  const [activeMainTab, setActiveMainTab] = useState(-1);
+  const [activeSubTab, setActiveSubTab] = useState(-1);
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const { playSound } = useSound();
 
   useEffect(() => {
     // Only run this once on mount or when tabParam changes, but use setTimeout to avoid synchronous setState warning
     const timeoutId = setTimeout(() => {
-      let initialTab = 0; // default to AI (index 0)
+      let initialMainTab = 0; // Default AUTOMATION
+      let initialSubTab = 0; // Default AI
+
+      let targetSubId = null;
 
       if (tabParam) {
-        const index = DOMAINS.findIndex(d => d.id.toLowerCase() === tabParam.toLowerCase());
-        if (index !== -1) initialTab = index;
+        targetSubId = tabParam.toLowerCase();
       } else {
         const savedTabId = localStorage.getItem('lastActiveTab');
         if (savedTabId) {
-          const index = DOMAINS.findIndex(d => d.id === savedTabId);
-          if (index !== -1) initialTab = index;
+          targetSubId = savedTabId.toLowerCase();
         }
       }
 
-      setActiveTab(initialTab);
+      if (targetSubId) {
+        for (let mIndex = 0; mIndex < MAIN_DOMAINS.length; mIndex++) {
+          const sIndex = MAIN_DOMAINS[mIndex].subdomains.findIndex(s => s.id.toLowerCase() === targetSubId);
+          if (sIndex !== -1) {
+            initialMainTab = mIndex;
+            initialSubTab = sIndex;
+            break;
+          }
+        }
+      }
+
+      setActiveMainTab(initialMainTab);
+      setActiveSubTab(initialSubTab);
     }, 0);
 
     return () => clearTimeout(timeoutId);
   }, [tabParam]);
 
-  const handleTabClick = (index: number) => {
-    setActiveTab(index);
-    localStorage.setItem('lastActiveTab', DOMAINS[index].id);
-    router.push(`/?tab=${DOMAINS[index].id}`, { scroll: false });
+  const handleMainTabClick = (index: number) => {
+    setActiveMainTab(index);
+    setActiveSubTab(0); // reset subtab when changing main domain
+    const subDomainId = MAIN_DOMAINS[index].subdomains[0].id;
+    localStorage.setItem('lastActiveTab', subDomainId);
+    router.push(`/?tab=${subDomainId}`, { scroll: false });
     playSound('/click.wav');
   };
 
-  const activeDomain = activeTab !== -1 ? DOMAINS[activeTab] : null;
+  const handleSubTabClick = (index: number) => {
+    setActiveSubTab(index);
+    const subDomainId = MAIN_DOMAINS[activeMainTab].subdomains[index].id;
+    localStorage.setItem('lastActiveTab', subDomainId);
+    router.push(`/?tab=${subDomainId}`, { scroll: false });
+    playSound('/click.wav');
+  };
+
+  const activeMainDomain = activeMainTab !== -1 ? MAIN_DOMAINS[activeMainTab] : null;
+  const activeDomain = activeMainDomain && activeSubTab !== -1 ? activeMainDomain.subdomains[activeSubTab] : null;
 
   // Group measurements by category
   const groupedMeasurements = React.useMemo(() => {
     if (!activeDomain) return {};
-    return activeDomain.measurements.reduce((acc, measurement) => {
+    return activeDomain.measurements.reduce((acc: Record<string, Measurement[]>, measurement: Measurement) => {
       const category = measurement.category || "General";
       if (!acc[category]) {
         acc[category] = [];
@@ -102,7 +127,7 @@ export function ProgressTable() {
   const areAllExpanded = Object.keys(expandedCategories).length > 0 && Object.values(expandedCategories).every(Boolean);
 
   // Don't render until we know the initial tab (to avoid hydration mismatch or flash of wrong tab)
-  if (activeTab === -1 || !activeDomain) return null;
+  if (activeMainTab === -1 || !activeDomain || !activeMainDomain) return null;
 
   const getDomainIcon = (id: string) => {
     const className = "w-[24rem] h-[24rem] md:w-[32rem] md:h-[32rem] text-indigo-500/10 dark:text-indigo-400/10 pointer-events-none absolute left-1/2 top-1/2 animate-float";
@@ -147,21 +172,21 @@ export function ProgressTable() {
             Future Progress Bar
           </h1>
           <p className="text-slate-500 dark:text-slate-400 max-w-2xl">
-            Tracking the frontiers of human innovation across 12 critical domains.
+            Tracking the frontiers of human innovation across 5 domains and 12 subdomains.
           </p>
         </div>
       </div>
 
       <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 shadow-sm overflow-hidden transition-colors duration-200 relative z-10">
         <div className="w-full overflow-hidden">
-          {/* Header Row - Tabs */}
+          {/* Header Row - Main Domains */}
           <div className="flex flex-wrap border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 transition-colors duration-200">
-            {DOMAINS.map((domain, index) => {
-              const isActive = index === activeTab;
+            {MAIN_DOMAINS.map((domain, index) => {
+              const isActive = index === activeMainTab;
               return (
                 <button
-                  key={`header-${index}`}
-                  onClick={() => handleTabClick(index)}
+                  key={`main-header-${index}`}
+                  onClick={() => handleMainTabClick(index)}
                   className={`
                     flex-1 min-w-fit
                     py-2 px-1 sm:py-3 sm:px-2
@@ -177,11 +202,43 @@ export function ProgressTable() {
                         ? "text-white dark:text-slate-900 border-slate-900 dark:border-white bg-slate-900 dark:bg-white"
                         : "text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/50"
                     }
-                    ${index !== DOMAINS.length - 1 ? "border-r border-slate-200 dark:border-slate-800" : ""}
+                    ${index !== MAIN_DOMAINS.length - 1 ? "border-r border-slate-200 dark:border-slate-800" : ""}
                   `}
                   style={{ wordBreak: 'break-word', hyphens: 'auto' }}
                 >
                   {domain.name}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Second Header Row - Subdomains */}
+          <div className="flex flex-wrap border-b border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-800/30 transition-colors duration-200">
+            {activeMainDomain.subdomains.map((subdomain, index) => {
+              const isActive = index === activeSubTab;
+              return (
+                <button
+                  key={`sub-header-${index}`}
+                  onClick={() => handleSubTabClick(index)}
+                  className={`
+                    flex-1 min-w-fit
+                    py-2 px-2 sm:py-2 sm:px-4
+                    flex items-center justify-center
+                    text-center whitespace-nowrap
+                    text-[10px] sm:text-xs
+                    font-bold tracking-wide
+                    uppercase transition-all duration-200
+                    active:scale-95
+                    border-b-2 cursor-pointer
+                    ${
+                      isActive
+                        ? "text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400 bg-indigo-50 dark:bg-indigo-900/20"
+                        : "text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800/60"
+                    }
+                    ${index !== activeMainDomain.subdomains.length - 1 ? "border-r border-slate-200 dark:border-slate-800" : ""}
+                  `}
+                >
+                  {subdomain.name}
                 </button>
               );
             })}
