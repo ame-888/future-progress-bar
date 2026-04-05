@@ -529,7 +529,8 @@ export const DOMAINS: DomainData[] = [
           { level: 5, goal: 75 },
           { level: 6, goal: 130 },
           { level: 7, goal: 195 },
-        ]
+        ],
+        history: []
       }
     ]
   },
@@ -599,7 +600,8 @@ export const DOMAINS: DomainData[] = [
           { level: 5, goal: 1000 },
           { level: 6, goal: 10000 },
           { level: 7, goal: 1000000 },
-        ]
+        ],
+        history: []
       },
       {
         id: "space-2",
