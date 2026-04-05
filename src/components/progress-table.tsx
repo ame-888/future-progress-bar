@@ -4,8 +4,9 @@ import React, { useState, useEffect } from "react";
 import { DOMAINS, Measurement } from "./progress-table-data";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon, QuestionMarkCircleIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
-import { BeakerIcon, CpuChipIcon, FireIcon, HeartIcon, SparklesIcon, RocketLaunchIcon, GlobeAltIcon, WindowIcon, EyeIcon, SwatchIcon, WrenchScrewdriverIcon, BoltIcon, TruckIcon } from "@heroicons/react/24/solid";
+import { BeakerIcon, CpuChipIcon, FireIcon, HeartIcon, SparklesIcon, RocketLaunchIcon, GlobeAltIcon, WindowIcon, EyeIcon, SwatchIcon, WrenchScrewdriverIcon, BoltIcon, TruckIcon, CloudArrowUpIcon } from "@heroicons/react/24/solid";
 import { LevProgressGraph } from "./lev-progress-graph";
+import { MindUploadGraph } from "./mind-upload-graph";
 import { NuclearFusionGraph } from "./nuclear-fusion-graph";
 import { BciGraph } from "./bci-graph";
 import { VrGraph } from "./vr-graph";
@@ -128,6 +129,8 @@ export function ProgressTable() {
         return <BoltIcon className={className} />;
       case "vr":
         return <EyeIcon className={className} />;
+      case "mind-upload":
+        return <CloudArrowUpIcon className={className} />;
       default:
         return <SwatchIcon className={className} />;
     }
@@ -200,6 +203,7 @@ export function ProgressTable() {
             {activeDomain.id === "robotics" && <RoboticsGraph />}
             {activeDomain.id === "space-exploration" && <SpaceExplorationGraph />}
             {activeDomain.id === "quantum-computing" && <QuantumComputingGraph />}
+            {activeDomain.id === "mind-upload" && <MindUploadGraph />}
 
             {activeDomain.measurements.length === 0 ? (
               <div className="py-12 text-center text-slate-500 dark:text-slate-400">

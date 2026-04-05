@@ -652,6 +652,12 @@ export const DOMAINS: DomainData[] = [
     ]
   },
   {
+    id: "mind-upload",
+    name: "MIND UPLOAD",
+    description: "A tech that's being developed by mapping the brain, in order to one day simulate it.",
+    measurements: []
+  },
+  {
     id: "vr",
     name: "VR",
     description: "Stands for Virtual Reality, immersive digital environments. We focus on true 'Full Dive' VR capabilities involving direct neural stimulation.",
