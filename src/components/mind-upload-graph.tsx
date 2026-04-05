@@ -31,38 +31,51 @@ const formatYAxisTick = (value: number) => {
 
 const CustomTooltip = ({ active, payload, label, isLogScale }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
+    // Process payload data
+    const maxNeuronsEntry = payload.find(entry => entry.name === "Max Neurons");
+    const completeBrainEntry = payload.find(entry => entry.name === "Complete Brain simulated");
+
+    const getVal = (entry: any) => {
+      let val = entry.value;
+      if (isLogScale && val === 0.1) val = 0;
+      if (val === null || val === undefined || (isLogScale && entry.value === 0.1 && !entry.payload.completeBrainNeurons && entry.name === "Complete Brain simulated")) {
+        return null;
+      }
+      return val;
+    };
+
+    const maxNeuronsVal = maxNeuronsEntry ? getVal(maxNeuronsEntry) : null;
+    const completeBrainVal = completeBrainEntry ? getVal(completeBrainEntry) : null;
+
     return (
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3 rounded-lg shadow-lg">
-        <p className="font-bold text-slate-900 dark:text-white text-lg mb-2">{label}</p>
-        <div className="flex flex-col gap-1.5">
-          {payload.map((entry, index) => {
-            // Un-map fallback value for 0 when in log scale
-            let val = entry.value;
-            if (isLogScale && val === 0.1) {
-              val = 0;
-            }
-            if (val === null || val === undefined || (isLogScale && entry.value === 0.1 && !entry.payload.completeBrainNeurons && entry.name === "Complete Brain simulated")) {
-              return null; // Skip if null
-            }
+      <div className="flex flex-col gap-2">
+        <p className="font-bold text-slate-900 dark:text-white text-lg drop-shadow-sm">{label}</p>
 
-            return (
-              <p key={`item-${index}`} className="text-sm font-medium" style={{ color: entry.color }}>
-                {entry.name}: {val.toLocaleString()} neurons
+        {maxNeuronsVal !== null && (
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3 rounded-lg shadow-lg">
+            <p className="text-sm font-medium" style={{ color: maxNeuronsEntry?.color }}>
+              Max Neurons: {maxNeuronsVal.toLocaleString()} neurons
+            </p>
+            {maxNeuronsEntry?.payload?.maxNeuronsNote && (
+              <p className="text-xs text-[#6366f1] mt-1 italic max-w-[250px]">
+                {maxNeuronsEntry.payload.maxNeuronsNote}
               </p>
-            );
-          })}
+            )}
+          </div>
+        )}
 
-          {payload[0] && payload[0].payload.maxNeuronsNote && (
-            <p className="text-xs text-[#6366f1] mt-1 italic max-w-[250px]">
-              {payload[0].payload.maxNeuronsNote}
+        {completeBrainVal !== null && (
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3 rounded-lg shadow-lg">
+            <p className="text-sm font-medium" style={{ color: completeBrainEntry?.color }}>
+              Complete Brain simulated: {completeBrainVal.toLocaleString()} neurons
             </p>
-          )}
-          {payload[0] && payload[0].payload.completeBrainNote && (
-            <p className="text-xs text-[#10b981] mt-1 italic max-w-[250px]">
-              {payload[0].payload.completeBrainNote}
-            </p>
-          )}
-        </div>
+            {completeBrainEntry?.payload?.completeBrainNote && (
+              <p className="text-xs text-[#10b981] mt-1 italic max-w-[250px]">
+                {completeBrainEntry.payload.completeBrainNote}
+              </p>
+            )}
+          </div>
+        )}
       </div>
     );
   }
