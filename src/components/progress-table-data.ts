@@ -513,7 +513,25 @@ export const DOMAINS: DomainData[] = [
     id: "self-driving-car",
     name: "SELF-DRIVING CAR",
     description: "Vehicles equipped with sensors and AI that can navigate and operate safely without human intervention across all driving conditions.",
-    measurements: []
+    measurements: [
+      {
+        id: "self-driving-car-1",
+        category: "Legislation & Policy",
+        title: "Countries where human driving is banned",
+        currentValue: 0,
+        baseValue: 0,
+        unit: "countries",
+        levels: [
+          { level: 1, goal: 1 },
+          { level: 2, goal: 5 },
+          { level: 3, goal: 15 },
+          { level: 4, goal: 30 },
+          { level: 5, goal: 75 },
+          { level: 6, goal: 130 },
+          { level: 7, goal: 195 },
+        ]
+      }
+    ]
   },
   {
     id: "space-exploration",
@@ -542,6 +560,46 @@ export const DOMAINS: DomainData[] = [
             details: ["Jan 26, 2024: 20 people (11 ISS, 3 Tiangong, 6 Suborbital)"]
           }
         ],
+      },
+      {
+        id: "space-moon-pop",
+        category: "Human Presence",
+        title: "Maximum Simultaneous Human Population on the Moon",
+        currentValue: 2,
+        baseValue: 0,
+        unit: "humans",
+        levels: [
+          { level: 1, goal: 4 },
+          { level: 2, goal: 30 },
+          { level: 3, goal: 100 },
+          { level: 4, goal: 500 },
+          { level: 5, goal: 1000 },
+          { level: 6, goal: 10000 },
+          { level: 7, goal: 1000000 },
+        ],
+        history: [
+          {
+            value: 2,
+            details: ["This occurred again and again during each of the six successful Apollo lunar landing missions (Apollo 11, 12, 14, 15, 16, and 17) between 1969 and 1972."]
+          }
+        ]
+      },
+      {
+        id: "space-mars-pop",
+        category: "Human Presence",
+        title: "Maximum Simultaneous Human Population on Mars",
+        currentValue: 0,
+        baseValue: 0,
+        unit: "humans",
+        levels: [
+          { level: 1, goal: 4 },
+          { level: 2, goal: 30 },
+          { level: 3, goal: 100 },
+          { level: 4, goal: 500 },
+          { level: 5, goal: 1000 },
+          { level: 6, goal: 10000 },
+          { level: 7, goal: 1000000 },
+        ]
       },
       {
         id: "space-2",
