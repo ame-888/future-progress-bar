@@ -183,6 +183,30 @@ export function ProgressTable() {
           <div className="flex flex-wrap border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 transition-colors duration-200">
             {MAIN_DOMAINS.map((domain, index) => {
               const isActive = index === activeMainTab;
+
+              let activeClasses = "text-white dark:text-slate-900 border-slate-900 dark:border-white bg-slate-900 dark:bg-white";
+              if (isActive) {
+                switch (domain.name) {
+                  case "AUTOMATION":
+                    activeClasses = "text-white border-red-600 bg-red-600 dark:border-red-500 dark:bg-red-500";
+                    break;
+                  case "CIVILIZATION":
+                    activeClasses = "text-white border-slate-500 bg-slate-500 dark:border-slate-400 dark:bg-slate-400";
+                    break;
+                  case "HARDWARE":
+                    activeClasses = "text-slate-900 border-yellow-400 bg-yellow-400 dark:border-yellow-500 dark:bg-yellow-500";
+                    break;
+                  case "NEURO":
+                    activeClasses = "text-white border-blue-600 bg-blue-600 dark:border-blue-500 dark:bg-blue-500";
+                    break;
+                  case "SUSTAINABILITY":
+                    activeClasses = "text-white border-emerald-600 bg-emerald-600 dark:border-emerald-500 dark:bg-emerald-500";
+                    break;
+                  default:
+                    break;
+                }
+              }
+
               return (
                 <button
                   key={`main-header-${index}`}
@@ -199,7 +223,7 @@ export function ProgressTable() {
                     border-b-2 cursor-pointer
                     ${
                       isActive
-                        ? "text-white dark:text-slate-900 border-slate-900 dark:border-white bg-slate-900 dark:bg-white"
+                        ? activeClasses
                         : "text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/50"
                     }
                     ${index !== MAIN_DOMAINS.length - 1 ? "border-r border-slate-200 dark:border-slate-800" : ""}
