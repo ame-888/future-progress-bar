@@ -513,7 +513,25 @@ export const DOMAINS: DomainData[] = [
     id: "self-driving-car",
     name: "SELF-DRIVING CAR",
     description: "Vehicles equipped with sensors and AI that can navigate and operate safely without human intervention across all driving conditions.",
-    measurements: []
+    measurements: [
+      {
+        id: "self-driving-1",
+        category: "Adoption & Laws",
+        title: "Countries where human driving is banned",
+        currentValue: 0,
+        baseValue: 0,
+        unit: "countries",
+        levels: [
+          { level: 1, goal: 1 },
+          { level: 2, goal: 5 },
+          { level: 3, goal: 15 },
+          { level: 4, goal: 30 },
+          { level: 5, goal: 75 },
+          { level: 6, goal: 130 },
+          { level: 7, goal: 195 },
+        ],
+      }
+    ]
   },
   {
     id: "space-exploration",
@@ -560,6 +578,41 @@ export const DOMAINS: DomainData[] = [
           { level: 7, goal: 1000000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2133 }, { name: "GPT-5.4 Thinking Mini", year: 2155 }, { name: "Grok 4.20", year: 2200 }, { name: "Gemini 3.1 Pro Preview", year: 2350 }] },
         ],
         history: [{ value: 95, details: ["NASA’s Space Launch System (SLS) Block 1 (2022)"] }],
+      },
+      {
+        id: "space-3",
+        category: "Human Presence",
+        title: "Maximum Simultaneous Human Population on the Moon",
+        currentValue: 2,
+        baseValue: 0,
+        unit: "humans",
+        levels: [
+          { level: 1, goal: 4 },
+          { level: 2, goal: 30 },
+          { level: 3, goal: 100 },
+          { level: 4, goal: 500 },
+          { level: 5, goal: 1000 },
+          { level: 6, goal: 10000 },
+          { level: 7, goal: 1000000 },
+        ],
+        history: [{ value: 2, details: ["This occurred again and again during each of the six successful Apollo lunar landing missions (Apollo 11, 12, 14, 15, 16, and 17) between 1969 and 1972."] }]
+      },
+      {
+        id: "space-4",
+        category: "Human Presence",
+        title: "Maximum Simultaneous Human Population on Mars",
+        currentValue: 0,
+        baseValue: 0,
+        unit: "humans",
+        levels: [
+          { level: 1, goal: 4 },
+          { level: 2, goal: 30 },
+          { level: 3, goal: 100 },
+          { level: 4, goal: 500 },
+          { level: 5, goal: 1000 },
+          { level: 6, goal: 10000 },
+          { level: 7, goal: 1000000 },
+        ],
       },
     ]
   },
