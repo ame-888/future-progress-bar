@@ -542,7 +542,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                       {isQc3 ? (
                         <span>2<sup>{Math.log2(measurement.currentValue)}</sup> <span className="font-normal text-xs">{measurement.unit}</span></span>
                       ) : (
-                        <span>{measurement.currentValue} <span className="font-normal text-xs">{measurement.unit}</span></span>
+                        <span>{measurement.currentValue === Infinity ? '∞' : measurement.currentValue} <span className="font-normal text-xs">{measurement.unit}</span></span>
                       )}
                       {/* Little triangle pointing down */}
                       <div className="absolute -bottom-1 w-2 h-2 bg-slate-800 dark:bg-slate-200 rotate-45"></div>
@@ -586,7 +586,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                   <span className="text-lg font-bold text-slate-900 dark:text-white">
                     {previousGoalLabel ? previousGoalLabel : (
                       isQc3 ? <>2<sup>{Math.log2(previousGoalValue || 1)}</sup></> : (
-                        <>{previousGoalValue} <span className="text-sm font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span></>
+                        <>{previousGoalValue === Infinity ? '∞' : previousGoalValue} <span className="text-sm font-normal text-slate-500 dark:text-slate-400">{measurement.unit}</span></>
                       )
                     )}
                   </span>

@@ -65,7 +65,25 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           id: "ai",
           name: "AI",
           description: "Stands for Artificial Intelligence, focusing on creating systems capable of human-level or superhuman reasoning, creativity, and problem-solving.",
-          measurements: []
+          measurements: [
+            {
+              id: "ai-led-countries-1",
+              title: "Number of Countries primarily led by AI",
+              currentValue: 0,
+              baseValue: 0,
+              unit: "countries",
+              levels: [
+                { level: 1, goal: 1 },
+                { level: 2, goal: 5 },
+                { level: 3, goal: 15 },
+                { level: 4, goal: 30 },
+                { level: 5, goal: 75 },
+                { level: 6, goal: 130 },
+                { level: 7, goal: 195 },
+              ],
+              history: []
+            }
+          ]
         },
 {
           id: "robotics",
@@ -542,6 +560,24 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           name: "MIND UPLOAD",
           description: "A tech that's being developed by mapping the brain, in order to one day simulate it.",
           measurements: [
+            {
+              id: "mind-upload-price-1",
+              title: "Average Price to upload an adult human mind",
+              currentValue: Infinity,
+              baseValue: Infinity,
+              unit: "dollars",
+              isLowerBetter: true,
+              levels: [
+                { level: 1, goal: 1000000000000 },
+                { level: 2, goal: 1000000000 },
+                { level: 3, goal: 10000000 },
+                { level: 4, goal: 1000000 },
+                { level: 5, goal: 100000 },
+                { level: 6, goal: 10000 },
+                { level: 7, goal: 1000 },
+              ],
+              history: []
+            },
             {
               id: "mind-upload-adoption-1",
               category: "Adoption",
