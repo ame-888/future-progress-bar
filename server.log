@@ -1,14 +1,11 @@
 ▲ Next.js 16.2.2 (Turbopack)
 - Local:         http://localhost:3000
 - Network:       http://192.168.0.2:3000
-✓ Ready in 517ms
+✓ Ready in 448ms
 
 ○ Compiling / ...
- GET / 200 in 7.2s (next.js: 6.4s, application-code: 777ms)
+ GET /?tab=mind-upload 200 in 7.4s (next.js: 6.5s, application-code: 868ms)
 [browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template). 
- GET / 200 in 123ms (next.js: 6ms, application-code: 117ms)
-[browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template).
- GET /?tab=bci 200 in 58ms (next.js: 5ms, application-code: 53ms)
 [browser] The width(-1) and height(-1) of chart should be greater than 0,
        please check the style of container, or the props width(100%) and height(100%),
        or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
@@ -17,19 +14,8 @@
        please check the style of container, or the props width(100%) and height(100%),
        or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
        height and width.
- GET /?tab=mind-upload 200 in 73ms (next.js: 4ms, application-code: 70ms)
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
- GET /?tab=ai 200 in 51ms (next.js: 5ms, application-code: 47ms)
- GET / 200 in 105ms (next.js: 3ms, application-code: 101ms)
+ GET /?tab=mind-upload 200 in 100ms (next.js: 6ms, application-code: 94ms)
 [browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template). 
- GET /?tab=bci 200 in 63ms (next.js: 4ms, application-code: 59ms)
 [browser] The width(-1) and height(-1) of chart should be greater than 0,
        please check the style of container, or the props width(100%) and height(100%),
        or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
@@ -38,14 +24,3 @@
        please check the style of container, or the props width(100%) and height(100%),
        or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
        height and width.
- GET /?tab=mind-upload 200 in 68ms (next.js: 4ms, application-code: 64ms)
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
- GET /?tab=ai 200 in 52ms (next.js: 5ms, application-code: 47ms)
- GET /?tab=ai 200 in 55ms (next.js: 4ms, application-code: 51ms)

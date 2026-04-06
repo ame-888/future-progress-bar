@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { MAIN_DOMAINS, Measurement, SubDomainData, MainDomainData } from "./progress-table-data";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon, QuestionMarkCircleIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
-import { BeakerIcon, CpuChipIcon, FireIcon, HeartIcon, SparklesIcon, RocketLaunchIcon, GlobeAltIcon, WindowIcon, EyeIcon, SwatchIcon, WrenchScrewdriverIcon, BoltIcon, TruckIcon, CloudArrowUpIcon } from "@heroicons/react/24/solid";
+import { BeakerIcon, CpuChipIcon, FireIcon, HeartIcon, SparklesIcon, RocketLaunchIcon, GlobeAltIcon, WindowIcon, EyeIcon, SwatchIcon, WrenchScrewdriverIcon, BoltIcon, TruckIcon, CloudArrowUpIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { LevProgressGraph } from "./lev-progress-graph";
 import { MindUploadGraph } from "./mind-upload-graph";
 import { NuclearFusionGraph } from "./nuclear-fusion-graph";
@@ -25,6 +25,7 @@ export function ProgressTable() {
   const [activeMainTab, setActiveMainTab] = useState(-1);
   const [activeSubTab, setActiveSubTab] = useState(-1);
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
+  const [isPredictionsModalOpen, setIsPredictionsModalOpen] = useState(false);
   const { playSound } = useSound();
 
   useEffect(() => {
@@ -126,6 +127,65 @@ export function ProgressTable() {
 
   const areAllExpanded = Object.keys(expandedCategories).length > 0 && Object.values(expandedCategories).every(Boolean);
 
+  // Compute flat list of all AI predictions across all domains/measurements
+  const allPredictions = React.useMemo(() => {
+    const predictions: {
+      year: number;
+      name: string;
+      title: string;
+      level: number;
+      goal: number;
+      label?: string;
+      unit?: string;
+    }[] = [];
+
+    MAIN_DOMAINS.forEach(domain => {
+      domain.subdomains.forEach(subdomain => {
+        subdomain.measurements.forEach(measurement => {
+          measurement.levels.forEach(level => {
+            if (level.aiPredictions) {
+              level.aiPredictions.forEach(pred => {
+                predictions.push({
+                  year: pred.year,
+                  name: pred.name,
+                  title: measurement.title,
+                  level: level.level,
+                  goal: level.goal,
+                  label: level.label,
+                  unit: measurement.unit,
+                });
+              });
+            }
+          });
+        });
+      });
+    });
+
+    // Group by year
+    const groupedByYear: Record<number, typeof predictions> = {};
+    predictions.forEach(p => {
+      if (!groupedByYear[p.year]) {
+        groupedByYear[p.year] = [];
+      }
+      groupedByYear[p.year].push(p);
+    });
+
+    // Sort years chronologically
+    const sortedYears = Object.keys(groupedByYear).map(Number).sort((a, b) => a - b);
+
+    // Sort predictions alphabetically within each year
+    sortedYears.forEach(year => {
+      groupedByYear[year].sort((a, b) => {
+        if (a.name === b.name) {
+          return a.title.localeCompare(b.title);
+        }
+        return a.name.localeCompare(b.name);
+      });
+    });
+
+    return { sortedYears, groupedByYear };
+  }, []);
+
   // Don't render until we know the initial tab (to avoid hydration mismatch or flash of wrong tab)
   if (activeMainTab === -1 || !activeDomain || !activeMainDomain) return null;
 
@@ -186,13 +246,92 @@ export function ProgressTable() {
           {getDomainIcon(activeDomain.id, activeMainDomain.id)}
         </div>
         <div className="relative z-10 flex flex-col items-center mt-8">
-          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-2">
-            Future Progress Bar
-          </h1>
+          <div className="flex items-center justify-center gap-4 mb-2 flex-wrap">
+            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+              Future Progress Bar
+            </h1>
+            <button
+              onClick={() => {
+                setIsPredictionsModalOpen(true);
+                playSound('/click.wav');
+              }}
+              className="px-4 py-2 rounded-full font-bold text-sm tracking-wide bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 cursor-pointer animate-pulse"
+            >
+              Full List of AI Predictions
+            </button>
+          </div>
           <p className="text-slate-500 dark:text-slate-400 max-w-2xl">
             Tracking the frontiers of human innovation across 5 domains and 12 subdomains.
           </p>
         </div>
+
+        {/* AI Predictions Modal */}
+        {isPredictionsModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="bg-white dark:bg-slate-950 w-full max-w-3xl max-h-[80vh] rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden relative">
+              <div className="flex items-center justify-between p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+                <h2 className="text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+                  <SparklesIcon className="w-6 h-6 text-indigo-500" />
+                  Full List of AI Predictions
+                </h2>
+                <button
+                  onClick={() => {
+                    setIsPredictionsModalOpen(false);
+                    playSound('/click.wav');
+                  }}
+                  className="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 transition-colors cursor-pointer"
+                >
+                  <XMarkIcon className="w-6 h-6" />
+                </button>
+              </div>
+              <div className="p-4 md:p-6 overflow-y-auto flex-1 space-y-8 bg-slate-50/30 dark:bg-slate-900/20">
+                {allPredictions.sortedYears.map(year => (
+                  <div key={year} className="space-y-4">
+                    <div className="sticky top-0 z-10 flex items-center gap-4 py-2 bg-white/90 dark:bg-slate-950/90 backdrop-blur border-b border-slate-200 dark:border-slate-800">
+                      <h3 className="text-2xl font-black text-indigo-600 dark:text-indigo-400 font-mono">{year}</h3>
+                      <div className="h-px bg-slate-200 dark:bg-slate-800 flex-1"></div>
+                    </div>
+                    <div className="grid grid-cols-1 gap-3">
+                      {allPredictions.groupedByYear[year].map((pred, idx) => {
+                        let colorClass = "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border border-slate-200 dark:border-slate-700";
+                        if (pred.name.toLowerCase().includes("grok")) {
+                          colorClass = "bg-yellow-50 text-yellow-900 dark:bg-yellow-900/20 dark:text-yellow-200 border border-yellow-200 dark:border-yellow-800/50";
+                        } else if (pred.name.toLowerCase().includes("claude")) {
+                          colorClass = "bg-orange-50 text-orange-900 dark:bg-orange-900/20 dark:text-orange-200 border border-orange-200 dark:border-orange-800/50";
+                        } else if (pred.name.toLowerCase().includes("gemini")) {
+                          colorClass = "bg-sky-50 text-sky-900 dark:bg-sky-900/20 dark:text-sky-200 border border-sky-200 dark:border-sky-800/50";
+                        } else if (pred.name.toLowerCase().includes("gpt")) {
+                          colorClass = "bg-emerald-50 text-emerald-900 dark:bg-emerald-900/20 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-800/50";
+                        }
+
+                        return (
+                          <div key={idx} className={`p-3 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${colorClass} shadow-sm`}>
+                            <div className="flex-1">
+                              <div className="font-bold text-sm mb-1">{pred.title}</div>
+                              <div className="text-xs opacity-80 flex flex-wrap gap-2 items-center">
+                                <span className="uppercase tracking-wider font-semibold">Level {pred.level}</span>
+                                <span>&bull;</span>
+                                <span>Goal: {pred.label ? pred.label : `${pred.goal} ${pred.unit || ''}`}</span>
+                              </div>
+                            </div>
+                            <div className="text-xs font-bold px-2 py-1 bg-white/50 dark:bg-black/20 rounded shrink-0 self-start sm:self-center uppercase tracking-wider">
+                              {pred.name}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+                {allPredictions.sortedYears.length === 0 && (
+                  <div className="text-center text-slate-500 py-12">
+                    No AI predictions found.
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 shadow-sm overflow-hidden transition-colors duration-200 relative z-10">
