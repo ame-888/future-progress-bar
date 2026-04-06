@@ -589,7 +589,31 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           id: "mind-upload",
           name: "MIND UPLOAD",
           description: "A tech that's being developed by mapping the brain, in order to one day simulate it.",
-          measurements: []
+          measurements: [
+            {
+              id: "mind-upload-1",
+              category: "Mapping",
+              title: "World Largest Connectome",
+              currentValue: 139000,
+              baseValue: 0,
+              unit: "neurons",
+              levels: [
+                { level: 1, goal: 71000000, label: "71 million (a mouse)" },
+                { level: 2, goal: 200000000, label: "200 million (a brown rat)" },
+                { level: 3, goal: 500000000, label: "500 million (an octopus)" },
+                { level: 4, goal: 6300000000, label: "6.3 billion (Rhesus Macaque)" },
+                { level: 5, goal: 14000000000, label: "14 billion (baboon)" },
+                { level: 6, goal: 33000000000, label: "33 billion (western gorilla)" },
+                { level: 7, goal: 86000000000, label: "86 billion (human)" },
+              ],
+              history: [
+                {
+                  value: 139000,
+                  details: ["Adult fruit fly"]
+                }
+              ]
+            }
+          ]
         },
     ]
   },
