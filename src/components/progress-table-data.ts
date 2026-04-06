@@ -71,7 +71,44 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           id: "robotics",
           name: "ROBOTICS",
           description: "The engineering of machines capable of carrying out complex physical tasks autonomously or semi-autonomously in unstructured environments.",
-          measurements: []
+          measurements: [
+            {
+              id: "robotics-1",
+              category: "Adoption",
+              title: "Number of Humanoid General-purpose Robots deployed",
+              currentValue: 19457,
+              baseValue: 0,
+              unit: "robots",
+              levels: [
+                { level: 1, goal: 30000 },
+                { level: 2, goal: 300000 },
+                { level: 3, goal: 3000000 },
+                { level: 4, goal: 30000000 },
+                { level: 5, goal: 300000000 },
+                { level: 6, goal: 3000000000 },
+                { level: 7, goal: 30000000000 },
+              ],
+              history: []
+            },
+            {
+              id: "robotics-2",
+              category: "Adoption",
+              title: "Global share of households with Humanoid General-purpose Robots",
+              currentValue: 0,
+              baseValue: 0,
+              unit: "%",
+              levels: [
+                { level: 1, goal: 1 },
+                { level: 2, goal: 3 },
+                { level: 3, goal: 7 },
+                { level: 4, goal: 15 },
+                { level: 5, goal: 30 },
+                { level: 6, goal: 50 },
+                { level: 7, goal: 75 },
+              ],
+              history: []
+            }
+          ]
         },
 {
           id: "self-driving-car",
@@ -505,6 +542,42 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           name: "MIND UPLOAD",
           description: "A tech that's being developed by mapping the brain, in order to one day simulate it.",
           measurements: [
+            {
+              id: "mind-upload-adoption-1",
+              category: "Adoption",
+              title: "Number of Minds Uploaded so far",
+              currentValue: 0,
+              baseValue: 0,
+              unit: "minds",
+              levels: [
+                { level: 1, goal: 1 },
+                { level: 2, goal: 100 },
+                { level: 3, goal: 10000 },
+                { level: 4, goal: 1000000 },
+                { level: 5, goal: 10000000 },
+                { level: 6, goal: 100000000 },
+                { level: 7, goal: 1000000000 },
+              ],
+              history: []
+            },
+            {
+              id: "mind-upload-adoption-2",
+              category: "Legislation & Policy",
+              title: "Number of countries that allow Mind Upload",
+              currentValue: 0,
+              baseValue: 0,
+              unit: "countries",
+              levels: [
+                { level: 1, goal: 1 },
+                { level: 2, goal: 5 },
+                { level: 3, goal: 15 },
+                { level: 4, goal: 30 },
+                { level: 5, goal: 75 },
+                { level: 6, goal: 130 },
+                { level: 7, goal: 195 },
+              ],
+              history: []
+            },
             {
               id: "mind-upload-1",
               category: "Mapping",
