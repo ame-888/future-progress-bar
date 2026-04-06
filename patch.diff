@@ -1,0 +1,40 @@
+--- src/components/progress-table-data.ts
++++ src/components/progress-table-data.ts
+@@ -62,6 +62,18 @@
+     name: "AUTOMATION",
+     subdomains: [
+       {
++          id: "ai",
++          name: "AI",
++          description: "Stands for Artificial Intelligence, focusing on creating systems capable of human-level or superhuman reasoning, creativity, and problem-solving.",
++          measurements: []
++        },
++{
++          id: "robotics",
++          name: "ROBOTICS",
++          description: "The engineering of machines capable of carrying out complex physical tasks autonomously or semi-autonomously in unstructured environments.",
++          measurements: []
++        },
++{
+           id: "self-driving-car",
+           name: "SELF-DRIVING CAR",
+           description: "Vehicles equipped with sensors and AI that can navigate and operate safely without human intervention across all driving conditions.",
+@@ -84,18 +96,6 @@
+               history: []
+             }
+           ]
+-        },
+-{
+-          id: "robotics",
+-          name: "ROBOTICS",
+-          description: "The engineering of machines capable of carrying out complex physical tasks autonomously or semi-autonomously in unstructured environments.",
+-          measurements: []
+-        },
+-{
+-          id: "ai",
+-          name: "AI",
+-          description: "Stands for Artificial Intelligence, focusing on creating systems capable of human-level or superhuman reasoning, creativity, and problem-solving.",
+-          measurements: []
+         }
+     ]
+   },

@@ -62,18 +62,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
     name: "AUTOMATION",
     subdomains: [
       {
-          id: "ai",
-          name: "AI",
-          description: "Stands for Artificial Intelligence, focusing on creating systems capable of human-level or superhuman reasoning, creativity, and problem-solving.",
-          measurements: []
-        },
-{
-          id: "robotics",
-          name: "ROBOTICS",
-          description: "The engineering of machines capable of carrying out complex physical tasks autonomously or semi-autonomously in unstructured environments.",
-          measurements: []
-        },
-{
           id: "self-driving-car",
           name: "SELF-DRIVING CAR",
           description: "Vehicles equipped with sensors and AI that can navigate and operate safely without human intervention across all driving conditions.",
@@ -97,6 +85,18 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               history: []
             }
           ]
+        },
+{
+          id: "robotics",
+          name: "ROBOTICS",
+          description: "The engineering of machines capable of carrying out complex physical tasks autonomously or semi-autonomously in unstructured environments.",
+          measurements: []
+        },
+{
+          id: "ai",
+          name: "AI",
+          description: "Stands for Artificial Intelligence, focusing on creating systems capable of human-level or superhuman reasoning, creativity, and problem-solving.",
+          measurements: []
         }
     ]
   },
