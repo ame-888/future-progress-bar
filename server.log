@@ -1,12 +1,17 @@
+
+> tmp-app@0.1.0 dev
+> next dev
+
 ▲ Next.js 16.2.2 (Turbopack)
 - Local:         http://localhost:3000
 - Network:       http://192.168.0.2:3000
-✓ Ready in 553ms
+✓ Ready in 537ms
 
 ○ Compiling / ...
- GET / 200 in 8.1s (next.js: 7.2s, application-code: 900ms)
+ GET / 200 in 7.7s (next.js: 6.9s, application-code: 860ms)
 [browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template). 
- GET /?tab=bci 200 in 146ms (next.js: 14ms, application-code: 131ms)
+ GET /?tab=ai 200 in 59ms (next.js: 5ms, application-code: 54ms)
+ GET /?tab=quantum-computing 200 in 41ms (next.js: 4ms, application-code: 36ms)
 [browser] The width(-1) and height(-1) of chart should be greater than 0,
        please check the style of container, or the props width(100%) and height(100%),
        or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
@@ -15,45 +20,7 @@
        please check the style of container, or the props width(100%) and height(100%),
        or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
        height and width.
- GET /?tab=quantum-computing 200 in 55ms (next.js: 5ms, application-code: 49ms)
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
- GET /?tab=quantum-computing 200 in 65ms (next.js: 7ms, application-code: 58ms)
- GET /?tab=cultured-meat 200 in 45ms (next.js: 4ms, application-code: 41ms)
- GET /?tab=nuclear-fusion 200 in 59ms (next.js: 7ms, application-code: 52ms)
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
- GET / 200 in 106ms (next.js: 6ms, application-code: 100ms)
+ GET /?tab=quantum-computing 200 in 69ms (next.js: 5ms, application-code: 65ms)
+ GET / 200 in 136ms (next.js: 5ms, application-code: 131ms)
 [browser] Encountered a script tag while rendering React component. Scripts inside React components are never executed when rendering on the client. Consider using template tag instead (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template). 
- GET /?tab=quantum-computing 200 in 63ms (next.js: 6ms, application-code: 57ms)
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
- GET /?tab=quantum-computing 200 in 102ms (next.js: 5ms, application-code: 97ms)
- GET /?tab=cultured-meat 200 in 56ms (next.js: 7ms, application-code: 49ms)
- GET /?tab=nuclear-fusion 200 in 64ms (next.js: 5ms, application-code: 60ms)
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-[browser] The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
+ GET /?tab=ai 200 in 44ms (next.js: 4ms, application-code: 41ms)
