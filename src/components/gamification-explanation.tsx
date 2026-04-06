@@ -36,21 +36,6 @@ export function GamificationExplanation() {
             </div>
           </div>
 
-          {/* North Star */}
-          <div className="flex flex-col md:flex-row gap-4 items-start">
-            <div className="flex-shrink-0 bg-amber-100 dark:bg-amber-900/30 p-3 rounded-full">
-              <StarIcon className="w-6 h-6 text-amber-500" />
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2 uppercase tracking-wide">
-                North Star
-              </h3>
-              <p>
-                The main graph featured at the top of each Dominion. It tracks the absolute bleeding edge of human or lab capability to see when major phase shifts in that Dominion will occur.
-              </p>
-            </div>
-          </div>
-
           {/* Categories */}
           <div className="flex flex-col md:flex-row gap-4 items-start">
             <div className="flex-shrink-0 bg-blue-100 dark:bg-blue-900/30 p-3 rounded-full">
@@ -122,21 +107,6 @@ export function GamificationExplanation() {
               </h3>
               <p>
                 The 7 overarching goals of each progress bar. They range from Level 0 (Stone) to Level 7 (Antimatter). Reaching a higher Level requires the progress bar to meet specific goal values.
-              </p>
-            </div>
-          </div>
-
-          {/* AS OF TODAY / History */}
-          <div className="flex flex-col md:flex-row gap-4 items-start">
-            <div className="flex-shrink-0 bg-rose-100 dark:bg-rose-900/30 p-3 rounded-full">
-              <QueueListIcon className="w-6 h-6 text-rose-500" />
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2 uppercase tracking-wide">
-                "AS OF TODAY" (History)
-              </h3>
-              <p>
-                The detailed historical context written inside each progress bar. It lists the specific milestones, breakthroughs, or sub-components making up the current state of that measurement.
               </p>
             </div>
           </div>
