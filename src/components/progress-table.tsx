@@ -576,8 +576,15 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                   {/* Render details if available on the current history */}
                   {measurement.history && measurement.history.length > 0 && measurement.history[measurement.history.length - 1].details && (
                     <div className="mt-4 flex flex-col items-start text-xs space-y-2 w-full">
-                      <div className="font-bold text-[10px] text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-1">
+                      <div className="flex items-center gap-1 font-bold text-[10px] text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-1">
                         AS OF TODAY
+                        <div className="relative group flex items-center">
+                          <QuestionMarkCircleIcon className="w-4 h-4 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 cursor-pointer transition-colors" />
+                          <div className="absolute left-0 top-full mt-2 w-56 p-2 bg-slate-900/95 dark:bg-slate-800/95 text-slate-100 dark:text-slate-200 text-xs rounded-lg shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 z-50 backdrop-blur-sm border border-slate-700/50 text-left normal-case tracking-normal">
+                            Latest real-world values and historically significant past milestones.
+                            <div className="absolute -top-1 left-2 w-3 h-3 bg-slate-900/95 dark:bg-slate-800/95 border-t border-l border-slate-700/50 rotate-45 transform translate-y-px"></div>
+                          </div>
+                        </div>
                       </div>
                       {measurement.history[measurement.history.length - 1].details?.map((detail, idx) => (
                         <div key={idx} className="flex items-center gap-1.5 py-1 text-slate-700 dark:text-slate-300 w-auto">

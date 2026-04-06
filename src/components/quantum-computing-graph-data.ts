@@ -6,7 +6,7 @@ export type QuantumComputingDataPoint = {
 
 export const QUANTUM_COMPUTING_DATA: QuantumComputingDataPoint[] = [
   {
-    year: 2000,
+    year: 2001,
     logicalQubits: 0,
     description: 'For two decades, physicists are just trying to get physical hardware to work. "Logical" error-corrected qubits exist entirely on chalkboards as theoretical math.',
   },

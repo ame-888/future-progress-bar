@@ -62,12 +62,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
     name: "AUTOMATION",
     subdomains: [
       {
-          id: "ai",
-          name: "AI",
-          description: "Stands for Artificial Intelligence, focusing on creating systems capable of human-level or superhuman reasoning, creativity, and problem-solving.",
-          measurements: []
-        },
-      {
           id: "self-driving-car",
           name: "SELF-DRIVING CAR",
           description: "Vehicles equipped with sensors and AI that can navigate and operate safely without human intervention across all driving conditions.",
@@ -92,12 +86,18 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             }
           ]
         },
-      {
+{
           id: "robotics",
           name: "ROBOTICS",
           description: "The engineering of machines capable of carrying out complex physical tasks autonomously or semi-autonomously in unstructured environments.",
           measurements: []
         },
+{
+          id: "ai",
+          name: "AI",
+          description: "Stands for Artificial Intelligence, focusing on creating systems capable of human-level or superhuman reasoning, creativity, and problem-solving.",
+          measurements: []
+        }
     ]
   },
   {
@@ -501,6 +501,36 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           ]
         },
       {
+          id: "mind-upload",
+          name: "MIND UPLOAD",
+          description: "A tech that's being developed by mapping the brain, in order to one day simulate it.",
+          measurements: [
+            {
+              id: "mind-upload-1",
+              category: "Mapping",
+              title: "World Largest Connectome",
+              currentValue: 139000,
+              baseValue: 0,
+              unit: "neurons",
+              levels: [
+                { level: 1, goal: 71000000, label: "71 million (a mouse)" },
+                { level: 2, goal: 200000000, label: "200 million (a brown rat)" },
+                { level: 3, goal: 500000000, label: "500 million (an octopus)" },
+                { level: 4, goal: 6300000000, label: "6.3 billion (Rhesus Macaque)" },
+                { level: 5, goal: 14000000000, label: "14 billion (baboon)" },
+                { level: 6, goal: 33000000000, label: "33 billion (western gorilla)" },
+                { level: 7, goal: 86000000000, label: "86 billion (human)" },
+              ],
+              history: [
+                {
+                  value: 139000,
+                  details: ["Adult fruit fly"]
+                }
+              ]
+            }
+          ]
+        },
+    {
           id: "vr",
           name: "VR",
           description: "Stands for Virtual Reality, immersive digital environments. We focus on true 'Full Dive' VR capabilities involving direct neural stimulation.",
@@ -585,37 +615,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             }
           ]
         },
-      {
-          id: "mind-upload",
-          name: "MIND UPLOAD",
-          description: "A tech that's being developed by mapping the brain, in order to one day simulate it.",
-          measurements: [
-            {
-              id: "mind-upload-1",
-              category: "Mapping",
-              title: "World Largest Connectome",
-              currentValue: 139000,
-              baseValue: 0,
-              unit: "neurons",
-              levels: [
-                { level: 1, goal: 71000000, label: "71 million (a mouse)" },
-                { level: 2, goal: 200000000, label: "200 million (a brown rat)" },
-                { level: 3, goal: 500000000, label: "500 million (an octopus)" },
-                { level: 4, goal: 6300000000, label: "6.3 billion (Rhesus Macaque)" },
-                { level: 5, goal: 14000000000, label: "14 billion (baboon)" },
-                { level: 6, goal: 33000000000, label: "33 billion (western gorilla)" },
-                { level: 7, goal: 86000000000, label: "86 billion (human)" },
-              ],
-              history: [
-                {
-                  value: 139000,
-                  details: ["Adult fruit fly"]
-                }
-              ]
-            }
-          ]
-        },
-    ]
+      ]
   },
   {
     id: "sustainability",
@@ -788,13 +788,13 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               baseValue: 0,
               unit: "MWe",
               levels: [
-                { level: 1, goal: 10, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2029 }, { name: "Claude 4.6 Sonnet", year: 2035 }] },
-                { level: 2, goal: 50, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2030 }, { name: "Claude 4.6 Sonnet", year: 2038 }] },
-                { level: 3, goal: 200, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2033 }, { name: "Claude 4.6 Sonnet", year: 2043 }] },
-                { level: 4, goal: 500, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2036 }, { name: "Claude 4.6 Sonnet", year: 2048 }] },
-                { level: 5, goal: 1000, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2041 }, { name: "Claude 4.6 Sonnet", year: 2053 }] },
-                { level: 6, goal: 2500, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2049 }, { name: "Claude 4.6 Sonnet", year: 2060 }] },
-                { level: 7, goal: 5000, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2060 }, { name: "Claude 4.6 Sonnet", year: 2068 }] },
+                { level: 1, goal: 10, aiPredictions: [{ name: "Grok 4.20", year: 2028 }, { name: "GPT-5.4 Thinking Mini", year: 2029 }, { name: "Claude 4.6 Sonnet", year: 2035 }] },
+                { level: 2, goal: 50, aiPredictions: [{ name: "Grok 4.20", year: 2028 }, { name: "GPT-5.4 Thinking Mini", year: 2030 }, { name: "Claude 4.6 Sonnet", year: 2038 }] },
+                { level: 3, goal: 200, aiPredictions: [{ name: "Grok 4.20", year: 2030 }, { name: "GPT-5.4 Thinking Mini", year: 2033 }, { name: "Claude 4.6 Sonnet", year: 2043 }] },
+                { level: 4, goal: 500, aiPredictions: [{ name: "Grok 4.20", year: 2030 }, { name: "GPT-5.4 Thinking Mini", year: 2036 }, { name: "Claude 4.6 Sonnet", year: 2048 }] },
+                { level: 5, goal: 1000, aiPredictions: [{ name: "Grok 4.20", year: 2038 }, { name: "GPT-5.4 Thinking Mini", year: 2041 }, { name: "Claude 4.6 Sonnet", year: 2053 }] },
+                { level: 6, goal: 2500, aiPredictions: [{ name: "Grok 4.20", year: 2048 }, { name: "GPT-5.4 Thinking Mini", year: 2049 }, { name: "Claude 4.6 Sonnet", year: 2060 }] },
+                { level: 7, goal: 5000, aiPredictions: [{ name: "Grok 4.20", year: 2058 }, { name: "GPT-5.4 Thinking Mini", year: 2060 }, { name: "Claude 4.6 Sonnet", year: 2068 }] },
               ],
               history: [{ value: 0 }],
             },
