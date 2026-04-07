@@ -473,6 +473,46 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               history: [
                 { value: 250, details: ["A ternary Lanthanum-Scandium-Hydrogen (La-Sc-H) system (2025)"] }
               ]
+            },
+            {
+              id: "superconductor-2",
+              category: "Capabilities",
+              title: "Continuous Magnetic Field Strength",
+              currentValue: 45.5,
+              baseValue: 20,
+              unit: "Tesla",
+              levels: [
+                { level: 1, goal: 75 },
+                { level: 2, goal: 150 },
+                { level: 3, goal: 500 },
+                { level: 4, goal: 2000 },
+                { level: 5, goal: 10000 },
+                { level: 6, goal: 100000 },
+                { level: 7, goal: 1000000 },
+              ],
+              history: [
+                { value: 45.5, details: ["MagLab \"Little Giant\" using HTS"] }
+              ]
+            },
+            {
+              id: "superconductor-3",
+              category: "Manufacturing & Scale",
+              title: "Continuous Piece Length (HTS Tape)",
+              currentValue: 1.4,
+              baseValue: 0.5,
+              unit: "km",
+              levels: [
+                { level: 1, goal: 5 },
+                { level: 2, goal: 15 },
+                { level: 3, goal: 40 },
+                { level: 4, goal: 100 },
+                { level: 5, goal: 1000 },
+                { level: 6, goal: 10000 },
+                { level: 7, goal: 40000 },
+              ],
+              history: [
+                { value: 1.4, details: ["This record comes from Fujikura Ltd. (Japan), which has demonstrated uniform critical current (Ic) and n-value across >1,400 m lengths of 4 mm-wide artificial-pinning (APC/FESC-type) REBCO tape in recent production-scale runs (measured via reel-to-reel methods every ~4.7 m)."] }
+              ]
             }
           ]
         },
