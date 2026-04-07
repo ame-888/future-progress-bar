@@ -744,9 +744,9 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                         </div>
                       </div>
                       {measurement.history[measurement.history.length - 1].details?.map((detail, idx) => (
-                        <div key={idx} className="flex items-center gap-1.5 py-1 text-slate-700 dark:text-slate-300 w-auto">
-                          <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 dark:bg-indigo-500 shrink-0"></span>
-                          <span className="font-medium text-sm whitespace-nowrap">{detail}</span>
+                        <div key={idx} className="flex items-start gap-1.5 py-1 text-slate-700 dark:text-slate-300">
+                          <span className="w-1.5 h-1.5 mt-1.5 rounded-full bg-indigo-400 dark:bg-indigo-500 shrink-0"></span>
+                          <span className="font-medium text-sm">{detail}</span>
                         </div>
                       ))}
                     </div>
