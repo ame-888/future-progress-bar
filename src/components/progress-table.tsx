@@ -28,6 +28,29 @@ export function ProgressTable() {
   const [isPredictionsModalOpen, setIsPredictionsModalOpen] = useState(false);
   const { playSound } = useSound();
 
+  // User predictions and filters state
+  const [userPredictions, setUserPredictions] = useState<Record<string, { year: number; timestamp: number }>>({});
+  const [predictionFilter, setPredictionFilter] = useState<'both' | 'ai' | 'mine'>('both');
+
+  // Load user predictions from localStorage
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('userPredictions');
+      if (saved) {
+        setUserPredictions(JSON.parse(saved));
+      }
+    } catch (e) {
+      console.error('Failed to load user predictions:', e);
+    }
+  }, []);
+
+  // Save user predictions to localStorage
+  useEffect(() => {
+    if (Object.keys(userPredictions).length > 0) {
+      localStorage.setItem('userPredictions', JSON.stringify(userPredictions));
+    }
+  }, [userPredictions]);
+
   useEffect(() => {
     // Only run this once on mount or when tabParam changes, but use setTimeout to avoid synchronous setState warning
     const timeoutId = setTimeout(() => {
@@ -127,7 +150,65 @@ export function ProgressTable() {
 
   const areAllExpanded = Object.keys(expandedCategories).length > 0 && Object.values(expandedCategories).every(Boolean);
 
-  // Compute flat list of all AI predictions across all domains/measurements
+  // Form states
+  const [measurementSearchTerm, setMeasurementSearchTerm] = useState("");
+  const [selectedMeasurementId, setSelectedMeasurementId] = useState<string | null>(null);
+  const [selectedLevel, setSelectedLevel] = useState<number | null>(null);
+  const [predictionYear, setPredictionYear] = useState<string>("");
+  const [isMeasurementDropdownOpen, setIsMeasurementDropdownOpen] = useState(false);
+
+  // Extract a flat list of all measurements for the dropdown
+  const allMeasurementsFlat = React.useMemo(() => {
+    const arr: { id: string; title: string; domain: string; subdomain: string; unit: string; levels: any[] }[] = [];
+    MAIN_DOMAINS.forEach(domain => {
+      domain.subdomains.forEach(subdomain => {
+        subdomain.measurements.forEach(measurement => {
+          arr.push({
+            id: measurement.id,
+            title: measurement.title,
+            domain: domain.name,
+            subdomain: subdomain.name,
+            unit: measurement.unit,
+            levels: measurement.levels,
+          });
+        });
+      });
+    });
+    return arr;
+  }, []);
+
+  const filteredMeasurements = React.useMemo(() => {
+    if (!measurementSearchTerm) return allMeasurementsFlat;
+    return allMeasurementsFlat.filter(m => m.title.toLowerCase().includes(measurementSearchTerm.toLowerCase()));
+  }, [allMeasurementsFlat, measurementSearchTerm]);
+
+  const selectedMeasurementData = React.useMemo(() => {
+    return allMeasurementsFlat.find(m => m.id === selectedMeasurementId);
+  }, [allMeasurementsFlat, selectedMeasurementId]);
+
+  const handlePredictionSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedMeasurementId || selectedLevel === null || !predictionYear) return;
+
+    const yearNum = parseInt(predictionYear, 10);
+    if (isNaN(yearNum)) return;
+
+    const key = `${selectedMeasurementId}_${selectedLevel}`;
+    setUserPredictions(prev => ({
+      ...prev,
+      [key]: {
+        year: yearNum,
+        timestamp: Date.now()
+      }
+    }));
+    playSound('/click.wav');
+
+    // Optional reset
+    // setPredictionYear("");
+  };
+
+
+  // Compute flat list of all predictions across all domains/measurements
   const allPredictions = React.useMemo(() => {
     const predictions: {
       year: number;
@@ -137,24 +218,49 @@ export function ProgressTable() {
       goal: number;
       label?: string;
       unit?: string;
+      isUser?: boolean;
+      timestamp?: number;
     }[] = [];
 
     MAIN_DOMAINS.forEach(domain => {
       domain.subdomains.forEach(subdomain => {
         subdomain.measurements.forEach(measurement => {
           measurement.levels.forEach(level => {
-            if (level.aiPredictions) {
-              level.aiPredictions.forEach(pred => {
+            // Add AI Predictions
+            if (predictionFilter === 'both' || predictionFilter === 'ai') {
+              if (level.aiPredictions) {
+                level.aiPredictions.forEach(pred => {
+                  predictions.push({
+                    year: pred.year,
+                    name: pred.name,
+                    title: measurement.title,
+                    level: level.level,
+                    goal: level.goal,
+                    label: level.label,
+                    unit: measurement.unit,
+                    isUser: false
+                  });
+                });
+              }
+            }
+
+            // Add User Predictions
+            if (predictionFilter === 'both' || predictionFilter === 'mine') {
+              const userKey = `${measurement.id}_${level.level}`;
+              const userPred = userPredictions[userKey];
+              if (userPred) {
                 predictions.push({
-                  year: pred.year,
-                  name: pred.name,
+                  year: userPred.year,
+                  name: "My Prediction",
                   title: measurement.title,
                   level: level.level,
                   goal: level.goal,
                   label: level.label,
                   unit: measurement.unit,
+                  isUser: true,
+                  timestamp: userPred.timestamp
                 });
-              });
+              }
             }
           });
         });
@@ -181,10 +287,10 @@ export function ProgressTable() {
         }
         return a.name.localeCompare(b.name);
       });
-    });
+      });
 
     return { sortedYears, groupedByYear };
-  }, []);
+  }, [predictionFilter, userPredictions]);
 
   // Don't render until we know the initial tab (to avoid hydration mismatch or flash of wrong tab)
   if (activeMainTab === -1 || !activeDomain || !activeMainDomain) return null;
@@ -257,7 +363,7 @@ export function ProgressTable() {
               }}
               className="px-4 py-2 rounded-full font-bold text-sm tracking-wide bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 cursor-pointer animate-pulse"
             >
-              Full List of AI Predictions
+              Full List of Predictions
             </button>
           </div>
           <p className="text-slate-500 dark:text-slate-400 max-w-2xl">
@@ -265,14 +371,14 @@ export function ProgressTable() {
           </p>
         </div>
 
-        {/* AI Predictions Modal */}
+        {/* Predictions Modal */}
         {isPredictionsModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white dark:bg-slate-950 w-full max-w-3xl max-h-[80vh] rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden relative">
+            <div className="bg-white dark:bg-slate-950 w-full max-w-5xl max-h-[90vh] rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden relative">
               <div className="flex items-center justify-between p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h2 className="text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
                   <SparklesIcon className="w-6 h-6 text-indigo-500" />
-                  Full List of AI Predictions
+                  Full List of Predictions
                 </h2>
                 <button
                   onClick={() => {
@@ -285,49 +391,201 @@ export function ProgressTable() {
                 </button>
               </div>
               <div className="p-4 md:p-6 overflow-y-auto flex-1 space-y-8 bg-slate-50/30 dark:bg-slate-900/20">
-                {allPredictions.sortedYears.map(year => (
-                  <div key={year} className="space-y-4">
-                    <div className="sticky top-0 z-10 flex items-center gap-4 py-2 bg-white/90 dark:bg-slate-950/90 backdrop-blur border-b border-slate-200 dark:border-slate-800">
-                      <h3 className="text-2xl font-black text-indigo-600 dark:text-indigo-400 font-mono">{year}</h3>
-                      <div className="h-px bg-slate-200 dark:bg-slate-800 flex-1"></div>
-                    </div>
-                    <div className="grid grid-cols-1 gap-3">
-                      {allPredictions.groupedByYear[year].map((pred, idx) => {
-                        let colorClass = "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border border-slate-200 dark:border-slate-700";
-                        if (pred.name.toLowerCase().includes("grok")) {
-                          colorClass = "bg-yellow-50 text-yellow-900 dark:bg-yellow-900/20 dark:text-yellow-200 border border-yellow-200 dark:border-yellow-800/50";
-                        } else if (pred.name.toLowerCase().includes("claude")) {
-                          colorClass = "bg-orange-50 text-orange-900 dark:bg-orange-900/20 dark:text-orange-200 border border-orange-200 dark:border-orange-800/50";
-                        } else if (pred.name.toLowerCase().includes("gemini")) {
-                          colorClass = "bg-sky-50 text-sky-900 dark:bg-sky-900/20 dark:text-sky-200 border border-sky-200 dark:border-sky-800/50";
-                        } else if (pred.name.toLowerCase().includes("gpt")) {
-                          colorClass = "bg-emerald-50 text-emerald-900 dark:bg-emerald-900/20 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-800/50";
-                        }
 
-                        return (
-                          <div key={idx} className={`p-3 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${colorClass} shadow-sm`}>
-                            <div className="flex-1">
-                              <div className="font-bold text-sm mb-1">{pred.title}</div>
-                              <div className="text-xs opacity-80 flex flex-wrap gap-2 items-center">
-                                <span className="uppercase tracking-wider font-semibold">Level {pred.level}</span>
-                                <span>&bull;</span>
-                                <span>Goal: {pred.label ? pred.label : `${pred.goal} ${pred.unit || ''}`}</span>
-                              </div>
-                            </div>
-                            <div className="text-xs font-bold px-2 py-1 bg-white/50 dark:bg-black/20 rounded shrink-0 self-start sm:self-center uppercase tracking-wider">
-                              {pred.name}
-                            </div>
+                {/* Form to add user prediction */}
+                <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm mb-6">
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3">Add Your Own Prediction</h3>
+                  <form onSubmit={handlePredictionSubmit} className="flex flex-col gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {/* Measurement Dropdown */}
+                      <div className="relative">
+                        <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wider">Measurement</label>
+                        <input
+                          type="text"
+                          placeholder="Search measurement..."
+                          value={isMeasurementDropdownOpen ? measurementSearchTerm : selectedMeasurementData ? selectedMeasurementData.title : measurementSearchTerm}
+                          onChange={(e) => {
+                            setMeasurementSearchTerm(e.target.value);
+                            setIsMeasurementDropdownOpen(true);
+                            setSelectedMeasurementId(null);
+                            setSelectedLevel(null);
+                          }}
+                          onFocus={() => setIsMeasurementDropdownOpen(true)}
+                          className="w-full bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+                        />
+                        {isMeasurementDropdownOpen && (
+                          <div className="absolute z-20 w-full mt-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-xl max-h-60 overflow-y-auto">
+                            {filteredMeasurements.length === 0 ? (
+                              <div className="p-3 text-sm text-slate-500 text-center">No measurements found.</div>
+                            ) : (
+                              filteredMeasurements.map(m => (
+                                <button
+                                  key={m.id}
+                                  type="button"
+                                  onClick={() => {
+                                    setSelectedMeasurementId(m.id);
+                                    setMeasurementSearchTerm("");
+                                    setIsMeasurementDropdownOpen(false);
+                                    setSelectedLevel(null); // Reset level
+                                  }}
+                                  className="w-full text-left p-3 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 border-b border-slate-100 dark:border-slate-700/50 last:border-0"
+                                >
+                                  <div className="text-sm font-semibold text-slate-900 dark:text-white">{m.title}</div>
+                                  <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{m.domain} &gt; {m.subdomain}</div>
+                                </button>
+                              ))
+                            )}
                           </div>
-                        );
-                      })}
+                        )}
+                        {/* Invisible backdrop to close dropdown */}
+                        {isMeasurementDropdownOpen && (
+                          <div
+                            className="fixed inset-0 z-10"
+                            onClick={() => setIsMeasurementDropdownOpen(false)}
+                          ></div>
+                        )}
+                      </div>
+
+                      {/* Level Dropdown */}
+                      <div>
+                        <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wider">Level</label>
+                        <select
+                          value={selectedLevel === null ? "" : selectedLevel}
+                          onChange={(e) => setSelectedLevel(parseInt(e.target.value, 10))}
+                          disabled={!selectedMeasurementId}
+                          className="w-full bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          <option value="" disabled>Select a Level</option>
+                          {selectedMeasurementData?.levels.map(l => (
+                            <option key={l.level} value={l.level}>
+                              Level {l.level}: {l.label ? l.label : `${l.goal} ${selectedMeasurementData.unit || ''}`}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      {/* Year Input */}
+                      <div>
+                        <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wider">Year</label>
+                        <div className="flex gap-2">
+                          <input
+                            type="number"
+                            placeholder="e.g. 2030"
+                            value={predictionYear}
+                            onChange={(e) => setPredictionYear(e.target.value)}
+                            min={new Date().getFullYear()}
+                            className="flex-1 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+                          />
+                          <button
+                            type="submit"
+                            disabled={!selectedMeasurementId || selectedLevel === null || !predictionYear}
+                            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-300 dark:disabled:bg-slate-700 text-white rounded-lg text-sm font-bold transition-colors disabled:cursor-not-allowed"
+                          >
+                            Save
+                          </button>
+                        </div>
+                      </div>
                     </div>
+                  </form>
+                </div>
+
+                {/* Filters */}
+                <div className="flex justify-center mb-6">
+                  <div className="inline-flex bg-slate-100 dark:bg-slate-800 p-1 rounded-lg border border-slate-200 dark:border-slate-700">
+                    <button
+                      onClick={() => setPredictionFilter('ai')}
+                      className={`px-4 py-1.5 rounded-md text-sm font-bold transition-colors ${predictionFilter === 'ai' ? 'bg-white dark:bg-slate-900 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
+                    >
+                      See only AI
+                    </button>
+                    <button
+                      onClick={() => setPredictionFilter('mine')}
+                      className={`px-4 py-1.5 rounded-md text-sm font-bold transition-colors ${predictionFilter === 'mine' ? 'bg-white dark:bg-slate-900 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
+                    >
+                      See only mine
+                    </button>
+                    <button
+                      onClick={() => setPredictionFilter('both')}
+                      className={`px-4 py-1.5 rounded-md text-sm font-bold transition-colors ${predictionFilter === 'both' ? 'bg-white dark:bg-slate-900 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
+                    >
+                      See both
+                    </button>
                   </div>
-                ))}
-                {allPredictions.sortedYears.length === 0 && (
-                  <div className="text-center text-slate-500 py-12">
-                    No AI predictions found.
-                  </div>
-                )}
+                </div>
+
+                {/* Predictions Table */}
+                <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm bg-white dark:bg-slate-900">
+                  <table className="w-full text-left text-sm whitespace-nowrap">
+                    <thead className="bg-slate-50 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300 border-b border-slate-200 dark:border-slate-700">
+                      <tr>
+                        <th className="px-4 py-3 font-semibold">Year</th>
+                        <th className="px-4 py-3 font-semibold">Predictor</th>
+                        <th className="px-4 py-3 font-semibold">Measurement</th>
+                        <th className="px-4 py-3 font-semibold">Level & Goal</th>
+                        <th className="px-4 py-3 font-semibold text-right">Date Made</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-200 dark:divide-slate-700/50">
+                      {allPredictions.sortedYears.map(year => (
+                        allPredictions.groupedByYear[year].map((pred, idx) => {
+                          let rowClass = "hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors";
+                          let predictorColorClass = "text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800";
+
+                          if (pred.isUser) {
+                            rowClass = "bg-black text-white hover:bg-slate-900 transition-colors";
+                            predictorColorClass = "text-black bg-white";
+                          } else {
+                            if (pred.name.toLowerCase().includes("grok")) {
+                              predictorColorClass = "text-yellow-800 bg-yellow-100 dark:text-yellow-200 dark:bg-yellow-900/30";
+                            } else if (pred.name.toLowerCase().includes("claude")) {
+                              predictorColorClass = "text-orange-800 bg-orange-100 dark:text-orange-200 dark:bg-orange-900/30";
+                            } else if (pred.name.toLowerCase().includes("gemini")) {
+                              predictorColorClass = "text-sky-800 bg-sky-100 dark:text-sky-200 dark:bg-sky-900/30";
+                            } else if (pred.name.toLowerCase().includes("gpt")) {
+                              predictorColorClass = "text-emerald-800 bg-emerald-100 dark:text-emerald-200 dark:bg-emerald-900/30";
+                            }
+                          }
+
+                          return (
+                            <tr key={`${year}-${idx}`} className={rowClass}>
+                              <td className={`px-4 py-3 font-mono font-bold ${pred.isUser ? 'text-white' : 'text-indigo-600 dark:text-indigo-400'}`}>
+                                {pred.year}
+                              </td>
+                              <td className="px-4 py-3">
+                                <span className={`text-xs font-bold px-2 py-1 rounded uppercase tracking-wider ${predictorColorClass}`}>
+                                  {pred.name}
+                                </span>
+                              </td>
+                              <td className={`px-4 py-3 font-medium ${pred.isUser ? 'text-slate-200' : 'text-slate-900 dark:text-white'} truncate max-w-xs`} title={pred.title}>
+                                {pred.title}
+                              </td>
+                              <td className="px-4 py-3">
+                                <div className="flex items-center gap-2 text-xs">
+                                  <span className="uppercase tracking-wider font-semibold opacity-90">L{pred.level}</span>
+                                  <span className="opacity-50">&bull;</span>
+                                  <span className="opacity-90 truncate max-w-[200px]" title={pred.label ? pred.label : `${pred.goal} ${pred.unit || ''}`}>
+                                    {pred.label ? pred.label : `${pred.goal} ${pred.unit || ''}`}
+                                  </span>
+                                </div>
+                              </td>
+                              <td className="px-4 py-3 text-right text-xs opacity-70">
+                                {pred.timestamp ? new Date(pred.timestamp).toLocaleDateString() : 'N/A'}
+                              </td>
+                            </tr>
+                          );
+                        })
+                      ))}
+                      {allPredictions.sortedYears.length === 0 && (
+                        <tr>
+                          <td colSpan={5} className="px-4 py-8 text-center text-slate-500">
+                            No predictions found for the selected filter.
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+
               </div>
             </div>
           </div>
