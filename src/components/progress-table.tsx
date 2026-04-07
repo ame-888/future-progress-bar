@@ -717,8 +717,8 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                   );
                 })}
               </div>
-              <div className="flex justify-between mt-12">
-                <div className="flex flex-col items-start">
+              <div className="flex justify-between mt-12 gap-6">
+                <div className="flex flex-col items-start flex-1 min-w-0">
                   <span className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
                     Starting Value
                   </span>
@@ -744,15 +744,15 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                         </div>
                       </div>
                       {measurement.history[measurement.history.length - 1].details?.map((detail, idx) => (
-                        <div key={idx} className="flex items-center gap-1.5 py-1 text-slate-700 dark:text-slate-300 w-auto">
-                          <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 dark:bg-indigo-500 shrink-0"></span>
-                          <span className="font-medium text-sm whitespace-nowrap">{detail}</span>
+                        <div key={idx} className="flex items-start gap-1.5 py-1 text-slate-700 dark:text-slate-300 w-auto">
+                          <span className="w-1.5 h-1.5 mt-1.5 rounded-full bg-indigo-400 dark:bg-indigo-500 shrink-0"></span>
+                          <span className="font-medium text-sm">{detail}</span>
                         </div>
                       ))}
                     </div>
                   )}
                 </div>
-                <div className="flex flex-col items-end">
+                <div className="flex flex-col items-end shrink-0">
                   <span className="text-xs font-medium text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-1">
                     Level {currentLevelGoal.level} Goal
                   </span>
