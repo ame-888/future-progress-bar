@@ -421,6 +421,31 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 }
               ],
             },
+            {
+              id: "qc-4",
+              category: "Hardware Capabilities",
+              title: "Maximum Circuit Layer Operations Per Second (CLOPS-h)",
+              currentValue: 340000,
+              baseValue: 200000,
+              unit: "CLOPS",
+              levels: [
+                { level: 1, goal: 500000 },
+                { level: 2, goal: 5000000 },
+                { level: 3, goal: 50000000 },
+                { level: 4, goal: 500000000 },
+                { level: 5, goal: 5000000000 },
+                { level: 6, goal: 50000000000 },
+                { level: 7, goal: 5000000000000 },
+              ],
+              history: [
+                {
+                  value: 340000,
+                  details: [
+                    "IBM Quantum Heron (156 qubits, tunable-coupler architecture; also applies to 133-qubit Heron r1 variants in some fleet systems)"
+                  ]
+                }
+              ],
+            },
           ]
         },
       {
