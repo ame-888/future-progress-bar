@@ -6,6 +6,14 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon, QuestionMarkCircleIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 import { BeakerIcon, CpuChipIcon, FireIcon, HeartIcon, SparklesIcon, RocketLaunchIcon, GlobeAltIcon, WindowIcon, EyeIcon, SwatchIcon, WrenchScrewdriverIcon, BoltIcon, TruckIcon, CloudArrowUpIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { LevProgressGraph } from "./lev-progress-graph";
+
+export type UserPrediction = {
+  id: string; // unique ID
+  measurementId: string;
+  level: number;
+  year: number;
+  dateMade: number; // timestamp
+};
 import { MindUploadGraph } from "./mind-upload-graph";
 import { NuclearFusionGraph } from "./nuclear-fusion-graph";
 import { BciGraph } from "./bci-graph";
@@ -26,7 +34,30 @@ export function ProgressTable() {
   const [activeSubTab, setActiveSubTab] = useState(-1);
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const [isPredictionsModalOpen, setIsPredictionsModalOpen] = useState(false);
+  const [userPredictions, setUserPredictions] = useState<UserPrediction[]>([]);
+  const [predictionsFilter, setPredictionsFilter] = useState<'both' | 'ai' | 'mine'>('both');
   const { playSound } = useSound();
+
+  // Load user predictions from localStorage
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('user_predictions');
+      if (stored) {
+        setUserPredictions(JSON.parse(stored));
+      }
+    } catch (e) {
+      console.error("Failed to parse user predictions", e);
+    }
+  }, []);
+
+  // Save user predictions to localStorage when they change
+  useEffect(() => {
+    try {
+      localStorage.setItem('user_predictions', JSON.stringify(userPredictions));
+    } catch (e) {
+      console.error("Failed to save user predictions", e);
+    }
+  }, [userPredictions]);
 
   useEffect(() => {
     // Only run this once on mount or when tabParam changes, but use setTimeout to avoid synchronous setState warning
@@ -127,9 +158,58 @@ export function ProgressTable() {
 
   const areAllExpanded = Object.keys(expandedCategories).length > 0 && Object.values(expandedCategories).every(Boolean);
 
-  // Compute flat list of all AI predictions across all domains/measurements
-  const allPredictions = React.useMemo(() => {
+  // New states for User Prediction Form
+  const [formMeasurementId, setFormMeasurementId] = useState("");
+  const [formLevel, setFormLevel] = useState("");
+  const [formYear, setFormYear] = useState("");
+
+  const handleAddPrediction = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formMeasurementId || !formLevel || !formYear) return;
+
+    const newPrediction: UserPrediction = {
+      id: crypto.randomUUID(),
+      measurementId: formMeasurementId,
+      level: parseInt(formLevel),
+      year: parseInt(formYear),
+      dateMade: Date.now()
+    };
+
+    setUserPredictions(prev => [...prev, newPrediction]);
+    setFormMeasurementId("");
+    setFormLevel("");
+    setFormYear("");
+    playSound('/click.wav');
+  };
+
+  const handleEditPrediction = (id: string, newYear: number) => {
+    setUserPredictions(prev => prev.map(p => {
+      if (p.id === id) {
+        return { ...p, year: newYear, dateMade: Date.now() };
+      }
+      return p;
+    }));
+    playSound('/click.wav');
+  };
+
+  const handleDeletePrediction = (id: string) => {
+    setUserPredictions(prev => prev.filter(p => p.id !== id));
+    playSound('/click.wav');
+  };
+
+  // Helper to get all measurements for the dropdown
+  const allMeasurementsList = React.useMemo(() => {
+    const list: { id: string, title: string, levels: Measurement['levels'] }[] = [];
+    MAIN_DOMAINS.forEach(d => d.subdomains.forEach(s => s.measurements.forEach(m => list.push(m))));
+    return list.sort((a, b) => a.title.localeCompare(b.title));
+  }, []);
+
+  const selectedMeasurementForForm = allMeasurementsList.find(m => m.id === formMeasurementId);
+
+  // Compute flat list of all predictions across all domains/measurements
+  const filteredPredictions = React.useMemo(() => {
     const predictions: {
+      id: string;
       year: number;
       name: string;
       title: string;
@@ -137,54 +217,68 @@ export function ProgressTable() {
       goal: number;
       label?: string;
       unit?: string;
+      isUser: boolean;
+      dateMade?: number;
     }[] = [];
 
-    MAIN_DOMAINS.forEach(domain => {
-      domain.subdomains.forEach(subdomain => {
-        subdomain.measurements.forEach(measurement => {
-          measurement.levels.forEach(level => {
-            if (level.aiPredictions) {
-              level.aiPredictions.forEach(pred => {
-                predictions.push({
-                  year: pred.year,
-                  name: pred.name,
-                  title: measurement.title,
-                  level: level.level,
-                  goal: level.goal,
-                  label: level.label,
-                  unit: measurement.unit,
+    // Add AI Predictions
+    if (predictionsFilter === 'both' || predictionsFilter === 'ai') {
+      MAIN_DOMAINS.forEach(domain => {
+        domain.subdomains.forEach(subdomain => {
+          subdomain.measurements.forEach(measurement => {
+            measurement.levels.forEach(level => {
+              if (level.aiPredictions) {
+                level.aiPredictions.forEach((pred, idx) => {
+                  predictions.push({
+                    id: `ai-${measurement.id}-${level.level}-${pred.name}-${idx}`,
+                    year: pred.year,
+                    name: pred.name,
+                    title: measurement.title,
+                    level: level.level,
+                    goal: level.goal,
+                    label: level.label,
+                    unit: measurement.unit,
+                    isUser: false,
+                  });
                 });
-              });
-            }
+              }
+            });
           });
         });
       });
-    });
+    }
 
-    // Group by year
-    const groupedByYear: Record<number, typeof predictions> = {};
-    predictions.forEach(p => {
-      if (!groupedByYear[p.year]) {
-        groupedByYear[p.year] = [];
-      }
-      groupedByYear[p.year].push(p);
-    });
-
-    // Sort years chronologically
-    const sortedYears = Object.keys(groupedByYear).map(Number).sort((a, b) => a - b);
-
-    // Sort predictions alphabetically within each year
-    sortedYears.forEach(year => {
-      groupedByYear[year].sort((a, b) => {
-        if (a.name === b.name) {
-          return a.title.localeCompare(b.title);
+    // Add User Predictions
+    if (predictionsFilter === 'both' || predictionsFilter === 'mine') {
+      userPredictions.forEach(pred => {
+        const measurement = allMeasurementsList.find(m => m.id === pred.measurementId);
+        if (measurement) {
+          const levelData = measurement.levels.find(l => l.level === pred.level);
+          if (levelData) {
+            predictions.push({
+              id: pred.id,
+              year: pred.year,
+              name: "You",
+              title: measurement.title,
+              level: pred.level,
+              goal: levelData.goal,
+              label: levelData.label,
+              unit: measurement.unit,
+              isUser: true,
+              dateMade: pred.dateMade
+            });
+          }
         }
-        return a.name.localeCompare(b.name);
       });
-    });
+    }
 
-    return { sortedYears, groupedByYear };
-  }, []);
+    // Sort chronologically by year, then by title, then by name
+    return predictions.sort((a, b) => {
+      if (a.year !== b.year) return a.year - b.year;
+      if (a.title !== b.title) return a.title.localeCompare(b.title);
+      return a.name.localeCompare(b.name);
+    });
+  }, [predictionsFilter, userPredictions, allMeasurementsList]);
 
   // Don't render until we know the initial tab (to avoid hydration mismatch or flash of wrong tab)
   if (activeMainTab === -1 || !activeDomain || !activeMainDomain) return null;
@@ -257,7 +351,7 @@ export function ProgressTable() {
               }}
               className="px-4 py-2 rounded-full font-bold text-sm tracking-wide bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 cursor-pointer animate-pulse"
             >
-              Full List of AI Predictions
+              Full List of Predictions
             </button>
           </div>
           <p className="text-slate-500 dark:text-slate-400 max-w-2xl">
@@ -265,15 +359,37 @@ export function ProgressTable() {
           </p>
         </div>
 
-        {/* AI Predictions Modal */}
+        {/* Predictions Modal */}
         {isPredictionsModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white dark:bg-slate-950 w-full max-w-3xl max-h-[80vh] rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden relative">
+            <div className="bg-white dark:bg-slate-950 w-full max-w-5xl max-h-[85vh] rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden relative">
               <div className="flex items-center justify-between p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-                <h2 className="text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
-                  <SparklesIcon className="w-6 h-6 text-indigo-500" />
-                  Full List of AI Predictions
-                </h2>
+                <div className="flex flex-col gap-2">
+                  <h2 className="text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+                    <SparklesIcon className="w-6 h-6 text-indigo-500" />
+                    Full List of Predictions
+                  </h2>
+                  <div className="flex items-center gap-1 bg-slate-200/50 dark:bg-slate-800/50 p-1 rounded-lg self-start">
+                    <button
+                      onClick={() => { setPredictionsFilter('both'); playSound('/click.wav'); }}
+                      className={`px-3 py-1.5 text-xs font-bold rounded-md transition-all ${predictionsFilter === 'both' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}`}
+                    >
+                      See both
+                    </button>
+                    <button
+                      onClick={() => { setPredictionsFilter('ai'); playSound('/click.wav'); }}
+                      className={`px-3 py-1.5 text-xs font-bold rounded-md transition-all ${predictionsFilter === 'ai' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}`}
+                    >
+                      See only AI
+                    </button>
+                    <button
+                      onClick={() => { setPredictionsFilter('mine'); playSound('/click.wav'); }}
+                      className={`px-3 py-1.5 text-xs font-bold rounded-md transition-all ${predictionsFilter === 'mine' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}`}
+                    >
+                      See only mine
+                    </button>
+                  </div>
+                </div>
                 <button
                   onClick={() => {
                     setIsPredictionsModalOpen(false);
@@ -285,49 +401,165 @@ export function ProgressTable() {
                 </button>
               </div>
               <div className="p-4 md:p-6 overflow-y-auto flex-1 space-y-8 bg-slate-50/30 dark:bg-slate-900/20">
-                {allPredictions.sortedYears.map(year => (
-                  <div key={year} className="space-y-4">
-                    <div className="sticky top-0 z-10 flex items-center gap-4 py-2 bg-white/90 dark:bg-slate-950/90 backdrop-blur border-b border-slate-200 dark:border-slate-800">
-                      <h3 className="text-2xl font-black text-indigo-600 dark:text-indigo-400 font-mono">{year}</h3>
-                      <div className="h-px bg-slate-200 dark:bg-slate-800 flex-1"></div>
-                    </div>
-                    <div className="grid grid-cols-1 gap-3">
-                      {allPredictions.groupedByYear[year].map((pred, idx) => {
-                        let colorClass = "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border border-slate-200 dark:border-slate-700";
-                        if (pred.name.toLowerCase().includes("grok")) {
-                          colorClass = "bg-yellow-50 text-yellow-900 dark:bg-yellow-900/20 dark:text-yellow-200 border border-yellow-200 dark:border-yellow-800/50";
-                        } else if (pred.name.toLowerCase().includes("claude")) {
-                          colorClass = "bg-orange-50 text-orange-900 dark:bg-orange-900/20 dark:text-orange-200 border border-orange-200 dark:border-orange-800/50";
-                        } else if (pred.name.toLowerCase().includes("gemini")) {
-                          colorClass = "bg-sky-50 text-sky-900 dark:bg-sky-900/20 dark:text-sky-200 border border-sky-200 dark:border-sky-800/50";
-                        } else if (pred.name.toLowerCase().includes("gpt")) {
-                          colorClass = "bg-emerald-50 text-emerald-900 dark:bg-emerald-900/20 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-800/50";
-                        }
 
-                        return (
-                          <div key={idx} className={`p-3 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${colorClass} shadow-sm`}>
-                            <div className="flex-1">
-                              <div className="font-bold text-sm mb-1">{pred.title}</div>
-                              <div className="text-xs opacity-80 flex flex-wrap gap-2 items-center">
-                                <span className="uppercase tracking-wider font-semibold">Level {pred.level}</span>
-                                <span>&bull;</span>
-                                <span>Goal: {pred.label ? pred.label : `${pred.goal} ${pred.unit || ''}`}</span>
-                              </div>
-                            </div>
-                            <div className="text-xs font-bold px-2 py-1 bg-white/50 dark:bg-black/20 rounded shrink-0 self-start sm:self-center uppercase tracking-wider">
-                              {pred.name}
-                            </div>
-                          </div>
-                        );
-                      })}
+                {/* User Prediction Form */}
+                <form onSubmit={handleAddPrediction} className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-4">
+                  <h3 className="font-bold text-slate-800 dark:text-slate-200 text-sm tracking-wide">Add Your Own Prediction</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs font-semibold text-slate-500 uppercase">Measurement</label>
+                      <select
+                        className="p-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm text-slate-900 dark:text-slate-100"
+                        value={formMeasurementId}
+                        onChange={(e) => { setFormMeasurementId(e.target.value); setFormLevel(""); }}
+                        required
+                      >
+                        <option value="" disabled>Select a measurement...</option>
+                        {allMeasurementsList.map(m => (
+                          <option key={m.id} value={m.id}>{m.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs font-semibold text-slate-500 uppercase">Level</label>
+                      <select
+                        className="p-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm text-slate-900 dark:text-slate-100"
+                        value={formLevel}
+                        onChange={(e) => setFormLevel(e.target.value)}
+                        required
+                        disabled={!formMeasurementId}
+                      >
+                        <option value="" disabled>Select a level...</option>
+                        {selectedMeasurementForForm?.levels.map(l => (
+                          <option key={l.level} value={l.level}>Level {l.level}: {l.label || l.goal}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-xs font-semibold text-slate-500 uppercase">Year</label>
+                      <input
+                        type="number"
+                        min="2020"
+                        max="9999"
+                        className="p-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm text-slate-900 dark:text-slate-100"
+                        placeholder="e.g. 2035"
+                        value={formYear}
+                        onChange={(e) => setFormYear(e.target.value)}
+                        required
+                      />
                     </div>
                   </div>
-                ))}
-                {allPredictions.sortedYears.length === 0 && (
-                  <div className="text-center text-slate-500 py-12">
-                    No AI predictions found.
+                  <button
+                    type="submit"
+                    className="self-end px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-lg transition-colors"
+                  >
+                    Add Prediction
+                  </button>
+                </form>
+
+                <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse min-w-[800px]">
+                      <thead>
+                        <tr className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800 text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                          <th className="p-3 font-semibold w-24">Year</th>
+                          <th className="p-3 font-semibold">Measurement</th>
+                          <th className="p-3 font-semibold">Goal (Level)</th>
+                          <th className="p-3 font-semibold w-32">Predictor</th>
+                          <th className="p-3 font-semibold w-40 text-center">Actions / Info</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-200 dark:divide-slate-800/50 text-sm">
+                        {filteredPredictions.map((pred) => {
+                          let rowClass = "hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors";
+                          let predictorColorClass = "text-slate-700 dark:text-slate-300";
+
+                          if (pred.isUser) {
+                            rowClass = "bg-indigo-50/30 hover:bg-indigo-50/60 dark:bg-indigo-900/10 dark:hover:bg-indigo-900/20 transition-colors";
+                            predictorColorClass = "text-indigo-600 dark:text-indigo-400 font-bold";
+                          } else {
+                            if (pred.name.toLowerCase().includes("grok")) predictorColorClass = "text-yellow-600 dark:text-yellow-400 font-bold";
+                            else if (pred.name.toLowerCase().includes("claude")) predictorColorClass = "text-orange-600 dark:text-orange-400 font-bold";
+                            else if (pred.name.toLowerCase().includes("gemini")) predictorColorClass = "text-sky-600 dark:text-sky-400 font-bold";
+                            else if (pred.name.toLowerCase().includes("gpt")) predictorColorClass = "text-emerald-600 dark:text-emerald-400 font-bold";
+                          }
+
+                          return (
+                            <tr key={pred.id} className={rowClass}>
+                              <td className="p-3 whitespace-nowrap">
+                                <span className="font-mono font-bold text-lg text-slate-800 dark:text-slate-200">
+                                  {pred.year}
+                                </span>
+                              </td>
+                              <td className="p-3">
+                                <div className="font-medium text-slate-900 dark:text-slate-100 line-clamp-2">
+                                  {pred.title}
+                                </div>
+                              </td>
+                              <td className="p-3">
+                                <div className="flex flex-col gap-0.5">
+                                  <span className="text-slate-700 dark:text-slate-300">
+                                    {pred.label ? pred.label : `${pred.goal} ${pred.unit || ''}`}
+                                  </span>
+                                  <span className="text-[10px] uppercase tracking-wider text-slate-500 font-semibold">
+                                    Level {pred.level}
+                                  </span>
+                                </div>
+                              </td>
+                              <td className="p-3 whitespace-nowrap">
+                                <span className={`px-2 py-1 rounded-md text-xs uppercase tracking-wider border border-current bg-current/10 ${predictorColorClass}`}>
+                                  {pred.name}
+                                </span>
+                              </td>
+                              <td className="p-3 text-center">
+                                {pred.isUser ? (
+                                  <div className="flex flex-col items-center gap-2">
+                                    <span className="text-[10px] text-slate-500 dark:text-slate-400" title={new Date(pred.dateMade || 0).toLocaleString()}>
+                                      Made: {new Date(pred.dateMade || 0).toLocaleDateString()}
+                                    </span>
+                                    <div className="flex items-center gap-2">
+                                      <button
+                                        onClick={() => {
+                                          const newYearStr = prompt(`Edit year for ${pred.title} (Level ${pred.level}):`, pred.year.toString());
+                                          if (newYearStr && !isNaN(parseInt(newYearStr))) {
+                                            handleEditPrediction(pred.id, parseInt(newYearStr));
+                                          }
+                                        }}
+                                        className="text-xs text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 font-semibold"
+                                      >
+                                        Edit
+                                      </button>
+                                      <button
+                                        onClick={() => {
+                                          if (confirm(`Delete your prediction for ${pred.title}?`)) {
+                                            handleDeletePrediction(pred.id);
+                                          }
+                                        }}
+                                        className="text-xs text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 font-semibold"
+                                      >
+                                        Delete
+                                      </button>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <span className="text-slate-300 dark:text-slate-700">-</span>
+                                )}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                        {filteredPredictions.length === 0 && (
+                          <tr>
+                            <td colSpan={5} className="p-8 text-center text-slate-500">
+                              No predictions found.
+                            </td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </table>
                   </div>
-                )}
+                </div>
+
               </div>
             </div>
           </div>
