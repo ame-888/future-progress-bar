@@ -769,12 +769,29 @@ export function ProgressTable() {
 function MeasurementCard({ measurement }: { measurement: Measurement }) {
   const isLowerBetter = measurement.isLowerBetter;
 
-  // For lower is better, a goal is reached if currentValue <= goal
-  const activeLevelIdx = measurement.levels.findIndex(level => {
-    return isLowerBetter
-      ? measurement.currentValue > level.goal
-      : measurement.currentValue < level.goal;
-  });
+  // Memoize level-related values
+  const { activeLevelIdx, actualCurrentLevel, allGoalsAchieved } = React.useMemo(() => {
+    const activeIdx = measurement.levels.findIndex(level => {
+      return isLowerBetter
+        ? measurement.currentValue > level.goal
+        : measurement.currentValue < level.goal;
+    });
+
+    let actualLevel = 0;
+    if (activeIdx === -1) {
+      actualLevel = measurement.levels.length; // Max level reached
+    } else {
+      const activeLvl = measurement.levels[activeIdx];
+      actualLevel = activeLvl.level;
+    }
+
+    return {
+      activeLevelIdx: activeIdx,
+      actualCurrentLevel: actualLevel,
+      allGoalsAchieved: activeIdx === -1
+    };
+  }, [measurement.currentValue, measurement.levels, isLowerBetter]);
+
   const initialLevelIdx = activeLevelIdx === -1 ? measurement.levels.length - 1 : activeLevelIdx;
   const [viewLevelIdx, setViewLevelIdx] = useState(initialLevelIdx);
 
@@ -857,24 +874,6 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
   const isViewingFutureLevel = isLowerBetter
     ? measurement.currentValue >= previousGoalValue
     : measurement.currentValue <= previousGoalValue;
-
-  const allGoalsAchieved = isLowerBetter
-    ? measurement.currentValue <= measurement.levels[measurement.levels.length - 1].goal
-    : measurement.currentValue >= measurement.levels[measurement.levels.length - 1].goal;
-
-  // Calculate actual current level
-  let actualCurrentLevel = 0;
-  for (const level of measurement.levels) {
-    const isLevelAchieved = isLowerBetter
-      ? measurement.currentValue <= level.goal
-      : measurement.currentValue >= level.goal;
-
-    if (isLevelAchieved) {
-      actualCurrentLevel = level.level;
-    } else {
-      break;
-    }
-  }
 
   const getLevelMedalInfo = (level: number) => {
     switch (level) {

@@ -138,7 +138,7 @@ export function VrGraph() {
             />
 
             <Line
-              type="monotone"
+              type="linear"
               dataKey="channels"
               stroke="#8b5cf6"
               strokeWidth={3}
