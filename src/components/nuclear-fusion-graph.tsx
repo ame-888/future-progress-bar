@@ -147,7 +147,7 @@ export function NuclearFusionGraph() {
             />
 
             <Line
-              type="monotone"
+              type="linear"
               dataKey={isLogScale ? "safeLawson" : "lawsonCriterion"}
               stroke="#f97316"
               strokeWidth={3}

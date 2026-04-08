@@ -72,8 +72,15 @@ export function LevProgressGraph() {
   const currentData = LEV_DATA_BY_REGION[selectedRegion] || LEV_DATA_BY_REGION["World"];
 
   // Calculate dynamic offset for the split color
-  const dataMax = Math.max(...currentData.map((d) => d.lifespanGain));
-  const dataMin = Math.min(...currentData.map((d) => d.lifespanGain));
+  const { dataMax, dataMin } = React.useMemo(() => {
+    let max = -Infinity;
+    let min = Infinity;
+    for (const d of currentData) {
+      if (d.lifespanGain > max) max = d.lifespanGain;
+      if (d.lifespanGain < min) min = d.lifespanGain;
+    }
+    return { dataMax: max, dataMin: min };
+  }, [currentData]);
 
   // The threshold where the color should split (1.0 yr/yr)
   const threshold = 1.0;
@@ -187,7 +194,7 @@ export function LevProgressGraph() {
             />
 
             <Area
-              type="monotone"
+              type="linear"
               dataKey="lifespanGain"
               stroke="url(#splitColorLine)"
               strokeWidth={3}

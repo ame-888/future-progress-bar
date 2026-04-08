@@ -117,7 +117,7 @@ export function SuperconductorGraph() {
             />
 
             <Line
-              type="monotone"
+              type="linear"
               dataKey="tc"
               stroke="#0ea5e9"
               strokeWidth={3}

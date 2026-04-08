@@ -138,7 +138,7 @@ export function BciGraph() {
             />
 
             <Line
-              type="monotone"
+              type="linear"
               dataKey="channels"
               stroke="#0ea5e9"
               strokeWidth={3}
