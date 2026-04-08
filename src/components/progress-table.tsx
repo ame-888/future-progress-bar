@@ -829,9 +829,10 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
     let actualLevel = 0;
     if (activeIdx === -1) {
       actualLevel = measurement.levels.length; // Max level reached
+    } else if (activeIdx === 0) {
+      actualLevel = 0; // Has not reached level 1
     } else {
-      const activeLvl = measurement.levels[activeIdx];
-      actualLevel = activeLvl.level;
+      actualLevel = measurement.levels[activeIdx - 1].level;
     }
 
     return {
