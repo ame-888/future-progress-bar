@@ -1,40 +1,21 @@
---- src/components/progress-table-data.ts
-+++ src/components/progress-table-data.ts
-@@ -62,6 +62,18 @@
-     name: "AUTOMATION",
-     subdomains: [
-       {
-+          id: "ai",
-+          name: "AI",
-+          description: "Stands for Artificial Intelligence, focusing on creating systems capable of human-level or superhuman reasoning, creativity, and problem-solving.",
-+          measurements: []
-+        },
-+{
-+          id: "robotics",
-+          name: "ROBOTICS",
-+          description: "The engineering of machines capable of carrying out complex physical tasks autonomously or semi-autonomously in unstructured environments.",
-+          measurements: []
-+        },
-+{
-           id: "self-driving-car",
-           name: "SELF-DRIVING CAR",
-           description: "Vehicles equipped with sensors and AI that can navigate and operate safely without human intervention across all driving conditions.",
-@@ -84,18 +96,6 @@
-               history: []
-             }
-           ]
--        },
--{
--          id: "robotics",
--          name: "ROBOTICS",
--          description: "The engineering of machines capable of carrying out complex physical tasks autonomously or semi-autonomously in unstructured environments.",
--          measurements: []
--        },
--{
--          id: "ai",
--          name: "AI",
--          description: "Stands for Artificial Intelligence, focusing on creating systems capable of human-level or superhuman reasoning, creativity, and problem-solving.",
--          measurements: []
-         }
-     ]
-   },
+<<<<<<< SEARCH
+              levels: [
+                { level: 1, goal: 30000 },
+                { level: 2, goal: 300000 },
+                { level: 3, goal: 3000000 },
+                { level: 4, goal: 30000000 },
+                { level: 5, goal: 300000000 },
+                { level: 6, goal: 3000000000 },
+                { level: 7, goal: 30000000000 },
+              ],
+=======
+              levels: [
+                { level: 1, goal: 30000, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2026 }, { name: "Grok 4.20", year: 2026 }, { name: "Claude 4.6 Sonnet", year: 2027 }] },
+                { level: 2, goal: 300000, aiPredictions: [{ name: "Grok 4.20", year: 2028 }, { name: "Claude 4.6 Sonnet", year: 2029 }, { name: "GPT-5.4 Thinking Mini", year: 2030 }] },
+                { level: 3, goal: 3000000, aiPredictions: [{ name: "Grok 4.20", year: 2031 }, { name: "Claude 4.6 Sonnet", year: 2032 }, { name: "GPT-5.4 Thinking Mini", year: 2034 }] },
+                { level: 4, goal: 30000000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2035 }, { name: "Grok 4.20", year: 2036 }, { name: "GPT-5.4 Thinking Mini", year: 2042 }] },
+                { level: 5, goal: 300000000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2039 }, { name: "Grok 4.20", year: 2045 }, { name: "GPT-5.4 Thinking Mini", year: 2048 }] },
+                { level: 6, goal: 3000000000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2045 }, { name: "Grok 4.20", year: 2060 }, { name: "GPT-5.4 Thinking Mini", year: 2062 }] },
+                { level: 7, goal: 30000000000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2054 }, { name: "Grok 4.20", year: 2075 }, { name: "GPT-5.4 Thinking Mini", year: 2090 }] },
+              ],
+>>>>>>> REPLACE
