@@ -144,6 +144,24 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 7, goal: 75 },
               ],
               history: []
+            },
+            {
+              id: "robotics-3",
+              category: "Adoption",
+              title: "Global Share of Fully Autonomous Robotic Surgeries",
+              currentValue: 0,
+              baseValue: 0,
+              unit: "%",
+              levels: [
+                { level: 1, goal: 0.01, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2033 }, { name: "GPT-5.4 Thinking Mini", year: 2038 }, { name: "Grok 4.20", year: 2039 }] },
+                { level: 2, goal: 0.1, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2037 }, { name: "Grok 4.20", year: 2044 }, { name: "GPT-5.4 Thinking Mini", year: 2046 }] },
+                { level: 3, goal: 1, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2042 }, { name: "Grok 4.20", year: 2052 }, { name: "GPT-5.4 Thinking Mini", year: 2057 }] },
+                { level: 4, goal: 5, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2047 }, { name: "Grok 4.20", year: 2065 }, { name: "GPT-5.4 Thinking Mini", year: 2068 }] },
+                { level: 5, goal: 33, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2055 }, { name: "GPT-5.4 Thinking Mini", year: 2084 }, { name: "Grok 4.20", year: 2085 }] },
+                { level: 6, goal: 66, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2063 }, { name: "GPT-5.4 Thinking Mini", year: 2096 }, { name: "Grok 4.20", year: 2105 }] },
+                { level: 7, goal: 99, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2078 }, { name: "GPT-5.4 Thinking Mini", year: 2120 }, { name: "Grok 4.20", year: 2135 }] },
+              ],
+              history: []
             }
           ]
         },
