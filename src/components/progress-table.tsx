@@ -13,6 +13,7 @@ import { VrGraph } from "./vr-graph";
 import { SuperconductorGraph } from "./superconductor-graph";
 import { RoboticsGraph } from "./robotics-graph";
 import { SpaceExplorationGraph } from "./space-exploration-graph";
+import { AiGraph } from "./ai-graph";
 import { QuantumComputingGraph } from "./quantum-computing-graph";
 import { FictionalFuture } from "./fictional-future";
 import { useSound } from "./sound-provider";
@@ -186,7 +187,30 @@ export function ProgressTable() {
     return allMeasurementsFlat.find(m => m.id === selectedMeasurementId);
   }, [allMeasurementsFlat, selectedMeasurementId]);
 
+
+  const handleEditPrediction = (measurementId: string, level: number, year: number) => {
+    setSelectedMeasurementId(measurementId);
+    setSelectedLevel(level);
+    setPredictionYear(year.toString());
+    const m = allMeasurementsFlat.find(x => x.id === measurementId);
+    if (m) {
+      setMeasurementSearchTerm(m.title);
+    }
+  };
+
+  const handleDeletePrediction = (measurementId: string, level: number) => {
+    if (window.confirm("Are you sure you want to delete this prediction?")) {
+      const key = `${measurementId}_${level}`;
+      setUserPredictions(prev => {
+        const newDict = { ...prev };
+        delete newDict[key];
+        return newDict;
+      });
+    }
+  };
+
   const handlePredictionSubmit = (e: React.FormEvent) => {
+
     e.preventDefault();
     if (!selectedMeasurementId || selectedLevel === null || !predictionYear) return;
 
@@ -220,6 +244,7 @@ export function ProgressTable() {
       unit?: string;
       isUser?: boolean;
       timestamp?: number;
+      measurementId?: string;
     }[] = [];
 
     MAIN_DOMAINS.forEach(domain => {
@@ -238,7 +263,8 @@ export function ProgressTable() {
                     goal: level.goal,
                     label: level.label,
                     unit: measurement.unit,
-                    isUser: false
+                    isUser: false,
+                    measurementId: measurement.id
                   });
                 });
               }
@@ -258,7 +284,8 @@ export function ProgressTable() {
                   label: level.label,
                   unit: measurement.unit,
                   isUser: true,
-                  timestamp: userPred.timestamp
+                  timestamp: userPred.timestamp,
+                  measurementId: measurement.id
                 });
               }
             }
@@ -523,6 +550,7 @@ export function ProgressTable() {
                         <th className="px-4 py-3 font-semibold">Measurement</th>
                         <th className="px-4 py-3 font-semibold">Level & Goal</th>
                         <th className="px-4 py-3 font-semibold text-right">Date Made</th>
+                        <th className="px-4 py-3 font-semibold text-right">Actions</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-200 dark:divide-slate-700/50">
@@ -570,6 +598,26 @@ export function ProgressTable() {
                               </td>
                               <td className="px-4 py-3 text-right text-xs opacity-70">
                                 {pred.timestamp ? new Date(pred.timestamp).toLocaleDateString() : 'N/A'}
+                              </td>
+                              <td className="px-4 py-3 text-right text-xs">
+                                {pred.isUser && pred.measurementId && (
+                                  <div className="flex justify-end gap-3">
+                                    <button
+                                      onClick={() => handleEditPrediction(pred.measurementId!, pred.level, pred.year)}
+                                      className="text-slate-300 hover:text-indigo-400 transition-colors"
+                                      title="Edit Prediction"
+                                    >
+                                      Edit
+                                    </button>
+                                    <button
+                                      onClick={() => handleDeletePrediction(pred.measurementId!, pred.level)}
+                                      className="text-slate-300 hover:text-red-400 transition-colors"
+                                      title="Delete Prediction"
+                                    >
+                                      Delete
+                                    </button>
+                                  </div>
+                                )}
                               </td>
                             </tr>
                           );
@@ -698,6 +746,7 @@ export function ProgressTable() {
             {activeDomain.id === "superconductor" && <SuperconductorGraph />}
             {activeDomain.id === "robotics" && <RoboticsGraph />}
             {activeDomain.id === "space-exploration" && <SpaceExplorationGraph />}
+            {activeDomain.id === "ai" && <AiGraph />}
             {activeDomain.id === "quantum-computing" && <QuantumComputingGraph />}
             {activeDomain.id === "mind-upload" && <MindUploadGraph />}
 

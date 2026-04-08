@@ -1,0 +1,17 @@
+export const aiGraphData = [
+  { year: 2011, cost: 18500.00 },
+  { year: 2012, cost: 14200.00 },
+  { year: 2013, cost: 9800.00 },
+  { year: 2014, cost: 6400.00 },
+  { year: 2015, cost: 3100.00 },
+  { year: 2016, cost: 1750.00 },
+  { year: 2017, cost: 920.00 },
+  { year: 2018, cost: 540.00 },
+  { year: 2019, cost: 210.00 },
+  { year: 2020, cost: 82.00 },
+  { year: 2021, cost: 34.00 },
+  { year: 2022, cost: 12.50 },
+  { year: 2023, cost: 1.85 },
+  { year: 2024, cost: 0.38 },
+  { year: 2025, cost: 0.09 },
+];

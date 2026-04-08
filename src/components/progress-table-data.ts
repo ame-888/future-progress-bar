@@ -67,6 +67,25 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           description: "Stands for Artificial Intelligence, focusing on creating systems capable of human-level or superhuman reasoning, creativity, and problem-solving.",
           measurements: [
             {
+              id: "ai-millennium-problems",
+              title: "Millennium Prize Problems Solved",
+              currentValue: 0,
+              baseValue: 0,
+              unit: "problems",
+              levels: [
+                { level: 1, goal: 0.5, label: "Helped solve a problem" },
+                { level: 2, goal: 1, label: "Solved a problem by itself" },
+                { level: 3, goal: 2, label: "2 problems" },
+                { level: 4, goal: 3, label: "3 problems" },
+                { level: 5, goal: 4, label: "4 problems" },
+                { level: 6, goal: 5, label: "5 problems" },
+                { level: 7, goal: 6, label: "6 problems" },
+              ],
+              history: [
+                { value: 0 }
+              ]
+            },
+            {
               id: "ai-led-countries-1",
               title: "Number of Countries primarily led by AI",
               currentValue: 0,
