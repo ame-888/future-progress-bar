@@ -73,13 +73,13 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               baseValue: 0,
               unit: "problems",
               levels: [
-                { level: 1, goal: 0.5, label: "Helped solve a problem" },
-                { level: 2, goal: 1, label: "Solved a problem by itself" },
-                { level: 3, goal: 2, label: "2 problems" },
-                { level: 4, goal: 3, label: "3 problems" },
-                { level: 5, goal: 4, label: "4 problems" },
-                { level: 6, goal: 5, label: "5 problems" },
-                { level: 7, goal: 6, label: "6 problems" },
+                { level: 1, goal: 1, label: "Solves 1 problem", aiPredictions: [{ name: "Grok 4.20", year: 2027 }] },
+                { level: 2, goal: 2, label: "Solves 2 problems", aiPredictions: [{ name: "Grok 4.20", year: 2029 }] },
+                { level: 3, goal: 3, label: "Solves 3 problems", aiPredictions: [{ name: "Grok 4.20", year: 2030 }] },
+                { level: 4, goal: 4, label: "Solves 4 problems", aiPredictions: [{ name: "Grok 4.20", year: 2031 }] },
+                { level: 5, goal: 5, label: "Solves 5 problems", aiPredictions: [{ name: "Grok 4.20", year: 2032 }] },
+                { level: 6, goal: 6, label: "Solves all 6 problems", aiPredictions: [{ name: "Grok 4.20", year: 2033 }] },
+                { level: 7, goal: 7, label: "Able to create a brand new Millenium Prize level problem", aiPredictions: [{ name: "Grok 4.20", year: 2035 }] },
               ],
               history: [
                 { value: 0 }
@@ -92,13 +92,13 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               baseValue: 0,
               unit: "countries",
               levels: [
-                { level: 1, goal: 1 },
-                { level: 2, goal: 5 },
-                { level: 3, goal: 15 },
-                { level: 4, goal: 30 },
-                { level: 5, goal: 75 },
-                { level: 6, goal: 130 },
-                { level: 7, goal: 195 },
+                { level: 1, goal: 1, aiPredictions: [{ name: "Grok 4.20", year: 2045 }] },
+                { level: 2, goal: 5, aiPredictions: [{ name: "Grok 4.20", year: 2055 }] },
+                { level: 3, goal: 15, aiPredictions: [{ name: "Grok 4.20", year: 2070 }] },
+                { level: 4, goal: 30, aiPredictions: [{ name: "Grok 4.20", year: 2085 }] },
+                { level: 5, goal: 75, aiPredictions: [{ name: "Grok 4.20", year: 2105 }] },
+                { level: 6, goal: 130, aiPredictions: [{ name: "Grok 4.20", year: 2135 }] },
+                { level: 7, goal: 195, aiPredictions: [{ name: "Grok 4.20", year: 2170 }] },
               ],
               history: []
             }
