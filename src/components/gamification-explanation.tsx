@@ -21,17 +21,17 @@ export function GamificationExplanation() {
 
         <div className="space-y-8 text-slate-600 dark:text-slate-400 text-sm md:text-base leading-relaxed">
 
-          {/* Dominions */}
+          {/* Domains */}
           <div className="flex flex-col md:flex-row gap-4 items-start">
             <div className="flex-shrink-0 bg-emerald-100 dark:bg-emerald-900/30 p-3 rounded-full">
               <GlobeAltIcon className="w-6 h-6 text-emerald-500" />
             </div>
             <div>
               <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2 uppercase tracking-wide">
-                Dominions
+                Domains
               </h3>
               <p>
-                The 11 main tabs of the application (e.g., LEV, AI, BCI). They represent the critical, over-arching domains of human and technological progress we are tracking.
+                The 11 main domains of the application (e.g., LEV, AI, BCI). They represent the critical, over-arching domains of human and technological progress we are tracking.
               </p>
             </div>
           </div>
@@ -62,36 +62,6 @@ export function GamificationExplanation() {
               </h3>
               <p>
                 Specific metrics being tracked to show progress within a Category. Each progress bar tracks a single number toward ultimate milestones.
-              </p>
-            </div>
-          </div>
-
-          {/* Starting Value */}
-          <div className="flex flex-col md:flex-row gap-4 items-start">
-            <div className="flex-shrink-0 bg-slate-100 dark:bg-slate-800 p-3 rounded-full">
-              <ArrowRightCircleIcon className="w-6 h-6 text-slate-500" />
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2 uppercase tracking-wide">
-                Starting Value
-              </h3>
-              <p>
-                An arbitrary baseline value from which a progress bar starts its measurement.
-              </p>
-            </div>
-          </div>
-
-          {/* Current Value */}
-          <div className="flex flex-col md:flex-row gap-4 items-start">
-            <div className="flex-shrink-0 bg-teal-100 dark:bg-teal-900/30 p-3 rounded-full">
-              <FlagIcon className="w-6 h-6 text-teal-500" />
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2 uppercase tracking-wide">
-                Current Value
-              </h3>
-              <p>
-                The most recent, up-to-date value currently achieved for a specific progress bar.
               </p>
             </div>
           </div>
