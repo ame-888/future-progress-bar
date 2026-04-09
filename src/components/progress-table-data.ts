@@ -328,13 +328,13 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               baseValue: 0,
               unit: "humans",
               levels: [
-                { level: 1, goal: 4 },
-                { level: 2, goal: 30 },
-                { level: 3, goal: 100 },
-                { level: 4, goal: 500 },
-                { level: 5, goal: 1000 },
-                { level: 6, goal: 10000 },
-                { level: 7, goal: 1000000 },
+                { level: 1, goal: 4, aiPredictions: [{ name: "Grok 4.20", year: 2028 }, { name: "GPT-5.4 Thinking Mini", year: 2030 }, { name: "Claude 4.6 Sonnet", year: 2031 }] },
+                { level: 2, goal: 30, aiPredictions: [{ name: "Grok 4.20", year: 2036 }, { name: "GPT-5.4 Thinking Mini", year: 2037 }, { name: "Claude 4.6 Sonnet", year: 2038 }] },
+                { level: 3, goal: 100, aiPredictions: [{ name: "Grok 4.20", year: 2045 }, { name: "Claude 4.6 Sonnet", year: 2045 }, { name: "GPT-5.4 Thinking Mini", year: 2048 }] },
+                { level: 4, goal: 500, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2054 }, { name: "Grok 4.20", year: 2065 }, { name: "GPT-5.4 Thinking Mini", year: 2065 }] },
+                { level: 5, goal: 1000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2061 }, { name: "GPT-5.4 Thinking Mini", year: 2075 }, { name: "Grok 4.20", year: 2080 }] },
+                { level: 6, goal: 10000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2076 }, { name: "Grok 4.20", year: 2100 }, { name: "GPT-5.4 Thinking Mini", year: 2120 }] },
+                { level: 7, goal: 1000000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2145 }, { name: "Grok 4.20", year: 2200 }, { name: "GPT-5.4 Thinking Mini", year: 2300 }] },
               ],
               history: [
                 {
@@ -744,13 +744,13 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               baseValue: 0,
               unit: "neurons",
               levels: [
-                { level: 1, goal: 71000000, label: "71 million (a mouse)" },
-                { level: 2, goal: 200000000, label: "200 million (a brown rat)" },
-                { level: 3, goal: 500000000, label: "500 million (an octopus)" },
-                { level: 4, goal: 6300000000, label: "6.3 billion (Rhesus Macaque)" },
-                { level: 5, goal: 14000000000, label: "14 billion (baboon)" },
-                { level: 6, goal: 33000000000, label: "33 billion (western gorilla)" },
-                { level: 7, goal: 86000000000, label: "86 billion (human)" },
+                { level: 1, goal: 71000000, label: "71 million (a mouse)", aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2034 }, { name: "GPT-5.4 Thinking Mini", year: 2034 }, { name: "Grok 4.20", year: 2034 }] },
+                { level: 2, goal: 200000000, label: "200 million (a brown rat)", aiPredictions: [{ name: "Grok 4.20", year: 2036 }, { name: "Claude 4.6 Sonnet", year: 2037 }, { name: "GPT-5.4 Thinking Mini", year: 2041 }] },
+                { level: 3, goal: 500000000, label: "500 million (an octopus)", aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2039 }, { name: "Grok 4.20", year: 2039 }, { name: "GPT-5.4 Thinking Mini", year: 2048 }] },
+                { level: 4, goal: 6300000000, label: "6.3 billion (Rhesus Macaque)", aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2044 }, { name: "Grok 4.20", year: 2048 }, { name: "GPT-5.4 Thinking Mini", year: 2058 }] },
+                { level: 5, goal: 14000000000, label: "14 billion (baboon)", aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2046 }, { name: "Grok 4.20", year: 2051 }, { name: "GPT-5.4 Thinking Mini", year: 2065 }] },
+                { level: 6, goal: 33000000000, label: "33 billion (western gorilla)", aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2051 }, { name: "Grok 4.20", year: 2055 }, { name: "GPT-5.4 Thinking Mini", year: 2074 }] },
+                { level: 7, goal: 86000000000, label: "86 billion (human)", aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2056 }, { name: "Grok 4.20", year: 2065 }, { name: "GPT-5.4 Thinking Mini", year: 2088 }] },
               ],
               history: [
                 {
