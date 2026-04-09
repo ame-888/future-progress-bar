@@ -512,6 +512,26 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               ]
             },
             {
+              id: "superconductor-3",
+              category: "Capabilities",
+              title: "Highest Critical Current Density",
+              currentValue: 150,
+              baseValue: 0,
+              unit: "MA/cm²",
+              levels: [
+                { level: 1, goal: 175 },
+                { level: 2, goal: 300 },
+                { level: 3, goal: 600 },
+                { level: 4, goal: 1500 },
+                { level: 5, goal: 4000 },
+                { level: 6, goal: 12000 },
+                { level: 7, goal: 50000 },
+              ],
+              history: [
+                { value: 150, details: ["Optimized rare-earth barium copper oxide (REBCO / (RE)BCO) thin films, specifically in (Y,Gd)BCO films incorporating self-assembled BaHfO₃ nanorod artificial pinning centers (APCs) (self-field, 4.2 K)"] }
+              ]
+            },
+            {
               id: "superconductor-2",
               category: "Capabilities",
               title: "Continuous Magnetic Field Strength",
