@@ -1122,7 +1122,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                               }
 
                               return (
-                                <div key={idx} className={`flex items-center gap-1.5 px-2 py-1 rounded-md ${colorClass} shadow-sm`}>
+                                <div key={idx} className={`flex items-center gap-1.5 px-2 py-1 rounded-md ${colorClass} shadow-sm whitespace-nowrap`}>
                                   <span className="font-medium">{pred.name}:</span>
                                   <span className={`px-1.5 py-0.5 rounded font-mono font-semibold ${yearBgClass}`}>
                                     {pred.year}
