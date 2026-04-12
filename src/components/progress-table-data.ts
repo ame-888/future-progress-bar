@@ -187,6 +187,55 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 7, goal: 195, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2128 }, { name: "Grok 4.20", year: 2160 }, { name: "GPT-5.4 Thinking Mini", year: 2240 }] },
               ],
               history: []
+            },
+            {
+              id: "self-driving-car-2",
+              category: "Legislation & Policy",
+              title: "Number of Countries where Self-Driving Cars are partially allowed",
+              currentValue: 3,
+              baseValue: 0,
+              unit: "countries",
+              levels: [
+                { level: 1, goal: 5, aiPredictions: [] },
+                { level: 2, goal: 15, aiPredictions: [] },
+                { level: 3, goal: 30, aiPredictions: [] },
+                { level: 4, goal: 60, aiPredictions: [] },
+                { level: 5, goal: 100, aiPredictions: [] },
+                { level: 6, goal: 140, aiPredictions: [] },
+                { level: 7, goal: 195, aiPredictions: [] },
+              ],
+              history: [{
+                value: 3,
+                details: [
+                  "USA (2020)",
+                  "China (2022)",
+                  "UAE (2025)",
+                  "Last updated on April 11th, 2026."
+                ]
+              }]
+            },
+            {
+              id: "self-driving-car-3",
+              category: "Legislation & Policy",
+              title: "Number of Countries where Self-Driving Cars are fully allowed",
+              currentValue: 0,
+              baseValue: 0,
+              unit: "countries",
+              levels: [
+                { level: 1, goal: 5, aiPredictions: [] },
+                { level: 2, goal: 15, aiPredictions: [] },
+                { level: 3, goal: 30, aiPredictions: [] },
+                { level: 4, goal: 60, aiPredictions: [] },
+                { level: 5, goal: 100, aiPredictions: [] },
+                { level: 6, goal: 140, aiPredictions: [] },
+                { level: 7, goal: 195, aiPredictions: [] },
+              ],
+              history: [{
+                value: 0,
+                details: [
+                  "Last updated on April 11th, 2026."
+                ]
+              }]
             }
           ]
         }
@@ -607,7 +656,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                   "Neuralink (USA): 21",
                   "Synchron (USA / Australia): 10",
                   "Clinatec / CEA / Onward Medical (France / Switzerland): 7",
-                  "Tsinghua University / Neuracle Technology (China): 3"
+                  "Tsinghua University / Neuracle Technology (China): 3",
+                  "Last updated on April 11th, 2026."
                 ]
               }],
             },
