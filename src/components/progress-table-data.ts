@@ -685,7 +685,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                   "Canada (2024)",
                   "China (2025)",
                   "UAE (2025)",
-                  "UK (2025)"
+                  "UK (2025)",
+                  "last updated on April 12th 2026"
                 ]
               }],
             },
@@ -705,7 +706,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 170, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2050 }, { name: "Grok 4.20", year: 2052 }, { name: "Claude 4.6 Sonnet", year: 2060 }, { name: "GPT-5.4 Thinking Mini", year: 2092 }] },
                 { level: 7, goal: 195, aiPredictions: [{ name: "Grok 4.20", year: 2060 }, { name: "Gemini 3.1 Pro Preview", year: 2065 }, { name: "Claude 4.6 Sonnet", year: 2072 }, { name: "GPT-5.4 Thinking Mini", year: 2125 }] },
               ],
-              history: [{ value: 1, details: ["China (2026)"] }],
+              history: [{ value: 1, details: ["China (2026)", "last updated on April 12th 2026"] }],
             },
             {
               id: "bci-4",
@@ -723,7 +724,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 140, aiPredictions: [{ name: "Grok 4.20", year: 2053 }, { name: "Claude 4.6 Sonnet", year: 2065 }, { name: "GPT-5.4 Thinking Mini", year: 2069 }, { name: "Gemini 3.1 Pro Preview", year: 2080 }] },
                 { level: 7, goal: 195, aiPredictions: [{ name: "Grok 4.20", year: 2065 }, { name: "GPT-5.4 Thinking Mini", year: 2080 }, { name: "Claude 4.6 Sonnet", year: 2085 }, { name: "Gemini 3.1 Pro Preview", year: 2105 }] },
               ],
-              history: [{ value: 0 }],
+              history: [{ value: 0, details: ["last updated on April 12th 2026"] }],
             },
           ]
         },
@@ -1033,13 +1034,13 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               baseValue: 0,
               unit: "%",
               levels: [
-                { level: 1, goal: 0.1, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2039 }, { name: "Claude 4.6 Sonnet", year: 2048 }, { name: "Gemini 3.1 Pro Preview", year: 2055 }] },
-                { level: 2, goal: 1, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2049 }, { name: "Claude 4.6 Sonnet", year: 2058 }, { name: "Gemini 3.1 Pro Preview", year: 2068 }] },
-                { level: 3, goal: 5, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2061 }, { name: "Claude 4.6 Sonnet", year: 2067 }, { name: "Gemini 3.1 Pro Preview", year: 2082 }] },
-                { level: 4, goal: 10, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2070 }, { name: "Claude 4.6 Sonnet", year: 2074 }, { name: "Gemini 3.1 Pro Preview", year: 2092 }] },
-                { level: 5, goal: 25, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2083 }, { name: "GPT-5.4 Thinking Mini", year: 2097 }, { name: "Gemini 3.1 Pro Preview", year: 2115 }] },
-                { level: 6, goal: 40, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2092 }, { name: "GPT-5.4 Thinking Mini", year: 2118 }, { name: "Gemini 3.1 Pro Preview", year: 2140 }] },
-                { level: 7, goal: 75, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2110 }, { name: "GPT-5.4 Thinking Mini", year: 2165 }, { name: "Gemini 3.1 Pro Preview", year: 2190 }] },
+                { level: 1, goal: 0.1, aiPredictions: [{ name: "Grok 4.20", year: 2032 }, { name: "GPT-5.4 Thinking Mini", year: 2039 }, { name: "Claude 4.6 Sonnet", year: 2048 }, { name: "Gemini 3.1 Pro Preview", year: 2055 }] },
+                { level: 2, goal: 1, aiPredictions: [{ name: "Grok 4.20", year: 2037 }, { name: "GPT-5.4 Thinking Mini", year: 2049 }, { name: "Claude 4.6 Sonnet", year: 2058 }, { name: "Gemini 3.1 Pro Preview", year: 2068 }] },
+                { level: 3, goal: 5, aiPredictions: [{ name: "Grok 4.20", year: 2045 }, { name: "GPT-5.4 Thinking Mini", year: 2061 }, { name: "Claude 4.6 Sonnet", year: 2067 }, { name: "Gemini 3.1 Pro Preview", year: 2082 }] },
+                { level: 4, goal: 10, aiPredictions: [{ name: "Grok 4.20", year: 2055 }, { name: "GPT-5.4 Thinking Mini", year: 2070 }, { name: "Claude 4.6 Sonnet", year: 2074 }, { name: "Gemini 3.1 Pro Preview", year: 2092 }] },
+                { level: 5, goal: 25, aiPredictions: [{ name: "Grok 4.20", year: 2070 }, { name: "Claude 4.6 Sonnet", year: 2083 }, { name: "GPT-5.4 Thinking Mini", year: 2097 }, { name: "Gemini 3.1 Pro Preview", year: 2115 }] },
+                { level: 6, goal: 40, aiPredictions: [{ name: "Grok 4.20", year: 2085 }, { name: "Claude 4.6 Sonnet", year: 2092 }, { name: "GPT-5.4 Thinking Mini", year: 2118 }, { name: "Gemini 3.1 Pro Preview", year: 2140 }] },
+                { level: 7, goal: 75, aiPredictions: [{ name: "Grok 4.20", year: 2108 }, { name: "Claude 4.6 Sonnet", year: 2110 }, { name: "GPT-5.4 Thinking Mini", year: 2165 }, { name: "Gemini 3.1 Pro Preview", year: 2190 }] },
               ],
               history: [{ value: 0 }],
             },
