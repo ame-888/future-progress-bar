@@ -151,12 +151,19 @@ export function ProgressTable() {
 
   const areAllExpanded = Object.keys(expandedCategories).length > 0 && Object.values(expandedCategories).every(Boolean);
 
+  const toggleYear = (year: number) => {
+    setExpandedYears(prev => ({ ...prev, [year]: prev[year] === undefined ? false : !prev[year] }));
+    playSound('/click.wav');
+  };
+
+
   // Form states
   const [measurementSearchTerm, setMeasurementSearchTerm] = useState("");
   const [selectedMeasurementId, setSelectedMeasurementId] = useState<string | null>(null);
   const [selectedLevel, setSelectedLevel] = useState<number | null>(null);
   const [predictionYear, setPredictionYear] = useState<string>("");
   const [isMeasurementDropdownOpen, setIsMeasurementDropdownOpen] = useState(false);
+  const [expandedYears, setExpandedYears] = useState<Record<number, boolean>>({});
 
   // Extract a flat list of all measurements for the dropdown
   const allMeasurementsFlat = React.useMemo(() => {
@@ -230,6 +237,7 @@ export function ProgressTable() {
     // Optional reset
     // setPredictionYear("");
   };
+
 
 
   // Compute flat list of all predictions across all domains/measurements
@@ -383,15 +391,55 @@ export function ProgressTable() {
             <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
               Future Progress Bar
             </h1>
-            <button
-              onClick={() => {
-                setIsPredictionsModalOpen(true);
-                playSound('/click.wav');
-              }}
-              className="px-4 py-2 rounded-full font-bold text-sm tracking-wide bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 cursor-pointer animate-pulse"
-            >
-              Full List of Predictions
-            </button>
+
+            <div className="flex flex-col items-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-xl max-w-2xl w-full mt-4 cursor-pointer hover:shadow-2xl transition-all duration-200 group"
+                 onClick={() => {
+                   setIsPredictionsModalOpen(true);
+                   playSound('/click.wav');
+                 }}>
+              <div className="w-full flex items-center justify-between mb-3 border-b border-slate-100 dark:border-slate-800 pb-2">
+                <h3 className="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <SparklesIcon className="w-5 h-5 text-indigo-500" />
+                  Upcoming Predictions ({allPredictions.sortedYears.length > 0 ? allPredictions.sortedYears[0] : new Date().getFullYear()})
+                </h3>
+                <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 group-hover:underline">See all &rarr;</span>
+              </div>
+              <div className="w-full flex flex-col gap-1 max-h-[220px] overflow-hidden relative">
+                {allPredictions.sortedYears.length > 0 && allPredictions.groupedByYear[allPredictions.sortedYears[0]].slice(0, 10).map((pred, idx) => {
+                  let predictorColorClass = "text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800";
+                  if (pred.isUser) {
+                    predictorColorClass = "text-black bg-white";
+                  } else {
+                    if (pred.name.toLowerCase().includes("grok")) {
+                      predictorColorClass = "text-yellow-800 bg-yellow-100 dark:text-yellow-200 dark:bg-yellow-900/30";
+                    } else if (pred.name.toLowerCase().includes("claude")) {
+                      predictorColorClass = "text-orange-800 bg-orange-100 dark:text-orange-200 dark:bg-orange-900/30";
+                    } else if (pred.name.toLowerCase().includes("gemini")) {
+                      predictorColorClass = "text-sky-800 bg-sky-100 dark:text-sky-200 dark:bg-sky-900/30";
+                    } else if (pred.name.toLowerCase().includes("gpt")) {
+                      predictorColorClass = "text-emerald-800 bg-emerald-100 dark:text-emerald-200 dark:bg-emerald-900/30";
+                    }
+                  }
+
+                  return (
+                    <div key={idx} className="flex items-center text-sm text-slate-600 dark:text-slate-300 w-full py-0.5">
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider whitespace-nowrap mr-3 flex-shrink-0 inline-block ${predictorColorClass}`}>
+                        {pred.name}
+                      </span>
+                      <span className="truncate flex-1 text-left" title={`${pred.title} reaches Lvl ${pred.level}`}>
+                        {pred.title} reaches Lvl {pred.level}
+                      </span>
+                    </div>
+                  );
+                })}
+                {allPredictions.sortedYears.length > 0 && allPredictions.groupedByYear[allPredictions.sortedYears[0]].length > 10 && (
+                  <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white dark:from-slate-900 to-transparent flex items-end justify-center pb-1">
+                    <span className="text-xs text-slate-400 font-medium">+{allPredictions.groupedByYear[allPredictions.sortedYears[0]].length - 10} more...</span>
+                  </div>
+                )}
+              </div>
+            </div>
+
           </div>
           <p className="text-slate-500 dark:text-slate-400 max-w-2xl">
             Tracking the frontiers of human innovation across 5 domains and 12 subdomains.
@@ -553,84 +601,103 @@ export function ProgressTable() {
                         <th className="px-4 py-3 font-semibold text-right">Actions</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-200 dark:divide-slate-700/50">
-                      {allPredictions.sortedYears.map(year => (
-                        allPredictions.groupedByYear[year].map((pred, idx) => {
-                          let rowClass = "hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors";
-                          let predictorColorClass = "text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800";
+                    {allPredictions.sortedYears.map(year => {
+                      const isExpanded = expandedYears[year] !== false; // Default true
+                      return (
+                        <tbody key={year} className="divide-y divide-slate-200 dark:divide-slate-700/50">
+                          {/* Year Header Row */}
+                          <tr
+                            onClick={() => toggleYear(year)}
+                            className="bg-slate-100 dark:bg-slate-800 cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                          >
+                            <td colSpan={6} className="px-4 py-2 font-bold text-slate-900 dark:text-white">
+                              <div className="flex items-center gap-2">
+                                <span className={`transform transition-transform ${isExpanded ? 'rotate-90' : ''}`}>&#9654;</span>
+                                {year} ({allPredictions.groupedByYear[year].length} predictions)
+                              </div>
+                            </td>
+                          </tr>
 
-                          if (pred.isUser) {
-                            rowClass = "bg-black text-white hover:bg-slate-900 transition-colors";
-                            predictorColorClass = "text-black bg-white";
-                          } else {
-                            if (pred.name.toLowerCase().includes("grok")) {
-                              predictorColorClass = "text-yellow-800 bg-yellow-100 dark:text-yellow-200 dark:bg-yellow-900/30";
-                            } else if (pred.name.toLowerCase().includes("claude")) {
-                              predictorColorClass = "text-orange-800 bg-orange-100 dark:text-orange-200 dark:bg-orange-900/30";
-                            } else if (pred.name.toLowerCase().includes("gemini")) {
-                              predictorColorClass = "text-sky-800 bg-sky-100 dark:text-sky-200 dark:bg-sky-900/30";
-                            } else if (pred.name.toLowerCase().includes("gpt")) {
-                              predictorColorClass = "text-emerald-800 bg-emerald-100 dark:text-emerald-200 dark:bg-emerald-900/30";
+                          {/* Prediction Rows */}
+                          {isExpanded && allPredictions.groupedByYear[year].map((pred, idx) => {
+                            let rowClass = "hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors";
+                            let predictorColorClass = "text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800";
+
+                            if (pred.isUser) {
+                              rowClass = "bg-black text-white hover:bg-slate-900 transition-colors";
+                              predictorColorClass = "text-black bg-white";
+                            } else {
+                              if (pred.name.toLowerCase().includes("grok")) {
+                                predictorColorClass = "text-yellow-800 bg-yellow-100 dark:text-yellow-200 dark:bg-yellow-900/30";
+                              } else if (pred.name.toLowerCase().includes("claude")) {
+                                predictorColorClass = "text-orange-800 bg-orange-100 dark:text-orange-200 dark:bg-orange-900/30";
+                              } else if (pred.name.toLowerCase().includes("gemini")) {
+                                predictorColorClass = "text-sky-800 bg-sky-100 dark:text-sky-200 dark:bg-sky-900/30";
+                              } else if (pred.name.toLowerCase().includes("gpt")) {
+                                predictorColorClass = "text-emerald-800 bg-emerald-100 dark:text-emerald-200 dark:bg-emerald-900/30";
+                              }
                             }
-                          }
 
-                          return (
-                            <tr key={`${year}-${idx}`} className={rowClass}>
-                              <td className={`px-4 py-3 font-mono font-bold ${pred.isUser ? 'text-white' : 'text-indigo-600 dark:text-indigo-400'}`}>
-                                {pred.year}
-                              </td>
-                              <td className="px-4 py-3">
-                                <span className={`text-xs font-bold px-2 py-1 rounded uppercase tracking-wider ${predictorColorClass}`}>
-                                  {pred.name}
-                                </span>
-                              </td>
-                              <td className={`px-4 py-3 font-medium ${pred.isUser ? 'text-slate-200' : 'text-slate-900 dark:text-white'} truncate max-w-xs`} title={pred.title}>
-                                {pred.title}
-                              </td>
-                              <td className="px-4 py-3">
-                                <div className="flex items-center gap-2 text-xs">
-                                  <span className="uppercase tracking-wider font-semibold opacity-90">L{pred.level}</span>
-                                  <span className="opacity-50">&bull;</span>
-                                  <span className="opacity-90 truncate max-w-[200px]" title={pred.label ? pred.label : `${pred.goal} ${pred.unit || ''}`}>
-                                    {pred.label ? pred.label : `${pred.goal} ${pred.unit || ''}`}
+                            return (
+                              <tr key={`${year}-${idx}`} className={rowClass}>
+                                <td className={`px-4 py-3 font-mono font-bold ${pred.isUser ? 'text-white' : 'text-indigo-600 dark:text-indigo-400'}`}>
+                                  {pred.year}
+                                </td>
+                                <td className="px-4 py-3">
+                                  <span className={`text-xs font-bold px-2 py-1 rounded uppercase tracking-wider ${predictorColorClass}`}>
+                                    {pred.name}
                                   </span>
-                                </div>
-                              </td>
-                              <td className="px-4 py-3 text-right text-xs opacity-70">
-                                {pred.timestamp ? new Date(pred.timestamp).toLocaleDateString() : 'N/A'}
-                              </td>
-                              <td className="px-4 py-3 text-right text-xs">
-                                {pred.isUser && pred.measurementId && (
-                                  <div className="flex justify-end gap-3">
-                                    <button
-                                      onClick={() => handleEditPrediction(pred.measurementId!, pred.level, pred.year)}
-                                      className="text-slate-300 hover:text-indigo-400 transition-colors"
-                                      title="Edit Prediction"
-                                    >
-                                      Edit
-                                    </button>
-                                    <button
-                                      onClick={() => handleDeletePrediction(pred.measurementId!, pred.level)}
-                                      className="text-slate-300 hover:text-red-400 transition-colors"
-                                      title="Delete Prediction"
-                                    >
-                                      Delete
-                                    </button>
+                                </td>
+                                <td className={`px-4 py-3 font-medium ${pred.isUser ? 'text-slate-200' : 'text-slate-900 dark:text-white'} truncate max-w-xs`} title={pred.title}>
+                                  {pred.title}
+                                </td>
+                                <td className="px-4 py-3">
+                                  <div className="flex items-center gap-2 text-xs">
+                                    <span className="uppercase tracking-wider font-semibold opacity-90">L{pred.level}</span>
+                                    <span className="opacity-50">&bull;</span>
+                                    <span className="opacity-90 truncate max-w-[200px]" title={pred.label ? pred.label : `${pred.goal} ${pred.unit || ''}`}>
+                                      {pred.label ? pred.label : `${pred.goal} ${pred.unit || ''}`}
+                                    </span>
                                   </div>
-                                )}
-                              </td>
-                            </tr>
-                          );
-                        })
-                      ))}
-                      {allPredictions.sortedYears.length === 0 && (
+                                </td>
+                                <td className="px-4 py-3 text-right text-xs opacity-70">
+                                  {pred.timestamp ? new Date(pred.timestamp).toLocaleDateString() : 'N/A'}
+                                </td>
+                                <td className="px-4 py-3 text-right text-xs">
+                                  {pred.isUser && pred.measurementId && (
+                                    <div className="flex justify-end gap-3">
+                                      <button
+                                        onClick={() => handleEditPrediction(pred.measurementId!, pred.level, pred.year)}
+                                        className="text-slate-300 hover:text-indigo-400 transition-colors"
+                                        title="Edit Prediction"
+                                      >
+                                        Edit
+                                      </button>
+                                      <button
+                                        onClick={() => handleDeletePrediction(pred.measurementId!, pred.level)}
+                                        className="text-slate-300 hover:text-red-400 transition-colors"
+                                        title="Delete Prediction"
+                                      >
+                                        Delete
+                                      </button>
+                                    </div>
+                                  )}
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      );
+                    })}
+                    {allPredictions.sortedYears.length === 0 && (
+                      <tbody>
                         <tr>
-                          <td colSpan={5} className="px-4 py-8 text-center text-slate-500">
+                          <td colSpan={6} className="px-4 py-8 text-center text-slate-500">
                             No predictions found for the selected filter.
                           </td>
                         </tr>
-                      )}
-                    </tbody>
+                      </tbody>
+                    )}
                   </table>
                 </div>
 
