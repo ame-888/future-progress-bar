@@ -164,6 +164,7 @@ export function ProgressTable() {
   const [predictionYear, setPredictionYear] = useState<string>("");
   const [isMeasurementDropdownOpen, setIsMeasurementDropdownOpen] = useState(false);
   const [expandedYears, setExpandedYears] = useState<Record<number, boolean>>({});
+  const [predictionSearchQuery, setPredictionSearchQuery] = useState("");
 
   // Extract a flat list of all measurements for the dropdown
   const allMeasurementsFlat = React.useMemo(() => {
@@ -302,9 +303,18 @@ export function ProgressTable() {
       });
     });
 
+    // Apply search filter
+    const filteredPredictions = predictions.filter(p => {
+      if (!predictionSearchQuery) return true;
+      const q = predictionSearchQuery.toLowerCase();
+      return p.title.toLowerCase().includes(q) ||
+             p.name.toLowerCase().includes(q) ||
+             p.year.toString().includes(q);
+    });
+
     // Group by year
-    const groupedByYear: Record<number, typeof predictions> = {};
-    predictions.forEach(p => {
+    const groupedByYear: Record<number, typeof filteredPredictions> = {};
+    filteredPredictions.forEach(p => {
       if (!groupedByYear[p.year]) {
         groupedByYear[p.year] = [];
       }
@@ -325,7 +335,7 @@ export function ProgressTable() {
       });
 
     return { sortedYears, groupedByYear };
-  }, [predictionFilter, userPredictions]);
+  }, [predictionFilter, userPredictions, predictionSearchQuery]);
 
   // Don't render until we know the initial tab (to avoid hydration mismatch or flash of wrong tab)
   if (activeMainTab === -1 || !activeDomain || !activeMainDomain) return null;
@@ -392,7 +402,7 @@ export function ProgressTable() {
               Future Progress Bar
             </h1>
 
-            <div className="flex flex-col items-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-xl max-w-2xl w-full mt-4 cursor-pointer hover:shadow-2xl transition-all duration-200 group"
+            <div className="flex flex-col items-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-xl max-w-sm w-full mt-4 cursor-pointer hover:shadow-2xl transition-all duration-200 group ml-auto"
                  onClick={() => {
                    setIsPredictionsModalOpen(true);
                    playSound('/click.wav');
@@ -406,26 +416,24 @@ export function ProgressTable() {
               </div>
               <div className="w-full flex flex-col gap-1 max-h-[220px] overflow-hidden relative">
                 {allPredictions.sortedYears.length > 0 && allPredictions.groupedByYear[allPredictions.sortedYears[0]].slice(0, 10).map((pred, idx) => {
-                  let predictorColorClass = "text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800";
+                  let predictorColorClass = "bg-slate-500";
                   if (pred.isUser) {
-                    predictorColorClass = "text-black bg-white";
+                    predictorColorClass = "bg-black dark:bg-white";
                   } else {
                     if (pred.name.toLowerCase().includes("grok")) {
-                      predictorColorClass = "text-yellow-800 bg-yellow-100 dark:text-yellow-200 dark:bg-yellow-900/30";
+                      predictorColorClass = "bg-yellow-400";
                     } else if (pred.name.toLowerCase().includes("claude")) {
-                      predictorColorClass = "text-orange-800 bg-orange-100 dark:text-orange-200 dark:bg-orange-900/30";
+                      predictorColorClass = "bg-orange-500";
                     } else if (pred.name.toLowerCase().includes("gemini")) {
-                      predictorColorClass = "text-sky-800 bg-sky-100 dark:text-sky-200 dark:bg-sky-900/30";
+                      predictorColorClass = "bg-sky-500";
                     } else if (pred.name.toLowerCase().includes("gpt")) {
-                      predictorColorClass = "text-emerald-800 bg-emerald-100 dark:text-emerald-200 dark:bg-emerald-900/30";
+                      predictorColorClass = "bg-emerald-500";
                     }
                   }
 
                   return (
                     <div key={idx} className="flex items-center text-sm text-slate-600 dark:text-slate-300 w-full py-0.5">
-                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider whitespace-nowrap mr-3 flex-shrink-0 inline-block ${predictorColorClass}`}>
-                        {pred.name}
-                      </span>
+                      <span className={`w-2.5 h-2.5 rounded-full mr-3 flex-shrink-0 inline-block ${predictorColorClass}`}></span>
                       <span className="truncate flex-1 text-left" title={`${pred.title} reaches Lvl ${pred.level}`}>
                         {pred.title} reaches Lvl {pred.level}
                       </span>
@@ -449,7 +457,7 @@ export function ProgressTable() {
         {/* Predictions Modal */}
         {isPredictionsModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white dark:bg-slate-950 w-full max-w-5xl max-h-[90vh] rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden relative">
+            <div className="bg-white dark:bg-slate-950 w-full max-w-7xl max-h-[90vh] rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden relative">
               <div className="flex items-center justify-between p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h2 className="text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
                   <SparklesIcon className="w-6 h-6 text-indigo-500" />
@@ -565,7 +573,16 @@ export function ProgressTable() {
                 </div>
 
                 {/* Filters */}
-                <div className="flex justify-center mb-6">
+                <div className="flex justify-center mb-6 items-center gap-4">
+                  <div className="relative w-64">
+                    <input
+                      type="text"
+                      placeholder="Search predictions..."
+                      value={predictionSearchQuery}
+                      onChange={(e) => setPredictionSearchQuery(e.target.value)}
+                      className="w-full bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+                    />
+                  </div>
                   <div className="inline-flex bg-slate-100 dark:bg-slate-800 p-1 rounded-lg border border-slate-200 dark:border-slate-700">
                     <button
                       onClick={() => setPredictionFilter('ai')}
@@ -648,14 +665,14 @@ export function ProgressTable() {
                                     {pred.name}
                                   </span>
                                 </td>
-                                <td className={`px-4 py-3 font-medium ${pred.isUser ? 'text-slate-200' : 'text-slate-900 dark:text-white'} truncate max-w-xs`} title={pred.title}>
+                                <td className={`px-4 py-3 font-medium ${pred.isUser ? 'text-slate-200' : 'text-slate-900 dark:text-white'} whitespace-normal break-words max-w-sm`} title={pred.title}>
                                   {pred.title}
                                 </td>
                                 <td className="px-4 py-3">
-                                  <div className="flex items-center gap-2 text-xs">
+                                  <div className="flex items-center gap-2 text-xs whitespace-normal break-words max-w-xs">
                                     <span className="uppercase tracking-wider font-semibold opacity-90">L{pred.level}</span>
                                     <span className="opacity-50">&bull;</span>
-                                    <span className="opacity-90 truncate max-w-[200px]" title={pred.label ? pred.label : `${pred.goal} ${pred.unit || ''}`}>
+                                    <span className="opacity-90" title={pred.label ? pred.label : `${pred.goal} ${pred.unit || ''}`}>
                                       {pred.label ? pred.label : `${pred.goal} ${pred.unit || ''}`}
                                     </span>
                                   </div>
@@ -1122,7 +1139,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
 
                         if (isLastUpdated) {
                           return (
-                            <div key={idx} className="mt-2 w-full flex justify-end">
+                            <div key={idx} className="mt-2 w-full flex justify-start">
                               <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/50 shadow-sm transition-all hover:bg-indigo-100 dark:hover:bg-indigo-900/50">
                                 <svg className="w-3.5 h-3.5 mr-1.5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
