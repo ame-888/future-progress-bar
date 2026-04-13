@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SoundProvider } from "@/components/sound-provider";
 import { DisclaimerBanner } from "@/components/disclaimer-banner";
+import { DateWidget } from "@/components/date-widget";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +40,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <DisclaimerBanner />
+          <DateWidget />
           <SoundProvider>
             {children}
           </SoundProvider>
