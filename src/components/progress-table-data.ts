@@ -191,7 +191,12 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 66, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2063 }, { name: "Gemini 3.1 Pro Preview", year: 2085 }, { name: "GPT-5.4 Thinking Mini", year: 2096 }, { name: "Grok 4.20", year: 2105 }] },
                 { level: 7, goal: 99, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2078 }, { name: "GPT-5.4 Thinking Mini", year: 2120 }, { name: "Gemini 3.1 Pro Preview", year: 2125 }, { name: "Grok 4.20", year: 2135 }] },
               ],
-              history: []
+              history: [
+                {
+                  value: 0,
+                  details: ["last updated on april 12th 2026"]
+                }
+              ]
             }
           ]
         },
@@ -302,7 +307,10 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 7, goal: 500, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2900 }, { name: "Grok 4.20", year: 2950 }, { name: "Claude 4.6 Sonnet", year: 4500 }, { name: "GPT-5.4 Thinking Mini", year: 6208 }] },
               ],
               history: [
-                { value: 73.8 }
+                {
+                  value: 73.8,
+                  details: ["last updated on april 12th 2026"]
+                }
               ],
             },
             {
