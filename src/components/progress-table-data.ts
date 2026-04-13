@@ -568,13 +568,13 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               baseValue: 0,
               unit: "MA/cm²",
               levels: [
-                { level: 1, goal: 175, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2029 }, { name: "Grok 4.20", year: 2033 }] },
-                { level: 2, goal: 300, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2040 }, { name: "Grok 4.20", year: 2042 }] },
-                { level: 3, goal: 600, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2051 }, { name: "Grok 4.20", year: 2065 }] },
-                { level: 4, goal: 1500, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2066 }, { name: "Grok 4.20", year: 2105 }] },
-                { level: 5, goal: 4000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2081 }, { name: "Grok 4.20", year: 2155 }] },
-                { level: 6, goal: 12000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2097 }, { name: "Grok 4.20", year: 2255 }] },
-                { level: 7, goal: 50000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2126 }, { name: "Grok 4.20", year: 2350 }] },
+                { level: 1, goal: 175, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2028 }, { name: "Claude 4.6 Sonnet", year: 2029 }, { name: "Grok 4.20", year: 2033 }] },
+                { level: 2, goal: 300, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2031 }, { name: "Claude 4.6 Sonnet", year: 2040 }, { name: "Grok 4.20", year: 2042 }] },
+                { level: 3, goal: 600, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2037 }, { name: "Claude 4.6 Sonnet", year: 2051 }, { name: "Grok 4.20", year: 2065 }] },
+                { level: 4, goal: 1500, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2047 }, { name: "Claude 4.6 Sonnet", year: 2066 }, { name: "Grok 4.20", year: 2105 }] },
+                { level: 5, goal: 4000, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2058 }, { name: "Claude 4.6 Sonnet", year: 2081 }, { name: "Grok 4.20", year: 2155 }] },
+                { level: 6, goal: 12000, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2072 }, { name: "Claude 4.6 Sonnet", year: 2097 }, { name: "Grok 4.20", year: 2255 }] },
+                { level: 7, goal: 50000, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2090 }, { name: "Claude 4.6 Sonnet", year: 2126 }, { name: "Grok 4.20", year: 2350 }] },
               ],
               history: [
                 { value: 150, details: ["Optimized rare-earth barium copper oxide (REBCO / (RE)BCO) thin films, specifically in (Y,Gd)BCO films incorporating self-assembled BaHfO₃ nanorod artificial pinning centers (APCs) (self-field, 4.2 K)"] }
@@ -588,13 +588,13 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               baseValue: 20,
               unit: "Tesla",
               levels: [
-                { level: 1, goal: 75, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2032 }, { name: "Grok 4.20", year: 2038 }] },
-                { level: 2, goal: 150, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2041 }, { name: "Grok 4.20", year: 2065 }] },
-                { level: 3, goal: 500, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2054 }, { name: "Grok 4.20", year: 2110 }] },
-                { level: 4, goal: 2000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2068 }, { name: "Grok 4.20", year: 2175 }] },
-                { level: 5, goal: 10000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2085 }, { name: "Grok 4.20", year: 2240 }] },
-                { level: 6, goal: 100000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2112 }, { name: "Grok 4.20", year: 2320 }] },
-                { level: 7, goal: 1000000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2160 }, { name: "Grok 4.20", year: 2450 }] },
+                { level: 1, goal: 75, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2032 }, { name: "GPT-5.4 Thinking Mini", year: 2033 }, { name: "Grok 4.20", year: 2038 }] },
+                { level: 2, goal: 150, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2041 }, { name: "GPT-5.4 Thinking Mini", year: 2046 }, { name: "Grok 4.20", year: 2065 }] },
+                { level: 3, goal: 500, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2054 }, { name: "GPT-5.4 Thinking Mini", year: 2072 }, { name: "Grok 4.20", year: 2110 }] },
+                { level: 4, goal: 2000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2068 }, { name: "GPT-5.4 Thinking Mini", year: 2125 }, { name: "Grok 4.20", year: 2175 }] },
+                { level: 5, goal: 10000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2085 }, { name: "GPT-5.4 Thinking Mini", year: 2210 }, { name: "Grok 4.20", year: 2240 }] },
+                { level: 6, goal: 100000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2112 }, { name: "Grok 4.20", year: 2320 }, { name: "GPT-5.4 Thinking Mini", year: 2350 }] },
+                { level: 7, goal: 1000000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2160 }, { name: "Grok 4.20", year: 2450 }, { name: "GPT-5.4 Thinking Mini", year: 2550 }] },
               ],
               history: [
                 { value: 45.5, details: ["MagLab \"Little Giant\" using HTS"] }
@@ -608,13 +608,13 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               baseValue: 0.5,
               unit: "km",
               levels: [
-                { level: 1, goal: 5, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2029 }, { name: "Grok 4.20", year: 2029 }] },
-                { level: 2, goal: 15, aiPredictions: [{ name: "Grok 4.20", year: 2033 }, { name: "Claude 4.6 Sonnet", year: 2034 }] },
-                { level: 3, goal: 40, aiPredictions: [{ name: "Grok 4.20", year: 2038 }, { name: "Claude 4.6 Sonnet", year: 2040 }] },
-                { level: 4, goal: 100, aiPredictions: [{ name: "Grok 4.20", year: 2045 }, { name: "Claude 4.6 Sonnet", year: 2047 }] },
-                { level: 5, goal: 1000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2058 }, { name: "Grok 4.20", year: 2060 }] },
-                { level: 6, goal: 10000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2071 }, { name: "Grok 4.20", year: 2085 }] },
-                { level: 7, goal: 40000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2087 }, { name: "Grok 4.20", year: 2120 }] },
+                { level: 1, goal: 5, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2029 }, { name: "Grok 4.20", year: 2029 }, { name: "GPT-5.4 Thinking Mini", year: 2054 }] },
+                { level: 2, goal: 15, aiPredictions: [{ name: "Grok 4.20", year: 2033 }, { name: "Claude 4.6 Sonnet", year: 2034 }, { name: "GPT-5.4 Thinking Mini", year: 2071 }] },
+                { level: 3, goal: 40, aiPredictions: [{ name: "Grok 4.20", year: 2038 }, { name: "Claude 4.6 Sonnet", year: 2040 }, { name: "GPT-5.4 Thinking Mini", year: 2088 }] },
+                { level: 4, goal: 100, aiPredictions: [{ name: "Grok 4.20", year: 2045 }, { name: "Claude 4.6 Sonnet", year: 2047 }, { name: "GPT-5.4 Thinking Mini", year: 2110 }] },
+                { level: 5, goal: 1000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2058 }, { name: "Grok 4.20", year: 2060 }, { name: "GPT-5.4 Thinking Mini", year: 2178 }] },
+                { level: 6, goal: 10000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2071 }, { name: "Grok 4.20", year: 2085 }, { name: "GPT-5.4 Thinking Mini", year: 2251 }] },
+                { level: 7, goal: 40000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2087 }, { name: "Grok 4.20", year: 2120 }, { name: "GPT-5.4 Thinking Mini", year: 2328 }] },
               ],
               history: [
                 { value: 1.4, details: ["This record comes from Fujikura Ltd. (Japan), which has demonstrated uniform critical current (Ic) and n-value across >1,400 m lengths of 4 mm-wide artificial-pinning (APC/FESC-type) REBCO tape in recent production-scale runs (measured via reel-to-reel methods every ~4.7 m)."] }
