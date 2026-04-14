@@ -90,6 +90,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           measurements: [
             {
               id: "ai-millennium-problems",
+              category: "Research & Education",
               title: "Millennium Prize Problems Solved",
               currentValue: 0,
               baseValue: 0,
@@ -112,6 +113,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "ai-led-countries-1",
+              category: "Leadership & Governance",
               title: "Number of Countries primarily led by AI",
               currentValue: 0,
               baseValue: 0,
@@ -134,6 +136,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "ai-led-companies",
+              category: "Leadership & Governance",
               title: "Number of AI-led companies among the top 100",
               currentValue: 0,
               baseValue: 0,
@@ -146,6 +149,29 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 5, goal: 33, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2048 }] },
                 { level: 6, goal: 66, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2053 }] },
                 { level: 7, goal: 100, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2060 }] },
+              ],
+              history: [
+                {
+                  value: 0,
+                  details: ["Last updated on April 14th 2026"]
+                }
+              ]
+            },
+            {
+              id: "ai-exclusively-professors",
+              category: "Research & Education",
+              title: "Universities around the world with exclusively AI professors",
+              currentValue: 0,
+              baseValue: 0,
+              unit: "universities",
+              levels: [
+                { level: 1, goal: 1, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2029 }, { name: "Grok 4.20", year: 2031 }, { name: "GPT-5.4 Thinking Mini", year: 2041 }] },
+                { level: 2, goal: 7, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2031 }, { name: "Grok 4.20", year: 2034 }, { name: "GPT-5.4 Thinking Mini", year: 2049 }] },
+                { level: 3, goal: 30, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2034 }, { name: "Grok 4.20", year: 2037 }, { name: "GPT-5.4 Thinking Mini", year: 2058 }] },
+                { level: 4, goal: 150, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2037 }, { name: "Grok 4.20", year: 2041 }, { name: "GPT-5.4 Thinking Mini", year: 2068 }] },
+                { level: 5, goal: 750, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2041 }, { name: "Grok 4.20", year: 2046 }, { name: "GPT-5.4 Thinking Mini", year: 2080 }] },
+                { level: 6, goal: 3333, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2046 }, { name: "Grok 4.20", year: 2051 }, { name: "GPT-5.4 Thinking Mini", year: 2094 }] },
+                { level: 7, goal: 20000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2054 }, { name: "Grok 4.20", year: 2065 }, { name: "GPT-5.4 Thinking Mini", year: 2115 }] },
               ],
               history: [
                 {
