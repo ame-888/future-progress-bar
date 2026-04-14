@@ -276,6 +276,29 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                   "Last updated on April 11th, 2026."
                 ]
               }]
+            },
+            {
+              id: "self-driving-car-4",
+              category: "Deployment",
+              title: "Number of Level 5 Autonomy Vehicles deployed worldwide",
+              currentValue: 0,
+              baseValue: 0,
+              unit: "vehicles",
+              levels: [
+                { level: 1, goal: 15, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2032 }, { name: "Claude 4.6 Sonnet", year: 2033 }] },
+                { level: 2, goal: 300, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2035 }, { name: "GPT-5.4 Thinking Mini", year: 2036 }] },
+                { level: 3, goal: 6000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2037 }, { name: "GPT-5.4 Thinking Mini", year: 2041 }] },
+                { level: 4, goal: 120000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2040 }, { name: "GPT-5.4 Thinking Mini", year: 2047 }] },
+                { level: 5, goal: 2400000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2043 }, { name: "GPT-5.4 Thinking Mini", year: 2054 }] },
+                { level: 6, goal: 48000000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2048 }, { name: "GPT-5.4 Thinking Mini", year: 2063 }] },
+                { level: 7, goal: 960000000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2057 }, { name: "GPT-5.4 Thinking Mini", year: 2078 }] },
+              ],
+              history: [{
+                value: 0,
+                details: [
+                  "Last updated on April 13th 2026"
+                ]
+              }]
             }
           ]
         }
