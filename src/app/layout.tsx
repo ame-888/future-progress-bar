@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { SoundProvider } from "@/components/sound-provider";
 import { DisclaimerBanner } from "@/components/disclaimer-banner";
 
 const geistSans = Geist({
@@ -39,9 +38,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <DisclaimerBanner />
-          <SoundProvider>
-            {children}
-          </SoundProvider>
+          {children}
         </ThemeProvider>
       </body>
     </html>

@@ -16,7 +16,7 @@ import { SpaceExplorationGraph } from "./space-exploration-graph";
 import { AiGraph } from "./ai-graph";
 import { QuantumComputingGraph } from "./quantum-computing-graph";
 import { FictionalFuture } from "./fictional-future";
-import { useSound } from "./sound-provider";
+
 
 export function ProgressTable() {
   const router = useRouter();
@@ -27,7 +27,7 @@ export function ProgressTable() {
   const [activeSubTab, setActiveSubTab] = useState(-1);
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const [isPredictionsModalOpen, setIsPredictionsModalOpen] = useState(false);
-  const { playSound } = useSound();
+
 
   // User predictions and filters state
   const [userPredictions, setUserPredictions] = useState<Record<string, { year: number; timestamp: number }>>({});
@@ -93,7 +93,7 @@ export function ProgressTable() {
     const subDomainId = MAIN_DOMAINS[index].subdomains[0].id;
     localStorage.setItem('lastActiveTab', subDomainId);
     router.push(`/?tab=${subDomainId}`, { scroll: false });
-    playSound('/click.wav');
+
   };
 
   const handleSubTabClick = (index: number) => {
@@ -101,7 +101,7 @@ export function ProgressTable() {
     const subDomainId = MAIN_DOMAINS[activeMainTab].subdomains[index].id;
     localStorage.setItem('lastActiveTab', subDomainId);
     router.push(`/?tab=${subDomainId}`, { scroll: false });
-    playSound('/click.wav');
+
   };
 
   const activeMainDomain = activeMainTab !== -1 ? MAIN_DOMAINS[activeMainTab] : null;
@@ -136,7 +136,7 @@ export function ProgressTable() {
       ...prev,
       [category]: !prev[category]
     }));
-    playSound('/click.wav');
+
   };
 
   const toggleAll = () => {
@@ -146,14 +146,14 @@ export function ProgressTable() {
       newState[category] = !allExpanded;
     });
     setExpandedCategories(newState);
-    playSound('/click.wav');
+
   };
 
   const areAllExpanded = Object.keys(expandedCategories).length > 0 && Object.values(expandedCategories).every(Boolean);
 
   const toggleYear = (year: number) => {
     setExpandedYears(prev => ({ ...prev, [year]: prev[year] === undefined ? false : !prev[year] }));
-    playSound('/click.wav');
+
   };
 
 
@@ -165,6 +165,16 @@ export function ProgressTable() {
   const [isMeasurementDropdownOpen, setIsMeasurementDropdownOpen] = useState(false);
   const [expandedYears, setExpandedYears] = useState<Record<number, boolean>>({});
   const [predictionSearchQuery, setPredictionSearchQuery] = useState("");
+  const [renderPredictionsList, setRenderPredictionsList] = useState(false);
+
+  React.useEffect(() => {
+    if (isPredictionsModalOpen) {
+      const timer = setTimeout(() => setRenderPredictionsList(true), 50);
+      return () => clearTimeout(timer);
+    } else {
+      setRenderPredictionsList(false);
+    }
+  }, [isPredictionsModalOpen]);
 
   // Extract a flat list of all measurements for the dropdown
   const allMeasurementsFlat = React.useMemo(() => {
@@ -233,7 +243,7 @@ export function ProgressTable() {
         timestamp: Date.now()
       }
     }));
-    playSound('/click.wav');
+
 
     // Optional reset
     // setPredictionYear("");
@@ -408,7 +418,7 @@ export function ProgressTable() {
               <button
                 onClick={() => {
                   setIsPredictionsModalOpen(true);
-                  playSound('/click.wav');
+
                 }}
                 className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-4 py-2 rounded-xl shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-950"
               >
@@ -434,7 +444,7 @@ export function ProgressTable() {
                 <button
                   onClick={() => {
                     setIsPredictionsModalOpen(false);
-                    playSound('/click.wav');
+
                   }}
                   className="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 transition-colors cursor-pointer"
                 >
@@ -586,7 +596,7 @@ export function ProgressTable() {
                         <th className="px-4 py-3 font-semibold text-right">Actions</th>
                       </tr>
                     </thead>
-                    {allPredictions.sortedYears.map(year => {
+                    {renderPredictionsList ? (allPredictions.sortedYears.map(year => {
                       const isExpanded = expandedYears[year] !== false; // Default true
                       return (
                         <tbody key={year} className="divide-y divide-slate-200 dark:divide-slate-700/50">
@@ -673,11 +683,20 @@ export function ProgressTable() {
                           })}
                         </tbody>
                       );
-                    })}
-                    {allPredictions.sortedYears.length === 0 && (
+                    })
+                    ) : (
                       <tbody>
                         <tr>
-                          <td colSpan={6} className="px-4 py-8 text-center text-slate-500">
+                          <td colSpan={6} className="px-4 py-8 text-center text-slate-500 dark:text-slate-400">
+                            Loading predictions...
+                          </td>
+                        </tr>
+                      </tbody>
+                    )}
+                    {allPredictions.sortedYears.length === 0 && renderPredictionsList && (
+                      <tbody>
+                        <tr>
+                          <td colSpan={6} className="px-4 py-8 text-center text-slate-500 dark:text-slate-400">
                             No predictions found for the selected filter.
                           </td>
                         </tr>

@@ -1,9 +1,0 @@
---- src/components/progress-table.tsx
-+++ src/components/progress-table.tsx
-@@ -398,5 +398,5 @@
-         <div className="relative z-10 flex flex-col w-full items-center mt-8 px-4 md:px-8">
-           <div className="flex flex-col lg:flex-row items-center w-full justify-between relative mb-2 gap-4">
-             <div className="hidden lg:block lg:flex-1"></div>
-
--            <div className="flex justify-center z-10 pointer-events-none lg:absolute lg:left-1/2 lg:-translate-x-1/2 w-full">
-+            <div className="flex justify-center z-0 pointer-events-none lg:absolute lg:left-1/2 lg:-translate-x-1/2 w-full">
