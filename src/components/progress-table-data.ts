@@ -197,6 +197,29 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                   details: ["last updated on april 12th 2026"]
                 }
               ]
+            },
+            {
+              id: "robotics-4",
+              category: "Adoption",
+              title: "Global Share of Humanoid Robots acting as independent police officers or security guards",
+              currentValue: 0,
+              baseValue: 0,
+              unit: "%",
+              levels: [
+                { level: 1, goal: 0.001, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2033 }, { name: "GPT-5.4 Thinking Mini", year: 2038 }] },
+                { level: 2, goal: 0.05, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2040 }, { name: "GPT-5.4 Thinking Mini", year: 2048 }] },
+                { level: 3, goal: 1, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2048 }, { name: "GPT-5.4 Thinking Mini", year: 2065 }] },
+                { level: 4, goal: 5, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2055 }, { name: "GPT-5.4 Thinking Mini", year: 2082 }] },
+                { level: 5, goal: 33, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2065 }, { name: "GPT-5.4 Thinking Mini", year: 2145 }] },
+                { level: 6, goal: 66, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2073 }, { name: "GPT-5.4 Thinking Mini", year: 2205 }] },
+                { level: 7, goal: 99, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2084 }, { name: "GPT-5.4 Thinking Mini", year: 2300 }] },
+              ],
+              history: [
+                {
+                  value: 0,
+                  details: ["last updated on april 14th 2026"]
+                }
+              ]
             }
           ]
         },
