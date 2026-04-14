@@ -152,7 +152,7 @@ export function ProgressTable() {
   const areAllExpanded = Object.keys(expandedCategories).length > 0 && Object.values(expandedCategories).every(Boolean);
 
   const toggleYear = (year: number) => {
-    setExpandedYears(prev => ({ ...prev, [year]: prev[year] === undefined ? false : !prev[year] }));
+    setExpandedYears(prev => ({ ...prev, [year]: !prev[year] }));
 
   };
 
@@ -163,7 +163,7 @@ export function ProgressTable() {
   const [selectedLevel, setSelectedLevel] = useState<number | null>(null);
   const [predictionYear, setPredictionYear] = useState<string>("");
   const [isMeasurementDropdownOpen, setIsMeasurementDropdownOpen] = useState(false);
-  const [expandedYears, setExpandedYears] = useState<Record<number, boolean>>({});
+  const [expandedYears, setExpandedYears] = useState<Record<number, boolean>>({ 2026: true });
   const [predictionSearchQuery, setPredictionSearchQuery] = useState("");
   const [renderPredictionsList, setRenderPredictionsList] = useState(false);
 
@@ -407,24 +407,27 @@ export function ProgressTable() {
           {getDomainIcon(activeDomain.id, activeMainDomain.id)}
         </div>
         <div className="relative z-10 flex flex-col items-center mt-8">
-          <div className="flex flex-col lg:flex-row items-center w-full justify-between relative mb-2 gap-4">
+          <div className="flex flex-col lg:flex-row items-center w-full justify-between relative mb-2 gap-4 max-w-7xl mx-auto">
             <div className="hidden lg:block lg:flex-1"></div>
             <div className="flex justify-center z-0 lg:flex-1 w-full shrink-0">
               <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white whitespace-nowrap">
                 Future Progress Bar
               </h1>
             </div>
-            <div className="flex justify-center lg:justify-end relative z-20 lg:flex-1 w-full">
-              <button
-                onClick={() => {
-                  setIsPredictionsModalOpen(true);
+            <div className="flex justify-end relative z-20 lg:flex-1 w-full ml-auto">
+              <div className="relative overflow-hidden rounded-xl p-[2px] inline-flex">
+                <div className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_0deg,#ef4444,#f97316,#eab308,#22c55e,#3b82f6,#6366f1,#a855f7,#ef4444)] opacity-100" />
+                <button
+                  onClick={() => {
+                    setIsPredictionsModalOpen(true);
 
-                }}
-                className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-4 py-2 rounded-xl shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-950"
-              >
-                <SparklesIcon className="w-5 h-5 text-indigo-500" />
-                Full List of Predictions
-              </button>
+                  }}
+                  className="relative flex items-center gap-2 bg-white dark:bg-slate-900 px-4 py-2 rounded-[10px] shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none"
+                >
+                  <SparklesIcon className="w-5 h-5 text-indigo-500" />
+                  Full List of Predictions
+                </button>
+              </div>
             </div>
           </div>
           <p className="text-slate-500 dark:text-slate-400 max-w-2xl mt-4">
@@ -597,7 +600,7 @@ export function ProgressTable() {
                       </tr>
                     </thead>
                     {renderPredictionsList ? (allPredictions.sortedYears.map(year => {
-                      const isExpanded = expandedYears[year] !== false; // Default true
+                      const isExpanded = expandedYears[year] === true; // Default false
                       return (
                         <tbody key={year} className="divide-y divide-slate-200 dark:divide-slate-700/50">
                           {/* Year Header Row */}
