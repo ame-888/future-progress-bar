@@ -966,64 +966,40 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           description: "Stands for Virtual Reality, immersive digital environments. We focus on true 'Full Dive' VR capabilities involving direct neural stimulation.",
           measurements: [
             {
-              id: "vr-1",
-              category: "Hardware Capabilities",
-              title: "Weight of the lightest standalone 6DOF VR headset commercially available",
-              currentValue: 140,
-              baseValue: 150,
-              unit: "grams",
-              isLowerBetter: true,
+              id: "vr-5",
+              category: "Adoption",
+              title: "Global Daily Active Users (DAU) in Virtual Reality (Any Hardware)",
+              currentValue: 80000,
+              baseValue: 0,
+              unit: "users",
               levels: [
-                { level: 1, goal: 130, aiPredictions: [{ name: "Grok 4.20", year: 2027 }, { name: "Gemini 3.1 Pro Preview", year: 2028 }, { name: "GPT-5.4 Thinking Mini", year: 2028 }, { name: "Claude 4.6 Sonnet", year: 2030 }] },
-                { level: 2, goal: 115, aiPredictions: [{ name: "Grok 4.20", year: 2027 }, { name: "GPT-5.4 Thinking Mini", year: 2029 }, { name: "Gemini 3.1 Pro Preview", year: 2030 }, { name: "Claude 4.6 Sonnet", year: 2032 }] },
-                { level: 3, goal: 100, aiPredictions: [{ name: "Grok 4.20", year: 2027 }, { name: "GPT-5.4 Thinking Mini", year: 2030 }, { name: "Gemini 3.1 Pro Preview", year: 2033 }, { name: "Claude 4.6 Sonnet", year: 2034 }] },
-                { level: 4, goal: 75, aiPredictions: [{ name: "Grok 4.20", year: 2029 }, { name: "GPT-5.4 Thinking Mini", year: 2033 }, { name: "Gemini 3.1 Pro Preview", year: 2037 }, { name: "Claude 4.6 Sonnet", year: 2038 }] },
-                { level: 5, goal: 50, aiPredictions: [{ name: "Grok 4.20", year: 2031 }, { name: "GPT-5.4 Thinking Mini", year: 2037 }, { name: "Gemini 3.1 Pro Preview", year: 2042 }, { name: "Claude 4.6 Sonnet", year: 2042 }] },
-                { level: 6, goal: 25, aiPredictions: [{ name: "Grok 4.20", year: 2034 }, { name: "GPT-5.4 Thinking Mini", year: 2042 }, { name: "Gemini 3.1 Pro Preview", year: 2049 }, { name: "Claude 4.6 Sonnet", year: 2049 }] },
-                { level: 7, goal: 15, aiPredictions: [{ name: "Grok 4.20", year: 2038 }, { name: "GPT-5.4 Thinking Mini", year: 2047 }, { name: "Gemini 3.1 Pro Preview", year: 2055 }, { name: "Claude 4.6 Sonnet", year: 2056 }] },
+                { level: 1, goal: 500000, label: "500K", aiPredictions: [] },
+                { level: 2, goal: 1000000, label: "1M", aiPredictions: [] },
+                { level: 3, goal: 5000000, label: "5M", aiPredictions: [] },
+                { level: 4, goal: 25000000, label: "25M", aiPredictions: [] },
+                { level: 5, goal: 100000000, label: "100M", aiPredictions: [] },
+                { level: 6, goal: 500000000, label: "500M", aiPredictions: [] },
+                { level: 7, goal: 1000000000, label: "1B", aiPredictions: [] },
               ],
-              history: [
-                {
-                  value: 140,
-                  details: ["Pimax Dream Air SE from Pimax (2025)"]
-                }
-              ]
-            },
-            {
-              id: "vr-2",
-              category: "Hardware Capabilities",
-              title: "Maximum Horizontal Field of View (FOV) in a consumer headset",
-              currentValue: 160,
-              baseValue: 150,
-              unit: "degrees",
-              levels: [
-                { level: 1, goal: 167, aiPredictions: [{ name: "Grok 4.20", year: 2027 }, { name: "Claude 4.6 Sonnet", year: 2028 }, { name: "Gemini 3.1 Pro Preview", year: 2028 }, { name: "GPT-5.4 Thinking Mini", year: 2030 }] },
-                { level: 2, goal: 175, aiPredictions: [{ name: "Grok 4.20", year: 2028 }, { name: "Claude 4.6 Sonnet", year: 2030 }, { name: "Gemini 3.1 Pro Preview", year: 2031 }, { name: "GPT-5.4 Thinking Mini", year: 2032 }] },
-                { level: 3, goal: 182, aiPredictions: [{ name: "Grok 4.20", year: 2029 }, { name: "Claude 4.6 Sonnet", year: 2033 }, { name: "Gemini 3.1 Pro Preview", year: 2033 }, { name: "GPT-5.4 Thinking Mini", year: 2034 }] },
-                { level: 4, goal: 190, aiPredictions: [{ name: "Grok 4.20", year: 2030 }, { name: "Claude 4.6 Sonnet", year: 2036 }, { name: "Gemini 3.1 Pro Preview", year: 2037 }, { name: "GPT-5.4 Thinking Mini", year: 2037 }] },
-                { level: 5, goal: 200, aiPredictions: [{ name: "Grok 4.20", year: 2031 }, { name: "Claude 4.6 Sonnet", year: 2039 }, { name: "Gemini 3.1 Pro Preview", year: 2041 }, { name: "GPT-5.4 Thinking Mini", year: 2041 }] },
-                { level: 6, goal: 210, aiPredictions: [{ name: "Grok 4.20", year: 2032 }, { name: "Claude 4.6 Sonnet", year: 2043 }, { name: "Gemini 3.1 Pro Preview", year: 2046 }, { name: "GPT-5.4 Thinking Mini", year: 2046 }] },
-                { level: 7, goal: 220, aiPredictions: [{ name: "Grok 4.20", year: 2033 }, { name: "Claude 4.6 Sonnet", year: 2047 }, { name: "Gemini 3.1 Pro Preview", year: 2052 }, { name: "GPT-5.4 Thinking Mini", year: 2052 }] },
-              ],
-              history: [{ value: 160, details: ["Pimax 8KX (OBS: it had significant trade-offs such as edge distortion, lower effective peripheral resolution and higher GPU demands)"] }]
+              history: [{ value: 80000, details: ["156k players were present in VRChat during a Cosmic Princess Kaguya event. Over half of them were using headsets, so 80k is a lowball estimate."] }]
             },
             {
               id: "vr-3",
               category: "Full-Dive VR",
-              title: "Longest continuous session in a Full-Dive environment",
-              currentValue: 0,
+              title: "Longest continuous session in a VR environment",
+              currentValue: 50,
               baseValue: 0,
               unit: "hours",
               levels: [
-                { level: 1, goal: 5 / 3600, label: "5 seconds", aiPredictions: [{ name: "Grok 4.20", year: 2035 }, { name: "GPT-5.4 Thinking Mini", year: 2038 }, { name: "Gemini 3.1 Pro Preview", year: 2040 }, { name: "Claude 4.6 Sonnet", year: 2041 }] },
-                { level: 2, goal: 5 / 60, label: "5 minutes", aiPredictions: [{ name: "Grok 4.20", year: 2038 }, { name: "Gemini 3.1 Pro Preview", year: 2043 }, { name: "GPT-5.4 Thinking Mini", year: 2045 }, { name: "Claude 4.6 Sonnet", year: 2048 }] },
-                { level: 3, goal: 5, label: "5 hours", aiPredictions: [{ name: "Grok 4.20", year: 2042 }, { name: "Gemini 3.1 Pro Preview", year: 2050 }, { name: "GPT-5.4 Thinking Mini", year: 2055 }, { name: "Claude 4.6 Sonnet", year: 2057 }] },
-                { level: 4, goal: 24, label: "1 day", aiPredictions: [{ name: "Grok 4.20", year: 2048 }, { name: "Gemini 3.1 Pro Preview", year: 2058 }, { name: "Claude 4.6 Sonnet", year: 2065 }, { name: "GPT-5.4 Thinking Mini", year: 2065 }] },
-                { level: 5, goal: 120, label: "5 days", aiPredictions: [{ name: "Grok 4.20", year: 2055 }, { name: "Gemini 3.1 Pro Preview", year: 2068 }, { name: "Claude 4.6 Sonnet", year: 2073 }, { name: "GPT-5.4 Thinking Mini", year: 2078 }] },
-                { level: 6, goal: 1200, label: "50 days", aiPredictions: [{ name: "Grok 4.20", year: 2065 }, { name: "Gemini 3.1 Pro Preview", year: 2085 }, { name: "Claude 4.6 Sonnet", year: 2085 }, { name: "GPT-5.4 Thinking Mini", year: 2095 }] },
-                { level: 7, goal: 8760, label: "365 days", aiPredictions: [{ name: "Grok 4.20", year: 2075 }, { name: "Claude 4.6 Sonnet", year: 2099 }, { name: "Gemini 3.1 Pro Preview", year: 2110 }, { name: "GPT-5.4 Thinking Mini", year: 2125 }] },
+                { level: 1, goal: 72, label: "3 days", aiPredictions: [] },
+                { level: 2, goal: 168, label: "7 days", aiPredictions: [] },
+                { level: 3, goal: 360, label: "15 days", aiPredictions: [] },
+                { level: 4, goal: 720, label: "30 days", aiPredictions: [] },
+                { level: 5, goal: 2160, label: "90 days", aiPredictions: [] },
+                { level: 6, goal: 4320, label: "180 days", aiPredictions: [] },
+                { level: 7, goal: 8760, label: "365 days", aiPredictions: [] },
               ],
-              history: [{ value: 0 }]
+              history: [{ value: 50, details: ["Set by Alejandro Fragoso and Alex Christison in April 2017 in New York. They watched VR content on an Oculus Rift, allowed 5-minute breaks every hour, as confirmed by Guinness World Record."] }]
             },
             {
               id: "vr-4",
