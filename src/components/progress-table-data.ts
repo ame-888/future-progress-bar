@@ -971,15 +971,15 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               baseValue: 0,
               unit: "senses",
               levels: [
-                { level: 1, goal: 1, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2032 }, { name: "Grok 4.20", year: 2032 }] },
-                { level: 2, goal: 2, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2037 }, { name: "Grok 4.20", year: 2037 }] },
-                { level: 3, goal: 3, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2041 }, { name: "Grok 4.20", year: 2042 }] },
-                { level: 4, goal: 4, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2045 }, { name: "Grok 4.20", year: 2048 }] },
-                { level: 5, goal: 5, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2049 }, { name: "Grok 4.20", year: 2053 }] },
-                { level: 6, goal: 6, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2055 }, { name: "Grok 4.20", year: 2061 }] },
-                { level: 7, goal: 7, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2061 }, { name: "Grok 4.20", year: 2070 }] },
+                { level: 1, goal: 1, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2032 }, { name: "Grok 4.20", year: 2032 }, { name: "Gemini 3.1 Pro Preview", year: 2046 }, { name: "GPT-5.4 Thinking Mini", year: 2050 }] },
+                { level: 2, goal: 2, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2037 }, { name: "Grok 4.20", year: 2037 }, { name: "Gemini 3.1 Pro Preview", year: 2050 }, { name: "GPT-5.4 Thinking Mini", year: 2060 }] },
+                { level: 3, goal: 3, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2041 }, { name: "Grok 4.20", year: 2042 }, { name: "Gemini 3.1 Pro Preview", year: 2054 }, { name: "GPT-5.4 Thinking Mini", year: 2072 }] },
+                { level: 4, goal: 4, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2045 }, { name: "Grok 4.20", year: 2048 }, { name: "Gemini 3.1 Pro Preview", year: 2057 }, { name: "GPT-5.4 Thinking Mini", year: 2086 }] },
+                { level: 5, goal: 5, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2049 }, { name: "Grok 4.20", year: 2053 }, { name: "Gemini 3.1 Pro Preview", year: 2060 }, { name: "GPT-5.4 Thinking Mini", year: 2105 }] },
+                { level: 6, goal: 6, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2055 }, { name: "Grok 4.20", year: 2061 }, { name: "Gemini 3.1 Pro Preview", year: 2063 }, { name: "GPT-5.4 Thinking Mini", year: 2135 }] },
+                { level: 7, goal: 7, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2061 }, { name: "Gemini 3.1 Pro Preview", year: 2065 }, { name: "Grok 4.20", year: 2070 }, { name: "GPT-5.4 Thinking Mini", year: 2180 }] },
               ],
-              history: [{ value: 0, details: ["Only touch and vision have been partially achieved thus far. Taste, smell, hearing, proprioception and balance have not."] }]
+              history: [{ value: 0, details: ["Only touch and vision have been partially achieved thus far. Taste, smell, hearing, proprioception and balance have not.", "Last updated on April 18th 2026"] }]
             },
             {
               id: "vr-6",
