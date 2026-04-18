@@ -90,7 +90,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           measurements: [
             {
               id: "ai-millennium-problems",
-              category: "Research & Education",
               title: "Millennium Prize Problems Solved",
               currentValue: 0,
               baseValue: 0,
@@ -113,7 +112,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "ai-led-countries-1",
-              category: "Leadership & Governance",
               title: "Number of Countries primarily led by AI",
               currentValue: 0,
               baseValue: 0,
@@ -136,7 +134,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "ai-led-companies",
-              category: "Leadership & Governance",
               title: "Number of AI-led companies among the top 100",
               currentValue: 0,
               baseValue: 0,
@@ -159,7 +156,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "ai-exclusively-professors",
-              category: "Research & Education",
               title: "Universities around the world with exclusively AI professors",
               currentValue: 0,
               baseValue: 0,
@@ -189,7 +185,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           measurements: [
             {
               id: "robotics-1",
-              category: "Adoption",
               title: "Number of Humanoid General-purpose Robots deployed",
               currentValue: 19457,
               baseValue: 0,
@@ -207,7 +202,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "robotics-2",
-              category: "Adoption",
               title: "Global share of households with Humanoid General-purpose Robots",
               currentValue: 0,
               baseValue: 0,
@@ -225,7 +219,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "robotics-3",
-              category: "Adoption",
               title: "Global Share of Fully Autonomous Robotic Surgeries",
               currentValue: 0,
               baseValue: 0,
@@ -248,7 +241,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "robotics-4",
-              category: "Adoption",
               title: "Global Share of Humanoid Robots acting as independent police officers or security guards",
               currentValue: 0,
               baseValue: 0,
@@ -278,7 +270,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           measurements: [
             {
               id: "self-driving-car-1",
-              category: "Legislation & Policy",
               title: "Countries where human driving is banned",
               currentValue: 0,
               baseValue: 0,
@@ -301,7 +292,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "self-driving-car-2",
-              category: "Legislation & Policy",
               title: "Number of Countries where Self-Driving Cars are partially allowed",
               currentValue: 3,
               baseValue: 0,
@@ -327,7 +317,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "self-driving-car-3",
-              category: "Legislation & Policy",
               title: "Number of Countries where Self-Driving Cars are fully allowed",
               currentValue: 0,
               baseValue: 0,
@@ -350,7 +339,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "self-driving-car-4",
-              category: "Deployment",
               title: "Number of Level 5 Autonomy Vehicles deployed worldwide",
               currentValue: 0,
               baseValue: 0,
@@ -386,7 +374,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           measurements: [
             {
               id: "lev-1",
-              category: "Global Lifespan",
               title: "Average lifespan in the world",
               currentValue: 73.8,
               baseValue: 70,
@@ -409,7 +396,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "lev-2",
-              category: "Global Lifespan",
               title: "Average lifespan in the number 1 country",
               currentValue: 86.73,
               baseValue: 80,
@@ -432,7 +418,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "lev-3",
-              category: "Maximum Human Lifespan",
               title: "Oldest verified human",
               currentValue: 122.45, // 122 years and 164 days
               baseValue: 120,
@@ -459,7 +444,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "lev-4",
-              category: "Maximum Human Lifespan",
               title: "Number of supercentenarians alive",
               currentValue: 217,
               baseValue: 200,
@@ -486,7 +470,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           measurements: [
             {
               id: "space-1",
-              category: "Human Presence",
               title: "Maximum Simultaneous Human Population in Space",
               currentValue: 20,
               baseValue: 0,
@@ -509,7 +492,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "space-moon-pop",
-              category: "Human Presence",
               title: "Maximum Simultaneous Human Population on the Moon",
               currentValue: 2,
               baseValue: 0,
@@ -532,7 +514,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "space-mars-pop",
-              category: "Human Presence",
               title: "Maximum Simultaneous Human Population on Mars",
               currentValue: 0,
               baseValue: 0,
@@ -550,7 +531,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "space-2",
-              category: "Launch Capabilities",
               title: "Payload Mass to LEO (Single Launch)",
               currentValue: 95,
               baseValue: 0,
@@ -581,7 +561,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           measurements: [
             {
               id: "qc-1",
-              category: "Hardware Capabilities",
               title: "Physical Qubit Count",
               currentValue: 6100,
               baseValue: 0,
@@ -607,7 +586,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "qc-2",
-              category: "Hardware Capabilities",
               title: "Two-Qubit Gate Fidelity - Physical Qubits",
               currentValue: 99.99,
               baseValue: 99.9,
@@ -625,7 +603,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "qc-3",
-              category: "Hardware Capabilities",
               title: "Quantum Volume",
               currentValue: 33554432,
               baseValue: 16777216, // 2^24
@@ -651,7 +628,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "qc-4",
-              category: "Hardware Capabilities",
               title: "Maximum Circuit Layer Operations Per Second (CLOPS-h)",
               currentValue: 340000,
               baseValue: 200000,
@@ -683,7 +659,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           measurements: [
             {
               id: "superconductor-1",
-              category: "Material Properties",
               title: "Lowest critical pressure at room temperature",
               currentValue: 250,
               baseValue: 500,
@@ -710,7 +685,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "superconductor-3",
-              category: "Capabilities",
               title: "Highest Critical Current Density",
               currentValue: 150,
               baseValue: 0,
@@ -730,7 +704,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "superconductor-2",
-              category: "Capabilities",
               title: "Continuous Magnetic Field Strength",
               currentValue: 45.5,
               baseValue: 20,
@@ -750,7 +723,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "superconductor-3",
-              category: "Manufacturing & Scale",
               title: "Continuous Piece Length (HTS Tape)",
               currentValue: 1.4,
               baseValue: 0.5,
@@ -783,7 +755,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           measurements: [
             {
               id: "bci-1",
-              category: "Adoption & Testing",
               title: "Number of People with Chronic, Next-Gen, Cortex reading BCI",
               currentValue: 92,
               baseValue: 0,
@@ -811,7 +782,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "bci-2",
-              category: "Adoption & Testing",
               title: "Number of Countries Testing Next-Gen BCIs in Humans",
               currentValue: 6,
               baseValue: 0,
@@ -840,7 +810,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "bci-3",
-              category: "Regulatory Approval",
               title: "Number of Countries Allowing Chronic, Next-Gen, Cortex reading BCI for Medical Use",
               currentValue: 1,
               baseValue: 0,
@@ -858,7 +827,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "bci-4",
-              category: "Regulatory Approval",
               title: "Number of Countries Allowing Chronic, Next-Gen, Cortex reading BCI for Elective/Free Use",
               currentValue: 0,
               baseValue: 0,
@@ -901,7 +869,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "mind-upload-adoption-1",
-              category: "Adoption",
               title: "Number of Minds Uploaded so far",
               currentValue: 0,
               baseValue: 0,
@@ -919,7 +886,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "mind-upload-adoption-2",
-              category: "Legislation & Policy",
               title: "Number of countries that allow Mind Upload",
               currentValue: 0,
               baseValue: 0,
@@ -937,7 +903,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "mind-upload-1",
-              category: "Mapping",
               title: "World Largest Connectome",
               currentValue: 139000,
               baseValue: 0,
@@ -967,7 +932,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           measurements: [
             {
               id: "vr-5",
-              category: "Adoption",
               title: "Global Daily Active Users (DAU) in Virtual Reality (Any Hardware)",
               currentValue: 8000000,
               baseValue: 0,
@@ -985,7 +949,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "vr-3",
-              category: "Full-Dive VR",
               title: "Longest continuous session in a VR environment",
               currentValue: 50,
               baseValue: 0,
@@ -1000,6 +963,23 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 7, goal: 8760, label: "365 days", aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2045 }] },
               ],
               history: [{ value: 50, details: ["Set by Alejandro Fragoso and Alex Christison in April 2017 in New York. They watched VR content on an Oculus Rift, allowed 5-minute breaks every hour, as confirmed by Guinness World Record."] }]
+            },
+            {
+              id: "vr-4",
+              title: "Number of Senses fully replicated (simultaneously) by brain stimulation",
+              currentValue: 0,
+              baseValue: 0,
+              unit: "senses",
+              levels: [
+                { level: 1, goal: 1, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2032 }, { name: "Grok 4.20", year: 2032 }] },
+                { level: 2, goal: 2, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2037 }, { name: "Grok 4.20", year: 2037 }] },
+                { level: 3, goal: 3, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2041 }, { name: "Grok 4.20", year: 2042 }] },
+                { level: 4, goal: 4, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2045 }, { name: "Grok 4.20", year: 2048 }] },
+                { level: 5, goal: 5, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2049 }, { name: "Grok 4.20", year: 2053 }] },
+                { level: 6, goal: 6, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2055 }, { name: "Grok 4.20", year: 2061 }] },
+                { level: 7, goal: 7, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2061 }, { name: "Grok 4.20", year: 2070 }] },
+              ],
+              history: [{ value: 0, details: ["Only touch and vision have been partially achieved thus far. Taste, smell, hearing, proprioception and balance have not."] }]
             },
           ]
         },
@@ -1016,7 +996,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           measurements: [
             {
               id: "cultured-meat-1",
-              category: "Market Adoption",
               title: "Global Market Share of Meat Consumed",
               currentValue: 0.001,
               baseValue: 0,
@@ -1034,7 +1013,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "cultured-meat-2",
-              category: "Regulatory Approval",
               title: "Countries allowing sale to humans",
               currentValue: 5,
               baseValue: 0,
@@ -1063,7 +1041,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "cultured-meat-3",
-              category: "Regulatory Approval",
               title: "Countries allowing sale to pets",
               currentValue: 29,
               baseValue: 0,
@@ -1091,7 +1068,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "cultured-meat-4",
-              category: "Regulatory Approval",
               title: "Countries where non-cultivated meat is banned",
               currentValue: 0,
               baseValue: 0,
@@ -1116,7 +1092,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           measurements: [
             {
               id: "fusion-1",
-              category: "Commercial Adoption",
               title: "Number of commercial fusion power plants on the grid",
               currentValue: 0,
               baseValue: 0,
@@ -1134,7 +1109,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "fusion-2",
-              category: "Commercial Adoption",
               title: "Global share of electricity generated by fusion",
               currentValue: 0,
               baseValue: 0,
@@ -1152,7 +1126,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "fusion-3",
-              category: "Reactor Capabilities",
               title: "Longest continuous operation of a net-positive reactor",
               currentValue: 0,
               baseValue: 0,
@@ -1170,7 +1143,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             },
             {
               id: "fusion-4",
-              category: "Reactor Capabilities",
               title: "Maximum net electrical output of a single fusion plant",
               currentValue: 0,
               baseValue: 0,
