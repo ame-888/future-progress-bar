@@ -684,7 +684,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               ]
             },
             {
-              id: "superconductor-3",
+              id: "superconductor-2",
               title: "Highest Critical Current Density",
               currentValue: 150,
               baseValue: 0,
@@ -703,7 +703,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               ]
             },
             {
-              id: "superconductor-2",
+              id: "superconductor-3",
               title: "Continuous Magnetic Field Strength",
               currentValue: 45.5,
               baseValue: 20,
@@ -722,7 +722,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               ]
             },
             {
-              id: "superconductor-3",
+              id: "superconductor-4",
               title: "Continuous Piece Length (HTS Tape)",
               currentValue: 1.4,
               baseValue: 0.5,
