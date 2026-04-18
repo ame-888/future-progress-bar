@@ -981,6 +981,23 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               ],
               history: [{ value: 0, details: ["Only touch and vision have been partially achieved thus far. Taste, smell, hearing, proprioception and balance have not."] }]
             },
+            {
+              id: "vr-6",
+              title: "Maximum Concurrent Users in a Single, Un-sharded VR Instance",
+              currentValue: 100000,
+              baseValue: 0,
+              unit: "users",
+              levels: [
+                { level: 1, goal: 500000, label: "500k", aiPredictions: [{ name: "Grok 4.20", year: 2032 }] },
+                { level: 2, goal: 1000000, label: "1M", aiPredictions: [{ name: "Grok 4.20", year: 2035 }] },
+                { level: 3, goal: 3000000, label: "3M", aiPredictions: [{ name: "Grok 4.20", year: 2039 }] },
+                { level: 4, goal: 10000000, label: "10M", aiPredictions: [{ name: "Grok 4.20", year: 2045 }] },
+                { level: 5, goal: 50000000, label: "50M", aiPredictions: [{ name: "Grok 4.20", year: 2055 }] },
+                { level: 6, goal: 300000000, label: "300M", aiPredictions: [{ name: "Grok 4.20", year: 2075 }] },
+                { level: 7, goal: 1000000000, label: "1B", aiPredictions: [{ name: "Grok 4.20", year: 2100 }] },
+              ],
+              history: [{ value: 100000, details: ["This is the highest number officially claimed as of 2026 by RP1 (a metaverse/spatial internet platform with full VR support via WebXR, 6DOF tracking, spatial audio, and full-fidelity avatars)."] }]
+            },
           ]
         },
       ]
