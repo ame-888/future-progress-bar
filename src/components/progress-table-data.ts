@@ -988,15 +988,15 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               baseValue: 0,
               unit: "users",
               levels: [
-                { level: 1, goal: 500000, label: "500k", aiPredictions: [{ name: "Grok 4.20", year: 2032 }] },
-                { level: 2, goal: 1000000, label: "1M", aiPredictions: [{ name: "Grok 4.20", year: 2035 }] },
-                { level: 3, goal: 3000000, label: "3M", aiPredictions: [{ name: "Grok 4.20", year: 2039 }] },
-                { level: 4, goal: 10000000, label: "10M", aiPredictions: [{ name: "Grok 4.20", year: 2045 }] },
-                { level: 5, goal: 50000000, label: "50M", aiPredictions: [{ name: "Grok 4.20", year: 2055 }] },
-                { level: 6, goal: 300000000, label: "300M", aiPredictions: [{ name: "Grok 4.20", year: 2075 }] },
-                { level: 7, goal: 1000000000, label: "1B", aiPredictions: [{ name: "Grok 4.20", year: 2100 }] },
+                { level: 1, goal: 500000, label: "500k", aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2032 }, { name: "Grok 4.20", year: 2032 }, { name: "Gemini 3.1 Pro Preview", year: 2036 }, { name: "Claude 4.6 Sonnet", year: 2042 }] },
+                { level: 2, goal: 1000000, label: "1M", aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2035 }, { name: "Grok 4.20", year: 2035 }, { name: "Gemini 3.1 Pro Preview", year: 2039 }, { name: "Claude 4.6 Sonnet", year: 2048 }] },
+                { level: 3, goal: 3000000, label: "3M", aiPredictions: [{ name: "Grok 4.20", year: 2039 }, { name: "GPT-5.4 Thinking Mini", year: 2040 }, { name: "Gemini 3.1 Pro Preview", year: 2043 }, { name: "Claude 4.6 Sonnet", year: 2053 }] },
+                { level: 4, goal: 10000000, label: "10M", aiPredictions: [{ name: "Grok 4.20", year: 2045 }, { name: "Gemini 3.1 Pro Preview", year: 2048 }, { name: "GPT-5.4 Thinking Mini", year: 2048 }, { name: "Claude 4.6 Sonnet", year: 2059 }] },
+                { level: 5, goal: 50000000, label: "50M", aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2055 }, { name: "Grok 4.20", year: 2055 }, { name: "GPT-5.4 Thinking Mini", year: 2060 }, { name: "Claude 4.6 Sonnet", year: 2067 }] },
+                { level: 6, goal: 300000000, label: "300M", aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2064 }, { name: "Grok 4.20", year: 2075 }, { name: "Claude 4.6 Sonnet", year: 2078 }, { name: "GPT-5.4 Thinking Mini", year: 2085 }] },
+                { level: 7, goal: 1000000000, label: "1B", aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2072 }, { name: "Claude 4.6 Sonnet", year: 2090 }, { name: "Grok 4.20", year: 2100 }, { name: "GPT-5.4 Thinking Mini", year: 2115 }] },
               ],
-              history: [{ value: 100000, details: ["This is the highest number officially claimed as of 2026 by RP1 (a metaverse/spatial internet platform with full VR support via WebXR, 6DOF tracking, spatial audio, and full-fidelity avatars)."] }]
+              history: [{ value: 100000, details: ["This is the highest number officially claimed as of 2026 by RP1 (a metaverse/spatial internet platform with full VR support via WebXR, 6DOF tracking, spatial audio, and full-fidelity avatars).", "Last updated on April 18th 2026"] }]
             },
           ]
         },
