@@ -16,6 +16,7 @@ import { SpaceExplorationGraph } from "./space-exploration-graph";
 import { AiGraph } from "./ai-graph";
 import { QuantumComputingGraph } from "./quantum-computing-graph";
 import { SelfDrivingCarGraph } from "./self-driving-car-graph";
+import { CulturedMeatGraph } from "./cultured-meat-graph";
 import { FictionalFuture } from "./fictional-future";
 
 
@@ -825,6 +826,7 @@ export function ProgressTable() {
             {activeDomain.id === "quantum-computing" && <QuantumComputingGraph />}
             {activeDomain.id === "mind-upload" && <MindUploadGraph />}
             {activeDomain.id === "self-driving-car" && <SelfDrivingCarGraph />}
+            {activeDomain.id === "cultured-meat" && <CulturedMeatGraph />}
 
             {activeDomain.measurements.length === 0 ? (
               <div className="py-12 text-center text-slate-500 dark:text-slate-400">
