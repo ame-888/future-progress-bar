@@ -969,19 +969,19 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               id: "vr-5",
               category: "Adoption",
               title: "Global Daily Active Users (DAU) in Virtual Reality (Any Hardware)",
-              currentValue: 80000,
+              currentValue: 8000000,
               baseValue: 0,
               unit: "users",
               levels: [
-                { level: 1, goal: 500000, label: "500K", aiPredictions: [] },
-                { level: 2, goal: 1000000, label: "1M", aiPredictions: [] },
-                { level: 3, goal: 5000000, label: "5M", aiPredictions: [] },
-                { level: 4, goal: 25000000, label: "25M", aiPredictions: [] },
-                { level: 5, goal: 100000000, label: "100M", aiPredictions: [] },
-                { level: 6, goal: 500000000, label: "500M", aiPredictions: [] },
-                { level: 7, goal: 1000000000, label: "1B", aiPredictions: [] },
+                { level: 1, goal: 15000000, label: "15M", aiPredictions: [{ name: "Grok 4.20", year: 2029 }] },
+                { level: 2, goal: 30000000, label: "30M", aiPredictions: [{ name: "Grok 4.20", year: 2032 }] },
+                { level: 3, goal: 60000000, label: "60M", aiPredictions: [{ name: "Grok 4.20", year: 2035 }] },
+                { level: 4, goal: 100000000, label: "100M", aiPredictions: [{ name: "Grok 4.20", year: 2039 }] },
+                { level: 5, goal: 200000000, label: "200M", aiPredictions: [{ name: "Grok 4.20", year: 2043 }] },
+                { level: 6, goal: 500000000, label: "500M", aiPredictions: [{ name: "Grok 4.20", year: 2050 }] },
+                { level: 7, goal: 1000000000, label: "1B", aiPredictions: [{ name: "Grok 4.20", year: 2060 }] },
               ],
-              history: [{ value: 80000, details: ["156k players were present in VRChat during a Cosmic Princess Kaguya event. Over half of them were using headsets, so 80k is a lowball estimate."] }]
+              history: [{ value: 8000000, details: ["An estimate, since official numbers are hard to find"] }]
             },
             {
               id: "vr-3",
@@ -1001,24 +1001,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               ],
               history: [{ value: 50, details: ["Set by Alejandro Fragoso and Alex Christison in April 2017 in New York. They watched VR content on an Oculus Rift, allowed 5-minute breaks every hour, as confirmed by Guinness World Record."] }]
             },
-            {
-              id: "vr-4",
-              category: "Full-Dive VR",
-              title: "Global Daily Active Users (DAU) in Full-Dive VR",
-              currentValue: 0,
-              baseValue: 0,
-              unit: "users",
-              levels: [
-                { level: 1, goal: 2, aiPredictions: [{ name: "Grok 4.20", year: 2035 }, { name: "Gemini 3.1 Pro Preview", year: 2038 }, { name: "Claude 4.6 Sonnet", year: 2047 }, { name: "GPT-5.4 Thinking Mini", year: 2056 }] },
-                { level: 2, goal: 60, aiPredictions: [{ name: "Grok 4.20", year: 2036 }, { name: "Gemini 3.1 Pro Preview", year: 2042 }, { name: "Claude 4.6 Sonnet", year: 2051 }, { name: "GPT-5.4 Thinking Mini", year: 2060 }] },
-                { level: 3, goal: 1800, label: "1.8K", aiPredictions: [{ name: "Grok 4.20", year: 2037 }, { name: "Gemini 3.1 Pro Preview", year: 2048 }, { name: "Claude 4.6 Sonnet", year: 2055 }, { name: "GPT-5.4 Thinking Mini", year: 2064 }] },
-                { level: 4, goal: 54000, label: "54K", aiPredictions: [{ name: "Grok 4.20", year: 2038 }, { name: "Gemini 3.1 Pro Preview", year: 2054 }, { name: "Claude 4.6 Sonnet", year: 2060 }, { name: "GPT-5.4 Thinking Mini", year: 2069 }] },
-                { level: 5, goal: 1600000, label: "1.6M", aiPredictions: [{ name: "Grok 4.20", year: 2040 }, { name: "Gemini 3.1 Pro Preview", year: 2059 }, { name: "Claude 4.6 Sonnet", year: 2066 }, { name: "GPT-5.4 Thinking Mini", year: 2075 }] },
-                { level: 6, goal: 48000000, label: "48M", aiPredictions: [{ name: "Grok 4.20", year: 2043 }, { name: "Gemini 3.1 Pro Preview", year: 2065 }, { name: "Claude 4.6 Sonnet", year: 2073 }, { name: "GPT-5.4 Thinking Mini", year: 2084 }] },
-                { level: 7, goal: 1440000000, label: "1.44B", aiPredictions: [{ name: "Grok 4.20", year: 2055 }, { name: "Gemini 3.1 Pro Preview", year: 2073 }, { name: "Claude 4.6 Sonnet", year: 2082 }, { name: "GPT-5.4 Thinking Mini", year: 2101 }] },
-              ],
-              history: [{ value: 0 }]
-            }
           ]
         },
       ]
