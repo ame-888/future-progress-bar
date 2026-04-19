@@ -36,7 +36,7 @@ const CustomTooltip = ({ active, payload, label, isLogScale }: CustomTooltipProp
     const maxNeuronsEntry = payload.find(entry => entry.name === "Max Neurons");
     const completeBrainEntry = payload.find(entry => entry.name === "Complete Brain simulated");
 
-    const getVal = (entry: any) => {
+    const getVal = (entry: any /* eslint-disable-line @typescript-eslint/no-explicit-any */) => {
       let val = entry.value;
       if (isLogScale && val === 0.1) val = 0;
       if (val === null || val === undefined || (isLogScale && entry.value === 0.1 && !entry.payload.completeBrainNeurons && entry.name === "Complete Brain simulated")) {
@@ -191,6 +191,9 @@ export function MindUploadGraph() {
             />
           </LineChart>
         </ResponsiveContainer>
+      </div>
+      <div className="mt-4 text-xs text-slate-500 dark:text-slate-400">
+        Last updated on April 19th 2026
       </div>
     </div>
   );

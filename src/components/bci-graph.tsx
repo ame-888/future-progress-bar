@@ -69,7 +69,7 @@ export function BciGraph() {
         <div>
           <div className="flex items-center gap-2">
             <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            Stevenson's Law
+            Stevenson&apos;s Law
             <span className="text-xs font-semibold px-2 py-1 bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400 rounded-full uppercase tracking-wider">
               North Star
             </span>
@@ -147,6 +147,9 @@ export function BciGraph() {
             />
           </LineChart>
         </ResponsiveContainer>
+      </div>
+      <div className="px-4 md:px-6 pb-4 md:pb-6 text-xs text-slate-500 dark:text-slate-400">
+        Last updated on April 19th 2026
       </div>
     </div>
   );
