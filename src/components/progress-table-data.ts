@@ -865,7 +865,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 10000, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2076 }, { name: "Grok 4.20", year: 2105 }, { name: "Claude 4.6 Sonnet", year: 2121 }, { name: "GPT-5.4 Thinking Mini", year: 2165 }] },
                 { level: 7, goal: 1000, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2080 }, { name: "Grok 4.20", year: 2120 }, { name: "Claude 4.6 Sonnet", year: 2127 }, { name: "GPT-5.4 Thinking Mini", year: 2175 }] },
               ],
-              history: []
+              history: [{ value: Infinity, details: ["Last updated on April 19th 2026"] }]
             },
             {
               id: "mind-upload-adoption-1",
@@ -882,7 +882,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 100000000, aiPredictions: [{ name: "Grok 4.20", year: 2085 }, { name: "Gemini 3.1 Pro Preview", year: 2090 }, { name: "Claude 4.6 Sonnet", year: 2114 }, { name: "GPT-5.4 Thinking Mini", year: 2140 }] },
                 { level: 7, goal: 1000000000, aiPredictions: [{ name: "Grok 4.20", year: 2100 }, { name: "Gemini 3.1 Pro Preview", year: 2100 }, { name: "Claude 4.6 Sonnet", year: 2134 }, { name: "GPT-5.4 Thinking Mini", year: 2160 }] },
               ],
-              history: []
+              history: [{ value: 0, details: ["Last updated on April 19th 2026"] }]
             },
             {
               id: "mind-upload-adoption-2",
@@ -899,7 +899,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 130, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2109 }, { name: "Grok 4.20", year: 2135 }, { name: "Gemini 3.1 Pro Preview", year: 2160 }, { name: "GPT-5.4 Thinking Mini", year: 2190 }] },
                 { level: 7, goal: 195, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2128 }, { name: "Grok 4.20", year: 2160 }, { name: "Gemini 3.1 Pro Preview", year: 2210 }, { name: "GPT-5.4 Thinking Mini", year: 2240 }] },
               ],
-              history: []
+              history: [{ value: 0, details: ["Last updated on April 19th 2026"] }]
             },
             {
               id: "mind-upload-1",
@@ -921,7 +921,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                   value: 139000,
                   details: ["Adult fruit fly"]
                 }
-              ]
+              , { value: 139000, details: ["Last updated on April 19th 2026"] }]
             }
           ]
         },
