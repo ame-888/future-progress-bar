@@ -945,7 +945,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 500000000, label: "500M", aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2043 }, { name: "Claude 4.6 Sonnet", year: 2044 }, { name: "Gemini 3.1 Pro Preview", year: 2046 }, { name: "Grok 4.20", year: 2050 }] },
                 { level: 7, goal: 1000000000, label: "1B", aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2050 }, { name: "Claude 4.6 Sonnet", year: 2050 }, { name: "Gemini 3.1 Pro Preview", year: 2052 }, { name: "Grok 4.20", year: 2060 }] },
               ],
-              history: [{ value: 8000000, details: ["An estimate, since official numbers are hard to find"] }]
+              history: [{ value: 8000000, details: ["An estimate, since official numbers are hard to find", "Last updated on April 19th 2026"] }]
             },
             {
               id: "vr-3",
@@ -962,7 +962,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 9600, label: "400 days", aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2051 }, { name: "Gemini 3.1 Pro Preview", year: 2055 }, { name: "Grok 4.20", year: 2065 }, { name: "GPT-5.4 Thinking Mini", year: 2072 }] },
                 { level: 7, goal: 24000, label: "1,000 days", aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2067 }, { name: "Gemini 3.1 Pro Preview", year: 2080 }, { name: "Grok 4.20", year: 2090 }, { name: "GPT-5.4 Thinking Mini", year: 2096 }] },
               ],
-              history: [{ value: 168, details: ["In February 2019, Jak Wilmot (co-founder of Disrupt VR) set the widely recognized record by spending 168 continuous hours (exactly 7 days) living, sleeping, and working inside a VR headset"] }]
+              history: [{ value: 168, details: ["In February 2019, Jak Wilmot (co-founder of Disrupt VR) set the widely recognized record by spending 168 continuous hours (exactly 7 days) living, sleeping, and working inside a VR headset", "Last updated on April 19th 2026"] }]
             },
             {
               id: "vr-4",
@@ -1026,7 +1026,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 50, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2046 }, { name: "Grok 4.20", year: 2049 }, { name: "Claude 4.6 Sonnet", year: 2071 }, { name: "GPT-5.4 Thinking Mini", year: 2085 }] },
                 { level: 7, goal: 100, aiPredictions: [{ name: "Grok 4.20", year: 2052 }, { name: "Gemini 3.1 Pro Preview", year: 2095 }, { name: "Claude 4.6 Sonnet", year: 2105 }, { name: "GPT-5.4 Thinking Mini", year: 2150 }] },
               ],
-              history: [{ value: 0.001 }],
+              history: [{ value: 0.001, details: ["Last updated on April 19th 2026"] }],
             },
             {
               id: "cultured-meat-2",
@@ -1051,7 +1051,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                     "USA (2023)",
                     "Israel (2024)",
                     "Australia (2025)",
-                    "New Zealand (2025)"
+                    "New Zealand (2025)",
+                    "Last updated on April 19th 2026"
                   ]
                 },
               ],
@@ -1078,7 +1079,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                     "EU, except Italy. A total of 26 countries (2023)",
                     "UK (2024)",
                     "Singapore (2025)",
-                    "Australia (2026)"
+                    "Australia (2026)",
+                    "Last updated on April 19th 2026"
                   ]
                 }
               ],
@@ -1098,7 +1100,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 130, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2151 }, { name: "GPT-5.4 Thinking Mini", year: 2155 }, { name: "Gemini 3.1 Pro Preview", year: 2160 }, { name: "Grok 4.20", year: 2210 }] },
                 { level: 7, goal: 195, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2200 }, { name: "Claude 4.6 Sonnet", year: 2210 }, { name: "GPT-5.4 Thinking Mini", year: 2210 }, { name: "Grok 4.20", year: 2250 }] },
               ],
-              history: [{ value: 0 }],
+              history: [{ value: 0, details: ["Last updated on April 19th 2026"] }],
             },
           ],
         },
@@ -1122,7 +1124,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 2500, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2068 }, { name: "GPT-5.4 Thinking Mini", year: 2068 }, { name: "Grok 4.20", year: 2078 }, { name: "Gemini 3.1 Pro Preview", year: 2090 }] },
                 { level: 7, goal: 10000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2077 }, { name: "GPT-5.4 Thinking Mini", year: 2078 }, { name: "Grok 4.20", year: 2095 }, { name: "Gemini 3.1 Pro Preview", year: 2115 }] },
               ],
-              history: [{ value: 0 }],
+              history: [{ value: 0, details: ["Last updated on April 19th 2026"] }],
             },
             {
               id: "fusion-2",
@@ -1139,7 +1141,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 40, aiPredictions: [{ name: "Grok 4.20", year: 2085 }, { name: "Claude 4.6 Sonnet", year: 2092 }, { name: "GPT-5.4 Thinking Mini", year: 2118 }, { name: "Gemini 3.1 Pro Preview", year: 2140 }] },
                 { level: 7, goal: 75, aiPredictions: [{ name: "Grok 4.20", year: 2108 }, { name: "Claude 4.6 Sonnet", year: 2110 }, { name: "GPT-5.4 Thinking Mini", year: 2165 }, { name: "Gemini 3.1 Pro Preview", year: 2190 }] },
               ],
-              history: [{ value: 0 }],
+              history: [{ value: 0, details: ["Last updated on April 19th 2026"] }],
             },
             {
               id: "fusion-3",
@@ -1156,7 +1158,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 43800, label: "5 Years", aiPredictions: [{ name: "Grok 4.20", year: 2060 }, { name: "Claude 4.6 Sonnet", year: 2067 }, { name: "Gemini 3.1 Pro Preview", year: 2085 }, { name: "GPT-5.4 Thinking Mini", year: 2090 }] },
                 { level: 7, goal: 438000, label: "50 Years", aiPredictions: [{ name: "Grok 4.20", year: 2080 }, { name: "Claude 4.6 Sonnet", year: 2110 }, { name: "GPT-5.4 Thinking Mini", year: 2145 }, { name: "Gemini 3.1 Pro Preview", year: 2150 }] },
               ],
-              history: [{ value: 0 }],
+              history: [{ value: 0, details: ["Last updated on April 19th 2026"] }],
             },
             {
               id: "fusion-4",
@@ -1173,7 +1175,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 2500, aiPredictions: [{ name: "Grok 4.20", year: 2048 }, { name: "GPT-5.4 Thinking Mini", year: 2049 }, { name: "Claude 4.6 Sonnet", year: 2060 }, { name: "Gemini 3.1 Pro Preview", year: 2080 }] },
                 { level: 7, goal: 5000, aiPredictions: [{ name: "Grok 4.20", year: 2058 }, { name: "GPT-5.4 Thinking Mini", year: 2060 }, { name: "Claude 4.6 Sonnet", year: 2068 }, { name: "Gemini 3.1 Pro Preview", year: 2100 }] },
               ],
-              history: [{ value: 0 }],
+              history: [{ value: 0, details: ["Last updated on April 19th 2026"] }],
             },
           ],
         },
