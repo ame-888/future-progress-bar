@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { MAIN_DOMAINS, Measurement, SubDomainData, MainDomainData } from "./progress-table-data";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon, QuestionMarkCircleIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
-import { BeakerIcon, CpuChipIcon, FireIcon, HeartIcon, SparklesIcon, RocketLaunchIcon, GlobeAltIcon, WindowIcon, EyeIcon, SwatchIcon, WrenchScrewdriverIcon, BoltIcon, TruckIcon, CloudArrowUpIcon, XMarkIcon, ArchiveBoxIcon } from "@heroicons/react/24/solid";
+import { BeakerIcon, CpuChipIcon, FireIcon, HeartIcon, SparklesIcon, RocketLaunchIcon, GlobeAltIcon, WindowIcon, EyeIcon, SwatchIcon, WrenchScrewdriverIcon, BoltIcon, TruckIcon, CloudArrowUpIcon, XMarkIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { LevProgressGraph } from "./lev-progress-graph";
 import { MindUploadGraph } from "./mind-upload-graph";
 import { NuclearFusionGraph } from "./nuclear-fusion-graph";
@@ -435,9 +435,9 @@ export function ProgressTable() {
                 </div>
                 <button
                   onClick={() => setIsRetiredModalOpen(true)}
-                  className="flex flex-col justify-center items-center gap-1 bg-white dark:bg-slate-900 w-24 h-16 p-2 text-center rounded-[10px] border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-[11px] font-bold text-slate-500 dark:text-slate-400 cursor-pointer focus:outline-none"
+                  className="relative flex flex-col justify-center items-center gap-2 bg-white dark:bg-slate-900 w-24 h-24 p-2 text-center border border-slate-200 dark:border-slate-800 rounded-[10px] shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none"
                 >
-                  <ArchiveBoxIcon className="w-5 h-5" />
+                  <TrashIcon className="w-6 h-6 text-slate-400" />
                   <span>Retired Metrics</span>
                 </button>
               </div>
@@ -457,7 +457,7 @@ export function ProgressTable() {
             <div className="bg-white dark:bg-slate-950 w-full max-w-2xl max-h-[90vh] rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden relative">
               <div className="flex items-center justify-between p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h2 className="text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
-                  <ArchiveBoxIcon className="w-6 h-6 text-slate-500" />
+                  <TrashIcon className="w-6 h-6 text-slate-500" />
                   Retired Metrics
                 </h2>
                 <button
@@ -469,7 +469,7 @@ export function ProgressTable() {
               </div>
               <div className="p-4 md:p-6 overflow-y-auto flex-1 bg-slate-50/30 dark:bg-slate-900/20">
                 <div className="text-center py-12 px-4">
-                  <ArchiveBoxIcon className="w-16 h-16 mx-auto text-slate-300 dark:text-slate-700 mb-4" />
+                  <TrashIcon className="w-16 h-16 mx-auto text-slate-300 dark:text-slate-700 mb-4" />
                   <h3 className="text-lg font-bold text-slate-700 dark:text-slate-300 mb-2">No retired metrics yet</h3>
                   <p className="text-slate-500 dark:text-slate-500 max-w-md mx-auto">
                     Metrics will appear here if they reach Level 7 or become conceptually outdated.

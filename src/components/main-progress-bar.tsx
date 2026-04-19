@@ -39,7 +39,7 @@ export function MainProgressBar() {
   ];
 
   return (
-    <div className="w-full max-w-[100rem] mx-auto mt-8 mb-4 px-4">
+    <div className="w-full max-w-[120rem] mx-auto mt-8 mb-4 px-2 sm:px-4">
       <div className="relative pt-8 pb-8">
         {/* Current Marker */}
         <div
@@ -57,20 +57,18 @@ export function MainProgressBar() {
         <div className="w-full h-8 flex rounded-xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800">
           {sections.map((sec, idx) => {
             const widthPct = ((sec.max - sec.min) / maxPoints) * 100;
+            const isWeak = currentPoints < sec.max;
+            const colorClass = isWeak ? `${sec.color} bg-opacity-30 dark:bg-opacity-30` : sec.color;
+
             return (
               <div
                 key={sec.name}
-                className={`h-full flex items-center justify-center border-r border-white/20 last:border-r-0 ${sec.color} relative group`}
+                className={`h-full flex items-center justify-center border-r border-white/20 last:border-r-0 ${colorClass} relative group`}
                 style={{ width: `${widthPct}%` }}
               >
                 {/* Desktop view label */}
-                <span className="text-[8px] md:text-[10px] lg:text-xs font-bold text-white/90 truncate px-1 hidden sm:block">
+                <span className="text-[8px] md:text-[9px] font-bold text-white/90 px-1 text-center leading-tight whitespace-normal">
                   {sec.name}
-                </span>
-
-                {/* Mobile view tooltip on hover or just simple text */}
-                <span className="text-[7px] font-bold text-white/90 truncate px-0.5 sm:hidden">
-                  {sec.name.split(' ')[0]}
                 </span>
               </div>
             );
