@@ -142,6 +142,9 @@ export function CulturedMeatGraph() {
           </LineChart>
         </ResponsiveContainer>
       </div>
+      <div className="text-xs text-slate-500 dark:text-slate-400 mt-2 px-4 md:px-6 pb-4">
+        Last updated on April 19th 2026
+      </div>
     </div>
   );
 }
