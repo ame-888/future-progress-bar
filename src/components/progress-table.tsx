@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { MAIN_DOMAINS, Measurement, SubDomainData, MainDomainData } from "./progress-table-data";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon, QuestionMarkCircleIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
-import { BeakerIcon, CpuChipIcon, FireIcon, HeartIcon, SparklesIcon, RocketLaunchIcon, GlobeAltIcon, WindowIcon, EyeIcon, SwatchIcon, WrenchScrewdriverIcon, BoltIcon, TruckIcon, CloudArrowUpIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { BeakerIcon, CpuChipIcon, FireIcon, HeartIcon, SparklesIcon, RocketLaunchIcon, GlobeAltIcon, WindowIcon, EyeIcon, SwatchIcon, WrenchScrewdriverIcon, BoltIcon, TruckIcon, CloudArrowUpIcon, XMarkIcon, ArchiveBoxIcon } from "@heroicons/react/24/solid";
 import { LevProgressGraph } from "./lev-progress-graph";
 import { MindUploadGraph } from "./mind-upload-graph";
 import { NuclearFusionGraph } from "./nuclear-fusion-graph";
@@ -30,6 +30,7 @@ export function ProgressTable() {
   const [activeSubTab, setActiveSubTab] = useState(-1);
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const [isPredictionsModalOpen, setIsPredictionsModalOpen] = useState(false);
+  const [isRetiredModalOpen, setIsRetiredModalOpen] = useState(false);
 
 
   // User predictions and filters state
@@ -418,17 +419,26 @@ export function ProgressTable() {
               </h1>
             </div>
             <div className="flex justify-end relative z-20 lg:flex-1 w-full ml-auto">
-              <div className="relative overflow-hidden rounded-xl p-[2px] inline-flex">
-                <div className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_0deg,#ef4444,#f97316,#eab308,#22c55e,#3b82f6,#6366f1,#a855f7,#ef4444)] opacity-100" />
-                <button
-                  onClick={() => {
-                    setIsPredictionsModalOpen(true);
+              <div className="flex flex-col gap-2 items-end">
+                <div className="relative overflow-hidden rounded-xl p-[2px] inline-flex">
+                  <div className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_0deg,#ef4444,#f97316,#eab308,#22c55e,#3b82f6,#6366f1,#a855f7,#ef4444)] opacity-100" />
+                  <button
+                    onClick={() => {
+                      setIsPredictionsModalOpen(true);
 
-                  }}
-                  className="relative flex flex-col justify-center items-center gap-2 bg-white dark:bg-slate-900 w-24 h-24 p-2 text-center rounded-[10px] shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none"
+                    }}
+                    className="relative flex flex-col justify-center items-center gap-2 bg-white dark:bg-slate-900 w-24 h-24 p-2 text-center rounded-[10px] shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none"
+                  >
+                    <SparklesIcon className="w-6 h-6 text-indigo-500" />
+                    <span>Prediction List</span>
+                  </button>
+                </div>
+                <button
+                  onClick={() => setIsRetiredModalOpen(true)}
+                  className="flex flex-col justify-center items-center gap-1 bg-white dark:bg-slate-900 w-24 h-16 p-2 text-center rounded-[10px] border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-[11px] font-bold text-slate-500 dark:text-slate-400 cursor-pointer focus:outline-none"
                 >
-                  <SparklesIcon className="w-6 h-6 text-indigo-500" />
-                  <span>Prediction List</span>
+                  <ArchiveBoxIcon className="w-5 h-5" />
+                  <span>Retired Metrics</span>
                 </button>
               </div>
             </div>
@@ -440,6 +450,35 @@ export function ProgressTable() {
             <MainProgressBar />
           </div>
         </div>
+
+        {/* Retired Metrics Modal */}
+        {isRetiredModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="bg-white dark:bg-slate-950 w-full max-w-2xl max-h-[90vh] rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden relative">
+              <div className="flex items-center justify-between p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+                <h2 className="text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+                  <ArchiveBoxIcon className="w-6 h-6 text-slate-500" />
+                  Retired Metrics
+                </h2>
+                <button
+                  onClick={() => setIsRetiredModalOpen(false)}
+                  className="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 transition-colors cursor-pointer"
+                >
+                  <XMarkIcon className="w-6 h-6" />
+                </button>
+              </div>
+              <div className="p-4 md:p-6 overflow-y-auto flex-1 bg-slate-50/30 dark:bg-slate-900/20">
+                <div className="text-center py-12 px-4">
+                  <ArchiveBoxIcon className="w-16 h-16 mx-auto text-slate-300 dark:text-slate-700 mb-4" />
+                  <h3 className="text-lg font-bold text-slate-700 dark:text-slate-300 mb-2">No retired metrics yet</h3>
+                  <p className="text-slate-500 dark:text-slate-500 max-w-md mx-auto">
+                    Metrics will appear here if they reach Level 7 or become conceptually outdated.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Predictions Modal */}
         {isPredictionsModalOpen && (
