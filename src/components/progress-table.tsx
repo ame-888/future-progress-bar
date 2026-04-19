@@ -424,10 +424,10 @@ export function ProgressTable() {
                     setIsPredictionsModalOpen(true);
 
                   }}
-                  className="relative flex items-center gap-2 bg-white dark:bg-slate-900 px-4 py-2 rounded-[10px] shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none"
+                  className="relative flex flex-col justify-center items-center gap-2 bg-white dark:bg-slate-900 w-24 h-24 p-2 text-center rounded-[10px] shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none"
                 >
-                  <SparklesIcon className="w-5 h-5 text-indigo-500" />
-                  Full List of Predictions
+                  <SparklesIcon className="w-6 h-6 text-indigo-500" />
+                  <span>Prediction List</span>
                 </button>
               </div>
             </div>
@@ -444,7 +444,7 @@ export function ProgressTable() {
               <div className="flex items-center justify-between p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                 <h2 className="text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
                   <SparklesIcon className="w-6 h-6 text-indigo-500" />
-                  Full List of Predictions
+                  Prediction List
                 </h2>
                 <button
                   onClick={() => {
