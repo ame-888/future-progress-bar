@@ -18,6 +18,7 @@ import { QuantumComputingGraph } from "./quantum-computing-graph";
 import { SelfDrivingCarGraph } from "./self-driving-car-graph";
 import { CulturedMeatGraph } from "./cultured-meat-graph";
 import { FictionalFuture } from "./fictional-future";
+import { MainProgressBar } from "./main-progress-bar";
 
 
 export function ProgressTable() {
@@ -435,6 +436,9 @@ export function ProgressTable() {
           <p className="text-slate-500 dark:text-slate-400 max-w-2xl mt-4">
             Tracking the frontiers of human innovation across 5 domains and 12 subdomains.
           </p>
+          <div className="w-full mt-4">
+            <MainProgressBar />
+          </div>
         </div>
 
         {/* Predictions Modal */}
