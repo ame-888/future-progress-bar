@@ -39,7 +39,7 @@ export function MainProgressBar() {
   ];
 
   return (
-    <div className="w-full max-w-7xl mx-auto mt-8 mb-4 px-4">
+    <div className="w-full max-w-[100rem] mx-auto mt-8 mb-4 px-4">
       <div className="relative pt-8 pb-8">
         {/* Current Marker */}
         <div
@@ -64,12 +64,12 @@ export function MainProgressBar() {
                 style={{ width: `${widthPct}%` }}
               >
                 {/* Desktop view label */}
-                <span className="text-[9px] md:text-xs font-bold text-white/90 truncate px-1 hidden sm:block">
+                <span className="text-[8px] md:text-[10px] lg:text-xs font-bold text-white/90 truncate px-1 hidden sm:block">
                   {sec.name}
                 </span>
 
                 {/* Mobile view tooltip on hover or just simple text */}
-                <span className="text-[8px] font-bold text-white/90 truncate px-1 sm:hidden">
+                <span className="text-[7px] font-bold text-white/90 truncate px-0.5 sm:hidden">
                   {sec.name.split(' ')[0]}
                 </span>
               </div>
