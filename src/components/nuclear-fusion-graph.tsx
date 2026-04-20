@@ -28,17 +28,36 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
     const data = payload[0].payload as NuclearFusionDataPoint;
 
     return (
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3 rounded-lg shadow-lg">
-        <p className="font-bold text-slate-900 dark:text-white text-lg mb-1">{label}</p>
-        <div className="flex flex-col gap-1">
-          <p className="text-sm text-slate-600 dark:text-slate-300">
-            {data.lawsonCriterion.toFixed(2)} &times; 10<sup>21</sup>
-          </p>
-          {data.note && (
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 italic max-w-[200px] whitespace-normal break-words">
-              {data.note}
+      <div className="flex flex-col gap-2">
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-3 py-1 rounded-lg shadow-sm w-fit self-center">
+          <p className="font-bold text-slate-900 dark:text-white text-sm">{label}</p>
+        </div>
+        <div className="flex gap-2">
+          {/* MCF Box */}
+          <div className="bg-white dark:bg-slate-900 border-l-4 border-l-red-500 border border-slate-200 dark:border-slate-800 p-3 rounded-r-lg shadow-lg max-w-[200px]">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mb-1">Magnetic (MCF)</p>
+            <p className="text-sm text-slate-900 dark:text-white font-medium">
+              {data.mcfValue.toFixed(2)} &times; 10<sup>21</sup>
             </p>
-          )}
+            {data.mcfNote && (
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 italic whitespace-normal break-words">
+                {data.mcfNote}
+              </p>
+            )}
+          </div>
+
+          {/* NIF Box */}
+          <div className="bg-white dark:bg-slate-900 border-l-4 border-l-orange-500 border border-slate-200 dark:border-slate-800 p-3 rounded-r-lg shadow-lg max-w-[200px]">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mb-1">Inertial (NIF)</p>
+            <p className="text-sm text-slate-900 dark:text-white font-medium">
+              {data.nifValue.toFixed(2)} &times; 10<sup>21</sup>
+            </p>
+            {data.nifNote && (
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 italic whitespace-normal break-words">
+                {data.nifNote}
+              </p>
+            )}
+          </div>
         </div>
       </div>
     );
@@ -54,7 +73,8 @@ export function NuclearFusionGraph() {
   // Need safe data since log doesn't work with 0 or negative
   const chartData = NUCLEAR_FUSION_DATA.map(d => ({
     ...d,
-    safeLawson: d.lawsonCriterion <= 0 ? 0.01 : d.lawsonCriterion
+    safeMcfValue: d.mcfValue <= 0 ? 0.01 : d.mcfValue,
+    safeNifValue: d.nifValue <= 0 ? 0.01 : d.nifValue,
   }));
 
   const yAxisDomain = isLogScale ? [0.01, 100] : [0, 55];
@@ -66,11 +86,11 @@ export function NuclearFusionGraph() {
         <div>
           <div className="flex items-center gap-2">
             <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            Lawson Criterion
-            <span className="text-xs font-semibold px-2 py-1 bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400 rounded-full uppercase tracking-wider">
-              North Star
-            </span>
-          </h2>
+              Lawson Criterion
+              <span className="text-xs font-semibold px-2 py-1 bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400 rounded-full uppercase tracking-wider">
+                North Star
+              </span>
+            </h2>
             <div className="relative group flex items-center">
               <QuestionMarkCircleIcon className="w-5 h-5 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 cursor-pointer transition-colors" />
               <div className="absolute left-0 top-full mt-2 w-64 md:w-80 p-3 bg-slate-900/95 dark:bg-slate-800/95 text-slate-100 dark:text-slate-200 text-xs rounded-lg shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 z-50 backdrop-blur-sm border border-slate-700/50 text-left">
@@ -82,13 +102,23 @@ export function NuclearFusionGraph() {
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
             Tracking the best achieved product of plasma density, temperature, and confinement time
           </p>
+          <div className="mt-3 flex items-center gap-4 text-xs font-medium">
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-3 rounded-sm bg-red-500"></div>
+              <span className="text-slate-700 dark:text-slate-300">MCF (Magnetic Confinement)</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-3 rounded-sm bg-orange-500"></div>
+              <span className="text-slate-700 dark:text-slate-300">NIF (Inertial Confinement)</span>
+            </div>
+          </div>
         </div>
         <div className="flex-shrink-0 mt-1">
           <GraphScaleToggle isLogScale={isLogScale} onToggle={setIsLogScale} />
         </div>
       </div>
 
-      <div className="p-4 md:p-6 h-[400px] w-full relative">
+      <div className="p-4 md:p-6 h-[400px] w-full relative mt-2">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={chartData}
@@ -153,11 +183,21 @@ export function NuclearFusionGraph() {
 
             <Line
               type="linear"
-              dataKey={isLogScale ? "safeLawson" : "lawsonCriterion"}
-              stroke="#f97316"
+              dataKey={isLogScale ? "safeMcfValue" : "mcfValue"}
+              stroke="#ef4444" // red-500
+              strokeWidth={3}
+              dot={{ r: 4, fill: '#ef4444', strokeWidth: 2, stroke: '#ffffff' }}
+              activeDot={{ r: 6, fill: '#dc2626', strokeWidth: 2, stroke: '#ffffff' }}
+              isAnimationActive={false}
+            />
+            <Line
+              type="linear"
+              dataKey={isLogScale ? "safeNifValue" : "nifValue"}
+              stroke="#f97316" // orange-500
               strokeWidth={3}
               dot={{ r: 4, fill: '#f97316', strokeWidth: 2, stroke: '#ffffff' }}
               activeDot={{ r: 6, fill: '#ea580c', strokeWidth: 2, stroke: '#ffffff' }}
+              isAnimationActive={false}
             />
           </LineChart>
         </ResponsiveContainer>
