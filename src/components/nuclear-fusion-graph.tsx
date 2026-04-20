@@ -34,6 +34,11 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
           <p className="text-sm text-slate-600 dark:text-slate-300">
             {data.lawsonCriterion.toFixed(2)} &times; 10<sup>21</sup>
           </p>
+          {data.note && (
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 italic max-w-[200px] whitespace-normal break-words">
+              {data.note}
+            </p>
+          )}
         </div>
       </div>
     );
