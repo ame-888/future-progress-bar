@@ -198,7 +198,15 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 3000000000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2045 }, { name: "Gemini 3.1 Pro Preview", year: 2058 }, { name: "Grok 4.20", year: 2060 }, { name: "GPT-5.4 Thinking Mini", year: 2062 }] },
                 { level: 7, goal: 30000000000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2054 }, { name: "Gemini 3.1 Pro Preview", year: 2070 }, { name: "Grok 4.20", year: 2075 }, { name: "GPT-5.4 Thinking Mini", year: 2090 }] },
               ],
-              history: []
+              history: [
+                {
+                  value: 19457,
+                  details: [
+                    "Last updated on April 20th 2026",
+                    "Only about 2k of those are active in industrial and commercial roles. The other 17k are exclusively being used for research and testing contexts"
+                  ]
+                }
+              ]
             },
             {
               id: "robotics-2",
@@ -215,7 +223,15 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 50, aiPredictions: [{ name: "Grok 4.20", year: 2050 }, { name: "Claude 4.6 Sonnet", year: 2051 }, { name: "Gemini 3.1 Pro Preview", year: 2059 }, { name: "GPT-5.4 Thinking Mini", year: 2063 }] },
                 { level: 7, goal: 75, aiPredictions: [{ name: "Grok 4.20", year: 2055 }, { name: "Claude 4.6 Sonnet", year: 2059 }, { name: "Gemini 3.1 Pro Preview", year: 2065 }, { name: "GPT-5.4 Thinking Mini", year: 2075 }] },
               ],
-              history: []
+              history: [
+                {
+                  value: 0,
+                  details: [
+                    "Last updated on April 20th 2026",
+                    "The number is not exactly zero, but it's still insignificant"
+                  ]
+                }
+              ]
             },
             {
               id: "robotics-4",
@@ -458,7 +474,12 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 7, goal: 300000000, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2165 }, { name: "Grok 4.20", year: 2180 }, { name: "GPT-5.4 Thinking Mini", year: 2230 }, { name: "Claude 4.6 Sonnet", year: 2500 }] },
               ],
               history: [
-                { value: 217 }
+                {
+                  value: 217,
+                  details: [
+                    "Last updated on April 20th 2026"
+                  ]
+                }
               ],
             },
           ],
