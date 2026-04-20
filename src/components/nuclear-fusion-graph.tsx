@@ -129,7 +129,7 @@ export function NuclearFusionGraph() {
               stroke="none"
               label={{
                 position: 'center',
-                value: 'Perpetual Ignition Zone',
+                value: 'Commercial Power Viability',
                 fill: '#fbbf24',
                 fontSize: 14,
                 fontWeight: 'bold'
@@ -144,7 +144,7 @@ export function NuclearFusionGraph() {
               strokeDasharray="4 4"
               label={{
                 position: 'top',
-                value: 'Scientific Breakeven (5.0 × 10²¹)',
+                value: 'Ignition Threshold (5.0 × 10²¹)',
                 fill: '#94a3b8',
                 fontSize: 12,
                 fontWeight: 'bold'
