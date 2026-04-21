@@ -137,7 +137,7 @@ export function NuclearFusionGraph() {
               ticks={ticks}
               stroke="#64748b"
               tick={{ fill: '#64748b' }}
-              tickFormatter={(value) => `${value.toFixed(1)}`}
+              tickFormatter={(value) => value < 0.1 ? value.toString() : value.toFixed(1)}
             />
             <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#94a3b8', strokeWidth: 1, strokeDasharray: '5 5' }} />
 
