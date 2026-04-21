@@ -83,7 +83,7 @@ const CustomTooltip = ({ active, payload, label, isLogScale }: CustomTooltipProp
   return null;
 };
 
-export function MindUploadGraph() {
+export function MindUploadGraph({ lastUpdated }: { lastUpdated?: string }) {
   const [isLogScale, setIsLogScale] = useState(true);
   const scale = isLogScale ? "log" : "linear";
 
@@ -193,7 +193,7 @@ export function MindUploadGraph() {
         </ResponsiveContainer>
       </div>
       <div className="mt-2 px-4 md:px-6 pb-4 text-left text-xs text-slate-500 dark:text-slate-400">
-        Last Updated on April 19th, 2026
+        {lastUpdated ? `Last Updated on ${lastUpdated}` : ""}
       </div>
     </div>
   );

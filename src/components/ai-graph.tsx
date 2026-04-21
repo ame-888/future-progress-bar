@@ -61,7 +61,7 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   return null;
 };
 
-export const AiGraph = () => {
+export const AiGraph = ({ lastUpdated }: { lastUpdated?: string }) => {
   const [isLogScale, setIsLogScale] = useState(true);
   const scale = isLogScale ? "log" : "linear";
 
@@ -184,6 +184,11 @@ export const AiGraph = () => {
             </LineChart>
         </ResponsiveContainer>
       </div>
+      {lastUpdated && (
+        <div className="mt-2 px-4 md:px-6 pb-4 text-left text-xs text-slate-500 dark:text-slate-400">
+          Last Updated on {lastUpdated}
+        </div>
+      )}
     </div>
   );
 };

@@ -1,4 +1,9 @@
+with open("src/components/digital-clock.tsx", "r") as f:
+    text = f.read()
 
+import_statement = 'import { MAIN_DOMAINS } from "./progress-table-data";\nimport { formatDateStr } from "./progress-table";\n'
+
+new_clock_code = """
 "use client";
 
 import { useState, useEffect } from "react";
@@ -17,7 +22,6 @@ export function DigitalClock() {
   const [time, setTime] = useState<Date | null>(null);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     setTime(new Date());
 
@@ -144,3 +148,7 @@ export function DigitalClock() {
     </div>
   );
 }
+"""
+
+with open("src/components/digital-clock.tsx", "w") as f:
+    f.write(new_clock_code)
