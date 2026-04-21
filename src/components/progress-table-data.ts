@@ -65,7 +65,7 @@ const cachedDynamicDateString = (function getDynamicDateStringCached() {
     }
   };
 
-  return `Last updated on ${months[today.getMonth()]} ${day}${getOrdinalSuffix(day)} ${today.getFullYear()}`;
+  return `Last Updated on ${months[today.getMonth()]}, ${day}${getOrdinalSuffix(day)}, ${today.getFullYear()}`;
 })();
 
 function getDynamicDateString() {
@@ -106,7 +106,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               history: [
                 {
                   value: 0,
-                  details: ["Last updated on April 12th 2026"]
+                  details: ["Last Updated on April, 12th, 2026"]
                 }
               ]
             },
@@ -128,7 +128,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               history: [
                 {
                   value: 0,
-                  details: ["Last updated on April 14th 2026"]
+                  details: ["Last Updated on April, 14th, 2026"]
                 }
               ]
             },
@@ -150,7 +150,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               history: [
                 {
                   value: 0,
-                  details: ["Last updated on April 14th 2026"]
+                  details: ["Last Updated on April, 14th, 2026"]
                 }
               ]
             },
@@ -172,7 +172,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               history: [
                 {
                   value: 0,
-                  details: ["Last updated on April 12th 2026"]
+                  details: ["Last Updated on April, 12th, 2026"]
                 }
               ]
             }
@@ -202,7 +202,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 {
                   value: 19457,
                   details: [
-                    "Last updated on April 20th 2026",
+                    "Last Updated on April, 20th, 2026",
                     "Only about 2k of those are active in industrial and commercial roles. The other 17k are exclusively being used for research and testing contexts"
                   ]
                 }
@@ -227,7 +227,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 {
                   value: 0,
                   details: [
-                    "Last updated on April 20th 2026",
+                    "Last Updated on April, 20th, 2026",
                     "The number is not exactly zero, but it's still insignificant"
                   ]
                 }
@@ -251,7 +251,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               history: [
                 {
                   value: 0,
-                  details: ["last updated on april 14th 2026"]
+                  details: ["Last Updated on April, 14th, 2026"]
                 }
               ]
             },
@@ -273,7 +273,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               history: [
                 {
                   value: 0,
-                  details: ["last updated on april 12th 2026"]
+                  details: ["Last Updated on April, 12th, 2026"]
                 }
               ]
             }
@@ -302,7 +302,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               history: [
                 {
                   value: 0,
-                  details: ["Last updated on April 12th 2026"]
+                  details: ["Last Updated on April, 12th, 2026"]
                 }
               ]
             },
@@ -327,7 +327,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                   "USA (2020)",
                   "China (2022)",
                   "UAE (2025)",
-                  "Last updated on April 11th, 2026."
+                  "Last Updated on April, 11th, 2026"
                 ]
               }]
             },
@@ -349,7 +349,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               history: [{
                 value: 0,
                 details: [
-                  "Last updated on April 11th, 2026."
+                  "Last Updated on April, 11th, 2026"
                 ]
               }]
             },
@@ -371,7 +371,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               history: [{
                 value: 0,
                 details: [
-                  "Last updated on April 13th 2026"
+                  "Last Updated on April, 13th, 2026"
                 ]
               }]
             }
@@ -406,7 +406,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               history: [
                 {
                   value: 73.8,
-                  details: ["last updated on april 12th 2026"]
+                  details: ["Last Updated on April, 12th, 2026"]
                 }
               ],
             },
@@ -477,7 +477,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 {
                   value: 217,
                   details: [
-                    "Last updated on April 20th 2026"
+                    "Last Updated on April, 20th, 2026"
                   ]
                 }
               ],
@@ -600,7 +600,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                   value: 6100,
                   details: [
                     "An Endres Lab team at the Caltech, led by Professor Manuel Endres (2025)",
-                    "Last updated on April 12th 2026"
+                    "Last Updated on April, 12th, 2026"
                   ]
                 }
               ],
@@ -642,7 +642,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                   value: 33554432,
                   details: [
                     "The company Quantinuum on its System Model H2 (2025)",
-                    "Last updated on April 12th 2026"
+                    "Last Updated on April, 12th, 2026"
                   ]
                 }
               ],
@@ -699,7 +699,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                   value: 250,
                   details: [
                     "A ternary Lanthanum-Scandium-Hydrogen (La-Sc-H) system (2025)",
-                    "Last updated on April 12th 2026"
+                    "Last Updated on April, 12th, 2026"
                   ]
                 }
               ]
@@ -797,7 +797,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                   "Synchron (USA / Australia): 10",
                   "Clinatec / CEA / Onward Medical (France / Switzerland): 7",
                   "Tsinghua University / Neuracle Technology (China): 3",
-                  "Last updated on April 11th, 2026."
+                  "Last Updated on April, 11th, 2026"
                 ]
               }],
             },
@@ -825,7 +825,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                   "China (2025)",
                   "UAE (2025)",
                   "UK (2025)",
-                  "last updated on April 12th 2026"
+                  "Last Updated on April, 12th, 2026"
                 ]
               }],
             },
@@ -844,7 +844,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 170, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2050 }, { name: "Grok 4.20", year: 2052 }, { name: "Claude 4.6 Sonnet", year: 2060 }, { name: "GPT-5.4 Thinking Mini", year: 2092 }] },
                 { level: 7, goal: 195, aiPredictions: [{ name: "Grok 4.20", year: 2060 }, { name: "Gemini 3.1 Pro Preview", year: 2065 }, { name: "Claude 4.6 Sonnet", year: 2072 }, { name: "GPT-5.4 Thinking Mini", year: 2125 }] },
               ],
-              history: [{ value: 1, details: ["China (2026)", "last updated on April 12th 2026"] }],
+              history: [{ value: 1, details: ["China (2026)", "Last Updated on April, 12th, 2026"] }],
             },
             {
               id: "bci-4",
@@ -861,7 +861,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 140, aiPredictions: [{ name: "Grok 4.20", year: 2053 }, { name: "Claude 4.6 Sonnet", year: 2065 }, { name: "GPT-5.4 Thinking Mini", year: 2069 }, { name: "Gemini 3.1 Pro Preview", year: 2080 }] },
                 { level: 7, goal: 195, aiPredictions: [{ name: "Grok 4.20", year: 2065 }, { name: "GPT-5.4 Thinking Mini", year: 2080 }, { name: "Claude 4.6 Sonnet", year: 2085 }, { name: "Gemini 3.1 Pro Preview", year: 2105 }] },
               ],
-              history: [{ value: 0, details: ["last updated on April 12th 2026"] }],
+              history: [{ value: 0, details: ["Last Updated on April, 12th, 2026"] }],
             },
           ]
         },
@@ -886,7 +886,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 10000, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2076 }, { name: "Grok 4.20", year: 2105 }, { name: "Claude 4.6 Sonnet", year: 2121 }, { name: "GPT-5.4 Thinking Mini", year: 2165 }] },
                 { level: 7, goal: 1000, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2080 }, { name: "Grok 4.20", year: 2120 }, { name: "Claude 4.6 Sonnet", year: 2127 }, { name: "GPT-5.4 Thinking Mini", year: 2175 }] },
               ],
-              history: [{ value: Infinity, details: ["Last updated on April 19th 2026"] }]
+              history: [{ value: Infinity, details: ["Last Updated on April, 19th, 2026"] }]
             },
             {
               id: "mind-upload-adoption-1",
@@ -903,7 +903,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 100000000, aiPredictions: [{ name: "Grok 4.20", year: 2085 }, { name: "Gemini 3.1 Pro Preview", year: 2090 }, { name: "Claude 4.6 Sonnet", year: 2114 }, { name: "GPT-5.4 Thinking Mini", year: 2140 }] },
                 { level: 7, goal: 1000000000, aiPredictions: [{ name: "Grok 4.20", year: 2100 }, { name: "Gemini 3.1 Pro Preview", year: 2100 }, { name: "Claude 4.6 Sonnet", year: 2134 }, { name: "GPT-5.4 Thinking Mini", year: 2160 }] },
               ],
-              history: [{ value: 0, details: ["Last updated on April 19th 2026"] }]
+              history: [{ value: 0, details: ["Last Updated on April, 19th, 2026"] }]
             },
             {
               id: "mind-upload-adoption-2",
@@ -920,7 +920,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 130, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2109 }, { name: "Grok 4.20", year: 2135 }, { name: "Gemini 3.1 Pro Preview", year: 2160 }, { name: "GPT-5.4 Thinking Mini", year: 2190 }] },
                 { level: 7, goal: 195, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2128 }, { name: "Grok 4.20", year: 2160 }, { name: "Gemini 3.1 Pro Preview", year: 2210 }, { name: "GPT-5.4 Thinking Mini", year: 2240 }] },
               ],
-              history: [{ value: 0, details: ["Last updated on April 19th 2026"] }]
+              history: [{ value: 0, details: ["Last Updated on April, 19th, 2026"] }]
             },
             {
               id: "mind-upload-1",
@@ -942,7 +942,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                   value: 139000,
                   details: ["Adult fruit fly"]
                 }
-              , { value: 139000, details: ["Last updated on April 19th 2026"] }]
+              , { value: 139000, details: ["Last Updated on April, 19th, 2026"] }]
             }
           ]
         },
@@ -966,7 +966,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 500000000, label: "500M", aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2043 }, { name: "Claude 4.6 Sonnet", year: 2044 }, { name: "Gemini 3.1 Pro Preview", year: 2046 }, { name: "Grok 4.20", year: 2050 }] },
                 { level: 7, goal: 1000000000, label: "1B", aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2050 }, { name: "Claude 4.6 Sonnet", year: 2050 }, { name: "Gemini 3.1 Pro Preview", year: 2052 }, { name: "Grok 4.20", year: 2060 }] },
               ],
-              history: [{ value: 8000000, details: ["An estimate, since official numbers are hard to find", "Last updated on April 19th 2026"] }]
+              history: [{ value: 8000000, details: ["An estimate, since official numbers are hard to find", "Last Updated on April, 19th, 2026"] }]
             },
             {
               id: "vr-3",
@@ -983,7 +983,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 9600, label: "400 days", aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2051 }, { name: "Gemini 3.1 Pro Preview", year: 2055 }, { name: "Grok 4.20", year: 2065 }, { name: "GPT-5.4 Thinking Mini", year: 2072 }] },
                 { level: 7, goal: 24000, label: "1,000 days", aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2067 }, { name: "Gemini 3.1 Pro Preview", year: 2080 }, { name: "Grok 4.20", year: 2090 }, { name: "GPT-5.4 Thinking Mini", year: 2096 }] },
               ],
-              history: [{ value: 168, details: ["In February 2019, Jak Wilmot (co-founder of Disrupt VR) set the widely recognized record by spending 168 continuous hours (exactly 7 days) living, sleeping, and working inside a VR headset", "Last updated on April 19th 2026"] }]
+              history: [{ value: 168, details: ["In February 2019, Jak Wilmot (co-founder of Disrupt VR) set the widely recognized record by spending 168 continuous hours (exactly 7 days) living, sleeping, and working inside a VR headset", "Last Updated on April, 19th, 2026"] }]
             },
             {
               id: "vr-4",
@@ -1000,7 +1000,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 6, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2055 }, { name: "Grok 4.20", year: 2061 }, { name: "Gemini 3.1 Pro Preview", year: 2063 }, { name: "GPT-5.4 Thinking Mini", year: 2135 }] },
                 { level: 7, goal: 7, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2061 }, { name: "Gemini 3.1 Pro Preview", year: 2065 }, { name: "Grok 4.20", year: 2070 }, { name: "GPT-5.4 Thinking Mini", year: 2180 }] },
               ],
-              history: [{ value: 0, details: ["Only touch and vision have been partially achieved thus far. Taste, smell, hearing, proprioception and balance have not.", "Last updated on April 18th 2026"] }]
+              history: [{ value: 0, details: ["Only touch and vision have been partially achieved thus far. Taste, smell, hearing, proprioception and balance have not.", "Last Updated on April, 18th, 2026"] }]
             },
             {
               id: "vr-6",
@@ -1017,7 +1017,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 300000000, label: "300M", aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2064 }, { name: "Grok 4.20", year: 2075 }, { name: "Claude 4.6 Sonnet", year: 2078 }, { name: "GPT-5.4 Thinking Mini", year: 2085 }] },
                 { level: 7, goal: 1000000000, label: "1B", aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2072 }, { name: "Claude 4.6 Sonnet", year: 2090 }, { name: "Grok 4.20", year: 2100 }, { name: "GPT-5.4 Thinking Mini", year: 2115 }] },
               ],
-              history: [{ value: 100000, details: ["This is the highest number officially claimed as of 2026 by RP1 (a metaverse/spatial internet platform with full VR support via WebXR, 6DOF tracking, spatial audio, and full-fidelity avatars).", "Last updated on April 18th 2026"] }]
+              history: [{ value: 100000, details: ["This is the highest number officially claimed as of 2026 by RP1 (a metaverse/spatial internet platform with full VR support via WebXR, 6DOF tracking, spatial audio, and full-fidelity avatars).", "Last Updated on April, 18th, 2026"] }]
             },
           ]
         },
@@ -1047,7 +1047,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 50, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2046 }, { name: "Grok 4.20", year: 2049 }, { name: "Claude 4.6 Sonnet", year: 2071 }, { name: "GPT-5.4 Thinking Mini", year: 2085 }] },
                 { level: 7, goal: 100, aiPredictions: [{ name: "Grok 4.20", year: 2052 }, { name: "Gemini 3.1 Pro Preview", year: 2095 }, { name: "Claude 4.6 Sonnet", year: 2105 }, { name: "GPT-5.4 Thinking Mini", year: 2150 }] },
               ],
-              history: [{ value: 0.001, details: ["Last updated on April 19th 2026"] }],
+              history: [{ value: 0.001, details: ["Last Updated on April, 19th, 2026"] }],
             },
             {
               id: "cultured-meat-2",
@@ -1073,7 +1073,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                     "Israel (2024)",
                     "Australia (2025)",
                     "New Zealand (2025)",
-                    "Last updated on April 19th 2026"
+                    "Last Updated on April, 19th, 2026"
                   ]
                 },
               ],
@@ -1101,7 +1101,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                     "UK (2024)",
                     "Singapore (2025)",
                     "Australia (2026)",
-                    "Last updated on April 19th 2026"
+                    "Last Updated on April, 19th, 2026"
                   ]
                 }
               ],
@@ -1121,7 +1121,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 130, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2151 }, { name: "GPT-5.4 Thinking Mini", year: 2155 }, { name: "Gemini 3.1 Pro Preview", year: 2160 }, { name: "Grok 4.20", year: 2210 }] },
                 { level: 7, goal: 195, aiPredictions: [{ name: "Gemini 3.1 Pro Preview", year: 2200 }, { name: "Claude 4.6 Sonnet", year: 2210 }, { name: "GPT-5.4 Thinking Mini", year: 2210 }, { name: "Grok 4.20", year: 2250 }] },
               ],
-              history: [{ value: 0, details: ["Last updated on April 19th 2026"] }],
+              history: [{ value: 0, details: ["Last Updated on April, 19th, 2026"] }],
             },
           ],
         },
@@ -1145,7 +1145,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 2500, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2068 }, { name: "GPT-5.4 Thinking Mini", year: 2068 }, { name: "Grok 4.20", year: 2078 }, { name: "Gemini 3.1 Pro Preview", year: 2090 }] },
                 { level: 7, goal: 10000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2077 }, { name: "GPT-5.4 Thinking Mini", year: 2078 }, { name: "Grok 4.20", year: 2095 }, { name: "Gemini 3.1 Pro Preview", year: 2115 }] },
               ],
-              history: [{ value: 0, details: ["Last updated on April 19th 2026"] }],
+              history: [{ value: 0, details: ["Last Updated on April, 19th, 2026"] }],
             },
             {
               id: "fusion-2",
@@ -1162,7 +1162,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 40, aiPredictions: [{ name: "Grok 4.20", year: 2085 }, { name: "Claude 4.6 Sonnet", year: 2092 }, { name: "GPT-5.4 Thinking Mini", year: 2118 }, { name: "Gemini 3.1 Pro Preview", year: 2140 }] },
                 { level: 7, goal: 75, aiPredictions: [{ name: "Grok 4.20", year: 2108 }, { name: "Claude 4.6 Sonnet", year: 2110 }, { name: "GPT-5.4 Thinking Mini", year: 2165 }, { name: "Gemini 3.1 Pro Preview", year: 2190 }] },
               ],
-              history: [{ value: 0, details: ["Last updated on April 19th 2026"] }],
+              history: [{ value: 0, details: ["Last Updated on April, 19th, 2026"] }],
             },
             {
               id: "fusion-3",
@@ -1179,7 +1179,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 43800, label: "5 Years", aiPredictions: [{ name: "Grok 4.20", year: 2060 }, { name: "Claude 4.6 Sonnet", year: 2067 }, { name: "Gemini 3.1 Pro Preview", year: 2085 }, { name: "GPT-5.4 Thinking Mini", year: 2090 }] },
                 { level: 7, goal: 438000, label: "50 Years", aiPredictions: [{ name: "Grok 4.20", year: 2080 }, { name: "Claude 4.6 Sonnet", year: 2110 }, { name: "GPT-5.4 Thinking Mini", year: 2145 }, { name: "Gemini 3.1 Pro Preview", year: 2150 }] },
               ],
-              history: [{ value: 0, details: ["Last updated on April 19th 2026"] }],
+              history: [{ value: 0, details: ["Last Updated on April, 19th, 2026"] }],
             },
             {
               id: "fusion-4",
@@ -1196,7 +1196,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 2500, aiPredictions: [{ name: "Grok 4.20", year: 2048 }, { name: "GPT-5.4 Thinking Mini", year: 2049 }, { name: "Claude 4.6 Sonnet", year: 2060 }, { name: "Gemini 3.1 Pro Preview", year: 2080 }] },
                 { level: 7, goal: 5000, aiPredictions: [{ name: "Grok 4.20", year: 2058 }, { name: "GPT-5.4 Thinking Mini", year: 2060 }, { name: "Claude 4.6 Sonnet", year: 2068 }, { name: "Gemini 3.1 Pro Preview", year: 2100 }] },
               ],
-              history: [{ value: 0, details: ["Last updated on April 19th 2026"] }],
+              history: [{ value: 0, details: ["Last Updated on April, 19th, 2026"] }],
             },
           ],
         },

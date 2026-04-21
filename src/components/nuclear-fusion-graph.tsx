@@ -196,8 +196,8 @@ export function NuclearFusionGraph() {
             />
           </LineChart>
         </ResponsiveContainer>
-        <div className="mt-2 text-xs text-slate-500 dark:text-slate-400 text-center">
-          Last updated on April 20th 2026
+        <div className="mt-2 px-4 md:px-6 pb-4 text-left text-xs text-slate-500 dark:text-slate-400">
+          Last Updated on April, 20th, 2026
         </div>
       </div>
     </div>
