@@ -50,7 +50,7 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   return null;
 };
 
-export function SuperconductorGraph() {
+export function SuperconductorGraph({ lastUpdated }: { lastUpdated?: string }) {
   const [isLogScale, setIsLogScale] = useState(false);
 
   const scaleType = isLogScale ? "log" : "linear";
@@ -165,7 +165,7 @@ export function SuperconductorGraph() {
           </LineChart>
         </ResponsiveContainer>
         <div className="mt-2 px-4 md:px-6 pb-4 text-left text-xs text-slate-500 dark:text-slate-400">
-          Last Updated on April 21st, 2026
+          {lastUpdated ? `Last Updated on ${lastUpdated}` : ""}
         </div>
       </div>
     </div>

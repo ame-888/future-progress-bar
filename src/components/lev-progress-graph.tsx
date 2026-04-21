@@ -58,7 +58,7 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   return null;
 };
 
-export function LevProgressGraph() {
+export function LevProgressGraph({ lastUpdated }: { lastUpdated?: string }) {
   return (
     <div className="w-full mb-8 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50 shadow-sm">
       <div className="p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:justify-between md:items-start gap-4">
@@ -177,7 +177,7 @@ export function LevProgressGraph() {
       </div>
       <div className="mt-2 px-4 md:px-6 pb-4 text-left text-xs text-slate-500 dark:text-slate-400">
         <p>* WHO (GHO) hasn't published data on 2022 onwards as of today</p>
-        <p>Last Updated on April 21st, 2026</p>
+        <p>{lastUpdated ? `Last Updated on ${lastUpdated}` : ""}</p>
       </div>
     </div>
   );

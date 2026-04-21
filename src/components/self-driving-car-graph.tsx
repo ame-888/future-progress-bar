@@ -45,7 +45,7 @@ const formatYAxisTick = (value: number) => {
   return `${value}%`;
 };
 
-export function SelfDrivingCarGraph() {
+export function SelfDrivingCarGraph({ lastUpdated }: { lastUpdated?: string }) {
   const [isLogScale, setIsLogScale] = useState(true);
 
   const scaleType = isLogScale ? "log" : "linear";

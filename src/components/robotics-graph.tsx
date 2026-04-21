@@ -52,7 +52,7 @@ const formatYAxisTick = (value: number) => {
   return value.toString();
 };
 
-export function RoboticsGraph() {
+export function RoboticsGraph({ lastUpdated }: { lastUpdated?: string }) {
   const [isLogScale, setIsLogScale] = useState(true);
 
   const scaleType = isLogScale ? "log" : "linear";
