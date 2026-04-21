@@ -47,17 +47,19 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
           </div>
 
           {/* NIF Box */}
-          <div className="bg-white dark:bg-slate-900 border-l-4 border-l-orange-500 border border-slate-200 dark:border-slate-800 p-3 rounded-r-lg shadow-lg max-w-[200px]">
-            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mb-1">Inertial (NIF)</p>
-            <p className="text-sm text-slate-900 dark:text-white font-medium">
-              {data.nifValue.toFixed(2)} &times; 10<sup>21</sup>
-            </p>
-            {data.nifNote && (
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 italic whitespace-normal break-words">
-                {data.nifNote}
+          {data.nifValue !== undefined && (
+            <div className="bg-white dark:bg-slate-900 border-l-4 border-l-orange-500 border border-slate-200 dark:border-slate-800 p-3 rounded-r-lg shadow-lg max-w-[200px]">
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mb-1">Inertial (NIF)</p>
+              <p className="text-sm text-slate-900 dark:text-white font-medium">
+                {data.nifValue.toFixed(2)} &times; 10<sup>21</sup>
               </p>
-            )}
-          </div>
+              {data.nifNote && (
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 italic whitespace-normal break-words">
+                  {data.nifNote}
+                </p>
+              )}
+            </div>
+          )}
         </div>
       </div>
     );
@@ -69,13 +71,6 @@ export function NuclearFusionGraph() {
   const [isLogScale, setIsLogScale] = useState(false);
 
   const scaleType = isLogScale ? "log" : "linear";
-
-  // Need safe data since log doesn't work with 0 or negative
-  const chartData = NUCLEAR_FUSION_DATA.map(d => ({
-    ...d,
-    safeMcfValue: d.mcfValue <= 0 ? 0.01 : d.mcfValue,
-    safeNifValue: d.nifValue <= 0 ? 0.01 : d.nifValue,
-  }));
 
   const yAxisDomain = isLogScale ? [0.01, 100] : [0, 55];
   const ticks = isLogScale ? [0.01, 0.1, 1, 10, 100] : undefined;
@@ -121,7 +116,7 @@ export function NuclearFusionGraph() {
       <div className="p-4 md:p-6 h-[400px] w-full relative mt-2">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
-            data={chartData}
+            data={NUCLEAR_FUSION_DATA}
             margin={{
               top: 20,
               right: 30,
@@ -183,7 +178,7 @@ export function NuclearFusionGraph() {
 
             <Line
               type="linear"
-              dataKey={isLogScale ? "safeMcfValue" : "mcfValue"}
+              dataKey="mcfValue"
               stroke="#ef4444" // red-500
               strokeWidth={3}
               dot={{ r: 4, fill: '#ef4444', strokeWidth: 2, stroke: '#ffffff' }}
@@ -192,7 +187,7 @@ export function NuclearFusionGraph() {
             />
             <Line
               type="linear"
-              dataKey={isLogScale ? "safeNifValue" : "nifValue"}
+              dataKey="nifValue"
               stroke="#f97316" // orange-500
               strokeWidth={3}
               dot={{ r: 4, fill: '#f97316', strokeWidth: 2, stroke: '#ffffff' }}
