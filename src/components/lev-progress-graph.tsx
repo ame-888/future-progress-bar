@@ -10,6 +10,7 @@ import {
   CartesianGrid,
   Tooltip,
   ReferenceLine,
+  ReferenceArea,
   ResponsiveContainer,
 } from "recharts";
 import { LEV_DATA, LevDataPoint } from "./lev-graph-data";
@@ -77,16 +78,16 @@ export function LevProgressGraph() {
               </div>
             </div>
           </div>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-2xl">
-            Tracking the gains and loses in both lifespan (according to UN - WPP) and healthspan (according to WHO - GHO) over the years
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 whitespace-nowrap">
+            Tracking the gains and losses in both lifespan (according to UN - WPP) and healthspan (according to WHO - GHO) over the years
           </p>
           <div className="mt-3 flex items-center gap-4 text-xs font-medium">
             <div className="flex items-center gap-1.5">
-              <div className="w-3 h-3 rounded-sm bg-red-500"></div>
+              <div className="w-3 h-3 rounded-sm bg-yellow-500"></div>
               <span className="text-slate-700 dark:text-slate-300">Lifespan Gain</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <div className="w-3 h-3 rounded-sm bg-green-500"></div>
+              <div className="w-3 h-3 rounded-sm bg-blue-500"></div>
               <span className="text-slate-700 dark:text-slate-300">Healthspan Gain</span>
             </div>
           </div>
@@ -115,12 +116,28 @@ export function LevProgressGraph() {
               domain={[-2.0, 2.0]}
               stroke="#64748b"
               tick={{ fill: '#64748b' }}
-              tickFormatter={(value) => `${value > 0 ? '+' : ''}${value.toFixed(1)}`}
+              tickFormatter={(value) => `${value > 0 ? '+' : ''}${value}`}
+              label={{ value: '(Years)', position: 'top', fill: '#64748b', fontSize: 12, offset: 10 }}
             />
             <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#94a3b8', strokeWidth: 1, strokeDasharray: '5 5' }} />
 
             {/* Zero line */}
             <ReferenceLine y={0} stroke="#64748b" strokeOpacity={0.5} />
+
+            {/* COVID-19 Period */}
+            <ReferenceArea
+              x1={2020}
+              x2={2023}
+              fill="#a855f7"
+              fillOpacity={0.1}
+              label={{
+                position: 'insideTop',
+                value: 'COVID-19',
+                fill: '#a855f7',
+                fontSize: 12,
+                fontWeight: 'bold'
+              }}
+            />
 
             {/* LEV Threshold (Golden Line) */}
             <ReferenceLine
@@ -140,23 +157,27 @@ export function LevProgressGraph() {
             <Line
               type="linear"
               dataKey="lifespanGain"
-              stroke="#ef4444" // red-500
+              stroke="#eab308" // yellow-500
               strokeWidth={3}
-              dot={{ r: 4, fill: '#ef4444', strokeWidth: 2, stroke: '#ffffff' }}
-              activeDot={{ r: 6, fill: '#dc2626', strokeWidth: 2, stroke: '#ffffff' }}
+              dot={{ r: 3.2, fill: '#eab308', strokeWidth: 2, stroke: '#ffffff' }}
+              activeDot={{ r: 4.8, fill: '#ca8a04', strokeWidth: 2, stroke: '#ffffff' }}
               isAnimationActive={false}
             />
             <Line
               type="linear"
               dataKey="healthspanGain"
-              stroke="#22c55e" // green-500
+              stroke="#3b82f6" // blue-500
               strokeWidth={3}
-              dot={{ r: 4, fill: '#22c55e', strokeWidth: 2, stroke: '#ffffff' }}
-              activeDot={{ r: 6, fill: '#16a34a', strokeWidth: 2, stroke: '#ffffff' }}
+              dot={{ r: 3.2, fill: '#3b82f6', strokeWidth: 2, stroke: '#ffffff' }}
+              activeDot={{ r: 4.8, fill: '#2563eb', strokeWidth: 2, stroke: '#ffffff' }}
               isAnimationActive={false}
             />
           </LineChart>
         </ResponsiveContainer>
+      </div>
+      <div className="mt-2 px-4 md:px-6 pb-4 text-left text-xs text-slate-500 dark:text-slate-400">
+        <p>* WHO (GHO) hasn't published data on 2022 onwards as of today</p>
+        <p>Last Updated on April, 21st, 2026</p>
       </div>
     </div>
   );
