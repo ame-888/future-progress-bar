@@ -143,7 +143,7 @@ export function CulturedMeatGraph() {
         </ResponsiveContainer>
       </div>
       <div className="mt-2 px-4 md:px-6 pb-4 text-left text-xs text-slate-500 dark:text-slate-400">
-        Last Updated on April, 19th, 2026
+        Last Updated on April 19th, 2026
       </div>
     </div>
   );
