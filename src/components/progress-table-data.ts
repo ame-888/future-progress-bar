@@ -428,7 +428,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               history: [
                 {
                   value: 86.73,
-                  details: ["Monaco"]
+                  details: ["Monaco (2026 - UN Projection)", "Last Updated on April, 21st, 2026"]
                 }
               ],
             },
@@ -507,7 +507,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               history: [
                 {
                   value: 20,
-                  details: ["Jan 26, 2024: 20 people (11 ISS, 3 Tiangong, 6 Suborbital)"]
+                  details: ["May 25, 2023 and January 26, 2024", "Last Updated on April, 21st, 2026"]
                 }
               ],
             },
@@ -529,7 +529,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               history: [
                 {
                   value: 2,
-                  details: ["This occurred again and again during each of the six successful Apollo lunar landing missions (Apollo 11, 12, 14, 15, 16, and 17) between 1969 and 1972."]
+                  details: ["This occurred again and again during each of the six successful Apollo lunar landing missions (Apollo 11, 12, 14, 15, 16, and 17) between 1969 and 1972.", "Last Updated on April, 21st, 2026"]
                 }
               ]
             },
@@ -548,7 +548,12 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 10000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2057 }, { name: "Grok 4.20", year: 2070 }, { name: "GPT-5.4 Thinking Mini", year: 2089 }, { name: "Gemini 3.1 Pro Preview", year: 2150 }] },
                 { level: 7, goal: 1000000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2073 }, { name: "Grok 4.20", year: 2095 }, { name: "GPT-5.4 Thinking Mini", year: 2175 }, { name: "Gemini 3.1 Pro Preview", year: 2300 }] },
               ],
-              history: []
+              history: [
+                {
+                  value: 0,
+                  details: ["Last Updated on April, 21st, 2026"]
+                }
+              ]
             },
             {
               id: "space-2",
