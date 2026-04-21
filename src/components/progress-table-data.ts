@@ -729,13 +729,13 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 7, goal: 50000, aiPredictions: [{ name: "GPT-5.4 Thinking Mini", year: 2090 }, { name: "Claude 4.6 Sonnet", year: 2126 }, { name: "Gemini 3.1 Pro Preview", year: 2145 }, { name: "Grok 4.20", year: 2350 }] },
               ],
               history: [
-                { value: 150, details: ["Optimized rare-earth barium copper oxide (REBCO / (RE)BCO) thin films, specifically in (Y,Gd)BCO films incorporating self-assembled BaHfO₃ nanorod artificial pinning centers (APCs) (self-field, 4.2 K)"] }
+                { value: 150, details: ["Optimized rare-earth barium copper oxide (REBCO / (RE)BCO) thin films, specifically in (Y,Gd)BCO films incorporating self-assembled BaHfO₃ nanorod artificial pinning centers (APCs) (self-field, 4.2 K). OBS: Scientifically, the claim is currently highly disputed and largely considered to be the result of a calculation error.", "Last Updated on April, 21st, 2026"] }
               ]
             },
             {
               id: "superconductor-3",
               title: "Continuous Magnetic Field Strength",
-              currentValue: 45.5,
+              currentValue: 48.7,
               baseValue: 20,
               unit: "Tesla",
               levels: [
@@ -748,7 +748,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 7, goal: 1000000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2160 }, { name: "Grok 4.20", year: 2450 }, { name: "Gemini 3.1 Pro Preview", year: 2478 }, { name: "GPT-5.4 Thinking Mini", year: 2550 }] },
               ],
               history: [
-                { value: 45.5, details: ["MagLab \"Little Giant\" using HTS"] }
+                { value: 48.7, details: ["Little Big Coil Number 9 (LBC9)", "Last Updated on April, 21st, 2026"] }
               ]
             },
             {
@@ -767,7 +767,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 7, goal: 40000, aiPredictions: [{ name: "Claude 4.6 Sonnet", year: 2087 }, { name: "Grok 4.20", year: 2120 }, { name: "Gemini 3.1 Pro Preview", year: 2175 }, { name: "GPT-5.4 Thinking Mini", year: 2328 }] },
               ],
               history: [
-                { value: 1.4, details: ["This record comes from Fujikura Ltd. (Japan), which has demonstrated uniform critical current (Ic) and n-value across >1,400 m lengths of 4 mm-wide artificial-pinning (APC/FESC-type) REBCO tape in recent production-scale runs (measured via reel-to-reel methods every ~4.7 m)."] }
+                { value: 1.4, details: ["This record comes from Fujikura Ltd. (Japan), which has demonstrated uniform critical current (Ic) and n-value across >1,400 m lengths of 4 mm-wide artificial-pinning (APC/FESC-type) REBCO tape in recent production-scale runs (measured via reel-to-reel methods every ~4.7 m).", "Last Updated on April, 21st, 2026"] }
               ]
             }
           ]
