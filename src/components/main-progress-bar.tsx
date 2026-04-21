@@ -39,8 +39,8 @@ export function MainProgressBar() {
   ];
 
   return (
-    <div className="w-full max-w-[120rem] mx-auto mt-8 mb-4 px-2 sm:px-4">
-      <div className="relative pt-8 pb-8">
+    <div className="w-full max-w-[120rem] mx-auto mt-4 mb-2 px-2 sm:px-4">
+      <div className="relative pt-8 pb-2">
         {/* Current Marker */}
         <div
           className="absolute top-0 z-10 flex flex-col items-center transition-all duration-500"
