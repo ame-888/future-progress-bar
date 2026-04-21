@@ -427,11 +427,11 @@ export function ProgressTable() {
 
   return (
     <div className="w-full mx-auto p-4 md:p-6 lg:p-8">
-      <div className="mb-6 flex flex-col items-center text-center relative py-12 md:py-20">
+      <div className="mb-4 flex flex-col items-center text-center relative py-4 md:py-8">
         <div className="absolute inset-x-0 -top-24 bottom-0 z-0 pointer-events-none overflow-visible">
           {getDomainIcon(activeDomain.id, activeMainDomain.id)}
         </div>
-        <div className="relative z-10 flex flex-col items-center mt-8">
+        <div className="relative z-10 flex flex-col items-center mt-2">
           <div className="flex flex-col lg:flex-row items-center w-full justify-between relative mb-2 gap-4 max-w-7xl mx-auto">
             <div className="hidden lg:block lg:flex-1"></div>
             <div className="flex justify-center z-0 lg:flex-1 w-full shrink-0">
@@ -464,10 +464,10 @@ export function ProgressTable() {
               </div>
             </div>
           </div>
-          <p className="text-slate-500 dark:text-slate-400 max-w-2xl mt-4">
+          <p className="text-slate-500 dark:text-slate-400 max-w-2xl mt-2">
             Tracking the frontiers of human innovation across 5 domains and 12 subdomains.
           </p>
-          <div className="w-full mt-4">
+          <div className="w-full mt-2">
             <MainProgressBar />
           </div>
         </div>
