@@ -35,7 +35,7 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
         </div>
         <div className="flex gap-2">
           {/* Lifespan Box */}
-          <div className="bg-white dark:bg-slate-900 border-l-4 border-l-red-500 border border-slate-200 dark:border-slate-800 p-3 rounded-r-lg shadow-lg max-w-[200px]">
+          <div className="bg-white dark:bg-slate-900 border-l-4 border-l-gray-300 dark:border-l-gray-400 border border-slate-200 dark:border-slate-800 p-3 rounded-r-lg shadow-lg max-w-[200px]">
             <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mb-1">Lifespan</p>
             <p className={isLifespanPositive ? "text-emerald-600 dark:text-emerald-400 font-medium" : "text-red-600 dark:text-red-400 font-medium"}>
               {isLifespanPositive ? "+" : ""}{data.lifespanGain.toFixed(1)} years
@@ -83,7 +83,7 @@ export function LevProgressGraph() {
           </p>
           <div className="mt-3 flex items-center gap-4 text-xs font-medium">
             <div className="flex items-center gap-1.5">
-              <div className="w-3 h-3 rounded-sm bg-yellow-500"></div>
+              <div className="w-3 h-3 rounded-sm bg-gray-300 dark:bg-gray-400"></div>
               <span className="text-slate-700 dark:text-slate-300">Lifespan Gain</span>
             </div>
             <div className="flex items-center gap-1.5">
@@ -133,7 +133,7 @@ export function LevProgressGraph() {
               label={{
                 position: 'insideTop',
                 value: 'COVID-19',
-                fill: '#a855f7',
+                fill: '#ffffff',
                 fontSize: 12,
                 fontWeight: 'bold'
               }}
@@ -157,10 +157,10 @@ export function LevProgressGraph() {
             <Line
               type="linear"
               dataKey="lifespanGain"
-              stroke="#eab308" // yellow-500
+              stroke="#d1d5db" // gray-300
               strokeWidth={3}
-              dot={{ r: 3.2, fill: '#eab308', strokeWidth: 2, stroke: '#ffffff' }}
-              activeDot={{ r: 4.8, fill: '#ca8a04', strokeWidth: 2, stroke: '#ffffff' }}
+              dot={{ r: 3.2, fill: '#d1d5db', strokeWidth: 2, stroke: '#ffffff' }}
+              activeDot={{ r: 4.8, fill: '#9ca3af', strokeWidth: 2, stroke: '#ffffff' }}
               isAnimationActive={false}
             />
             <Line
@@ -177,7 +177,7 @@ export function LevProgressGraph() {
       </div>
       <div className="mt-2 px-4 md:px-6 pb-4 text-left text-xs text-slate-500 dark:text-slate-400">
         <p>* WHO (GHO) hasn't published data on 2022 onwards as of today</p>
-        <p>Last Updated on April, 21st, 2026</p>
+        <p>Last Updated on April 21st, 2026</p>
       </div>
     </div>
   );
