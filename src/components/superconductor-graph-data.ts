@@ -1,6 +1,7 @@
 export type SuperconductorDataPoint = {
   year: number;
   tc: number; // Critical temperature in Kelvin
+  note?: string;
 };
 
 export const SUPERCONDUCTOR_DATA: SuperconductorDataPoint[] = [
@@ -30,5 +31,5 @@ export const SUPERCONDUCTOR_DATA: SuperconductorDataPoint[] = [
   { year: 2023, tc: 133 },
   { year: 2024, tc: 133 },
   { year: 2025, tc: 133 },
-  { year: 2026, tc: 151 },
+  { year: 2026, tc: 151, note: "Using HgBa2Ca2Cu3O8+δ (Hg-1223)" },
 ];
