@@ -2,22 +2,22 @@ export type NuclearFusionDataPoint = {
   year: number;
   mcfValue: number;
   mcfNote?: string;
-  nifValue: number;
+  nifValue?: number;
   nifNote?: string;
 };
 
 export const NUCLEAR_FUSION_DATA: NuclearFusionDataPoint[] = [
-  { year: 2000, mcfValue: 1.53, mcfNote: "JT-60U", nifValue: 0 },
-  { year: 2001, mcfValue: 1.53, mcfNote: "JT-60U", nifValue: 0 },
-  { year: 2002, mcfValue: 1.53, mcfNote: "JT-60U", nifValue: 0 },
-  { year: 2003, mcfValue: 1.53, mcfNote: "JT-60U", nifValue: 0 },
-  { year: 2004, mcfValue: 1.53, mcfNote: "JT-60U", nifValue: 0 },
-  { year: 2005, mcfValue: 1.53, mcfNote: "JT-60U", nifValue: 0 },
-  { year: 2006, mcfValue: 1.53, mcfNote: "JT-60U", nifValue: 0 },
-  { year: 2007, mcfValue: 1.53, mcfNote: "JT-60U", nifValue: 0 },
-  { year: 2008, mcfValue: 1.53, mcfNote: "JT-60U", nifValue: 0 },
-  { year: 2009, mcfValue: 1.53, mcfNote: "JT-60U", nifValue: 0 },
-  { year: 2010, mcfValue: 1.53, mcfNote: "JT-60U", nifValue: 0 },
+  { year: 2000, mcfValue: 1.53, mcfNote: "JT-60U" },
+  { year: 2001, mcfValue: 1.53, mcfNote: "JT-60U" },
+  { year: 2002, mcfValue: 1.53, mcfNote: "JT-60U" },
+  { year: 2003, mcfValue: 1.53, mcfNote: "JT-60U" },
+  { year: 2004, mcfValue: 1.53, mcfNote: "JT-60U" },
+  { year: 2005, mcfValue: 1.53, mcfNote: "JT-60U" },
+  { year: 2006, mcfValue: 1.53, mcfNote: "JT-60U" },
+  { year: 2007, mcfValue: 1.53, mcfNote: "JT-60U" },
+  { year: 2008, mcfValue: 1.53, mcfNote: "JT-60U" },
+  { year: 2009, mcfValue: 1.53, mcfNote: "JT-60U" },
+  { year: 2010, mcfValue: 1.53, mcfNote: "JT-60U" },
   { year: 2011, mcfValue: 1.53, mcfNote: "JT-60U", nifValue: 0.01 },
   { year: 2012, mcfValue: 1.53, mcfNote: "JT-60U", nifValue: 0.05 },
   { year: 2013, mcfValue: 1.53, mcfNote: "JT-60U", nifValue: 0.65, nifNote: "Shot N130927" },
