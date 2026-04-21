@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 import {
-  AreaChart,
-  Area,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -12,43 +12,43 @@ import {
   ReferenceLine,
   ResponsiveContainer,
 } from "recharts";
-import { LEV_DATA_BY_REGION, LevLifespanDataPoint } from "./lev-graph-data";
+import { LEV_DATA, LevDataPoint } from "./lev-graph-data";
 
 interface CustomTooltipProps {
   active?: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   payload?: any[];
   label?: string;
-  region: string;
 }
 
-const CustomTooltip = ({ active, payload, label, region }: CustomTooltipProps) => {
+const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
-    const data = payload[0].payload as LevLifespanDataPoint;
-    const isPositive = data.lifespanGain >= 0;
-
-    // Only show note for 2022 as requested by the user
-    const shouldShowNote = data.year === 2022 && data.note;
-
-    const displayName = region === "World" ? "Global" : region;
+    const data = payload[0].payload as LevDataPoint;
+    const isLifespanPositive = data.lifespanGain >= 0;
+    const isHealthspanPositive = data.healthspanGain !== undefined ? data.healthspanGain >= 0 : true;
 
     return (
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3 rounded-lg shadow-lg">
-        <p className="font-bold text-slate-900 dark:text-white text-lg mb-1">{label}</p>
-        <div className="flex flex-col gap-1">
-          <p className="text-sm text-slate-600 dark:text-slate-300">
-            <span className="font-semibold">{displayName} Average:</span> {data.average.toFixed(3)} years
-          </p>
-          <p className="text-sm text-slate-600 dark:text-slate-300">
-            <span className="font-semibold">Exact Lifespan Gain:</span>{" "}
-            <span className={isPositive ? "text-emerald-600 dark:text-emerald-400 font-bold" : "text-red-600 dark:text-red-400 font-bold"}>
-              {isPositive ? "+" : ""}{data.lifespanGain.toFixed(3)} years
-            </span>
-          </p>
-          {shouldShowNote && (
-            <p className="text-xs text-amber-600 dark:text-amber-400 mt-1 italic max-w-[200px]">
-              {data.note}
+      <div className="flex flex-col gap-2">
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-3 py-1 rounded-lg shadow-sm w-fit self-center">
+          <p className="font-bold text-slate-900 dark:text-white text-sm">{label}</p>
+        </div>
+        <div className="flex gap-2">
+          {/* Lifespan Box */}
+          <div className="bg-white dark:bg-slate-900 border-l-4 border-l-red-500 border border-slate-200 dark:border-slate-800 p-3 rounded-r-lg shadow-lg max-w-[200px]">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mb-1">Lifespan</p>
+            <p className={isLifespanPositive ? "text-emerald-600 dark:text-emerald-400 font-medium" : "text-red-600 dark:text-red-400 font-medium"}>
+              {isLifespanPositive ? "+" : ""}{data.lifespanGain.toFixed(1)} years
             </p>
+          </div>
+
+          {/* Healthspan Box */}
+          {data.healthspanGain !== undefined && (
+            <div className="bg-white dark:bg-slate-900 border-l-4 border-l-green-500 border border-slate-200 dark:border-slate-800 p-3 rounded-r-lg shadow-lg max-w-[200px]">
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mb-1">Healthspan</p>
+              <p className={isHealthspanPositive ? "text-emerald-600 dark:text-emerald-400 font-medium" : "text-red-600 dark:text-red-400 font-medium"}>
+                {isHealthspanPositive ? "+" : ""}{data.healthspanGain.toFixed(1)} years
+              </p>
+            </div>
           )}
         </div>
       </div>
@@ -58,56 +58,13 @@ const CustomTooltip = ({ active, payload, label, region }: CustomTooltipProps) =
 };
 
 export function LevProgressGraph() {
-  const [selectedRegion, setSelectedRegion] = useState<string>("World");
-
-  const regionOptions = [
-    { value: "World", label: "🌍 World" },
-    { value: "Brazil", label: "🇧🇷 Brazil" },
-    { value: "USA", label: "🇺🇸 USA" },
-    { value: "India", label: "🇮🇳 India" },
-    { value: "Russia", label: "🇷🇺 Russia" },
-    { value: "China", label: "🇨🇳 China" },
-  ];
-
-  const currentData = LEV_DATA_BY_REGION[selectedRegion] || LEV_DATA_BY_REGION["World"];
-
-  // Calculate dynamic offset for the split color
-  const { dataMax, dataMin } = React.useMemo(() => {
-    let max = -Infinity;
-    let min = Infinity;
-    for (const d of currentData) {
-      if (d.lifespanGain > max) max = d.lifespanGain;
-      if (d.lifespanGain < min) min = d.lifespanGain;
-    }
-    return { dataMax: max, dataMin: min };
-  }, [currentData]);
-
-  // The threshold where the color should split (1.0 yr/yr)
-  const threshold = 1.0;
-
-  let splitOffset = 0;
-  if (dataMax <= threshold) {
-    splitOffset = 0;
-  } else if (dataMin >= threshold) {
-    splitOffset = 1;
-  } else {
-    // Recharts gradient offsets are calculated from top (0%) to bottom (100%)
-    // Top represents dataMax, bottom represents dataMin.
-    splitOffset = (dataMax - threshold) / (dataMax - dataMin);
-  }
-
-  // Convert to percentage string for the SVG gradient
-  const splitPercentage = `${(splitOffset * 100).toFixed(2)}%`;
-
-  const displayName = selectedRegion === "World" ? "global" : selectedRegion;
-
   return (
     <div className="w-full mb-8 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50 shadow-sm">
       <div className="p-4 md:p-6 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:justify-between md:items-start gap-4">
         <div>
           <div className="flex items-center gap-2">
             <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            Annual Increase in Lifespan
+            Annual Increase in Lifespan & Healthspan
             <span className="text-xs font-semibold px-2 py-1 bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400 rounded-full uppercase tracking-wider">
               North Star
             </span>
@@ -121,28 +78,25 @@ export function LevProgressGraph() {
             </div>
           </div>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-2xl">
-            Tracking the annual increase in {displayName} average lifespan. LEV is achieved when this gain consistently exceeds +1.0 year per year.
+            Tracking the gains and loses in both lifespan (according to UN - WPP) and healthspan (according to WHO - GHO) over the years
           </p>
-        </div>
-        <div className="flex-shrink-0">
-          <select
-            value={selectedRegion}
-            onChange={(e) => setSelectedRegion(e.target.value)}
-            className="bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-pointer outline-none"
-          >
-            {regionOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+          <div className="mt-3 flex items-center gap-4 text-xs font-medium">
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-3 rounded-sm bg-red-500"></div>
+              <span className="text-slate-700 dark:text-slate-300">Lifespan Gain</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-3 rounded-sm bg-green-500"></div>
+              <span className="text-slate-700 dark:text-slate-300">Healthspan Gain</span>
+            </div>
+          </div>
         </div>
       </div>
 
       <div className="p-4 md:p-6 h-[400px] w-full relative">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart
-            data={currentData}
+          <LineChart
+            data={LEV_DATA}
             margin={{
               top: 20,
               right: 30,
@@ -150,16 +104,6 @@ export function LevProgressGraph() {
               bottom: 10,
             }}
           >
-            <defs>
-              <linearGradient id="splitColor" x1="0" y1="0" x2="0" y2="1">
-                <stop offset={splitPercentage} stopColor="#22c55e" stopOpacity={0.8} />
-                <stop offset={splitPercentage} stopColor="#ef4444" stopOpacity={0.8} />
-              </linearGradient>
-              <linearGradient id="splitColorLine" x1="0" y1="0" x2="0" y2="1">
-                <stop offset={splitPercentage} stopColor="#16a34a" />
-                <stop offset={splitPercentage} stopColor="#dc2626" />
-              </linearGradient>
-            </defs>
             <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.2} />
             <XAxis
               dataKey="year"
@@ -173,7 +117,7 @@ export function LevProgressGraph() {
               tick={{ fill: '#64748b' }}
               tickFormatter={(value) => `${value > 0 ? '+' : ''}${value.toFixed(1)}`}
             />
-            <Tooltip content={<CustomTooltip region={selectedRegion} />} cursor={{ stroke: '#94a3b8', strokeWidth: 1, strokeDasharray: '5 5' }} />
+            <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#94a3b8', strokeWidth: 1, strokeDasharray: '5 5' }} />
 
             {/* Zero line */}
             <ReferenceLine y={0} stroke="#64748b" strokeOpacity={0.5} />
@@ -193,16 +137,25 @@ export function LevProgressGraph() {
               }}
             />
 
-            <Area
+            <Line
               type="linear"
               dataKey="lifespanGain"
-              stroke="url(#splitColorLine)"
+              stroke="#ef4444" // red-500
               strokeWidth={3}
-              fill="url(#splitColor)"
-              dot={{ r: 4, fill: '#6366f1', strokeWidth: 2, stroke: '#ffffff' }}
-              activeDot={{ r: 6, fill: '#4f46e5', strokeWidth: 2, stroke: '#ffffff' }}
+              dot={{ r: 4, fill: '#ef4444', strokeWidth: 2, stroke: '#ffffff' }}
+              activeDot={{ r: 6, fill: '#dc2626', strokeWidth: 2, stroke: '#ffffff' }}
+              isAnimationActive={false}
             />
-          </AreaChart>
+            <Line
+              type="linear"
+              dataKey="healthspanGain"
+              stroke="#22c55e" // green-500
+              strokeWidth={3}
+              dot={{ r: 4, fill: '#22c55e', strokeWidth: 2, stroke: '#ffffff' }}
+              activeDot={{ r: 6, fill: '#16a34a', strokeWidth: 2, stroke: '#ffffff' }}
+              isAnimationActive={false}
+            />
+          </LineChart>
         </ResponsiveContainer>
       </div>
     </div>
