@@ -620,7 +620,15 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 { level: 6, goal: 99.99999999, aiPredictions: [{ name: "Grok 4.20", year: 2037 }, { name: "Gemini 3.1 Pro Preview", year: 2058 }, { name: "Claude 4.6 Sonnet", year: 2062 }, { name: "GPT-5.4 Thinking Mini", year: 2068 }] },
                 { level: 7, goal: 99.999999999, aiPredictions: [{ name: "Grok 4.20", year: 2039 }, { name: "Gemini 3.1 Pro Preview", year: 2067 }, { name: "Claude 4.6 Sonnet", year: 2075 }, { name: "GPT-5.4 Thinking Mini", year: 2078 }] },
               ],
-              history: [{ value: 99.99 }],
+              history: [
+                {
+                  value: 99.99,
+                  details: [
+                    "The 99.99% milestone (often referred to as crossing the \"four-nines\" threshold) was achieved by IonQ in October 2025",
+                    "Last Updated on April, 21st, 2026"
+                  ]
+                }
+              ],
             },
             {
               id: "qc-3",
@@ -666,7 +674,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 {
                   value: 340000,
                   details: [
-                    "IBM Quantum Heron (156 qubits, tunable-coupler architecture; also applies to 133-qubit Heron r1 variants in some fleet systems)"
+                    "IBM Quantum Heron (156 qubits, tunable-coupler architecture; also applies to 133-qubit Heron r1 variants in some fleet systems)",
+                    "Last Updated on April, 21st, 2026"
                   ]
                 }
               ],
