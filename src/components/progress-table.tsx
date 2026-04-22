@@ -884,12 +884,12 @@ export function ProgressTable() {
             {activeDomain.id === "bci" && <div id="north-star-bci"><BciGraph lastUpdated={formatDateStr(activeDomain.northStar?.lastUpdated)} /></div>}
             {activeDomain.id === "vr" && <div id="north-star-vr"><VrGraph lastUpdated={formatDateStr(activeDomain.northStar?.lastUpdated)} /></div>}
             {activeDomain.id === "superconductor" && <div id="north-star-superconductor"><SuperconductorGraph lastUpdated={formatDateStr(activeDomain.northStar?.lastUpdated)} /></div>}
-            {activeDomain.id === "robotics" && <RoboticsGraph />}
+            {activeDomain.id === "robotics" && <div id="north-star-robotics"><RoboticsGraph lastUpdated={formatDateStr(activeDomain.northStar?.lastUpdated)} /></div>}
             {activeDomain.id === "space-exploration" && <div id="north-star-space-exploration"><SpaceExplorationGraph lastUpdated={formatDateStr(activeDomain.northStar?.lastUpdated)} /></div>}
             {activeDomain.id === "ai" && <div id="north-star-ai"><AiGraph lastUpdated={formatDateStr(activeDomain.northStar?.lastUpdated)} /></div>}
             {activeDomain.id === "quantum-computing" && <div id="north-star-quantum-computing"><QuantumComputingGraph lastUpdated={formatDateStr(activeDomain.northStar?.lastUpdated)} /></div>}
             {activeDomain.id === "mind-upload" && <div id="north-star-mind-upload"><MindUploadGraph lastUpdated={formatDateStr(activeDomain.northStar?.lastUpdated)} /></div>}
-            {activeDomain.id === "self-driving-car" && <SelfDrivingCarGraph />}
+            {activeDomain.id === "self-driving-car" && <div id="north-star-self-driving-car"><SelfDrivingCarGraph lastUpdated={formatDateStr(activeDomain.northStar?.lastUpdated)} /></div>}
             {activeDomain.id === "cultured-meat" && <div id="north-star-cultured-meat"><CulturedMeatGraph lastUpdated={formatDateStr(activeDomain.northStar?.lastUpdated)} /></div>}
 
             {activeDomain.measurements.length === 0 ? (
