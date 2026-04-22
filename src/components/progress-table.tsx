@@ -448,17 +448,17 @@ export function ProgressTable() {
                       setIsPredictionsModalOpen(true);
 
                     }}
-                    className="relative flex flex-col justify-center items-center gap-2 bg-white dark:bg-slate-900 w-24 h-24 p-2 text-center rounded-[10px] shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none"
+                    className="relative flex flex-row justify-start items-center gap-3 bg-white dark:bg-slate-900 w-44 h-12 px-4 text-left rounded-[10px] shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none shrink-0"
                   >
-                    <SparklesIcon className="w-6 h-6 text-indigo-500" />
+                    <SparklesIcon className="w-5 h-5 text-indigo-500 shrink-0" />
                     <span>Prediction List</span>
                   </button>
                 </div>
                 <button
                   onClick={() => setIsRetiredModalOpen(true)}
-                  className="relative flex flex-col justify-center items-center gap-2 bg-white dark:bg-slate-900 w-24 h-24 p-2 text-center border border-slate-200 dark:border-slate-800 rounded-[10px] shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none"
+                  className="relative flex flex-row justify-start items-center gap-3 bg-white dark:bg-slate-900 w-44 h-12 px-4 text-left border border-slate-200 dark:border-slate-800 rounded-[10px] shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none shrink-0"
                 >
-                  <TrashIcon className="w-6 h-6 text-slate-400" />
+                  <TrashIcon className="w-5 h-5 text-slate-400 shrink-0" />
                   <span>Retired Metrics</span>
                 </button>
               </div>
@@ -1143,7 +1143,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
 
               <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-3 md:h-4 overflow-visible relative mt-8">
                 <div
-                  className="bg-indigo-500 dark:bg-indigo-400 h-full rounded-full transition-all duration-1000 ease-out"
+                  className="h-full rounded-full transition-all duration-1000 ease-out animate-scan bg-[length:200%_100%] bg-gradient-to-r from-indigo-500 via-indigo-400 to-indigo-500 dark:from-indigo-400 dark:via-indigo-300 dark:to-indigo-400"
                   style={{ width: `${percentage}%` }}
                 ></div>
                 {isQc3 && powerMarkers.map((power) => {
