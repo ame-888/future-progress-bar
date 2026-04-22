@@ -45,6 +45,7 @@ export function DigitalClock() {
   const redItems: WarningItem[] = [];
   const orangeItems: WarningItem[] = [];
   const yellowItems: WarningItem[] = [];
+  const greenItems: WarningItem[] = [];
 
   const checkDate = (id: string, name: string, dateStr: string | undefined) => {
     if (!dateStr) return;
@@ -68,6 +69,8 @@ export function DigitalClock() {
       orangeItems.push(warningItem);
     } else if (monthsOld >= 1 && monthsOld <= 3) {
       yellowItems.push(warningItem);
+    } else if (monthsOld < 1) {
+      greenItems.push(warningItem);
     }
   };
 
@@ -138,6 +141,14 @@ export function DigitalClock() {
               🟨 {yellowItems.length}
             </span>
             {renderTooltip(yellowItems)}
+          </div>
+        )}
+
+        {greenItems.length > 0 && (
+          <div className="relative group flex items-center justify-center">
+            <span className="px-1.5 py-0.5 rounded text-xs font-bold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 cursor-default border border-green-200 dark:border-green-800">
+              🟩 {greenItems.length}
+            </span>
           </div>
         )}
       </div>

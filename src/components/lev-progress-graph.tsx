@@ -126,7 +126,7 @@ export function LevProgressGraph({ lastUpdated }: { lastUpdated?: string }) {
 
             {/* COVID-19 Period */}
             <ReferenceArea
-              x1={2020}
+              x1={2019}
               x2={2023}
               fill="#a855f7"
               fillOpacity={0.1}
