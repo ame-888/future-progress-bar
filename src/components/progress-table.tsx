@@ -879,7 +879,7 @@ export function ProgressTable() {
               </div>
             )}
 
-            {activeDomain.id === "lev" && <LevProgressGraph />}
+            {activeDomain.id === "lev" && <div id="north-star-lev"><LevProgressGraph lastUpdated={formatDateStr(activeDomain.northStar?.lastUpdated)} /></div>}
             {activeDomain.id === "nuclear-fusion" && <div id="north-star-nuclear-fusion"><NuclearFusionGraph lastUpdated={formatDateStr(activeDomain.northStar?.lastUpdated)} /></div>}
             {activeDomain.id === "bci" && <div id="north-star-bci"><BciGraph lastUpdated={formatDateStr(activeDomain.northStar?.lastUpdated)} /></div>}
             {activeDomain.id === "vr" && <div id="north-star-vr"><VrGraph lastUpdated={formatDateStr(activeDomain.northStar?.lastUpdated)} /></div>}

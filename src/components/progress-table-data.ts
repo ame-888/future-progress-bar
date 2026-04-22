@@ -1191,6 +1191,10 @@ export const MAIN_DOMAINS: MainDomainData[] = [
       {
         id: "lev",
         name: "LEV",
+        northStar: {
+          title: "Annual Increase in Lifespan & Healthspan",
+          lastUpdated: "2026-04-21",
+        },
         description:
           "Stands for Longevity Escape Velocity, the point at which life expectancy increases longer than the time that is passing, effectively meaning humans can theoretically live indefinitely.",
         measurements: [
@@ -1371,6 +1375,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 122.45, // 122 years and 164 days
             baseValue: 120,
             unit: "years",
+            lastUpdated: "2026-04-21",
             levels: [
               {
                 level: 1,
@@ -1449,7 +1454,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 details: [
                   "Jeanne Calment (deceased): 122 years and 164 days",
                   getEthelAgeString(),
-                  getDynamicDateString(),
                 ],
               },
             ],
