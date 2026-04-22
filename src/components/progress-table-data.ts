@@ -475,6 +475,10 @@ export const MAIN_DOMAINS: MainDomainData[] = [
       },
       {
         id: "robotics",
+        northStar: {
+          title: "Taxels (Tactile Pixels) per 5-Fingered Robotic Hand",
+          lastUpdated: "2026-04-21",
+        },
         name: "ROBOTICS",
         description:
           "The engineering of machines capable of carrying out complex physical tasks autonomously or semi-autonomously in unstructured environments.",
@@ -831,6 +835,10 @@ export const MAIN_DOMAINS: MainDomainData[] = [
       },
       {
         id: "self-driving-car",
+        northStar: {
+          title: "Global Share of distance traveled by Self-Driving Vehicles (LVL 4 and LVL 5)",
+          lastUpdated: "2026-04-21",
+        },
         name: "SELF-DRIVING CAR",
         description:
           "Vehicles equipped with sensors and AI that can navigate and operate safely without human intervention across all driving conditions.",
