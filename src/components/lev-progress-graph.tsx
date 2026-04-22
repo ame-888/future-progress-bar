@@ -177,7 +177,16 @@ export function LevProgressGraph({ lastUpdated }: { lastUpdated?: string }) {
       </div>
       <div className="mt-2 px-4 md:px-6 pb-4 text-left text-xs text-slate-500 dark:text-slate-400">
         <p>* WHO (GHO) hasn't published data on 2022 onwards as of today</p>
-        <p>{lastUpdated ? `Last Updated on ${lastUpdated}` : ""}</p>
+                {lastUpdated && (
+        <div className="mt-2 w-full flex justify-start px-4 md:px-6 pb-4">
+          <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/50 shadow-sm transition-all hover:bg-indigo-100 dark:hover:bg-indigo-900/50">
+            <svg className="w-3.5 h-3.5 mr-1.5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Last Updated on {lastUpdated}
+          </span>
+        </div>
+        )}
       </div>
     </div>
   );
