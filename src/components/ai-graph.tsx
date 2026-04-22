@@ -23,36 +23,42 @@ interface CustomTooltipProps {
 }
 
 const formatYAxisTick = (value: number) => {
-  if (value === 0.01) return "$0.01";
-  if (value === 0.1) return "$0.10";
-  if (value === 1) return "$1";
-  if (value === 10) return "$10";
-  if (value === 100) return "$100";
   if (value === 1000) return "$1K";
   if (value === 10000) return "$10K";
   if (value === 100000) return "$100K";
+  if (value === 1000000) return "$1M";
+  if (value === 10000000) return "$10M";
+  if (value === 100000000) return "$100M";
+  if (value === 1000000000) return "$1B";
   return `$${value}`;
 };
 
 const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
-    const isExplosion = data.cost <= 0.01;
+    const isExplosion = data.cost <= 1000;
 
     return (
       <div className="bg-slate-900/95 backdrop-blur-md border border-slate-700 p-3 rounded-xl shadow-2xl">
         <p className="text-slate-300 font-mono text-sm mb-2">{label}</p>
         <div className="space-y-1">
-          <div className="flex items-center gap-2">
-            <div
-              className={`w-2 h-2 rounded-full ${isExplosion ? "bg-amber-400" : "bg-indigo-400"}`}
-            />
-            <span className="text-slate-100 font-bold font-mono text-lg">
-              ${data.cost.toFixed(2)}
-            </span>
-            <span className="text-slate-400 text-xs font-semibold tracking-wider">
-              / HR
-            </span>
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center gap-2">
+              <div
+                className={`w-2 h-2 rounded-full ${isExplosion ? "bg-amber-400" : "bg-indigo-400"}`}
+              />
+              <span className="text-slate-100 font-bold font-mono text-lg">
+                ${data.cost.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
+              </span>
+              <span className="text-slate-400 text-xs font-semibold tracking-wider">
+                / HR
+              </span>
+            </div>
+            {data.note && (
+              <span className="text-slate-400 text-xs italic">
+                {data.note}
+              </span>
+            )}
           </div>
         </div>
       </div>
@@ -71,7 +77,7 @@ export const AiGraph = ({ lastUpdated }: { lastUpdated?: string }) => {
         <div>
           <div className="flex items-center gap-2">
             <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              AI Labor Cost Equivalence
+              Human-Equivalent Brain-Hour Cost (HEBC)
               <span className="text-xs font-semibold px-2 py-1 bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400 rounded-full uppercase tracking-wider">
                 North Star
               </span>
@@ -87,9 +93,7 @@ export const AiGraph = ({ lastUpdated }: { lastUpdated?: string }) => {
             </div>
           </div>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-            Real-world cost (USD) to get one hour of expert-level cognitive work
-            performed by AI. Averaged across deployed use-cases: coding,
-            analysis, customer support, design, research assistance, etc.
+            Tracking the cost to generate the same number of calculations as a human brain, in an hour, over the years (using the best hardware available)
           </p>
         </div>
         <div className="flex-shrink-0 mt-1">
@@ -127,10 +131,10 @@ export const AiGraph = ({ lastUpdated }: { lastUpdated?: string }) => {
                 tickLine={false}
                 axisLine={false}
                 scale={scale}
-                domain={scale === "log" ? [0.01, 100000] : ["auto", "auto"]}
+                domain={scale === "log" ? [1000, 1000000000] : ["auto", "auto"]}
                 ticks={
                   scale === "log"
-                    ? [0.01, 0.1, 1, 10, 100, 1000, 10000, 100000]
+                    ? [1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000]
                     : undefined
                 }
                 tickFormatter={formatYAxisTick}
@@ -146,7 +150,7 @@ export const AiGraph = ({ lastUpdated }: { lastUpdated?: string }) => {
               />
 
               <ReferenceLine
-                y={0.01}
+                y={1000}
                 stroke="#fbbf24"
                 strokeDasharray="4 4"
                 strokeWidth={2}

@@ -117,7 +117,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
         name: "AI",
         northStar: {
           title: "Maximum AI capability",
-          lastUpdated: "2026-04-19",
+          lastUpdated: "2026-04-21",
         },
         description:
           "Stands for Artificial Intelligence, focusing on creating systems capable of human-level or superhuman reasoning, creativity, and problem-solving.",
