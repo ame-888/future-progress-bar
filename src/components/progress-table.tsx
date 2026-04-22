@@ -1143,7 +1143,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
 
               <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-3 md:h-4 overflow-visible relative mt-8">
                 <div
-                  className="h-full rounded-full transition-all duration-1000 ease-out animate-scan bg-[length:200%_100%] bg-gradient-to-r from-indigo-500 via-indigo-400 to-indigo-500 dark:from-indigo-400 dark:via-indigo-300 dark:to-indigo-400"
+                  className="h-full rounded-full transition-all duration-1000 ease-out bg-indigo-500 dark:bg-indigo-400 animate-stripes"
                   style={{ width: `${percentage}%` }}
                 ></div>
                 {isQc3 && powerMarkers.map((power) => {
