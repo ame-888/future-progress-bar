@@ -2,6 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { MAIN_DOMAINS } from "./progress-table-data";
 import { formatDateStr } from "./progress-table";
 
@@ -10,11 +11,13 @@ type WarningItem = {
   name: string;
   dateStr: string;
   monthsOld: number;
+  subDomainId: string;
 };
 
 export function DigitalClock() {
   const [mounted, setMounted] = useState(false);
   const [time, setTime] = useState<Date | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -47,7 +50,7 @@ export function DigitalClock() {
   const yellowItems: WarningItem[] = [];
   const greenItems: WarningItem[] = [];
 
-  const checkDate = (id: string, name: string, dateStr: string | undefined) => {
+  const checkDate = (id: string, name: string, dateStr: string | undefined, subDomainId: string) => {
     if (!dateStr) return;
     const parts = dateStr.split('-');
     if (parts.length !== 3) return;
@@ -60,7 +63,8 @@ export function DigitalClock() {
       id,
       name,
       dateStr,
-      monthsOld
+      monthsOld,
+      subDomainId,
     };
 
     if (monthsOld > 6) {
@@ -77,20 +81,37 @@ export function DigitalClock() {
   MAIN_DOMAINS.forEach(domain => {
     domain.subdomains.forEach(sub => {
       if (sub.northStar?.lastUpdated) {
-        checkDate(`north-star-${sub.id}`, sub.northStar.title, sub.northStar.lastUpdated);
+        checkDate(`north-star-${sub.id}`, sub.northStar.title, sub.northStar.lastUpdated, sub.id);
       }
       sub.measurements.forEach(m => {
         if (m.lastUpdated) {
-          checkDate(m.id, m.title, m.lastUpdated);
+          checkDate(m.id, m.title, m.lastUpdated, sub.id);
         }
       });
     });
   });
 
-  const handleJump = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  const handleJump = (item: WarningItem) => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const currentTab = searchParams.get('tab');
+
+    // Switch tab if needed
+    if (currentTab !== item.subDomainId) {
+      localStorage.setItem('lastActiveTab', item.subDomainId);
+      router.push(`/?tab=${item.subDomainId}`, { scroll: false });
+
+      // Wait for React to re-render and DOM to update
+      setTimeout(() => {
+        const el = document.getElementById(item.id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 100);
+    } else {
+      const el = document.getElementById(item.id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
     }
   };
 
@@ -100,7 +121,7 @@ export function DigitalClock() {
       <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-64 max-h-64 overflow-y-auto bg-slate-900 dark:bg-slate-800 text-slate-100 p-2 rounded shadow-xl text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto z-50">
         <ul className="space-y-2">
           {items.map(item => (
-            <li key={item.id} className="cursor-pointer hover:text-indigo-300 transition-colors" onClick={() => handleJump(item.id)}>
+            <li key={item.id} className="cursor-pointer hover:text-indigo-300 transition-colors" onClick={() => handleJump(item)}>
               <span className="font-semibold block">{item.name}</span>
               <span className="text-[10px] text-slate-400">Last Updated on {formatDateStr(item.dateStr)}</span>
             </li>
@@ -121,7 +142,7 @@ export function DigitalClock() {
     return (
       <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-64 max-h-64 overflow-y-auto bg-slate-900 dark:bg-slate-800 text-slate-100 p-2 rounded shadow-xl text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto z-50">
         <ul className="space-y-2">
-          <li key={oldestItem.id} className="cursor-pointer hover:text-indigo-300 transition-colors" onClick={() => handleJump(oldestItem.id)}>
+          <li key={oldestItem.id} className="cursor-pointer hover:text-indigo-300 transition-colors" onClick={() => handleJump(oldestItem)}>
             <span className="font-semibold block text-green-400 mb-1">Oldest updated item:</span>
             <span className="font-semibold block">{oldestItem.name}</span>
             <span className="text-[10px] text-slate-400">Last Updated on {formatDateStr(oldestItem.dateStr)}</span>
