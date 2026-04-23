@@ -41,3 +41,20 @@ body {
 .animate-scan {
   animation: scan 10s linear infinite;
 }
+
+@keyframes stripes {
+  0% { background-position: 0 0; }
+  100% { background-position: 2rem 0; }
+}
+
+.animate-stripes {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.15) 1rem,
+    transparent 1rem,
+    transparent 2rem
+  );
+  background-size: 2rem 2rem;
+  animation: stripes 1s linear infinite;
+}
