@@ -450,7 +450,9 @@ export function ProgressTable() {
                     }}
                     className="relative flex flex-row justify-start items-center gap-3 bg-white dark:bg-slate-900 w-44 h-12 px-4 text-left rounded-[10px] shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none shrink-0"
                   >
-                    <SparklesIcon className="w-5 h-5 text-indigo-500 shrink-0" />
+                    <div className="w-5 h-5 shrink-0 flex-none flex items-center justify-center">
+                      <SparklesIcon className="w-full h-full text-indigo-500" />
+                    </div>
                     <span>Prediction List</span>
                   </button>
                 </div>
@@ -458,7 +460,9 @@ export function ProgressTable() {
                   onClick={() => setIsRetiredModalOpen(true)}
                   className="relative flex flex-row justify-start items-center gap-3 bg-white dark:bg-slate-900 w-44 h-12 px-4 text-left border border-slate-200 dark:border-slate-800 rounded-[10px] shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none shrink-0"
                 >
-                  <TrashIcon className="w-5 h-5 text-slate-400 shrink-0" />
+                  <div className="w-5 h-5 shrink-0 flex-none flex items-center justify-center">
+                    <TrashIcon className="w-full h-full text-slate-400" />
+                  </div>
                   <span>Retired Metrics</span>
                 </button>
               </div>

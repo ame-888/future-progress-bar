@@ -110,6 +110,27 @@ export function DigitalClock() {
     );
   };
 
+  const renderGreenTooltip = (items: WarningItem[]) => {
+    if (items.length === 0) return null;
+
+    // Find the item with the oldest last updated date (max monthsOld)
+    const oldestItem = items.reduce((oldest, current) => {
+      return current.monthsOld > oldest.monthsOld ? current : oldest;
+    }, items[0]);
+
+    return (
+      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-64 max-h-64 overflow-y-auto bg-slate-900 dark:bg-slate-800 text-slate-100 p-2 rounded shadow-xl text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto z-50">
+        <ul className="space-y-2">
+          <li key={oldestItem.id} className="cursor-pointer hover:text-indigo-300 transition-colors" onClick={() => handleJump(oldestItem.id)}>
+            <span className="font-semibold block text-green-400 mb-1">Oldest updated item:</span>
+            <span className="font-semibold block">{oldestItem.name}</span>
+            <span className="text-[10px] text-slate-400">Last Updated on {formatDateStr(oldestItem.dateStr)}</span>
+          </li>
+        </ul>
+      </div>
+    );
+  };
+
   return (
     <div className="bg-slate-100 dark:bg-slate-800/40 text-slate-700 dark:text-slate-300 px-4 py-2 flex items-center justify-center gap-4 text-sm shadow-sm z-50 relative shrink-0 border-b border-slate-200 dark:border-slate-800 font-mono">
       <span className="font-medium tracking-wide">
@@ -149,6 +170,7 @@ export function DigitalClock() {
             <span className="px-1.5 py-0.5 rounded text-xs font-bold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 cursor-default border border-green-200 dark:border-green-800">
               🟩 {greenItems.length}
             </span>
+            {renderGreenTooltip(greenItems)}
           </div>
         )}
       </div>
