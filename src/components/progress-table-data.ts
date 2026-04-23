@@ -935,7 +935,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 3,
             baseValue: 0,
             unit: "countries",
-            lastUpdated: "2026-04-11",
+            lastUpdated: "2026-04-23",
             levels: [
               {
                 level: 1,
@@ -1935,7 +1935,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 6100,
             baseValue: 0,
             unit: "qubits",
-            lastUpdated: "2026-04-12",
+            lastUpdated: "2026-04-23",
             levels: [
               {
                 level: 1,
