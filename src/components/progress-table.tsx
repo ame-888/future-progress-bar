@@ -450,21 +450,24 @@ export function ProgressTable() {
                     }}
                     className="relative flex flex-row justify-start items-center gap-3 bg-white dark:bg-slate-900 w-44 h-12 px-4 text-left rounded-[10px] shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none shrink-0"
                   >
-                    <div className="w-5 h-5 shrink-0 flex-none flex items-center justify-center">
+                    <div className="w-5 h-5 shrink-0 flex-none">
                       <SparklesIcon className="w-full h-full text-indigo-500" />
                     </div>
                     <span>Prediction List</span>
                   </button>
                 </div>
-                <button
-                  onClick={() => setIsRetiredModalOpen(true)}
-                  className="relative flex flex-row justify-start items-center gap-3 bg-white dark:bg-slate-900 w-44 h-12 px-4 text-left border border-slate-200 dark:border-slate-800 rounded-[10px] shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none shrink-0"
-                >
-                  <div className="w-5 h-5 shrink-0 flex-none flex items-center justify-center">
-                    <TrashIcon className="w-full h-full text-slate-400" />
-                  </div>
-                  <span>Retired Metrics</span>
-                </button>
+                <div className="relative overflow-hidden rounded-xl p-[2px] inline-flex">
+                  <div className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_0deg,#64748b,#94a3b8,#cbd5e1,#475569,#94a3b8,#64748b)] opacity-100" />
+                  <button
+                    onClick={() => setIsRetiredModalOpen(true)}
+                    className="relative flex flex-row justify-start items-center gap-3 bg-white dark:bg-slate-900 w-44 h-12 px-4 text-left rounded-[10px] shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none shrink-0"
+                  >
+                    <div className="w-5 h-5 shrink-0 flex-none">
+                      <TrashIcon className="w-full h-full text-slate-400" />
+                    </div>
+                    <span>Retired Metrics</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
