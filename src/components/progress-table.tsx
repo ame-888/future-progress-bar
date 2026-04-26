@@ -24,8 +24,8 @@ export function formatDateStr(dateStr?: string) {
 }
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon, QuestionMarkCircleIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
-import { BeakerIcon, CpuChipIcon, FireIcon, HeartIcon, SparklesIcon, RocketLaunchIcon, GlobeAltIcon, WindowIcon, EyeIcon, SwatchIcon, WrenchScrewdriverIcon, BoltIcon, TruckIcon, CloudArrowUpIcon, XMarkIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
+import { BeakerIcon, CpuChipIcon, FireIcon, HeartIcon, SparklesIcon, RocketLaunchIcon, WindowIcon, EyeIcon, SwatchIcon, WrenchScrewdriverIcon, BoltIcon, TruckIcon, CloudArrowUpIcon, XMarkIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { LevProgressGraph } from "./lev-progress-graph";
 import { MindUploadGraph } from "./mind-upload-graph";
 import { NuclearFusionGraph } from "./nuclear-fusion-graph";
@@ -49,7 +49,6 @@ export function ProgressTable() {
 
   const [activeMainTab, setActiveMainTab] = useState(-1);
   const [activeSubTab, setActiveSubTab] = useState(-1);
-  const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const [isPredictionsModalOpen, setIsPredictionsModalOpen] = useState(false);
   const [isRetiredModalOpen, setIsRetiredModalOpen] = useState(false);
 
@@ -132,49 +131,6 @@ export function ProgressTable() {
   const activeMainDomain = activeMainTab !== -1 ? MAIN_DOMAINS[activeMainTab] : null;
   const activeDomain = activeMainDomain && activeSubTab !== -1 ? activeMainDomain.subdomains[activeSubTab] : null;
 
-  // Group measurements by category
-  const groupedMeasurements = React.useMemo(() => {
-    if (!activeDomain) return {};
-    return activeDomain.measurements.reduce((acc: Record<string, Measurement[]>, measurement: Measurement) => {
-      const category = measurement.category || "General";
-      if (!acc[category]) {
-        acc[category] = [];
-      }
-      acc[category].push(measurement);
-      return acc;
-    }, {} as Record<string, Measurement[]>);
-  }, [activeDomain]);
-
-  // When activeDomain changes, initialize expanded categories to true
-  useEffect(() => {
-    if (activeDomain) {
-      const initialExpandedState: Record<string, boolean> = {};
-      Object.keys(groupedMeasurements).forEach(category => {
-        initialExpandedState[category] = true;
-      });
-      setExpandedCategories(initialExpandedState);
-    }
-  }, [activeDomain, groupedMeasurements]);
-
-  const toggleCategory = (category: string) => {
-    setExpandedCategories(prev => ({
-      ...prev,
-      [category]: !prev[category]
-    }));
-
-  };
-
-  const toggleAll = () => {
-    const allExpanded = Object.values(expandedCategories).every(Boolean);
-    const newState: Record<string, boolean> = {};
-    Object.keys(groupedMeasurements).forEach(category => {
-      newState[category] = !allExpanded;
-    });
-    setExpandedCategories(newState);
-
-  };
-
-  const areAllExpanded = Object.keys(expandedCategories).length > 0 && Object.values(expandedCategories).every(Boolean);
 
   const toggleYear = (year: number) => {
     setExpandedYears(prev => ({ ...prev, [year]: !prev[year] }));
@@ -905,54 +861,11 @@ export function ProgressTable() {
               </div>
             ) : (
               <div className="space-y-8">
-                {Object.keys(groupedMeasurements).length > 1 && (
-                  <div className="flex justify-end">
-                    <button
-                      onClick={toggleAll}
-                      className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100 transition-all cursor-pointer flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 shadow-sm"
-                    >
-                      {areAllExpanded ? (
-                        <>Collapse All <ChevronUpIcon className="w-4 h-4" /></>
-                      ) : (
-                        <>Expand All <ChevronDownIcon className="w-4 h-4" /></>
-                      )}
-                    </button>
-                  </div>
-                )}
-
-                {Object.entries(groupedMeasurements).map(([category, measurements]) => {
-                  const isExpanded = expandedCategories[category];
-                  return (
-                    <div key={category} className="border border-slate-200 dark:border-slate-800/60 rounded-2xl overflow-hidden bg-slate-50/50 dark:bg-slate-900/20">
-                      <button
-                        onClick={() => toggleCategory(category)}
-                        className="w-full flex items-center justify-between p-4 md:px-6 hover:bg-slate-100/50 dark:hover:bg-slate-800/30 transition-colors text-left group cursor-pointer"
-                      >
-                        <div className="flex items-center gap-3">
-                          <h2 className="text-lg md:text-xl font-bold tracking-tight text-slate-800 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                            {category}
-                          </h2>
-                          <div className="h-px bg-slate-200 dark:bg-slate-800 flex-grow rounded-full transition-colors group-hover:bg-indigo-200 dark:group-hover:bg-indigo-900/50 hidden sm:block"></div>
-                        </div>
-                        <div className="ml-4 p-1 rounded-full bg-slate-200/50 dark:bg-slate-800/80 text-slate-500 dark:text-slate-400 group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900/50 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors shrink-0">
-                          {isExpanded ? (
-                            <ChevronUpIcon className="w-5 h-5" />
-                          ) : (
-                            <ChevronDownIcon className="w-5 h-5" />
-                          )}
-                        </div>
-                      </button>
-
-                      {isExpanded && (
-                        <div className="p-4 md:p-6 pt-0 md:pt-0 space-y-6 animate-in slide-in-from-top-2 fade-in duration-200">
-                          {measurements.map((measurement) => (
-                            <MeasurementCard key={measurement.id} measurement={measurement} />
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
+                <div className="space-y-6">
+                  {activeDomain.measurements.map((measurement) => (
+                    <MeasurementCard key={measurement.id} measurement={measurement} />
+                  ))}
+                </div>
               </div>
             )}
 

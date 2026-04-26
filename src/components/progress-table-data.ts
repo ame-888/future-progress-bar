@@ -15,7 +15,7 @@ export type MeasurementLevel = {
 export type Measurement = {
   id: string;
   lastUpdated?: string;
-  category?: string;
+
   title: string;
   currentValue: number;
   baseValue?: number; // Starting value before level 1
