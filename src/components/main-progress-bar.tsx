@@ -58,7 +58,7 @@ export function MainProgressBar() {
   return (
     <div className="w-full max-w-[120rem] mx-auto mt-8 mb-4 px-2 sm:px-4">
       <div className="w-full">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-9 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-9 gap-1">
           {columns.map((col, idx) => {
             const isSpecial = idx === 8;
             const completed = isSpecial ? northStarsCompleted : levelsCompleted[idx];
@@ -75,11 +75,11 @@ export function MainProgressBar() {
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-tr from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[scan_2s_ease-in-out_infinite]"></div>
                 )}
 
-                <div className="p-3 text-xs sm:text-sm font-bold flex items-center justify-center min-h-[48px] border-b border-black/10 dark:border-white/10 text-center tracking-wider z-10">
+                <div className="p-1.5 text-xs sm:text-sm font-bold flex items-center justify-center border-b border-black/10 dark:border-white/10 text-center tracking-wider z-10">
                   {col.name}
                 </div>
 
-                <div className="p-3 text-sm sm:text-base font-medium flex items-center justify-center min-h-[56px] z-10 gap-2">
+                <div className="p-1.5 text-sm sm:text-base font-medium flex items-center justify-center z-10 gap-2">
                   <span>{completed}/{total}</span>
                   {isDone && (
                     <svg className="w-6 h-6 text-green-500 drop-shadow-[0_0_3px_rgba(34,197,94,0.5)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
