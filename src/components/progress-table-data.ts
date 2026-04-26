@@ -752,7 +752,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 0,
             baseValue: 0,
             unit: "%",
-            lastUpdated: "2026-04-12",
+            lastUpdated: "2026-04-26",
             levels: [
               {
                 level: 1,
@@ -937,7 +937,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 0,
             baseValue: 0,
             unit: "countries",
-            lastUpdated: "2026-04-11",
+            lastUpdated: "2026-04-26",
             levels: [
               {
                 level: 1,
@@ -1023,7 +1023,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 0,
             baseValue: 0,
             unit: "countries",
-            lastUpdated: "2026-04-12",
+            lastUpdated: "2026-04-26",
             levels: [
               {
                 level: 1,
@@ -1212,7 +1212,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 73.8,
             baseValue: 70,
             unit: "years",
-            lastUpdated: "2026-04-12",
+            lastUpdated: "2026-04-26",
             levels: [
               {
                 level: 1,
@@ -1288,16 +1288,17 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             history: [
               {
                 value: 73.8,
+                details: ["According to Worldometer and Georank"],
               },
             ],
           },
           {
             id: "lev-2",
-            title: "Average lifespan in the number 1 country",
+            title: "Top 1 average lifespan in the world",
             currentValue: 86.73,
             baseValue: 80,
             unit: "years",
-            lastUpdated: "2026-04-21",
+            lastUpdated: "2026-04-26",
             levels: [
               {
                 level: 1,
@@ -1373,7 +1374,10 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             history: [
               {
                 value: 86.73,
-                details: ["Monaco (2026 - UN Projection)"],
+                details: [
+                  "Monaco (2026 - UN Projection)",
+                  "According to Worldometer and Georank",
+                ],
               },
             ],
           },
