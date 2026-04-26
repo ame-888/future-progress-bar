@@ -1476,7 +1476,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 217,
             baseValue: 200,
             unit: "people",
-            lastUpdated: "2026-04-20",
+            lastUpdated: "2026-04-26",
             levels: [
               {
                 level: 1,
@@ -1552,7 +1552,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             history: [
               {
                 value: 217,
-                details: [],
+                details: ["According to the Gerontology Research Group"],
               },
             ],
           },
@@ -1650,7 +1650,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             history: [
               {
                 value: 20,
-                details: ["May 25, 2023 and January 26, 2024"],
+                details: ["May 25th, 2023 and January 26th, 2024"],
               },
             ],
           },
@@ -1660,7 +1660,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 2,
             baseValue: 0,
             unit: "humans",
-            lastUpdated: "2026-04-21",
+            lastUpdated: "2026-04-26",
             levels: [
               {
                 level: 1,
@@ -2115,7 +2115,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 33554432,
             baseValue: 16777216, // 2^24
             unit: "",
-            lastUpdated: "2026-04-12",
+            lastUpdated: "2026-04-26",
             levels: [
               {
                 level: 1,
