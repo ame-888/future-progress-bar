@@ -844,91 +844,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           "Vehicles equipped with sensors and AI that can navigate and operate safely without human intervention across all driving conditions.",
         measurements: [
           {
-            id: "self-driving-car-1",
-            title: "Countries where human driving is banned",
-            currentValue: 0,
-            baseValue: 0,
-            unit: "countries",
-            lastUpdated: "2026-04-12",
-            levels: [
-              {
-                level: 1,
-                goal: 1,
-                aiPredictions: [
-                  { name: "GPT-5.4 Thinking Mini", year: 2039 },
-                  { name: "Claude 4.6 Sonnet", year: 2041 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2050 },
-                  { name: "Grok 4.20", year: 2055 },
-                ],
-              },
-              {
-                level: 2,
-                goal: 5,
-                aiPredictions: [
-                  { name: "Claude 4.6 Sonnet", year: 2047 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2048 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2060 },
-                  { name: "Grok 4.20", year: 2060 },
-                ],
-              },
-              {
-                level: 3,
-                goal: 15,
-                aiPredictions: [
-                  { name: "Claude 4.6 Sonnet", year: 2054 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2058 },
-                  { name: "Grok 4.20", year: 2068 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2075 },
-                ],
-              },
-              {
-                level: 4,
-                goal: 30,
-                aiPredictions: [
-                  { name: "Claude 4.6 Sonnet", year: 2061 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2067 },
-                  { name: "Grok 4.20", year: 2075 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2090 },
-                ],
-              },
-              {
-                level: 5,
-                goal: 75,
-                aiPredictions: [
-                  { name: "Claude 4.6 Sonnet", year: 2070 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2080 },
-                  { name: "Grok 4.20", year: 2085 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2115 },
-                ],
-              },
-              {
-                level: 6,
-                goal: 130,
-                aiPredictions: [
-                  { name: "Claude 4.6 Sonnet", year: 2081 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2092 },
-                  { name: "Grok 4.20", year: 2095 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2140 },
-                ],
-              },
-              {
-                level: 7,
-                goal: 195,
-                aiPredictions: [
-                  { name: "Claude 4.6 Sonnet", year: 2098 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2110 },
-                  { name: "Grok 4.20", year: 2115 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2175 },
-                ],
-              },
-            ],
-            history: [
-              {
-                value: 0,
-              },
-            ],
-          },
-          {
             id: "self-driving-car-2",
             title:
               "Number of Countries where Self-Driving Cars are partially allowed",
@@ -1103,6 +1018,91 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             ],
           },
           {
+            id: "self-driving-car-1",
+            title: "Countries where human driving is banned",
+            currentValue: 0,
+            baseValue: 0,
+            unit: "countries",
+            lastUpdated: "2026-04-12",
+            levels: [
+              {
+                level: 1,
+                goal: 1,
+                aiPredictions: [
+                  { name: "GPT-5.4 Thinking Mini", year: 2039 },
+                  { name: "Claude 4.6 Sonnet", year: 2041 },
+                  { name: "Gemini 3.1 Pro Preview", year: 2050 },
+                  { name: "Grok 4.20", year: 2055 },
+                ],
+              },
+              {
+                level: 2,
+                goal: 5,
+                aiPredictions: [
+                  { name: "Claude 4.6 Sonnet", year: 2047 },
+                  { name: "GPT-5.4 Thinking Mini", year: 2048 },
+                  { name: "Gemini 3.1 Pro Preview", year: 2060 },
+                  { name: "Grok 4.20", year: 2060 },
+                ],
+              },
+              {
+                level: 3,
+                goal: 15,
+                aiPredictions: [
+                  { name: "Claude 4.6 Sonnet", year: 2054 },
+                  { name: "GPT-5.4 Thinking Mini", year: 2058 },
+                  { name: "Grok 4.20", year: 2068 },
+                  { name: "Gemini 3.1 Pro Preview", year: 2075 },
+                ],
+              },
+              {
+                level: 4,
+                goal: 30,
+                aiPredictions: [
+                  { name: "Claude 4.6 Sonnet", year: 2061 },
+                  { name: "GPT-5.4 Thinking Mini", year: 2067 },
+                  { name: "Grok 4.20", year: 2075 },
+                  { name: "Gemini 3.1 Pro Preview", year: 2090 },
+                ],
+              },
+              {
+                level: 5,
+                goal: 75,
+                aiPredictions: [
+                  { name: "Claude 4.6 Sonnet", year: 2070 },
+                  { name: "GPT-5.4 Thinking Mini", year: 2080 },
+                  { name: "Grok 4.20", year: 2085 },
+                  { name: "Gemini 3.1 Pro Preview", year: 2115 },
+                ],
+              },
+              {
+                level: 6,
+                goal: 130,
+                aiPredictions: [
+                  { name: "Claude 4.6 Sonnet", year: 2081 },
+                  { name: "GPT-5.4 Thinking Mini", year: 2092 },
+                  { name: "Grok 4.20", year: 2095 },
+                  { name: "Gemini 3.1 Pro Preview", year: 2140 },
+                ],
+              },
+              {
+                level: 7,
+                goal: 195,
+                aiPredictions: [
+                  { name: "Claude 4.6 Sonnet", year: 2098 },
+                  { name: "GPT-5.4 Thinking Mini", year: 2110 },
+                  { name: "Grok 4.20", year: 2115 },
+                  { name: "Gemini 3.1 Pro Preview", year: 2175 },
+                ],
+              },
+            ],
+            history: [
+              {
+                value: 0,
+              },
+            ],
+          },
+          {
             id: "self-driving-car-4",
             title: "Number of Level 5 Autonomy Vehicles deployed worldwide",
             currentValue: 0,
@@ -1187,7 +1187,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 details: [],
               },
             ],
-          },
+          }
         ],
       },
     ],
@@ -3851,6 +3851,97 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             history: [{ value: 0.001 }],
           },
           {
+            id: "cultured-meat-3",
+            title: "Countries allowing sale to pets",
+            currentValue: 29,
+            baseValue: 0,
+            unit: "countries",
+            lastUpdated: "2026-04-19",
+            levels: [
+              {
+                level: 1,
+                goal: 40,
+                aiPredictions: [
+                  { name: "Gemini 3.1 Pro Preview", year: 2028 },
+                  { name: "Grok 4.20", year: 2028 },
+                  { name: "GPT-5.4 Thinking Mini", year: 2035 },
+                  { name: "Claude 4.6 Sonnet", year: 2037 },
+                ],
+              },
+              {
+                level: 2,
+                goal: 60,
+                aiPredictions: [
+                  { name: "Grok 4.20", year: 2030 },
+                  { name: "Gemini 3.1 Pro Preview", year: 2031 },
+                  { name: "GPT-5.4 Thinking Mini", year: 2039 },
+                  { name: "Claude 4.6 Sonnet", year: 2043 },
+                ],
+              },
+              {
+                level: 3,
+                goal: 80,
+                aiPredictions: [
+                  { name: "Grok 4.20", year: 2032 },
+                  { name: "Gemini 3.1 Pro Preview", year: 2034 },
+                  { name: "GPT-5.4 Thinking Mini", year: 2043 },
+                  { name: "Claude 4.6 Sonnet", year: 2050 },
+                ],
+              },
+              {
+                level: 4,
+                goal: 110,
+                aiPredictions: [
+                  { name: "Grok 4.20", year: 2035 },
+                  { name: "Gemini 3.1 Pro Preview", year: 2038 },
+                  { name: "GPT-5.4 Thinking Mini", year: 2049 },
+                  { name: "Claude 4.6 Sonnet", year: 2058 },
+                ],
+              },
+              {
+                level: 5,
+                goal: 140,
+                aiPredictions: [
+                  { name: "Grok 4.20", year: 2040 },
+                  { name: "Gemini 3.1 Pro Preview", year: 2044 },
+                  { name: "GPT-5.4 Thinking Mini", year: 2055 },
+                  { name: "Claude 4.6 Sonnet", year: 2067 },
+                ],
+              },
+              {
+                level: 6,
+                goal: 170,
+                aiPredictions: [
+                  { name: "Grok 4.20", year: 2045 },
+                  { name: "Gemini 3.1 Pro Preview", year: 2051 },
+                  { name: "GPT-5.4 Thinking Mini", year: 2062 },
+                  { name: "Claude 4.6 Sonnet", year: 2078 },
+                ],
+              },
+              {
+                level: 7,
+                goal: 195,
+                aiPredictions: [
+                  { name: "Grok 4.20", year: 2055 },
+                  { name: "Gemini 3.1 Pro Preview", year: 2062 },
+                  { name: "GPT-5.4 Thinking Mini", year: 2074 },
+                  { name: "Claude 4.6 Sonnet", year: 2094 },
+                ],
+              },
+            ],
+            history: [
+              {
+                value: 29,
+                details: [
+                  "EU, except Italy. A total of 26 countries (2023)",
+                  "UK (2024)",
+                  "Singapore (2025)",
+                  "Australia (2026)",
+                ],
+              },
+            ],
+          },
+          {
             id: "cultured-meat-2",
             title: "Countries allowing sale to humans",
             currentValue: 5,
@@ -3943,97 +4034,6 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             ],
           },
           {
-            id: "cultured-meat-3",
-            title: "Countries allowing sale to pets",
-            currentValue: 29,
-            baseValue: 0,
-            unit: "countries",
-            lastUpdated: "2026-04-19",
-            levels: [
-              {
-                level: 1,
-                goal: 40,
-                aiPredictions: [
-                  { name: "Gemini 3.1 Pro Preview", year: 2028 },
-                  { name: "Grok 4.20", year: 2028 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2035 },
-                  { name: "Claude 4.6 Sonnet", year: 2037 },
-                ],
-              },
-              {
-                level: 2,
-                goal: 60,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2030 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2031 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2039 },
-                  { name: "Claude 4.6 Sonnet", year: 2043 },
-                ],
-              },
-              {
-                level: 3,
-                goal: 80,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2032 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2034 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2043 },
-                  { name: "Claude 4.6 Sonnet", year: 2050 },
-                ],
-              },
-              {
-                level: 4,
-                goal: 110,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2035 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2038 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2049 },
-                  { name: "Claude 4.6 Sonnet", year: 2058 },
-                ],
-              },
-              {
-                level: 5,
-                goal: 140,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2040 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2044 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2055 },
-                  { name: "Claude 4.6 Sonnet", year: 2067 },
-                ],
-              },
-              {
-                level: 6,
-                goal: 170,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2045 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2051 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2062 },
-                  { name: "Claude 4.6 Sonnet", year: 2078 },
-                ],
-              },
-              {
-                level: 7,
-                goal: 195,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2055 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2062 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2074 },
-                  { name: "Claude 4.6 Sonnet", year: 2094 },
-                ],
-              },
-            ],
-            history: [
-              {
-                value: 29,
-                details: [
-                  "EU, except Italy. A total of 26 countries (2023)",
-                  "UK (2024)",
-                  "Singapore (2025)",
-                  "Australia (2026)",
-                ],
-              },
-            ],
-          },
-          {
             id: "cultured-meat-4",
             title: "Countries where non-cultivated meat is banned",
             currentValue: 0,
@@ -4113,7 +4113,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               },
             ],
             history: [{ value: 0 }],
-          },
+          }
         ],
       },
       {

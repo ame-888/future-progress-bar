@@ -41,14 +41,19 @@ export function MissionButton() {
               <p>
                 We monitor critical domains that will shape our future, including:
               </p>
-              <ul className="list-disc pl-5 space-y-1">
-                <li><strong>LEV (Longevity Escape Velocity)</strong>: Extending human lifespan and healthspan.</li>
-                <li><strong>AI (Artificial Intelligence)</strong>: The path to AGI and beyond.</li>
-                <li><strong>BCI (Brain-Computer Interfaces)</strong>: Merging human minds with technology.</li>
-                <li><strong>Cultured Meat</strong>: Sustainable, cruelty-free cellular agriculture.</li>
-                <li><strong>Nuclear Fusion</strong>: Boundless clean energy.</li>
+              <ul className="list-disc pl-5 space-y-1 text-sm h-48 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-600">
+                <li><strong>AI (Artificial Intelligence)</strong>: The path to AGI, ASI and beyond.</li>
+                <li><strong>Robotics</strong>: Automating physical labor and enhancing human capabilities.</li>
+                <li><strong>Self-Driving Cars</strong>: Autonomous navigation redefining global transportation.</li>
+                <li><strong>LEV (Longevity Escape Velocity)</strong>: Extending human lifespan, healthspan, and conquering aging.</li>
                 <li><strong>Space Exploration</strong>: Humanity&apos;s journey to becoming a multi-planetary species.</li>
-                <li><strong>And more...</strong></li>
+                <li><strong>Quantum Computing</strong>: Harnessing quantum mechanics for unprecedented computational power.</li>
+                <li><strong>Superconductors</strong>: Enabling lossless energy transmission and advanced levitation.</li>
+                <li><strong>BCI (Brain-Computer Interfaces)</strong>: Merging human minds with technology for augmented cognition.</li>
+                <li><strong>Mind Upload</strong>: Digital preservation and transferring of human consciousness.</li>
+                <li><strong>VR (Virtual Reality)</strong>: Immersive, full-dive digital worlds indistinguishable from reality.</li>
+                <li><strong>Cultured Meat</strong>: Sustainable, cruelty-free cellular agriculture for a clean food supply.</li>
+                <li><strong>Nuclear Fusion</strong>: Boundless, clean, and safe energy mimicking the power of stars.</li>
               </ul>
             </div>
             <div className="flex justify-end">

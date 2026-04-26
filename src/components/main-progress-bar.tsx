@@ -5,7 +5,7 @@ export function MainProgressBar() {
   const { levelsCompleted, totalLevels, northStarsCompleted, totalNorthStars } = useMemo(() => {
     const levelsCompleted = [0, 0, 0, 0, 0, 0, 0, 0];
     const totalLevels = [0, 0, 0, 0, 0, 0, 0, 0];
-    let northStarsCompleted = 0; // Hardcoded per user request, will be informed manually
+    const northStarsCompleted = 0; // Hardcoded per user request, will be informed manually
     let totalNorthStars = 0;
 
     MAIN_DOMAINS.forEach((domain) => {
