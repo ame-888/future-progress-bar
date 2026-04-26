@@ -2671,10 +2671,10 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             id: "bci-1",
             title:
               "Number of People with Chronic, Next-Gen, Cortex reading BCI",
-            currentValue: 92,
+            currentValue: 124,
             baseValue: 0,
             unit: "people",
-            lastUpdated: "2026-04-11",
+            lastUpdated: "2026-04-26",
             levels: [
               {
                 level: 1,
@@ -2749,13 +2749,13 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             ],
             history: [
               {
-                value: 92,
+                value: 124,
                 details: [
                   "Blackrock Neurotech (USA): around 50 users (estimated).",
+                  "Tsinghua University / Neuracle Technology (China): 36",
                   "Neuralink (USA): 21",
                   "Synchron (USA / Australia): 10",
                   "Clinatec / CEA / Onward Medical (France / Switzerland): 7",
-                  "Tsinghua University / Neuracle Technology (China): 3",
                 ],
               },
             ],
