@@ -2671,10 +2671,10 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             id: "bci-1",
             title:
               "Number of People with Chronic, Next-Gen, Cortex reading BCI",
-            currentValue: 124,
+            currentValue: 178,
             baseValue: 0,
             unit: "people",
-            lastUpdated: "2026-04-26",
+            lastUpdated: "2026-05-12",
             levels: [
               {
                 level: 1,
@@ -2749,13 +2749,16 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             ],
             history: [
               {
-                value: 124,
+                value: 178,
                 details: [
-                  "Blackrock Neurotech (USA): around 50 users (estimated).",
-                  "Tsinghua University / Neuracle Technology (China): 36",
-                  "Neuralink (USA): 21",
-                  "Synchron (USA / Australia): 10",
-                  "Clinatec / CEA / Onward Medical (France / Switzerland): 7",
+                  "NeuroXess (China): 54 users",
+                  "Blackrock Neurotech (USA): around 50 users (estimated)",
+                  "Tsinghua University / Neuracle Technology (China): 32 users",
+                  "Neuralink (USA): 21 users",
+                  "Synchron (USA / Australia): 10 users",
+                  "ONWARD Medical / CEA-Clinatec (Netherlands / Switzerland / France): 5 users",
+                  "Beijing Xinzhida (China): 5 users (estimated)",
+                  "Technical University of Munich (TUM) (Germany): 1 user",
                 ],
               },
             ],
@@ -2766,7 +2769,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 6,
             baseValue: 0,
             unit: "countries",
-            lastUpdated: "2026-04-12",
+            lastUpdated: "2026-05-12",
             levels: [
               {
                 level: 1,
@@ -2860,7 +2863,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 1,
             baseValue: 0,
             unit: "countries",
-            lastUpdated: "2026-04-12",
+            lastUpdated: "2026-05-12",
             levels: [
               {
                 level: 1,
@@ -2942,7 +2945,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 0,
             baseValue: 0,
             unit: "countries",
-            lastUpdated: "2026-04-12",
+            lastUpdated: "2026-05-12",
             levels: [
               {
                 level: 1,
