@@ -128,7 +128,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 0,
             baseValue: 0,
             unit: "problems",
-            lastUpdated: "2026-04-12",
+            lastUpdated: "2026-05-14",
             levels: [
               {
                 level: 1,
@@ -222,7 +222,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 0,
             baseValue: 0,
             unit: "universities",
-            lastUpdated: "2026-04-14",
+            lastUpdated: "2026-05-14",
             levels: [
               {
                 level: 1,
@@ -307,7 +307,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 0,
             baseValue: 0,
             unit: "companies",
-            lastUpdated: "2026-04-14",
+            lastUpdated: "2026-05-14",
             levels: [
               {
                 level: 1,
@@ -392,7 +392,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 0,
             baseValue: 0,
             unit: "countries",
-            lastUpdated: "2026-04-12",
+            lastUpdated: "2026-05-14",
             levels: [
               {
                 level: 1,
@@ -1108,7 +1108,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 0,
             baseValue: 0,
             unit: "vehicles",
-            lastUpdated: "2026-04-13",
+            lastUpdated: "2026-05-14",
             levels: [
               {
                 level: 1,
