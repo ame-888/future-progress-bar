@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { DigitalClock } from "@/components/digital-clock";
+import { Footer } from "@/components/footer";
+import { CookieBanner } from "@/components/cookie-banner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +41,8 @@ export default function RootLayout({
         >
           <DigitalClock />
           {children}
+          <Footer />
+          <CookieBanner />
         </ThemeProvider>
       </body>
     </html>
