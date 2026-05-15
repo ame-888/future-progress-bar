@@ -389,7 +389,24 @@ export function ProgressTable() {
         </div>
         <div className="relative z-10 flex flex-col items-center mt-2">
           <div className="flex flex-col lg:flex-row items-center w-full justify-between relative mb-2 gap-4 max-w-7xl mx-auto">
-            <div className="hidden lg:block lg:flex-1"></div>
+            <div className="flex justify-start relative z-20 lg:flex-1 w-full mr-auto">
+              <div className="flex flex-col gap-2 items-start">
+                <div className="relative overflow-hidden rounded-xl p-[2px] inline-flex">
+                  <div className="absolute inset-0 bg-red-500 animate-pulse opacity-100" />
+                  <a
+                    href="https://ultimate-bench.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative flex flex-row justify-start items-center gap-3 bg-white dark:bg-slate-900 w-44 h-12 px-4 text-left rounded-[10px] shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none shrink-0"
+                  >
+                    <div className="w-5 h-5 shrink-0 flex-none min-w-[20px] min-h-[20px]">
+                      <FireIcon className="w-full h-full text-red-500" />
+                    </div>
+                    <span>Ultimate Bench</span>
+                  </a>
+                </div>
+              </div>
+            </div>
             <div className="flex justify-center z-0 lg:flex-1 w-full shrink-0">
               <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white whitespace-nowrap">
                 Future Progress Bar
