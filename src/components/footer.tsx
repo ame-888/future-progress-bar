@@ -8,6 +8,9 @@ export function Footer() {
           &copy; {new Date().getFullYear()} Future Progress Bar. All rights reserved.
         </div>
         <div className="flex flex-wrap justify-center space-x-4 sm:space-x-6">
+          <Link href="/" className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors font-semibold">
+            Home
+          </Link>
           <Link href="/about" className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">
             About
           </Link>
