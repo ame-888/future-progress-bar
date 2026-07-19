@@ -303,11 +303,11 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           },
           {
             id: "ai-led-companies",
-            title: "Number of AI-led companies among the top 100",
+            title: "Number of companies primarily managed by AI among the top 100",
             currentValue: 0,
             baseValue: 0,
             unit: "companies",
-            lastUpdated: "2026-05-14",
+            lastUpdated: "2026-07-19",
             levels: [
               {
                 level: 1,
@@ -3859,11 +3859,11 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           },
           {
             id: "cultured-meat-3",
-            title: "Countries allowing sale to pets",
+            title: "Countries that have approved or legally permitted cultivated meat for pet consumption",
             currentValue: 29,
             baseValue: 0,
             unit: "countries",
-            lastUpdated: "2026-04-19",
+            lastUpdated: "2026-07-19",
             levels: [
               {
                 level: 1,
@@ -3950,11 +3950,11 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           },
           {
             id: "cultured-meat-2",
-            title: "Countries allowing sale to humans",
+            title: "Countries that have approved or legally permitted cultivated meat for human consumption",
             currentValue: 5,
             baseValue: 0,
             unit: "countries",
-            lastUpdated: "2026-04-19",
+            lastUpdated: "2026-07-19",
             levels: [
               {
                 level: 1,
