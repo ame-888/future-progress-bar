@@ -303,7 +303,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           },
           {
             id: "ai-led-companies",
-            title: "Number of companies primarily managed by AI among the top 100",
+            title:
+              "Number of companies primarily managed by AI among the top 100",
             currentValue: 0,
             baseValue: 0,
             unit: "companies",
@@ -836,7 +837,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
       {
         id: "self-driving-car",
         northStar: {
-          title: "Global Share of distance traveled by Self-Driving Vehicles (LVL 4 and LVL 5)",
+          title:
+            "Global Share of distance traveled by Self-Driving Vehicles (LVL 4 and LVL 5)",
           lastUpdated: "2026-04-21",
         },
         name: "SELF-DRIVING CAR",
@@ -1187,7 +1189,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 details: [],
               },
             ],
-          }
+          },
         ],
       },
     ],
@@ -2304,7 +2306,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 250,
             baseValue: 500,
             unit: "GPa",
-            lastUpdated: "2026-04-12",
+            lastUpdated: "2026-07-21",
             isLowerBetter: true,
             levels: [
               {
@@ -2396,7 +2398,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 150,
             baseValue: 0,
             unit: "MA/cm²",
-            lastUpdated: "2026-04-21",
+            lastUpdated: "2026-07-21",
             levels: [
               {
                 level: 1,
@@ -2484,7 +2486,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 48.7,
             baseValue: 20,
             unit: "Tesla",
-            lastUpdated: "2026-04-21",
+            lastUpdated: "2026-07-21",
             levels: [
               {
                 level: 1,
@@ -2567,7 +2569,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 1.4,
             baseValue: 0.5,
             unit: "km",
-            lastUpdated: "2026-04-21",
+            lastUpdated: "2026-07-21",
             levels: [
               {
                 level: 1,
@@ -3282,7 +3284,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             currentValue: 139000,
             baseValue: 0,
             unit: "neurons",
-            lastUpdated: "2026-04-19",
+            lastUpdated: "2026-07-21",
             levels: [
               {
                 level: 1,
@@ -3363,11 +3365,13 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               },
             ],
             history: [
+              { value: 0 },
               {
                 value: 139000,
-                details: ["Adult fruit fly"],
+                details: [
+                  "Drosophila melanogaster, the common fruit fly's entire brain",
+                ],
               },
-              { value: 139000 },
             ],
           },
         ],
@@ -3859,7 +3863,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           },
           {
             id: "cultured-meat-3",
-            title: "Countries that have approved or legally permitted cultivated meat for pet consumption",
+            title:
+              "Countries that have approved or legally permitted cultivated meat for pet consumption",
             currentValue: 29,
             baseValue: 0,
             unit: "countries",
@@ -3950,7 +3955,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           },
           {
             id: "cultured-meat-2",
-            title: "Countries that have approved or legally permitted cultivated meat for human consumption",
+            title:
+              "Countries that have approved or legally permitted cultivated meat for human consumption",
             currentValue: 5,
             baseValue: 0,
             unit: "countries",
@@ -4120,7 +4126,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
               },
             ],
             history: [{ value: 0 }],
-          }
+          },
         ],
       },
       {
