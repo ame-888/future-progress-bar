@@ -1,24 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { DigitalClock } from "@/components/digital-clock";
 import { Footer } from "@/components/footer";
 import { CookieBanner } from "@/components/cookie-banner";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
   title: "Future Progress Bar",
-  description: "Website built with Google Jules + Vercel",
+  description: "A living quantitative map of humanity's technological progress, from the Stone Age toward an Antimatter Age.",
 };
 
 export default function RootLayout({
@@ -30,7 +19,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className="h-full antialiased"
     >
       <head>
         <script

@@ -103,7 +103,7 @@ export function FictionalFuture({ domainId }: { domainId: string }) {
   if (!data) return null;
 
   return (
-    <div className="mt-8 border-2 border-indigo-200 dark:border-indigo-900/50 rounded-xl overflow-hidden bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/30 shadow-sm relative">
+    <aside className="future-brief relative" aria-labelledby={`future-${domainId}`}>
       {/* Decorative top bar */}
       <div className="h-1.5 w-full bg-gradient-to-r from-indigo-500 to-purple-500"></div>
 
@@ -116,7 +116,7 @@ export function FictionalFuture({ domainId }: { domainId: string }) {
             <h3 className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest mb-1">
               Fictional Future
             </h3>
-            <h4 className="text-xl md:text-2xl font-extrabold text-slate-900 dark:text-white">
+            <h4 id={`future-${domainId}`} className="text-xl md:text-2xl font-extrabold text-slate-900 dark:text-white">
               {data.title}
             </h4>
           </div>
@@ -131,6 +131,6 @@ export function FictionalFuture({ domainId }: { domainId: string }) {
           ))}
         </ul>
       </div>
-    </div>
+    </aside>
   );
 }
