@@ -16,7 +16,7 @@ export function ModeToggle() {
   if (!mounted) {
     return (
       <button
-        className="absolute top-4 right-4 p-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-slate-100 transition-colors hover:bg-slate-300 dark:hover:bg-slate-700 z-50 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-500 cursor-pointer"
+        className="mode-toggle"
         aria-label="Toggle theme"
       >
         <div className="h-5 w-5" />
@@ -27,7 +27,7 @@ export function ModeToggle() {
   return (
     <button
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-      className="absolute top-4 right-4 p-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-slate-100 transition-colors hover:bg-slate-300 dark:hover:bg-slate-700 z-50 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-500 cursor-pointer flex items-center justify-center"
+      className="mode-toggle"
       aria-label="Toggle theme"
     >
       {resolvedTheme === "dark" ? (

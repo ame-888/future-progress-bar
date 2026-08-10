@@ -2,14 +2,14 @@ import React, { useMemo } from "react";
 import { MAIN_DOMAINS } from "./progress-table-data";
 
 const ERAS = [
-  { name: "Stone", symbol: "ST", tone: "era-stone" },
-  { name: "Iron", symbol: "FE", tone: "era-iron" },
-  { name: "Copper", symbol: "CU", tone: "era-copper" },
-  { name: "Bronze", symbol: "BR", tone: "era-bronze" },
-  { name: "Silver", symbol: "AG", tone: "era-silver" },
-  { name: "Gold", symbol: "AU", tone: "era-gold" },
-  { name: "Platinum", symbol: "PT", tone: "era-platinum" },
-  { name: "Antimatter", symbol: "AM", tone: "era-antimatter" },
+  { name: "Stone", symbol: "ST", tone: "era-stone", horizon: "Origins" },
+  { name: "Iron", symbol: "FE", tone: "era-iron", horizon: "Industry" },
+  { name: "Copper", symbol: "CU", tone: "era-copper", horizon: "Networks" },
+  { name: "Bronze", symbol: "BR", tone: "era-bronze", horizon: "Scale" },
+  { name: "Silver", symbol: "AG", tone: "era-silver", horizon: "Abundance" },
+  { name: "Gold", symbol: "AU", tone: "era-gold", horizon: "Mastery" },
+  { name: "Platinum", symbol: "PT", tone: "era-platinum", horizon: "Transcendence" },
+  { name: "Antimatter", symbol: "AM", tone: "era-antimatter", horizon: "The frontier" },
 ];
 
 export function MainProgressBar() {
@@ -59,6 +59,7 @@ export function MainProgressBar() {
               <div className="era-node__line" aria-hidden="true"><span style={{ width: `${percentage}%` }} /></div>
               <div className="era-node__top"><span className="era-node__symbol">{era.symbol}</span><span>L{index}</span></div>
               <strong>{era.name}</strong>
+              <em>{era.horizon}</em>
               <small>{completed[index]} / {totals[index]} · {percentage}%</small>
             </div>
           );

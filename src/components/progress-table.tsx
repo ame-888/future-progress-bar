@@ -132,6 +132,14 @@ export function ProgressTable() {
   const activeMainDomain = activeMainTab !== -1 ? MAIN_DOMAINS[activeMainTab] : null;
   const activeDomain = activeMainDomain && activeSubTab !== -1 ? activeMainDomain.subdomains[activeSubTab] : null;
 
+  const domainTheme = activeMainDomain ? ({
+    AUTOMATION: { accent: "#ff5f6d", accentRgb: "255 95 109" },
+    CIVILIZATION: { accent: "#b58cff", accentRgb: "181 140 255" },
+    HARDWARE: { accent: "#f6c85f", accentRgb: "246 200 95" },
+    NEURO: { accent: "#55b8ff", accentRgb: "85 184 255" },
+    SUSTAINABILITY: { accent: "#4dd9a7", accentRgb: "77 217 167" },
+  }[activeMainDomain.name] ?? { accent: "#7d93ff", accentRgb: "125 147 255" }) : null;
+
 
   const toggleYear = (year: number) => {
     setExpandedYears(prev => ({ ...prev, [year]: !prev[year] }));
@@ -670,7 +678,12 @@ export function ProgressTable() {
           </div>
         )}
 
-      <section className="taxonomy-panel relative z-10" aria-label="Technology progress explorer">
+      <section
+        className="taxonomy-panel relative z-10"
+        data-domain={activeMainDomain.name.toLowerCase()}
+        style={{ "--domain-accent": domainTheme?.accent, "--domain-rgb": domainTheme?.accentRgb } as React.CSSProperties}
+        aria-label="Technology progress explorer"
+      >
         <div className="w-full overflow-hidden">
           {/* Header Row - Main Domains */}
           <nav className="domain-rail" aria-label="Main domains">
@@ -723,6 +736,7 @@ export function ProgressTable() {
                   `}
                   style={{ wordBreak: 'break-word', hyphens: 'auto' }}
                 >
+                  <span className="domain-tab__signal" aria-hidden="true" />
                   {domain.name}
                 </button>
               );
@@ -749,7 +763,7 @@ export function ProgressTable() {
                     border-b-2 cursor-pointer
                     ${
                       isActive
-                        ? "text-indigo-600 dark:text-indigo-400 border-indigo-600 dark:border-indigo-400 bg-indigo-50 dark:bg-indigo-900/20"
+                        ? "subdomain-active"
                         : "text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800/60"
                     }
                     ${index !== activeMainDomain.subdomains.length - 1 ? "border-r border-slate-200 dark:border-slate-800" : ""}
@@ -768,11 +782,12 @@ export function ProgressTable() {
               <p>{activeDomain.measurements.length} active measurements · frontier data and forecasts</p>
             </div>
             {activeDomain.description && (
-              <div className="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 text-sm md:text-base leading-relaxed">
+              <div className="domain-description p-4 text-slate-700 dark:text-slate-300 text-sm md:text-base leading-relaxed">
                 {activeDomain.description}
               </div>
             )}
 
+            <div className="domain-graph">
             {activeDomain.id === "lev" && <div id="north-star-lev"><LevProgressGraph lastUpdated={formatDateStr(activeDomain.northStar?.lastUpdated)} /></div>}
             {activeDomain.id === "nuclear-fusion" && <div id="north-star-nuclear-fusion"><NuclearFusionGraph lastUpdated={formatDateStr(activeDomain.northStar?.lastUpdated)} /></div>}
             {activeDomain.id === "bci" && <div id="north-star-bci"><BciGraph lastUpdated={formatDateStr(activeDomain.northStar?.lastUpdated)} /></div>}
@@ -785,6 +800,7 @@ export function ProgressTable() {
             {activeDomain.id === "mind-upload" && <div id="north-star-mind-upload"><MindUploadGraph lastUpdated={formatDateStr(activeDomain.northStar?.lastUpdated)} /></div>}
             {activeDomain.id === "self-driving-car" && <div id="north-star-self-driving-car"><SelfDrivingCarGraph lastUpdated={formatDateStr(activeDomain.northStar?.lastUpdated)} /></div>}
             {activeDomain.id === "cultured-meat" && <div id="north-star-cultured-meat"><CulturedMeatGraph lastUpdated={formatDateStr(activeDomain.northStar?.lastUpdated)} /></div>}
+            </div>
 
             {activeDomain.measurements.length === 0 ? (
               <div className="py-12 text-center text-slate-500 dark:text-slate-400">
