@@ -1,12 +1,13 @@
-import { ModeToggle } from "@/components/mode-toggle";
 import { ProgressTable } from "@/components/progress-table";
 import { GamificationExplanation } from "@/components/gamification-explanation";
 import { Suspense } from "react";
+import { SITE_URL } from "@/lib/site";
 
 export default function Home() {
+  const websiteData = { "@context": "https://schema.org", "@type": "WebSite", name: "Future Progress Bar", url: SITE_URL, description: "An interactive atlas of humanity's technological future." };
   return (
     <main className="app-shell relative flex-1 w-full transition-colors duration-200">
-      <ModeToggle />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteData).replace(/</g, "\\u003c") }} />
       <div className="flex flex-col items-center justify-center min-h-screen">
         <Suspense fallback={<div className="w-full h-96 flex items-center justify-center text-slate-500">Loading domains...</div>}>
           <ProgressTable />

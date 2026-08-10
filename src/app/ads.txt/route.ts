@@ -1,0 +1,2 @@
+import { adsenseClient, adsenseEnabled } from "@/lib/site";
+export async function GET(){if(!adsenseEnabled||!adsenseClient)return new Response("Advertising is not enabled.\n",{status:404,headers:{"content-type":"text/plain; charset=utf-8","cache-control":"no-store"}});const publisherId=adsenseClient.replace("ca-pub-","");return new Response(`google.com, pub-${publisherId}, DIRECT, f08c47fec0942fa0\n`,{headers:{"content-type":"text/plain; charset=utf-8","cache-control":"public, max-age=3600"}});}

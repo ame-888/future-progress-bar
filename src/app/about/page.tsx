@@ -1,29 +1,9 @@
-export default function AboutPage() {
-  return (
-    <div className="flex-1 w-full max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-slate-800 dark:text-slate-200">
-      <h1 className="text-3xl font-bold mb-6">About Us</h1>
-      <div className="space-y-6">
-        <section>
-          <h2 className="text-xl font-semibold mb-3">Our Mission</h2>
-          <p>
-            Welcome to Future Progress Bar! Our mission is to track humanity&apos;s technological and scientific progress across various domains, providing a visual and engaging way to understand how far we have come and where we might be heading.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-3">What We Do</h2>
-          <p>
-            We curate and aggregate milestones from a variety of fields—including Artificial Intelligence, Space Exploration, Biotechnology, and more. By presenting these milestones on an interactive timeline, we hope to inspire curiosity and optimism about the future.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-3">Who We Are</h2>
-          <p>
-            We are a group of technology enthusiasts and futurists who believe that keeping track of our collective progress is essential for navigating the challenges of tomorrow.
-          </p>
-        </section>
-      </div>
-    </div>
-  );
-}
+import type { Metadata } from "next"; import Link from "next/link"; import { EditorialPage } from "@/components/editorial-page";
+export const metadata:Metadata={title:"About",description:"Why Future Progress Bar maps technological capability, adoption and civilization-scale change from Stone to Antimatter.",alternates:{canonical:"/about"}};
+export default function AboutPage(){return <EditorialPage eyebrow="About the project" title="A field guide to technological change" intro="Future Progress Bar is an independent interactive data project: part dashboard, part speculative atlas, and part record of how difficult claims about the future are defined.">
+<section><h2>Why it exists</h2><p>Technological progress is often discussed through isolated announcements. A benchmark rises, a prototype launches, or a forecast moves, but it remains difficult to see how these events relate to adoption, institutions and long-term human outcomes. Future Progress Bar puts selected indicators into a common milestone language so readers can inspect both movement and distance.</p><p>The project is meant to encourage questions rather than manufacture certainty. What would count as meaningful progress? Is a capability repeatable? Has it left the laboratory? Is the underlying value known at all?</p></section>
+<section><h2>What the atlas measures</h2><p>Five main domains organize the atlas: <strong>Automation</strong> covers AI, robotics and autonomous vehicles; <strong>Civilization</strong> follows longevity and space exploration; <strong>Hardware</strong> covers quantum computing and superconductors; <strong>Neuro</strong> follows brain–computer interfaces, mind uploading and virtual reality; and <strong>Sustainability</strong> covers cultivated meat and fusion energy.</p><p>Within those domains, 12 subdomains each contribute four active measurements and a North Star graph. The 48 measurements combine technological capability, deployment and adoption, societal transformation, policy or market access, and long-run civilization indicators. The mix is intentional: laboratory performance alone cannot describe whether a technology changes life at scale.</p></section>
+<section><h2>Stone → Antimatter</h2><p>Every active measurement has seven thresholds. Their era names run from Stone through Iron, Copper, Bronze, Silver, Gold and Platinum to the imagined Antimatter horizon. The names create a readable journey through unlike fields; they are this project’s milestone framework, not established scientific categories.</p><p>North Stars play a different role. Their graphs show a long-run frontier or contextual trend for a subdomain, but they do not add an eighth measurement. The global civilization score counts achieved measurement thresholds across the active catalogue. It is a project-defined comparative index—not an objective scientific percentage of humanity’s completion or a verdict on social progress.</p></section>
+<section><h2>Why the far future is included</h2><p>Some milestones are deliberately speculative. They allow present capability, plausible extension and genuinely unknown territory to appear on one map. Mind uploading is the clearest example: dormant metrics are not presented as existing achievements. Far-future thresholds make assumptions visible and give forecasts something concrete to disagree about.</p></section>
+<section><h2>A publication as well as a tool</h2><p>The graphs and progress bars are supported by definitions, epistemic labels, histories and explanatory field guides. Start with the <Link href="/methodology">methodology</Link>, review the <Link href="/sources">source approach</Link>, or open any subdomain from the progress atlas. Questions and corrections can use the genuine public channel on the <Link href="/contact">contact page</Link>.</p></section>
+</EditorialPage>}

@@ -3,11 +3,17 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { DigitalClock } from "@/components/digital-clock";
 import { Footer } from "@/components/footer";
-import { CookieBanner } from "@/components/cookie-banner";
+import { SiteHeader } from "@/components/site-header";
+import { AdSenseScript } from "@/components/adsense";
+import { SITE_URL, adsenseClient, adsenseEnabled } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Future Progress Bar",
+  metadataBase: new URL(SITE_URL),
+  title: { default: "Future Progress Bar", template: "%s | Future Progress Bar" },
   description: "A living quantitative map of humanity's technological progress, from the Stone Age toward an Antimatter Age.",
+  alternates: { canonical: "/" },
+  openGraph: { type: "website", siteName: "Future Progress Bar", title: "Future Progress Bar", description: "An interactive atlas of humanity's technological future.", url: "/" },
+  ...(adsenseEnabled && adsenseClient ? { other: { "google-adsense-account": adsenseClient } } : {}),
 };
 
 export default function RootLayout({
@@ -21,13 +27,6 @@ export default function RootLayout({
       suppressHydrationWarning
       className="h-full antialiased"
     >
-      <head>
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5230972214569734"
-          crossOrigin="anonymous"
-        ></script>
-      </head>
       <body className="min-h-full flex flex-col">
         <ThemeProvider
           attribute="class"
@@ -36,9 +35,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <DigitalClock />
+          <SiteHeader />
           {children}
           <Footer />
-          <CookieBanner />
+          <AdSenseScript />
         </ThemeProvider>
       </body>
     </html>

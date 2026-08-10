@@ -1,54 +1,10 @@
-export default function PrivacyPolicyPage() {
-  return (
-    <div className="flex-1 w-full max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-slate-800 dark:text-slate-200">
-      <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
-      <div className="space-y-6">
-        <p>Last Updated: {new Date().toLocaleDateString()}</p>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-3">1. Introduction</h2>
-          <p>
-            Welcome to Future Progress Bar. We respect your privacy and are committed to protecting your personal data. This privacy policy will inform you as to how we look after your personal data when you visit our website.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-3">2. Data We Collect</h2>
-          <p>
-            We may collect, use, store and transfer different kinds of personal data about you, including:
-          </p>
-          <ul className="list-disc pl-6 mt-2 space-y-1">
-            <li>Usage Data: Information about how you use our website.</li>
-            <li>Technical Data: Internet protocol (IP) address, browser type and version, time zone setting and location.</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-3">3. Use of Cookies and Third-Party Advertising</h2>
-          <p>
-            We use cookies and similar tracking technologies to track the activity on our Service and hold certain information.
-            Third party vendors, including Google, use cookies to serve ads based on a user&apos;s prior visits to our website or other websites.
-          </p>
-          <p className="mt-2">
-            Google&apos;s use of advertising cookies enables it and its partners to serve ads to our users based on their visit to our sites and/or other sites on the Internet.
-            Users may opt out of personalized advertising by visiting <a href="https://myadcenter.google.com/" className="text-blue-600 hover:underline dark:text-blue-400" target="_blank" rel="noopener noreferrer">Ads Settings</a>.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-3">4. Your Rights</h2>
-          <p>
-            Under certain circumstances, you have rights under data protection laws in relation to your personal data, including the right to request access, correction, or erasure of your personal data.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-3">5. Contact Us</h2>
-          <p>
-            If you have any questions about this privacy policy or our privacy practices, please contact us via our Contact page.
-          </p>
-        </section>
-      </div>
-    </div>
-  );
-}
+import type { Metadata } from "next"; import Link from "next/link"; import { EditorialPage } from "@/components/editorial-page";
+export const metadata:Metadata={title:"Privacy",description:"How Future Progress Bar uses browser storage and how advertising privacy will work if AdSense is activated.",alternates:{canonical:"/privacy"}};
+export default function PrivacyPage(){return <EditorialPage eyebrow="Legal & privacy" title="Privacy policy" intro="This policy separates what Future Progress Bar does now from advertising features that are prepared in code but remain disabled until valid configuration and consent arrangements are in place.">
+<section><h2>Information stored in your browser</h2><p>The prediction tool saves the years you enter and associated timestamps in your browser’s <code>localStorage</code> under <code>userPredictions</code>. The selected progress tab and color-theme preference may also be stored locally. This lets the interface remember choices without a Future Progress Bar account. Browser settings can inspect or clear this storage; clearing it removes those local predictions and preferences.</p></section>
+<section><h2>Hosting and analytics</h2><p>The application is hosted by Vercel, so ordinary requests necessarily transmit technical information such as an IP address, requested URL, browser information and request time to deliver and secure the service. The repository does not currently install a separate analytics product. If analytics is added later, this policy should be updated before relying on it.</p></section>
+<section><h2>Advertising status</h2><p>The codebase can integrate Google AdSense, but advertising is disabled unless the maintainer supplies a valid publisher client ID and explicitly enables it. When disabled, the site does not load the AdSense script or render manual ad units.</p><p>If AdSense is enabled, Google and participating third-party advertising vendors may use cookies, local storage, device identifiers, IP addresses and interaction data to provide, measure, limit and protect advertising. Depending on a visitor’s region and choices, ads may be personalized using prior visits to this and other sites, or non-personalized/contextual.</p></section>
+<section><h2>Consent and regional privacy choices</h2><p>Advertising will require an appropriate consent and privacy-message configuration rather than a homemade banner. Before activation, the maintainer must configure a Google-certified consent management platform for the EEA, United Kingdom and Switzerland as applicable, along with relevant US state privacy messages and globally appropriate controls, including consideration of Brazil’s LGPD. The site does not infer geography itself.</p><p>Where Google advertising is active, visitors can manage ad personalization in <a href="https://myadcenter.google.com/" target="_blank" rel="noopener noreferrer">Google’s My Ad Center <span aria-hidden="true">↗</span></a> and review Google’s <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">partner-sites information <span aria-hidden="true">↗</span></a>. Browser controls can also restrict or delete cookies, though that can affect features.</p></section>
+<section><h2>External links</h2><p>Links to sources, GitHub and related projects lead to services with their own privacy practices. Future Progress Bar does not control those services.</p></section>
+<section><h2>Contact and changes</h2><p>Privacy or correction questions can use the public channel on the <Link href="/contact">contact page</Link>. Do not include sensitive personal information in a public issue. This policy is operational information, not legal advice; it should be reviewed whenever advertising, analytics, hosting or data handling changes.</p></section>
+</EditorialPage>}
