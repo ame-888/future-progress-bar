@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
-import { hasQualifyingNumericValue, MAIN_DOMAINS } from "./progress-table-data";
+import { MAIN_DOMAINS } from "./progress-table-data";
+import { canObservationCompleteThreshold, getGlobalProgress } from "@/lib/progress-utils";
 
 const ERAS = [
   { name: "Stone", symbol: "ST", horizon: "Origins", x: 4, y: 82 },
@@ -13,30 +14,20 @@ const ERAS = [
 ];
 
 export function MainProgressBar() {
-  const { completed, totals, totalNorthStars } = useMemo(() => {
+  const { completed, totals, totalNorthStars, achieved, possible } = useMemo(() => {
     const completed = Array(8).fill(0) as number[];
     const totals = Array(8).fill(0) as number[];
     let totalNorthStars = 0;
     MAIN_DOMAINS.forEach((domain) => domain.subdomains.forEach((subdomain) => {
       if (subdomain.northStar) totalNorthStars++;
-      subdomain.measurements.forEach((measurement) => {
-        totals[0]++; completed[0]++;
-        measurement.levels.forEach((level) => {
-          if (level.level < 1 || level.level > 7) return;
-          totals[level.level]++;
-          const value = measurement.currentValue;
-          if (hasQualifyingNumericValue(measurement) && typeof value === "number" &&
-              (measurement.isLowerBetter ? value <= level.goal : value >= level.goal)) {
-            completed[level.level]++;
-          }
-        });
-      });
+      subdomain.measurements.forEach((measurement) => measurement.levels.forEach((level) => {
+        if (level.level < 1 || level.level > 7) return;
+        totals[level.level]++;
+        if (canObservationCompleteThreshold(measurement, level)) completed[level.level]++;
+      }));
     }));
-    return { completed, totals, totalNorthStars };
+    return { completed, totals, totalNorthStars, ...getGlobalProgress(MAIN_DOMAINS) };
   }, []);
-
-  const achieved = completed.reduce((sum, value) => sum + value, 0);
-  const possible = totals.reduce((sum, value) => sum + value, 0);
 
   return (
     <section className="civilization-map" aria-labelledby="civilization-heading">
@@ -66,7 +57,7 @@ export function MainProgressBar() {
             </div>
           );
         })}
-        <div className="north-star-node"><span>✦</span><div><small>Beyond the mapped path</small><strong>{totalNorthStars} North Stars</strong><p>Rare achievements that change what civilization can become.</p></div></div>
+        <div className="north-star-node"><span>✦</span><div><small>Beyond the mapped path</small><strong>{totalNorthStars} North Stars</strong><p>Contextual long-run graphs; they do not add to the score.</p></div></div>
       </div>
     </section>
   );
