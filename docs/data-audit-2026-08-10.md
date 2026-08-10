@@ -13,6 +13,7 @@ This audit treats numeric results as observations rather than defaults. `UNKNOWN
 - `lev-3`: **122 years, 164 days → 116 years, 354 days**. Ethel Caterham, born 1909-08-21, was the oldest verified living person at the cutoff. The observation is `CURRENT`; Jeanne Calment was an answer to the different all-time-record question.
 - `qc-4`: **220,000 → approximately 340,000 hardware-aware CLOPS_h**. The newer measured IBM Heron result replaces Eagle; ordinary CLOPS, theoretical throughput, and roadmap values remain excluded.
 - `cultured-meat-2`: **3 → ≥5 countries**. Confirmed operative authorizations: Singapore, United States, Australia, New Zealand, and Israel.
+- `bci-1`: **≥100 → ≥81 living implanted people**. The earlier total used 37 NEO and 30 Beinao No.1 cases; cutoff-compatible public reporting supports 32 and 16 completed implants respectively. Enrollment targets and temporary electrodes are not counts.
 
 ### Status corrections
 
@@ -29,7 +30,7 @@ The review retained: simultaneous humans above 100 km `19`; Moon simultaneous po
 ### Values that remain uncertain
 
 - `robotics-1` remains an **ESTIMATE** (`≈1,500`, range 1,000–3,000): manufacturers do not publish a compatible worldwide deployed-and-active census.
-- `bci-1` remains a **LOWER BOUND** (`≥100`): public cohort announcements vary by date and often do not establish explant/death/current status; enrollment targets were excluded.
+- `bci-1` remains a **LOWER BOUND** (`≥81`): public cohort announcements vary by date and do not constitute a complete registry. The cohort floor is Neuralink 21 + NEO 32 + Beinao No.1 16 + ONWARD/WIMAGINE 7 + Paradromics 1 + NeuroXess 1 + NeuraCom 3 = **81**. Each cohort is a chronic internal neural-reading implant program; stimulation-only devices, non-invasive EEG, temporary intraoperative electrodes, enrollment targets, and duplicate reports are excluded. Public evidence supports completed implants in these cohorts, but does not consistently disclose explant or death status for every participant, so no exact worldwide total is claimed.
 - `vr-5` remains an **ESTIMATE** (`≈5 million`): no worldwide cross-platform unique-person counter exists.
 - Country-search measurements marked **LOWER BOUND** have confirmed qualifying jurisdictions but no authoritative global registry.
 - Share measurements without compatible global numerator and denominator data remain **UNKNOWN**, rather than combining mismatched market estimates.
@@ -44,7 +45,14 @@ The review retained: simultaneous humans above 100 km `19`; Moon simultaneous po
 
 ## Primary-source families
 
-The structured evidence register uses official record/registry sources (Guinness and GRG), regulator and government sources (SFA, FDA, FSANZ, Israel Ministry of Health, FSA, CPUC, Beijing government), and official technical documentation (IBM Quantum). Existing unchanged observations were checked against the source boundary documented in their history notes; this audit does not convert absence of a global registry into false exactness.
+The production measurement-evidence ledger uses official record/registry sources (Guinness and GRG), regulator and government sources (SFA, FDA, FSANZ, Israel Ministry of Health, FSA, CPUC, Beijing government), and official technical documentation (IBM Quantum). Existing unchanged observations were checked against the source boundary documented in their history notes; this audit does not convert absence of a global registry into false exactness.
+
+## Boundary decisions retained in consolidation
+
+- **Space payload:** “net useful payload” includes a reusable spacecraft when that spacecraft is itself the mission-useful object delivered to and operated in orbit. Buran's 79.4-tonne orbiter therefore qualifies as Energia's delivered payload; advertised capacity and stages discarded before orbit do not.
+- **Superconducting field:** 48.7 T is the total hybrid field: 17.6 T from the superconducting REBCO insert plus 31.1 T from the resistive outsert. It is not represented as 48.7 T from the insert alone.
+- **Commercial HTS tape:** the object measured is the maximum manufacturer-published commercial specification for one splice-free production-scale piece. The published offered range through 1,000 m therefore supports 1.0 km; it is not a claim based on joined reels.
+- **VR display and concurrency:** 57 PPD refers to native central optical/display density in the same shipping configuration meeting the 100° horizontal-FOV floor, not render supersampling. The 82-user figure is retained only under the rule that the documented two reserved owner slots add to the ordinary 80-user instance capacity; if official documentation ceases to support additive occupancy, the observation must be revised.
 
 ## All-measurement decision table
 
@@ -78,7 +86,7 @@ The structured evidence register uses official record/registry sources (Guinness
 | superconductor-je-20k-20t | What is the maximum engineering current density of commercial REBCO wire at 20 K and 20 T under the standardized current-production metric now used by the project? | ≈1,400 | ESTIMATE | ≈1,400 | ESTIMATE | no | medium | Retained cautiously: public evidence does not support a more exact compatible observation. |
 | superconductor-3 | What is the highest continuous DC or steady magnetic field ever achieved using a superconducting magnet or superconducting insert? | 48.7 | VERIFIED | 48.7 | VERIFIED | no | high | Checked against the metric boundary; no contrary qualifying result identified. |
 | superconductor-commercial-piece-length | What is the maximum published continuous piece length of commercial production-scale 2G HTS tape under the project’s standardized commercial-piece-length definition? | 1.0 km | VERIFIED | 1.0 km | VERIFIED | no | high | Checked against the metric boundary; no contrary qualifying result identified. |
-| bci-1 | How many living humans are currently implanted with qualifying fully internal chronic invasive or semi-invasive BCIs? | ≥100 | LOWER BOUND | ≥100 | LOWER BOUND | no | medium | Retained cautiously: public evidence does not support a more exact compatible observation. |
+| bci-1 | How many living humans are currently implanted with qualifying fully internal chronic invasive or semi-invasive BCIs? | ≥100 | LOWER BOUND | ≥81 | LOWER BOUND | yes | medium | Corrected cohort arithmetic: 21 + 32 + 16 + 7 + 1 + 1 + 3; exact global and current-retention totals remain unresolved. |
 | bci-2 | Which and how many countries have granted formal regulatory authorization for industry-sponsored human clinical trials of qualifying BCIs? | 8 | VERIFIED | ≥8 | LOWER BOUND | yes | medium | Corrected value/status or country-count epistemology after cutoff review. |
 | bci-3 | Which and how many countries have granted ordinary non-experimental medical authorization outside clinical trials for qualifying BCIs? | ≥1 | LOWER BOUND | ≥1 | LOWER BOUND | no | medium | Retained cautiously: public evidence does not support a more exact compatible observation. |
 | bci-4 | How many countries affirmatively allow next-generation cortex-reading chronic BCIs to be implanted electively in healthy humans for voluntary non-medical purposes? | 0 | ZERO | 0 | ZERO | no | high | Checked against the metric boundary; no contrary qualifying result identified. |
@@ -91,7 +99,7 @@ The structured evidence register uses official record/registry sources (Guinness
 | vr-4 | What is the current record for the number of the seven specified senses perfectly and simultaneously replicated in one VR experience through direct artificial brain or CNS stimulation? | 0 | ZERO | 0 | ZERO | no | high | Checked against the metric boundary; no contrary qualifying result identified. |
 | vr-shared-world-concurrency | What is the maximum officially supported number of users in one mutually interactive VR world or session under the current standardized shared-world-concurrency metric? | 82 | VERIFIED | 82 | VERIFIED | no | high | Checked against the metric boundary; no contrary qualifying result identified. |
 | cultured-meat-1 | What is the current global cultivated-meat market share relative to the complete meat industry, using annual global sales value as the canonical basis? | UNKNOWN | UNKNOWN | UNKNOWN | UNKNOWN | no | medium | Retained cautiously: public evidence does not support a more exact compatible observation. |
-| cultured-meat-3 | How many countries legally permit commercial cultivated meat for pet consumption? | 1 | VERIFIED | 1 | VERIFIED | yes | high | Corrected value/status or country-count epistemology after cutoff review. |
+| cultured-meat-3 | How many countries legally permit commercial cultivated meat for pet consumption? | 1 | VERIFIED | ≥1 | LOWER BOUND | yes | high | The United Kingdom is confirmed; no exhaustive worldwide authorization registry supports an exact global count. |
 | cultured-meat-2 | How many countries legally permit commercial cultivated meat for human consumption? | 3 | VERIFIED | ≥5 | LOWER BOUND | yes | medium | Corrected value/status or country-count epistemology after cutoff review. |
 | cultured-meat-4 | How many countries nationally prohibit ordinary slaughter-derived meat consumption or sale for both humans and pets such that only non-slaughter alternatives are allowed? | 0 | ZERO | 0 | ZERO | no | high | Checked against the metric boundary; no contrary qualifying result identified. |
 | fusion-1 | How many commercial nuclear fusion power plants are currently connected to the grid worldwide? | 0 | ZERO | 0 | ZERO | no | high | Checked against the metric boundary; no contrary qualifying result identified. |

@@ -80,12 +80,12 @@ export function DigitalClock() {
 
   MAIN_DOMAINS.forEach(domain => {
     domain.subdomains.forEach(sub => {
-      if (sub.northStar?.lastUpdated) {
-        checkDate(`north-star-${sub.id}`, sub.northStar.title, sub.northStar.lastUpdated, sub.id);
+      if (sub.northStar?.researchCutoff) {
+        checkDate(`north-star-${sub.id}`, sub.northStar.title, sub.northStar.researchCutoff, sub.id);
       }
       sub.measurements.forEach(m => {
-        if (m.lastUpdated) {
-          checkDate(m.id, m.title, m.lastUpdated, sub.id);
+        if (m.researchCutoff) {
+          checkDate(m.id, m.title, m.researchCutoff, sub.id);
         }
       });
     });

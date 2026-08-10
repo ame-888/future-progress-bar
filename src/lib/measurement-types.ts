@@ -29,6 +29,7 @@ export type NorthStarDefinition = {
   question: string;
   methodology: string;
   unit: string;
-  lastUpdated: string;
+  researchCutoff: string;
+  temporalType: "current" | "record";
   series: { sourceModule: string; frequency: "annual" | "event"; startYear?: number };
 };
