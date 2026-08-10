@@ -15,8 +15,16 @@ export type MeasurementLevel = {
 export type Measurement = {
   id: string;
   lastUpdated?: string;
+  researchCutoff: string;
+  observationDate?: string;
+  dataPeriod?: string;
+  geographicScope?: string;
+  denominator?: { description: string; value?: number; period?: string; geography?: string };
+  evidence: import("@/lib/measurement-types").EvidenceReference[];
 
   title: string;
+  question: string;
+  definition: string;
   currentValue?: number;
   /** Epistemic state of the current result; non-numeric states never complete levels. */
   valueStatus?: "zero" | "verified" | "estimate" | "lower-bound" | "unknown" | "not-applicable" | "no-verified-result";
@@ -34,7 +42,7 @@ export type Measurement = {
 
 export type SubDomainData = {
   id: string;
-  northStar?: { title: string; lastUpdated: string };
+  northStar?: import("@/lib/measurement-types").NorthStarDefinition;
   name: string;
   description?: string;
   measurements: Measurement[];
@@ -46,13 +54,7 @@ export type MainDomainData = {
   subdomains: SubDomainData[];
 };
 
-export function hasQualifyingNumericValue(measurement: Measurement): boolean {
-  return ["zero", "verified", "estimate", "lower-bound"].includes(measurement.valueStatus ?? "verified")
-    && typeof measurement.currentValue === "number"
-    && Number.isFinite(measurement.currentValue);
-}
-
-export const MAIN_DOMAINS: MainDomainData[] = [
+const RAW_MAIN_DOMAINS = [
   {
     id: "automation",
     name: "AUTOMATION",
@@ -3889,4 +3891,21 @@ export const MAIN_DOMAINS: MainDomainData[] = [
       },
     ],
   },
-];
+] as unknown as MainDomainData[];
+
+import { MEASUREMENT_CATALOG } from "../lib/measurement-catalog.ts";
+import { NORTH_STARS } from "../lib/north-stars.ts";
+
+/** UI-ready composition of stable definitions with the independently updateable observations and thresholds. */
+export const MAIN_DOMAINS: MainDomainData[] = RAW_MAIN_DOMAINS.map((domain) => ({
+  ...domain,
+  subdomains: domain.subdomains.map((subdomain) => ({
+    ...subdomain,
+    northStar: NORTH_STARS[subdomain.id],
+    measurements: subdomain.measurements.map((record) => {
+      const definition = MEASUREMENT_CATALOG[record.id];
+      if (!definition) throw new Error(`Missing canonical measurement definition: ${record.id}`);
+      return { ...definition, ...record, question: definition.question, definition: definition.definition, geographicScope: definition.geographicScope, denominator: definition.denominator, researchCutoff: record.lastUpdated ?? "2026-08-10", evidence: record.evidence ?? [] };
+    }),
+  })),
+}));

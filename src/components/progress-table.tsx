@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { hasQualifyingNumericValue, MAIN_DOMAINS, Measurement } from "./progress-table-data";
+import { MAIN_DOMAINS, Measurement } from "./progress-table-data";
+import { getCompletedLevelCount, hasNumericObservation } from "@/lib/progress-utils";
 import { RETIRED_MEASUREMENTS } from "./retired-measurements";
 
 export function formatDateStr(dateStr?: string) {
@@ -793,16 +794,13 @@ export function ProgressTable({ initialSubdomainId }: { initialSubdomainId?: str
 
 function MeasurementCard({ measurement }: { measurement: Measurement }) {
   const isLowerBetter = measurement.isLowerBetter;
-  const hasNumericValue = hasQualifyingNumericValue(measurement);
+  const hasNumericValue = hasNumericObservation(measurement);
   const numericValue: number = hasNumericValue ? measurement.currentValue! : 0;
 
   // Memoize level-related values
   const { activeLevelIdx, actualCurrentLevel, allGoalsAchieved } = React.useMemo(() => {
-    const activeIdx = hasNumericValue ? measurement.levels.findIndex(level => {
-      return isLowerBetter
-        ? numericValue > level.goal
-        : numericValue < level.goal;
-    }) : 0;
+    const completedCount = getCompletedLevelCount(measurement);
+    const activeIdx = completedCount >= measurement.levels.length ? -1 : completedCount;
 
     let actualLevel = 0;
     if (activeIdx === -1) {
@@ -818,7 +816,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
       actualCurrentLevel: actualLevel,
       allGoalsAchieved: activeIdx === -1
     };
-  }, [numericValue, measurement.levels, isLowerBetter, hasNumericValue]);
+  }, [measurement]);
 
   const initialLevelIdx = activeLevelIdx === -1 ? measurement.levels.length - 1 : activeLevelIdx;
   const [viewLevelIdx, setViewLevelIdx] = useState(initialLevelIdx);
@@ -914,9 +912,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
       <div className="p-4 md:p-6 relative">
         <div className="flex flex-col md:flex-row md:items-start justify-between mb-4 gap-4">
           <div className="flex flex-wrap items-center gap-3">
-            <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white">
-              {measurement.title}
-            </h3>
+            <div><h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white">{measurement.title}</h3><p className="mt-1 max-w-3xl text-sm leading-relaxed text-slate-600 dark:text-slate-300">{measurement.question}</p></div>
             {measurement.temporalType && <span className="rounded-full border border-slate-200 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500 dark:border-slate-700 dark:text-slate-400">{measurement.temporalType}</span>}
             {measurement.indicatorType && <span title={`Indicator type: ${measurement.indicatorType}`} className="rounded-full border border-slate-200 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500 dark:border-slate-700 dark:text-slate-400">{measurement.indicatorType}</span>}
             <div className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${currentMedal.className}`}>
@@ -932,6 +928,11 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
           </div>
         </div>
 
+        <div className="mb-3 flex flex-wrap items-center gap-2 text-xs">
+          <strong className="rounded border border-slate-300 px-2 py-1 uppercase dark:border-slate-700">{(measurement.valueStatus ?? "verified").replaceAll("-", " ")}</strong>
+          {!hasNumericValue && <span className="text-slate-600 dark:text-slate-300">No numeric current-value marker is shown because this result is non-numeric; it completes no threshold.</span>}
+        </div>
+
         {/* Progress Bar */}
         {currentLevelGoal && (
           <div className="mb-4 mt-12 relative flex items-center gap-4">
@@ -944,7 +945,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
             </button>
             <div className="flex-1 relative">
               {/* Dynamic Current Value Marker */}
-              {!isViewingFutureLevel && (
+              {hasNumericValue && !isViewingFutureLevel && (
                 <div
                   className={`absolute transition-all duration-1000 ease-out ${isQc3 ? 'z-0' : 'z-10'}`}
                   style={{
@@ -1012,7 +1013,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                     <div className="mt-4 flex flex-col items-start text-xs space-y-2 w-full">
                       {(measurement.history && measurement.history.length > 0 && measurement.history[measurement.history.length - 1].details) ? (
                         <div className="flex items-center gap-1 font-bold text-[10px] text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-1">
-                          AS OF TODAY
+                          RESULT AT RESEARCH CUTOFF
                           <div className="relative group flex items-center">
                             <QuestionMarkCircleIcon className="w-4 h-4 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 cursor-pointer transition-colors" />
                             <div className="absolute left-0 top-full mt-2 w-56 p-2 bg-slate-900/95 dark:bg-slate-800/95 text-slate-100 dark:text-slate-200 text-xs rounded-lg shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 z-50 backdrop-blur-sm border border-slate-700/50 text-left normal-case tracking-normal">
@@ -1037,7 +1038,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                             <svg className="w-3.5 h-3.5 mr-1.5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            Last Updated on {formatDateStr(measurement.lastUpdated)}
+                            Research cutoff: {formatDateStr(measurement.researchCutoff)}
                           </span>
                         </div>
                       )}
