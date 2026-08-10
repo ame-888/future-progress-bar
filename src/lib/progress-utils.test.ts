@@ -34,3 +34,8 @@ test("retired IDs cannot appear as active forecast targets", () => {
   const active = new Set(MAIN_DOMAINS.flatMap((d) => d.subdomains.flatMap((s) => s.measurements.map((m) => m.id))));
   assert.ok(RETIRED_MEASUREMENTS.every((item) => !active.has(item.id)));
 });
+test("special-condition milestones never fall back to numeric scoring", () => {
+  const threshold = { goal: 7, achievementKey: "newProblem" };
+  assert.equal(canObservationCompleteThreshold({ ...sample("verified", 99), achievements: {} }, threshold), false);
+  assert.equal(canObservationCompleteThreshold({ ...sample("verified", 6), achievements: { newProblem: true } }, threshold), true);
+});

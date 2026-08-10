@@ -8,7 +8,8 @@ export function hasNumericObservation(measurement: Pick<Measurement, "currentVal
   return numericStatuses.has(measurement.valueStatus ?? "verified") && typeof measurement.currentValue === "number" && Number.isFinite(measurement.currentValue);
 }
 
-export function canObservationCompleteThreshold(measurement: Pick<Measurement, "currentValue" | "valueStatus" | "isLowerBetter">, threshold: Pick<MeasurementLevel, "goal">): boolean {
+export function canObservationCompleteThreshold(measurement: Pick<Measurement, "currentValue" | "valueStatus" | "isLowerBetter" | "achievements">, threshold: Pick<MeasurementLevel, "goal" | "achievementKey">): boolean {
+  if (threshold.achievementKey) return measurement.achievements?.[threshold.achievementKey] === true;
   if (!hasNumericObservation(measurement)) return false;
   if (measurement.valueStatus === "lower-bound" && measurement.isLowerBetter) return false;
   return measurement.isLowerBetter ? measurement.currentValue! <= threshold.goal : measurement.currentValue! >= threshold.goal;

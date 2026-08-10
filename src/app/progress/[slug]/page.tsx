@@ -7,7 +7,9 @@ import { PROGRESS_SLUGS, SITE_URL, SLUG_TO_DOMAIN_ID } from "@/lib/site";
 
 export function generateStaticParams() { return PROGRESS_SLUGS.map(slug => ({ slug })); }
 
-export async function generateMetadata({ params }: PageProps<"/progress/[slug]">): Promise<Metadata> {
+type ProgressPageProps = { params: Promise<{ slug: string }> };
+
+export async function generateMetadata({ params }: ProgressPageProps): Promise<Metadata> {
   const { slug } = await params;
   if (!PROGRESS_SLUGS.includes(slug as (typeof PROGRESS_SLUGS)[number])) return {};
   const brief = EDITORIAL_BRIEFS[SLUG_TO_DOMAIN_ID[slug as keyof typeof SLUG_TO_DOMAIN_ID]];
@@ -15,7 +17,7 @@ export async function generateMetadata({ params }: PageProps<"/progress/[slug]">
   return { title: `${brief.title} progress`, description: brief.dek, alternates: { canonical: url }, openGraph: { title: `${brief.title} progress`, description: brief.dek, url } };
 }
 
-export default async function ProgressPage({ params }: PageProps<"/progress/[slug]">) {
+export default async function ProgressPage({ params }: ProgressPageProps) {
   const { slug } = await params;
   if (!PROGRESS_SLUGS.includes(slug as (typeof PROGRESS_SLUGS)[number])) notFound();
   const id = SLUG_TO_DOMAIN_ID[slug as keyof typeof SLUG_TO_DOMAIN_ID];
