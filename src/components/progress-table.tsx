@@ -42,6 +42,8 @@ import { CulturedMeatGraph } from "./cultured-meat-graph";
 import { FictionalFuture } from "./fictional-future";
 import { MainProgressBar } from "./main-progress-bar";
 import { Atom, Bot, BrainCircuit, Cpu, Earth, Leaf, Orbit, Rocket, Waypoints } from "lucide-react";
+import { DOMAIN_ID_TO_SLUG } from "@/lib/site";
+import { EDITORIAL_BRIEFS } from "@/lib/editorial-content";
 
 const DOMAIN_ICONS = [Bot, Earth, Cpu, BrainCircuit, Leaf];
 
@@ -51,7 +53,7 @@ function DomainGlyph({ id }: { id: string }) {
 }
 
 
-export function ProgressTable() {
+export function ProgressTable({ initialSubdomainId }: { initialSubdomainId?: string }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const tabParam = searchParams.get('tab');
@@ -102,7 +104,9 @@ export function ProgressTable() {
 
       let targetSubId = null;
 
-      if (tabParam) {
+      if (initialSubdomainId) {
+        targetSubId = initialSubdomainId.toLowerCase();
+      } else if (tabParam) {
         targetSubId = tabParam.toLowerCase();
       } else {
         const savedTabId = localStorage.getItem('lastActiveTab');
@@ -127,14 +131,14 @@ export function ProgressTable() {
     }, 0);
 
     return () => clearTimeout(timeoutId);
-  }, [tabParam]);
+  }, [tabParam, initialSubdomainId]);
 
   const handleMainTabClick = (index: number) => {
     setActiveMainTab(index);
     setActiveSubTab(0); // reset subtab when changing main domain
     const subDomainId = MAIN_DOMAINS[index].subdomains[0].id;
     localStorage.setItem('lastActiveTab', subDomainId);
-    router.push(`/?tab=${subDomainId}`, { scroll: false });
+    router.push(`/progress/${DOMAIN_ID_TO_SLUG[subDomainId]}`, { scroll: false });
 
   };
 
@@ -142,12 +146,13 @@ export function ProgressTable() {
     setActiveSubTab(index);
     const subDomainId = MAIN_DOMAINS[activeMainTab].subdomains[index].id;
     localStorage.setItem('lastActiveTab', subDomainId);
-    router.push(`/?tab=${subDomainId}`, { scroll: false });
+    router.push(`/progress/${DOMAIN_ID_TO_SLUG[subDomainId]}`, { scroll: false });
 
   };
 
   const activeMainDomain = activeMainTab !== -1 ? MAIN_DOMAINS[activeMainTab] : null;
   const activeDomain = activeMainDomain && activeSubTab !== -1 ? activeMainDomain.subdomains[activeSubTab] : null;
+  const editorialBrief = activeDomain ? EDITORIAL_BRIEFS[activeDomain.id] : null;
 
   const domainTheme = activeMainDomain ? ({
     AUTOMATION: { accent: "#ff5f6d", accentRgb: "255 95 109" },
@@ -751,6 +756,12 @@ export function ProgressTable() {
                 {activeDomain.description}
               </div>
             )}
+
+            {editorialBrief && <article className="domain-editorial" aria-labelledby={`brief-${activeDomain.id}`}>
+              <p className="eyebrow">Field guide</p><h2 id={`brief-${activeDomain.id}`}>{editorialBrief.title}: what this page measures</h2>
+              <p className="domain-editorial__dek">{editorialBrief.dek}</p>
+              <div><section><h3>Why it belongs in the atlas</h3><p>{editorialBrief.why}</p></section><section><h3>Reading the four measurements</h3><p>{editorialBrief.measurements}</p></section><section><h3>North Star</h3><p>{editorialBrief.northStar}</p></section><section><h3>What the numbers cannot settle</h3><p>{editorialBrief.caveats}</p></section></div>
+            </article>}
 
             <div className="domain-graph">
             {activeDomain.id === "lev" && <div id="north-star-lev"><LevProgressGraph lastUpdated={formatDateStr(activeDomain.northStar?.lastUpdated)} /></div>}

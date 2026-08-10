@@ -1,0 +1,2 @@
+import type { MetadataRoute } from "next"; import { PROGRESS_SLUGS, SITE_URL } from "@/lib/site";
+export default function sitemap():MetadataRoute.Sitemap { const core=["","/about","/methodology","/sources","/predictions","/retired-metrics","/privacy","/terms","/contact"]; return [...core.map((path,i)=>({url:`${SITE_URL}${path}`,changeFrequency:(i===0?"weekly":"monthly") as "weekly"|"monthly",priority:i===0?1:0.7})),...PROGRESS_SLUGS.map(slug=>({url:`${SITE_URL}/progress/${slug}`,changeFrequency:"monthly" as const,priority:0.8}))]; }

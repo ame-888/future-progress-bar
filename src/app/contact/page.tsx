@@ -1,24 +1,3 @@
-export default function ContactPage() {
-  return (
-    <div className="flex-1 w-full max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-slate-800 dark:text-slate-200">
-      <h1 className="text-3xl font-bold mb-6">Contact Us</h1>
-      <div className="space-y-6">
-        <p>
-          We would love to hear from you! Whether you have feedback, questions about our data, or suggestions for new milestones, please feel free to reach out.
-        </p>
-
-        <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-3">Get in Touch</h2>
-          <p className="mb-2"><strong>Email:</strong> contact@futureprogressbar.example.com</p>
-          <p className="mb-2"><strong>Twitter:</strong> @FutureProgressBar</p>
-        </div>
-
-        <div className="mt-8 bg-slate-100 dark:bg-slate-900 p-6 rounded-lg">
-          <p className="text-sm">
-            Please note that it may take up to 48 hours for us to respond to inquiries. We appreciate your patience and interest in our project.
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
+import type { Metadata } from "next"; import { EditorialPage } from "@/components/editorial-page";
+export const metadata:Metadata={title:"Contact",description:"Contact the Future Progress Bar maintainer through the public GitHub repository.",alternates:{canonical:"/contact"}};
+export default function ContactPage(){return <EditorialPage eyebrow="Project identity" title="Contact and corrections" intro="Future Progress Bar is an independent data project. No company, office, phone number or private support address is represented on this site."><section><h2>Public maintainer channel</h2><p>For data corrections, methodology questions, accessibility reports or project feedback, use the issue tracker on the public <a href="https://github.com/ame-888/future-progress-bar/issues" target="_blank" rel="noopener noreferrer">Future Progress Bar GitHub repository <span aria-hidden="true">↗</span></a>. A public issue creates a useful record of proposed changes; avoid including personal or sensitive information.</p></section><section><h2>What helps a correction</h2><p>Identify the subdomain and measurement, explain which definition or value is affected, and link to the strongest available primary evidence. A correction to a current result is different from a proposal to change the milestone methodology, and the project should record that distinction.</p></section></EditorialPage>}
