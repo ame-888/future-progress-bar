@@ -24,7 +24,11 @@ export function MainProgressBar() {
         measurement.levels.forEach((level) => {
           if (level.level < 1 || level.level > 7) return;
           totals[level.level]++;
-          if (measurement.isLowerBetter ? measurement.currentValue <= level.goal : measurement.currentValue >= level.goal) completed[level.level]++;
+          const value = measurement.currentValue;
+          if (typeof value === "number" && Number.isFinite(value) &&
+              (measurement.isLowerBetter ? value <= level.goal : value >= level.goal)) {
+            completed[level.level]++;
+          }
         });
       });
     }));
