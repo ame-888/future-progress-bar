@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { MAIN_DOMAINS, Measurement, SubDomainData, MainDomainData } from "./progress-table-data";
+import { MAIN_DOMAINS, Measurement } from "./progress-table-data";
 
 export function formatDateStr(dateStr?: string) {
   if (!dateStr) return undefined;
@@ -24,8 +24,8 @@ export function formatDateStr(dateStr?: string) {
 }
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
-import { BeakerIcon, CpuChipIcon, FireIcon, HeartIcon, SparklesIcon, RocketLaunchIcon, WindowIcon, EyeIcon, SwatchIcon, WrenchScrewdriverIcon, BoltIcon, TruckIcon, CloudArrowUpIcon, XMarkIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { ChevronLeftIcon, ChevronRightIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
+import { FireIcon, SparklesIcon, XMarkIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { LevProgressGraph } from "./lev-progress-graph";
 import { MindUploadGraph } from "./mind-upload-graph";
 import { NuclearFusionGraph } from "./nuclear-fusion-graph";
@@ -59,6 +59,7 @@ export function ProgressTable() {
 
   // Load user predictions from localStorage
   useEffect(() => {
+    const timer = window.setTimeout(() => {
     try {
       const saved = localStorage.getItem('userPredictions');
       if (saved) {
@@ -67,13 +68,13 @@ export function ProgressTable() {
     } catch (e) {
       console.error('Failed to load user predictions:', e);
     }
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   // Save user predictions to localStorage
   useEffect(() => {
-    if (Object.keys(userPredictions).length > 0) {
-      localStorage.setItem('userPredictions', JSON.stringify(userPredictions));
-    }
+    localStorage.setItem('userPredictions', JSON.stringify(userPredictions));
   }, [userPredictions]);
 
   useEffect(() => {
@@ -153,13 +154,14 @@ export function ProgressTable() {
       const timer = setTimeout(() => setRenderPredictionsList(true), 50);
       return () => clearTimeout(timer);
     } else {
-      setRenderPredictionsList(false);
+      const timer = setTimeout(() => setRenderPredictionsList(false), 0);
+      return () => clearTimeout(timer);
     }
   }, [isPredictionsModalOpen]);
 
   // Extract a flat list of all measurements for the dropdown
   const allMeasurementsFlat = React.useMemo(() => {
-    const arr: { id: string; title: string; domain: string; subdomain: string; unit: string; levels: any[] }[] = [];
+    const arr: { id: string; title: string; domain: string; subdomain: string; unit: string; levels: Measurement["levels"] }[] = [];
     MAIN_DOMAINS.forEach(domain => {
       domain.subdomains.forEach(subdomain => {
         subdomain.measurements.forEach(measurement => {
@@ -331,126 +333,33 @@ export function ProgressTable() {
   // Don't render until we know the initial tab (to avoid hydration mismatch or flash of wrong tab)
   if (activeMainTab === -1 || !activeDomain || !activeMainDomain) return null;
 
-  const getDomainIconColorClass = (mainDomainId: string) => {
-    switch (mainDomainId) {
-      case "civilization":
-        return "text-red-500/10 dark:text-red-400/10";
-      case "hardware":
-        return "text-slate-500/10 dark:text-slate-400/10";
-      case "automation":
-        return "text-yellow-500/10 dark:text-yellow-400/10";
-      case "sustainability":
-        return "text-blue-500/10 dark:text-blue-400/10";
-      case "neuro":
-        return "text-emerald-500/10 dark:text-emerald-400/10";
-      default:
-        return "text-indigo-500/10 dark:text-indigo-400/10";
-    }
-  };
-
-  const getDomainIcon = (subdomainId: string, mainDomainId: string) => {
-    const colorClass = getDomainIconColorClass(mainDomainId);
-    const className = `w-[24rem] h-[24rem] md:w-[32rem] md:h-[32rem] ${colorClass} pointer-events-none absolute left-1/2 top-1/2 animate-float`;
-    switch (subdomainId) {
-      case "lev":
-        return <HeartIcon className={className} />;
-      case "ai":
-        return <SparklesIcon className={className} />;
-      case "bci":
-        return <CpuChipIcon className={className} />;
-      case "cultured-meat":
-        return <BeakerIcon className={className} />;
-      case "nuclear-fusion":
-        return <FireIcon className={className} />;
-      case "space-exploration":
-        return <RocketLaunchIcon className={className} />;
-      case "quantum-computing":
-        return <WindowIcon className={className} />;
-      case "robotics":
-        return <WrenchScrewdriverIcon className={className} />;
-      case "self-driving-car":
-        return <TruckIcon className={className} />;
-      case "superconductor":
-        return <BoltIcon className={className} />;
-      case "vr":
-        return <EyeIcon className={className} />;
-      case "mind-upload":
-        return <CloudArrowUpIcon className={className} />;
-      default:
-        return <SwatchIcon className={className} />;
-    }
-  };
 
   return (
     <div className="w-full mx-auto p-4 md:p-6 lg:p-8">
-      <div className="mb-4 flex flex-col items-center text-center relative py-4 md:py-8">
-        <div className="absolute inset-x-0 -top-24 bottom-0 z-0 pointer-events-none overflow-visible">
-          {getDomainIcon(activeDomain.id, activeMainDomain.id)}
-        </div>
-        <div className="relative z-10 flex flex-col items-center mt-2">
-          <div className="flex flex-col lg:flex-row items-center w-full justify-between relative mb-2 gap-4 max-w-7xl mx-auto">
-            <div className="flex justify-start relative z-20 lg:flex-1 w-full mr-auto">
-              <div className="flex flex-col gap-2 items-start">
-                <div className="relative overflow-hidden rounded-xl p-[2px] inline-flex">
-                  <div className="absolute inset-0 bg-red-500 animate-pulse opacity-100" />
-                  <a
-                    href="https://ultimate-bench.vercel.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="relative flex flex-row justify-start items-center gap-3 bg-white dark:bg-slate-900 w-44 h-12 px-4 text-left rounded-[10px] shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none shrink-0"
-                  >
-                    <div className="w-5 h-5 shrink-0 flex-none min-w-[20px] min-h-[20px]">
-                      <FireIcon className="w-full h-full text-red-500" />
-                    </div>
-                    <span>Ultimate Bench</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="flex justify-center z-0 lg:flex-1 w-full shrink-0">
-              <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white whitespace-nowrap">
-                Future Progress Bar
-              </h1>
-            </div>
-            <div className="flex justify-end relative z-20 lg:flex-1 w-full ml-auto">
-              <div className="flex flex-col gap-2 items-end">
-                <div className="relative overflow-hidden rounded-xl p-[2px] inline-flex">
-                  <div className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_0deg,#ef4444,#f97316,#eab308,#22c55e,#3b82f6,#6366f1,#a855f7,#ef4444)] opacity-100" />
-                  <button
-                    onClick={() => {
-                      setIsPredictionsModalOpen(true);
-
-                    }}
-                    className="relative flex flex-row justify-start items-center gap-3 bg-white dark:bg-slate-900 w-44 h-12 px-4 text-left rounded-[10px] shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none shrink-0"
-                  >
-                    <div className="w-5 h-5 shrink-0 flex-none min-w-[20px] min-h-[20px]">
-                      <SparklesIcon className="w-full h-full text-indigo-500" />
-                    </div>
-                    <span>Prediction List</span>
-                  </button>
-                </div>
-                <div className="relative overflow-hidden rounded-xl p-[2px] inline-flex">
-                  <div className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_0deg,#64748b,#94a3b8,#cbd5e1,#475569,#94a3b8,#64748b)] opacity-100" />
-                  <button
-                    onClick={() => setIsRetiredModalOpen(true)}
-                    className="relative flex flex-row justify-start items-center gap-3 bg-white dark:bg-slate-900 w-44 h-12 px-4 text-left rounded-[10px] shadow-sm hover:shadow-md hover:bg-slate-50 dark:hover:bg-slate-800 active:scale-95 transition-all text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer focus:outline-none shrink-0"
-                  >
-                    <div className="w-5 h-5 shrink-0 flex-none min-w-[20px] min-h-[20px]">
-                      <TrashIcon className="w-full h-full text-slate-400" />
-                    </div>
-                    <span>Retired Metrics</span>
-                  </button>
-                </div>
-              </div>
+      <div className="dashboard-top">
+        <header className="mission-header">
+          <div className="mission-header__identity">
+            <div className="mission-mark" aria-hidden="true"><span>FP</span><i /></div>
+            <div>
+              <p className="eyebrow">Human capability observatory · v2.0</p>
+              <h1>Future Progress Bar</h1>
+              <p className="mission-subtitle">A living quantitative map of humanity’s technological progress—from the Stone Age toward an Antimatter Age.</p>
             </div>
           </div>
-          <p className="text-slate-500 dark:text-slate-400 max-w-2xl mt-2">
-            Tracking the frontiers of human innovation across 5 domains and 12 subdomains.
-          </p>
-          <div className="w-full mt-2">
-            <MainProgressBar />
-          </div>
-        </div>
+          <nav className="mission-actions" aria-label="Project actions">
+            <a href="https://ultimate-bench.vercel.app/" target="_blank" rel="noopener noreferrer" className="mission-action mission-action--secondary">
+              <FireIcon className="w-4 h-4" /><span>Ultimate Bench</span><span aria-hidden="true">↗</span>
+            </a>
+            <button onClick={() => setIsRetiredModalOpen(true)} className="mission-action mission-action--secondary">
+              <TrashIcon className="w-4 h-4" /><span>Retired metrics</span>
+            </button>
+            <button onClick={() => setIsPredictionsModalOpen(true)} className="mission-action mission-action--primary">
+              <SparklesIcon className="w-4 h-4" /><span>Open predictions</span>
+            </button>
+          </nav>
+        </header>
+        <MainProgressBar />
+      </div>
 
         {/* Retired Metrics Modal */}
         {isRetiredModalOpen && (
@@ -463,6 +372,7 @@ export function ProgressTable() {
                 </h2>
                 <button
                   onClick={() => setIsRetiredModalOpen(false)}
+                  aria-label="Close retired metrics"
                   className="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 transition-colors cursor-pointer"
                 >
                   <XMarkIcon className="w-6 h-6" />
@@ -495,6 +405,7 @@ export function ProgressTable() {
                     setIsPredictionsModalOpen(false);
 
                   }}
+                  aria-label="Close prediction list"
                   className="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 transition-colors cursor-pointer"
                 >
                   <XMarkIcon className="w-6 h-6" />
@@ -758,12 +669,11 @@ export function ProgressTable() {
             </div>
           </div>
         )}
-      </div>
 
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 shadow-sm overflow-hidden transition-colors duration-200 relative z-10">
+      <section className="taxonomy-panel relative z-10" aria-label="Technology progress explorer">
         <div className="w-full overflow-hidden">
           {/* Header Row - Main Domains */}
-          <div className="flex flex-wrap border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 transition-colors duration-200">
+          <nav className="domain-rail" aria-label="Main domains">
             {MAIN_DOMAINS.map((domain, index) => {
               const isActive = index === activeMainTab;
 
@@ -817,10 +727,10 @@ export function ProgressTable() {
                 </button>
               );
             })}
-          </div>
+          </nav>
 
           {/* Second Header Row - Subdomains */}
-          <div className="flex flex-wrap border-b border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-800/30 transition-colors duration-200">
+          <nav className="subdomain-rail" aria-label={`${activeMainDomain.name} subdomains`}>
             {activeMainDomain.subdomains.map((subdomain, index) => {
               const isActive = index === activeSubTab;
               return (
@@ -849,10 +759,14 @@ export function ProgressTable() {
                 </button>
               );
             })}
-          </div>
+          </nav>
 
           {/* Body Rows - Selected Tab Content */}
           <div className="flex flex-col p-4 md:p-6 lg:p-8 space-y-6">
+            <div className="domain-context">
+              <div><span>{activeMainDomain.name}</span><span aria-hidden="true">/</span><strong>{activeDomain.name}</strong></div>
+              <p>{activeDomain.measurements.length} active measurements · frontier data and forecasts</p>
+            </div>
             {activeDomain.description && (
               <div className="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 text-sm md:text-base leading-relaxed">
                 {activeDomain.description}
@@ -889,7 +803,7 @@ export function ProgressTable() {
             <FictionalFuture domainId={activeDomain.id} />
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
@@ -1021,7 +935,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
   const currentMedal = getLevelMedalInfo(actualCurrentLevel);
 
   return (
-    <div className="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50 transition-colors duration-200 shadow-sm relative">
+    <article className="measurement-card relative">
       <div className="p-4 md:p-6 relative">
         <div className="flex flex-col md:flex-row md:items-start justify-between mb-4 gap-4">
           <div className="flex flex-wrap items-center gap-3">
@@ -1241,6 +1155,6 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
         )}
       </div>
 
-    </div>
+    </article>
   );
 }

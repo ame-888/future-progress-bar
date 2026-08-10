@@ -5,9 +5,9 @@ import { Suspense } from "react";
 
 export default function Home() {
   return (
-    <main className="relative flex-1 w-full bg-slate-50 dark:bg-slate-950 transition-colors duration-200">
+    <main className="app-shell relative flex-1 w-full transition-colors duration-200">
       <ModeToggle />
-      <div className="flex flex-col items-center justify-center min-h-screen py-4 md:py-8">
+      <div className="flex flex-col items-center justify-center min-h-screen">
         <Suspense fallback={<div className="w-full h-96 flex items-center justify-center text-slate-500">Loading domains...</div>}>
           <ProgressTable />
         </Suspense>

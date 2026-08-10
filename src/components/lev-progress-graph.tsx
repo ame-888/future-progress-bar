@@ -176,7 +176,7 @@ export function LevProgressGraph({ lastUpdated }: { lastUpdated?: string }) {
         </ResponsiveContainer>
       </div>
             <div className="mt-2 px-4 md:px-6 pb-0 text-left text-xs text-slate-500 dark:text-slate-400">
-        <p className="mb-2">* WHO (GHO) hasn't published data on 2022 onwards as of today</p>
+        <p className="mb-2">* WHO (GHO) hasn&apos;t published data on 2022 onwards as of today</p>
       </div>
       {lastUpdated && (
         <div className="mt-2 w-full flex justify-start px-4 md:px-6 pb-4">
