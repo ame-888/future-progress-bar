@@ -1,3 +1,5 @@
-import type { Metadata } from "next"; import { EditorialPage } from "@/components/editorial-page"; import { RETIRED_MEASUREMENTS } from "@/components/retired-measurements";
-export const metadata:Metadata={title:"Retired metrics",description:"The archived Future Progress Bar measurements and why they were replaced or removed.",alternates:{canonical:"/retired-metrics"}};
-export default function RetiredPage(){return <EditorialPage eyebrow="Methodology archive" title="Retired metrics" intro="A changing framework needs a memory. Measurements that stop representing their subject cleanly are archived here rather than erased or counted as completed."><section><h2>Why retirement matters</h2><p>Retirement is not Level 7. It records that a definition, proxy or evidence base became unsuitable. Where a replacement exists, the new measurement begins under its own method rather than inheriting an unsupported result.</p></section><section className="retired-list"><h2>Archive</h2>{RETIRED_MEASUREMENTS.map(m=><article key={m.id}><p className="eyebrow">Retired {m.retiredOn}</p><h3>{m.title}</h3><p>{m.reason}</p>{m.replacementTitle&&<p><strong>Replacement:</strong> {m.replacementTitle}</p>}</article>)}</section></EditorialPage>}
+import { permanentRedirect } from "next/navigation";
+
+export default function RetiredMetricsPage() {
+  permanentRedirect("/archive");
+}

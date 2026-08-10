@@ -28,6 +28,8 @@ export function MainProgressBar() {
     }));
     return { completed, totals, totalNorthStars, ...getGlobalProgress(MAIN_DOMAINS) };
   }, []);
+  const nextSharedLevel = completed.slice(1).findIndex((count, index) => count < totals[index + 1]) + 1;
+  const currentSharedLevel = nextSharedLevel > 0 ? nextSharedLevel - 1 : 7;
 
   return (
     <section className="civilization-map" aria-labelledby="civilization-heading">
@@ -41,6 +43,12 @@ export function MainProgressBar() {
           <strong>{achieved}<span>/{possible}</span></strong><small>Future Progress Bar index — milestones reached</small>
           <p>A project-defined comparative tracking framework, not an objective percentage of civilization completion.</p>
         </div>
+      </div>
+
+      <div className="era-readout" aria-label={`Current shared era: ${ERAS[currentSharedLevel].name}. Next shared era: ${nextSharedLevel > 0 ? ERAS[nextSharedLevel].name : "all eras reached"}.`}>
+        <div><small>Current shared era</small><strong>{ERAS[currentSharedLevel].name} · L{currentSharedLevel}</strong></div>
+        <span aria-hidden="true">→</span>
+        <div><small>Next shared era</small><strong>{nextSharedLevel > 0 ? `${ERAS[nextSharedLevel].name} · L${nextSharedLevel}` : "All eras reached"}</strong>{nextSharedLevel > 0 && <em>{completed[nextSharedLevel]} / {totals[nextSharedLevel]} measurements at threshold</em>}</div>
       </div>
 
       <div className="era-landscape" role="list" aria-label="Civilization eras">

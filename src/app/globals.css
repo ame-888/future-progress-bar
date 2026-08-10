@@ -161,6 +161,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .civilization-map__score strong span { color: #8a96a5; font-size: .6em; }
 .civilization-map__score small { font: 650 9px var(--font-mono); letter-spacing: .12em; color: #748092; }
 .civilization-map__score p { max-width: 260px; margin-top: 5px; color: #748092; font: 500 10px/1.4 var(--font-sans); }
+.era-readout{display:flex;align-items:center;gap:1rem;width:max-content;max-width:100%;margin:1rem 0 0 auto;padding:.75rem 1rem;border:1px solid color-mix(in srgb,currentColor 14%,transparent);border-radius:14px;background:color-mix(in srgb,var(--background,#fff) 88%,transparent)}.era-readout div{display:flex;flex-direction:column}.era-readout small{font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted-foreground,#778)}.era-readout strong{font-size:.95rem}.era-readout em{font-size:.7rem;font-style:normal;color:var(--muted-foreground,#778)}
 .era-track { display: grid; grid-template-columns: repeat(8, minmax(110px, 1fr)); gap: 0; overflow-x: auto; padding: 8px 0 4px; }
 .era-node { min-width: 110px; padding: 0 12px 12px; border-right: 1px solid var(--line); }
 .era-node:first-child { padding-left: 0; }.era-node:nth-child(8) { border: 0; }
