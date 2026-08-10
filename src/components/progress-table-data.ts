@@ -7,6 +7,8 @@ export type MeasurementHistory = {
 export type MeasurementLevel = {
   level: number;
   goal: number;
+  /** Explicit observation required when this level is not the same numeric variable. */
+  achievementKey?: string;
   label?: string; // Optional custom string to display for the goal (e.g., "1 Week", "1 Month")
   realityYear?: number;
   aiPredictions?: { name: string; year: number }[];
@@ -36,6 +38,7 @@ export type Measurement = {
   temporalType?: "record" | "current";
   indicatorType?: "capability" | "adoption" | "policy" | "market" | "outcome" | "proxy";
   methodNote?: string;
+  achievements?: Record<string, boolean>;
   levels: MeasurementLevel[];
   history: MeasurementHistory[];
 };
@@ -149,8 +152,9 @@ const RAW_MAIN_DOMAINS = [
               {
                 level: 7,
                 goal: 7,
+                achievementKey: "aiCreatedAndSolvedNewMillenniumLevelProblem",
                 label:
-                  "Able to create a brand new Millenium Prize level problem",
+                  "Able to create and solve a brand-new Millennium Prize-level problem",
                 aiPredictions: [
                   { name: "Grok 4.20", year: 2035 },
                   { name: "Claude 4.6 Sonnet", year: 2047 },
@@ -721,7 +725,8 @@ const RAW_MAIN_DOMAINS = [
             title:
               "Number of Countries where Self-Driving Cars are partially allowed",
             currentValue: 4,
-            valueStatus: "verified",
+            valueStatus: "lower-bound",
+            displayValue: "≥4",
             baseValue: 0,
             unit: "countries",
             lastUpdated: "2026-08-10",
@@ -1245,13 +1250,13 @@ const RAW_MAIN_DOMAINS = [
           {
             id: "lev-3",
             title: "Oldest Verified Human Ever",
-            currentValue: 122.45,
+            currentValue: 116.9699,
             valueStatus: "verified",
-            displayValue: "122 years, 164 days",
+            displayValue: "116 years, 354 days",
             baseValue: 120,
             unit: "years",
             lastUpdated: "2026-08-10",
-            temporalType: "record",
+            temporalType: "current",
             indicatorType: "outcome",
             levels: [
               {
@@ -1325,14 +1330,14 @@ const RAW_MAIN_DOMAINS = [
                 ],
               },
             ],
-            history: [{ value: 122.45, details: ["Jeanne Louise Calment of France; died 1997-08-04; verified all-time human longevity record of 122 years, 164 days."] }],
+            history: [{ value: 116.9699, details: ["Ethel Caterham (born 1909-08-21) was the oldest verified living person at the cutoff: 116 years, 354 days. This current-population result is not the all-time longevity record."] }],
           },
           {
             id: "lev-4",
             title: "Verified Minimum Living Supercentenarians Worldwide",
             currentValue: 206,
-            valueStatus: "lower-bound",
-            displayValue: "≥206",
+            valueStatus: "verified",
+            displayValue: "206",
             baseValue: 200,
             unit: "people",
             lastUpdated: "2026-08-10",
@@ -1410,7 +1415,7 @@ const RAW_MAIN_DOMAINS = [
                 ],
               },
             ],
-            history: [{ value: 206, details: ["206 GRG-validated living cases at the 2026-08-10 cutoff; this is a verified minimum, not necessarily a complete census of all living supercentenarians."] }],
+            history: [{ value: 206, details: ["206 living validated entries on the GRG list at the 2026-08-10 cutoff. This is an exact list count, not an estimate of every living supercentenarian worldwide."] }],
           },
         ],
       },
@@ -1683,7 +1688,7 @@ const RAW_MAIN_DOMAINS = [
             valueStatus: "verified",
             baseValue: 0,
             unit: "metric tonnes",
-            temporalType: "current",
+            temporalType: "record",
             indicatorType: "capability",
             levels: [
               {
@@ -1831,7 +1836,7 @@ const RAW_MAIN_DOMAINS = [
             baseValue: 16777216, // 2^24
             unit: "",
             lastUpdated: "2026-08-10",
-            temporalType: "current",
+            temporalType: "record",
             indicatorType: "capability",
             levels: [
               {
@@ -1910,7 +1915,7 @@ const RAW_MAIN_DOMAINS = [
           {
             id: "qc-4",
             title: "Maximum Circuit Layer Operations Per Second (CLOPS-h)",
-            currentValue: 220000,
+            currentValue: 340000,
             valueStatus: "verified",
             baseValue: 200000,
             unit: "CLOPS",
@@ -1989,7 +1994,7 @@ const RAW_MAIN_DOMAINS = [
                 ],
               },
             ],
-            history: [{ value: 220000, details: ["IBM Eagle r3 (127 physical qubits); M=100, K=10, S=100, D=7; verified, vendor-measured."] }],
+            history: [{ value: 340000, details: ["Approximately 340K hardware-aware CLOPS_h, experimentally reported for a newer IBM Heron system; ordinary CLOPS and roadmap projections are excluded."] }],
           },
         ],
       },
@@ -2124,7 +2129,7 @@ const RAW_MAIN_DOMAINS = [
             baseValue: 20,
             unit: "Tesla",
             lastUpdated: "2026-08-10",
-            temporalType: "current",
+            temporalType: "record",
             indicatorType: "capability",
             levels: [
               {
@@ -2331,7 +2336,8 @@ const RAW_MAIN_DOMAINS = [
             id: "bci-2",
             title: "Number of Countries Testing Next-Gen BCIs in Humans",
             currentValue: 8,
-            valueStatus: "verified",
+            valueStatus: "lower-bound",
+            displayValue: "≥8",
             baseValue: 0,
             unit: "countries",
             lastUpdated: "2026-08-10",
@@ -2409,7 +2415,7 @@ const RAW_MAIN_DOMAINS = [
                 ],
               },
             ],
-            history: [{ value: 8, details: ["Verified public list: United States, Australia, Canada, United Kingdom, United Arab Emirates, China, Netherlands, Switzerland (4.10% of 195)."] }],
+            history: [{ value: 8, details: ["Confirmed public cases in at least eight countries: United States, Australia, Canada, United Kingdom, United Arab Emirates, China, Netherlands, and Switzerland. Lower bound because the public global search cannot establish exhaustiveness."] }],
           },
           {
             id: "bci-3",
@@ -2960,7 +2966,7 @@ const RAW_MAIN_DOMAINS = [
             baseValue: 0,
             unit: "users",
             lastUpdated: "2026-08-10",
-            temporalType: "current",
+            temporalType: "record",
             indicatorType: "adoption",
             levels: [
               {
@@ -3281,7 +3287,8 @@ const RAW_MAIN_DOMAINS = [
             title:
               "Countries that have approved or legally permitted cultivated meat for pet consumption",
             currentValue: 1,
-            valueStatus: "verified",
+            valueStatus: "lower-bound",
+            displayValue: "≥1",
             baseValue: 0,
             unit: "countries",
             lastUpdated: "2026-08-10",
@@ -3359,14 +3366,15 @@ const RAW_MAIN_DOMAINS = [
                 ],
               },
             ],
-            history: [{ value: 1, details: ["United Kingdom (0.513% of 195)."] }],
+            history: [{ value: 1, details: ["United Kingdom confirmed. Lower bound because there is no exhaustive worldwide registry of cultivated pet-food authorizations."] }],
           },
           {
             id: "cultured-meat-2",
             title:
               "Countries that have approved or legally permitted cultivated meat for human consumption",
-            currentValue: 3,
-            valueStatus: "verified",
+            currentValue: 5,
+            valueStatus: "lower-bound",
+            displayValue: "≥5",
             baseValue: 0,
             unit: "countries",
             lastUpdated: "2026-08-10",
@@ -3444,7 +3452,7 @@ const RAW_MAIN_DOMAINS = [
                 ],
               },
             ],
-            history: [{ value: 3, details: ["Singapore, United States, and Australia (1.54% of 195)."] }],
+            history: [{ value: 3, details: ["At least five countries have an operative product authorization: Singapore, United States, Australia, New Zealand, and Israel. Lower bound because product-specific regulatory approvals do not form a single exhaustive global registry."] }],
           },
           {
             id: "cultured-meat-4",
@@ -3895,6 +3903,7 @@ const RAW_MAIN_DOMAINS = [
 
 import { MEASUREMENT_CATALOG } from "../lib/measurement-catalog.ts";
 import { NORTH_STARS } from "../lib/north-stars.ts";
+import { AUDIT_EVIDENCE } from "../lib/audit-evidence.ts";
 
 /** UI-ready composition of stable definitions with the independently updateable observations and thresholds. */
 export const MAIN_DOMAINS: MainDomainData[] = RAW_MAIN_DOMAINS.map((domain) => ({
@@ -3905,7 +3914,7 @@ export const MAIN_DOMAINS: MainDomainData[] = RAW_MAIN_DOMAINS.map((domain) => (
     measurements: subdomain.measurements.map((record) => {
       const definition = MEASUREMENT_CATALOG[record.id];
       if (!definition) throw new Error(`Missing canonical measurement definition: ${record.id}`);
-      return { ...definition, ...record, question: definition.question, definition: definition.definition, geographicScope: definition.geographicScope, denominator: definition.denominator, researchCutoff: record.lastUpdated ?? "2026-08-10", evidence: record.evidence ?? [] };
+      return { ...definition, ...record, question: definition.question, definition: definition.definition, geographicScope: definition.geographicScope, denominator: definition.denominator, researchCutoff: record.lastUpdated ?? "2026-08-10", evidence: record.evidence ?? AUDIT_EVIDENCE[record.id] ?? [] };
     }),
   })),
 }));
