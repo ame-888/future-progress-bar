@@ -1,5 +1,5 @@
 export type MeasurementHistory = {
-  value: number;
+  value?: number;
   note?: string;
   details?: string[];
 };
@@ -17,7 +17,11 @@ export type Measurement = {
   lastUpdated?: string;
 
   title: string;
-  currentValue: number;
+  currentValue?: number;
+  /** Epistemic state of the current result; non-numeric states never complete levels. */
+  valueStatus?: "zero" | "verified" | "estimate" | "lower-bound" | "unknown" | "not-applicable" | "no-verified-result";
+  /** Concise value override retaining qualifiers and intentional rounding. */
+  displayValue?: string;
   baseValue?: number; // Starting value before level 1
   unit: string;
   isLowerBetter?: boolean; // If true, reaching a lower value means progress
@@ -117,7 +121,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
         name: "AI",
         northStar: {
           title: "Maximum AI capability",
-          lastUpdated: "2026-04-21",
+          lastUpdated: "2026-08-10",
         },
         description:
           "Stands for Artificial Intelligence, focusing on creating systems capable of human-level or superhuman reasoning, creativity, and problem-solving.",
@@ -126,9 +130,10 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             id: "ai-millennium-problems",
             title: "Millennium Prize Problems Solved",
             currentValue: 0,
+            valueStatus: "zero",
             baseValue: 0,
             unit: "problems",
-            lastUpdated: "2026-05-14",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -209,20 +214,17 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 0,
-              },
-            ],
+            history: [{ value: 0, details: ["0 / 7 = 0%. One problem was solved historically, but not primarily by AI."] }],
           },
           {
             id: "ai-exclusively-professors",
             title:
               "Universities around the world with exclusively AI professors",
             currentValue: 0,
+            valueStatus: "zero",
             baseValue: 0,
             unit: "universities",
-            lastUpdated: "2026-05-14",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -295,20 +297,17 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 0,
-              },
-            ],
+            history: [{ value: 0, details: ["0 universities."] }],
           },
           {
             id: "ai-led-companies",
             title:
               "Number of companies primarily managed by AI among the top 100",
             currentValue: 0,
+            valueStatus: "zero",
             baseValue: 0,
             unit: "companies",
-            lastUpdated: "2026-07-19",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -381,19 +380,16 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 0,
-              },
-            ],
+            history: [{ value: 0, details: ["0 / 100 = 0%."] }],
           },
           {
             id: "ai-led-countries-1",
             title: "Number of Countries primarily led by AI",
             currentValue: 0,
+            valueStatus: "zero",
             baseValue: 0,
             unit: "countries",
-            lastUpdated: "2026-05-14",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -466,11 +462,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 0,
-              },
-            ],
+            history: [{ value: 0, details: ["0 / 195 = 0%."] }],
           },
         ],
       },
@@ -487,10 +479,11 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           {
             id: "robotics-1",
             title: "Number of Humanoid General-purpose Robots deployed",
-            currentValue: 19457,
+            currentValue: 1500,
+            valueStatus: "estimate",
             baseValue: 0,
             unit: "robots",
-            lastUpdated: "2026-04-20",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -563,23 +556,17 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 19457,
-                details: [
-                  "Only about 2k of those are active in industrial and commercial roles. The other 17k are exclusively being used for research and testing contexts",
-                ],
-              },
-            ],
+            history: [{ value: 1500, details: ["Estimate: 1,500 deployed qualifying general-purpose humanoids; plausible range 1,000–3,000. Excludes announced production totals."] }],
           },
           {
             id: "robotics-2",
             title:
               "Global share of households with Humanoid General-purpose Robots",
             currentValue: 0,
+            valueStatus: "zero",
             baseValue: 0,
             unit: "%",
-            lastUpdated: "2026-04-20",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -652,23 +639,17 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 0,
-                details: [
-                  "The number is not exactly zero, but it's still insignificant",
-                ],
-              },
-            ],
+            history: [{ value: 0, details: ["0%; denominator ≈2.40 billion households."] }],
           },
           {
             id: "robotics-4",
             title:
               "Global Share of Humanoid Robots acting as independent police officers or security guards",
             currentValue: 0,
+            valueStatus: "zero",
             baseValue: 0,
             unit: "%",
-            lastUpdated: "2026-04-14",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -741,19 +722,16 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 0,
-              },
-            ],
+            history: [{ value: 0, details: ["0%; human-equivalent role denominator ≈30 million (plausible range 25–35 million)."] }],
           },
           {
             id: "robotics-3",
             title: "Global Share of Fully Autonomous Robotic Surgeries",
             currentValue: 0,
+            valueStatus: "zero",
             baseValue: 0,
             unit: "%",
-            lastUpdated: "2026-04-26",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -826,11 +804,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 0,
-              },
-            ],
+            history: [{ value: 0, details: ["0%; denominator ≈300 million major surgeries/year."] }],
           },
         ],
       },
@@ -849,10 +823,11 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             id: "self-driving-car-2",
             title:
               "Number of Countries where Self-Driving Cars are partially allowed",
-            currentValue: 3,
+            currentValue: 4,
+            valueStatus: "verified",
             baseValue: 0,
             unit: "countries",
-            lastUpdated: "2026-04-23",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -925,21 +900,17 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 3,
-                details: ["USA (2020)", "China (2022)", "UAE (2025)"],
-              },
-            ],
+            history: [{ value: 4, details: ["Verified ordinary driverless L4/L5 service in at least one city: United States, China, United Arab Emirates, and Japan (2.05% of 195). This includes L4, not universal L5."] }],
           },
           {
             id: "self-driving-car-3",
             title:
               "Number of Countries where Self-Driving Cars are fully allowed",
             currentValue: 0,
+            valueStatus: "zero",
             baseValue: 0,
             unit: "countries",
-            lastUpdated: "2026-04-26",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -1012,20 +983,16 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 0,
-                details: [],
-              },
-            ],
+            history: [{ value: 0, details: ["0 / 195 = 0%."] }],
           },
           {
             id: "self-driving-car-1",
             title: "Countries where human driving is banned",
             currentValue: 0,
+            valueStatus: "zero",
             baseValue: 0,
             unit: "countries",
-            lastUpdated: "2026-04-26",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -1098,19 +1065,16 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 0,
-              },
-            ],
+            history: [{ value: 0, details: ["0 countries."] }],
           },
           {
             id: "self-driving-car-4",
             title: "Number of Level 5 Autonomy Vehicles deployed worldwide",
             currentValue: 0,
+            valueStatus: "zero",
             baseValue: 0,
             unit: "vehicles",
-            lastUpdated: "2026-05-14",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -1183,12 +1147,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 0,
-                details: [],
-              },
-            ],
+            history: [{ value: 0, details: ["0 active ordinary-use Level 5 cars."] }],
           },
         ],
       },
@@ -1211,10 +1170,12 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           {
             id: "lev-1",
             title: "Average lifespan in the world",
-            currentValue: 73.8,
+            currentValue: 73.66,
+            valueStatus: "estimate",
+            displayValue: "73.7",
             baseValue: 70,
             unit: "years",
-            lastUpdated: "2026-04-26",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -1287,20 +1248,17 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 73.8,
-                details: ["According to Worldometer and Georank"],
-              },
-            ],
+            history: [{ value: 73.66, details: ["Model estimate for 2026; displayed as 73.7 years."] }],
           },
           {
             id: "lev-2",
             title: "Top 1 average lifespan in the world",
             currentValue: 86.73,
+            valueStatus: "estimate",
+            displayValue: "86.7",
             baseValue: 80,
             unit: "years",
-            lastUpdated: "2026-04-26",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -1373,23 +1331,17 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 86.73,
-                details: [
-                  "Monaco (2026 - UN Projection)",
-                  "According to Worldometer and Georank",
-                ],
-              },
-            ],
+            history: [{ value: 86.73, details: ["Monaco; 2026 model estimate, displayed as 86.7 years."] }],
           },
           {
             id: "lev-3",
             title: "Oldest verified human",
-            currentValue: 122.45, // 122 years and 164 days
+            currentValue: 116.96986301369863,
+            valueStatus: "verified",
+            displayValue: "116 years, 354 days",
             baseValue: 120,
             unit: "years",
-            lastUpdated: "2026-04-21",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -1462,23 +1414,16 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 122.45,
-                details: [
-                  "Jeanne Calment (deceased): 122 years and 164 days",
-                  getEthelAgeString(),
-                ],
-              },
-            ],
+            history: [{ value: 116.96986301369863, details: ["Ethel Caterham: 116 years, 354 days at the 2026-08-10 UTC cutoff."] }],
           },
           {
             id: "lev-4",
             title: "Number of supercentenarians alive",
-            currentValue: 217,
+            currentValue: 206,
+            valueStatus: "verified",
             baseValue: 200,
             unit: "people",
-            lastUpdated: "2026-04-26",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -1551,12 +1496,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 217,
-                details: ["According to the Gerontology Research Group"],
-              },
-            ],
+            history: [{ value: 206, details: ["206 GRG-validated living supercentenarians."] }],
           },
         ],
       },
@@ -1565,7 +1505,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
         name: "SPACE EXPLORATION",
         northStar: {
           title: "Maximum Commercial Efficiency to LEO",
-          lastUpdated: "2026-04-21",
+          lastUpdated: "2026-08-10",
         },
         description:
           "The physical exploration of outer space, aiming to establish permanent human presence beyond Earth and utilize extraterrestrial resources.",
@@ -1573,10 +1513,11 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           {
             id: "space-1",
             title: "Maximum Simultaneous Human Population in Space",
-            currentValue: 20,
+            currentValue: 19,
+            valueStatus: "verified",
             baseValue: 0,
             unit: "humans",
-            lastUpdated: "2026-04-21",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -1649,20 +1590,16 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 20,
-                details: ["May 25th, 2023 and January 26th, 2024"],
-              },
-            ],
+            history: [{ value: 19, details: ["Record set 2024-09-12; humans simultaneously above 100 km altitude."] }],
           },
           {
             id: "space-moon-pop",
             title: "Maximum Simultaneous Human Population on the Moon",
             currentValue: 2,
+            valueStatus: "verified",
             baseValue: 0,
             unit: "humans",
-            lastUpdated: "2026-04-26",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -1735,22 +1672,16 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 2,
-                details: [
-                  "This occurred again and again during each of the six successful Apollo lunar landing missions (Apollo 11, 12, 14, 15, 16, and 17) between 1969 and 1972.",
-                ],
-              },
-            ],
+            history: [{ value: 2, details: ["Verified record: 2 humans."] }],
           },
           {
             id: "space-mars-pop",
             title: "Maximum Simultaneous Human Population on Mars",
             currentValue: 0,
+            valueStatus: "zero",
             baseValue: 0,
             unit: "humans",
-            lastUpdated: "2026-04-21",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -1823,16 +1754,13 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 0,
-              },
-            ],
+            history: [{ value: 0, details: ["0 humans."] }],
           },
           {
             id: "space-2",
             title: "Net Useful Payload Mass to LEO (Single Launch)",
-            currentValue: 77,
+            currentValue: 79.4,
+            valueStatus: "verified",
             baseValue: 0,
             unit: "metric tonnes",
             levels: [
@@ -1907,15 +1835,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 77,
-                details: [
-                  "This record was achieved by the Skylab space station, launched by NASA on May 14, 1973, aboard a modified two-stage Saturn V rocket",
-                ],
-              },
-            ],
-            lastUpdated: "2026-04-21",
+            history: [{ value: 79.4, details: ["Buran orbiter, 1988-11-15; approximately 251 × 263 km orbit. Actual flown useful payload, not Energia design capability."] }],
+            lastUpdated: "2026-08-10",
           },
         ],
       },
@@ -1938,10 +1859,11 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           {
             id: "qc-1",
             title: "Physical Qubit Count",
-            currentValue: 6100,
+            currentValue: 5627,
+            valueStatus: "verified",
             baseValue: 0,
             unit: "qubits",
-            lastUpdated: "2026-04-23",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -2014,22 +1936,16 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 6100,
-                details: [
-                  "An Endres Lab team at the Caltech, led by Professor Manuel Endres (2025)",
-                ],
-              },
-            ],
+            history: [{ value: 5627, details: ["D-Wave Advantage_system4.1; annealing qubits, not universal gate-model qubits."] }],
           },
           {
             id: "qc-2",
             title: "Two-Qubit Gate Fidelity - Physical Qubits",
-            currentValue: 99.99,
+            currentValue: 99.9916,
+            valueStatus: "estimate",
             baseValue: 99.9,
             unit: "%",
-            lastUpdated: "2026-04-21",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -2102,22 +2018,16 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 99.99,
-                details: [
-                  'The 99.99% milestone (often referred to as crossing the "four-nines" threshold) was achieved by IonQ in October 2025',
-                ],
-              },
-            ],
+            history: [{ value: 99.9916, details: ["Estimate/preprint: trapped-ion entangling gate; ±0.0007 percentage points; reported error 8.4(7) × 10^-5."] }],
           },
           {
             id: "qc-3",
             title: "Quantum Volume",
             currentValue: 33554432,
+            valueStatus: "verified",
             baseValue: 16777216, // 2^24
             unit: "",
-            lastUpdated: "2026-04-26",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -2190,22 +2100,16 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               }, // 2^100
             ],
-            history: [
-              {
-                value: 33554432,
-                details: [
-                  "The company Quantinuum on its System Model H2 (2025)",
-                ],
-              },
-            ],
+            history: [{ value: 33554432, details: ["Quantinuum H2; 2^25 Quantum Volume at width/depth 25 on 56 physical qubits; verified, vendor-measured."] }],
           },
           {
             id: "qc-4",
             title: "Maximum Circuit Layer Operations Per Second (CLOPS-h)",
-            currentValue: 340000,
+            currentValue: 220000,
+            valueStatus: "verified",
             baseValue: 200000,
             unit: "CLOPS",
-            lastUpdated: "2026-04-21",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -2278,14 +2182,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 340000,
-                details: [
-                  "IBM Quantum Heron (156 qubits, tunable-coupler architecture; also applies to 133-qubit Heron r1 variants in some fleet systems)",
-                ],
-              },
-            ],
+            history: [{ value: 220000, details: ["IBM Eagle r3 (127 physical qubits); M=100, K=10, S=100, D=7; verified, vendor-measured."] }],
           },
         ],
       },
@@ -2303,10 +2200,12 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           {
             id: "superconductor-1",
             title: "Lowest critical pressure at room temperature",
-            currentValue: 250,
+            currentValue: undefined,
+            valueStatus: "no-verified-result",
+            displayValue: "NO VERIFIED RESULT",
             baseValue: 500,
             unit: "GPa",
-            lastUpdated: "2026-07-21",
+            lastUpdated: "2026-08-10",
             isLowerBetter: true,
             levels: [
               {
@@ -2383,22 +2282,16 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 250,
-                details: [
-                  "A ternary Lanthanum-Scandium-Hydrogen (La-Sc-H) system (2025)",
-                ],
-              },
-            ],
+            history: [{ value: undefined, details: ["No verified qualifying Tc ≥293 K result. The supplied ambient-pressure record is 151 K, 142 K below 293 K."] }],
           },
           {
             id: "superconductor-2",
             title: "Highest Critical Current Density",
             currentValue: 150,
+            valueStatus: "verified",
             baseValue: 0,
             unit: "MA/cm²",
-            lastUpdated: "2026-07-21",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -2471,22 +2364,16 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 150,
-                details: [
-                  "Optimized rare-earth barium copper oxide (REBCO / (RE)BCO) thin films, specifically in (Y,Gd)BCO films incorporating self-assembled BaHfO₃ nanorod artificial pinning centers (APCs) (self-field, 4.2 K). OBS: Scientifically, the claim is currently highly disputed and largely considered to be the result of a calculation error.",
-                ],
-              },
-            ],
+            history: [{ value: 150, details: ["150 MA/cm² at 4.2 K, self-field, in a (Y,Gd)BCO+BHO film; verified. A 130 MA/cm² coated-conductor result is additional context."] }],
           },
           {
             id: "superconductor-3",
             title: "Continuous Magnetic Field Strength",
             currentValue: 48.7,
+            valueStatus: "verified",
             baseValue: 20,
             unit: "Tesla",
-            lastUpdated: "2026-07-21",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -2559,17 +2446,17 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              { value: 48.7, details: ["Little Big Coil Number 9 (LBC9)"] },
-            ],
+            history: [{ value: 48.7, details: ["48.7 T total: 17.6 T REBCO superconducting insert plus 31.1 T resistive outsert."] }],
           },
           {
             id: "superconductor-4",
             title: "Continuous Piece Length (HTS Tape)",
-            currentValue: 1.4,
+            currentValue: undefined,
+            valueStatus: "unknown",
+            displayValue: "UNKNOWN",
             baseValue: 0.5,
             unit: "km",
-            lastUpdated: "2026-07-21",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -2642,14 +2529,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 1.4,
-                details: [
-                  "This record comes from Fujikura Ltd. (Japan), which has demonstrated uniform critical current (Ic) and n-value across >1,400 m lengths of 4 mm-wide artificial-pinning (APC/FESC-type) REBCO tape in recent production-scale runs (measured via reel-to-reel methods every ~4.7 m).",
-                ],
-              },
-            ],
+            history: [{ value: undefined, details: ["Unknown under the strict uniform full-length Ic definition. A 1,300 m SuperPower tape is the strongest public candidate, but is not verified as qualifying."] }],
           },
         ],
       },
@@ -2673,10 +2553,12 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             id: "bci-1",
             title:
               "Number of People with Chronic, Next-Gen, Cortex reading BCI",
-            currentValue: 178,
+            currentValue: 100,
+            valueStatus: "lower-bound",
+            displayValue: "≥100",
             baseValue: 0,
             unit: "people",
-            lastUpdated: "2026-05-12",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -2749,29 +2631,16 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 178,
-                details: [
-                  "NeuroXess (China): 54 users",
-                  "Blackrock Neurotech (USA): around 50 users (estimated)",
-                  "Tsinghua University / Neuracle Technology (China): 32 users",
-                  "Neuralink (USA): 21 users",
-                  "Synchron (USA / Australia): 10 users",
-                  "ONWARD Medical / CEA-Clinatec (Netherlands / Switzerland / France): 5 users",
-                  "Beijing Xinzhida (China): 5 users (estimated)",
-                  "Technical University of Munich (TUM) (Germany): 1 user",
-                ],
-              },
-            ],
+            history: [{ value: 100, details: ["Lower bound; exact total unknown. Neuralink 21, NEO 37, Beinao-1 30, ONWARD/WIMAGINE 7, Paradromics 1, NeuroXess 1, NeuraCom 3."] }],
           },
           {
             id: "bci-2",
             title: "Number of Countries Testing Next-Gen BCIs in Humans",
-            currentValue: 6,
+            currentValue: 8,
+            valueStatus: "verified",
             baseValue: 0,
             unit: "countries",
-            lastUpdated: "2026-05-12",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -2844,28 +2713,17 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 6,
-                details: [
-                  "USA (2004)",
-                  "Australia (2019)",
-                  "Canada (2024)",
-                  "China (2025)",
-                  "UAE (2025)",
-                  "UK (2025)",
-                ],
-              },
-            ],
+            history: [{ value: 8, details: ["Verified public list: United States, Australia, Canada, United Kingdom, United Arab Emirates, China, Netherlands, Switzerland (4.10% of 195)."] }],
           },
           {
             id: "bci-3",
             title:
               "Number of Countries Allowing Chronic, Next-Gen, Cortex reading BCI for Medical Use",
             currentValue: 1,
+            valueStatus: "verified",
             baseValue: 0,
             unit: "countries",
-            lastUpdated: "2026-05-12",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -2938,16 +2796,17 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [{ value: 1, details: ["China (2026)"] }],
+            history: [{ value: 1, details: ["China (0.513% of 195); NEO received market authorization in March 2026 for a defined medical indication."] }],
           },
           {
             id: "bci-4",
             title:
               "Number of Countries Allowing Chronic, Next-Gen, Cortex reading BCI for Elective/Free Use",
             currentValue: 0,
+            valueStatus: "zero",
             baseValue: 0,
             unit: "countries",
-            lastUpdated: "2026-05-12",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -3020,7 +2879,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [{ value: 0 }],
+            history: [{ value: 0, details: ["0 / 195 = 0%."] }],
           },
         ],
       },
@@ -3037,10 +2896,12 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           {
             id: "mind-upload-price-1",
             title: "Average Price to upload an adult human mind",
-            currentValue: Infinity,
+            currentValue: undefined,
+            valueStatus: "not-applicable",
+            displayValue: "N/A",
             baseValue: Infinity,
             unit: "dollars",
-            lastUpdated: "2026-04-19",
+            lastUpdated: "2026-08-10",
             isLowerBetter: true,
             levels: [
               {
@@ -3114,15 +2975,16 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [{ value: Infinity }],
+            history: [{ value: undefined, details: ["No commercial mind-upload market exists."] }],
           },
           {
             id: "mind-upload-adoption-1",
             title: "Number of Minds Uploaded so far",
             currentValue: 0,
+            valueStatus: "zero",
             baseValue: 0,
             unit: "minds",
-            lastUpdated: "2026-04-19",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -3195,15 +3057,16 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [{ value: 0 }],
+            history: [{ value: 0, details: ["0 uploaded individuals."] }],
           },
           {
             id: "mind-upload-adoption-2",
             title: "Number of countries that allow Mind Upload",
             currentValue: 0,
+            valueStatus: "zero",
             baseValue: 0,
             unit: "countries",
-            lastUpdated: "2026-04-19",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -3276,15 +3139,16 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [{ value: 0 }],
+            history: [{ value: 0, details: ["0 / 195 = 0%."] }],
           },
           {
             id: "mind-upload-1",
             title: "World Largest Connectome",
-            currentValue: 139000,
+            currentValue: 166691,
+            valueStatus: "verified",
             baseValue: 0,
             unit: "neurons",
-            lastUpdated: "2026-07-21",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -3364,15 +3228,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              { value: 0 },
-              {
-                value: 139000,
-                details: [
-                  "Drosophila melanogaster, the common fruit fly's entire brain",
-                ],
-              },
-            ],
+            history: [{ value: 166691, details: ["Verified preprint: adult male Drosophila melanogaster brain + ventral nerve cord, excluding retina and full peripheral body; ≈312,000,000 synapses. Near-whole CNS, not a complete whole-organism nervous system."] }],
           },
         ],
       },
@@ -3390,10 +3246,12 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             id: "vr-5",
             title:
               "Global Daily Active Users (DAU) in Virtual Reality (Any Hardware)",
-            currentValue: 8000000,
+            currentValue: 5000000,
+            valueStatus: "estimate",
+            displayValue: "≈5.0 million",
             baseValue: 0,
             unit: "users",
-            lastUpdated: "2026-04-19",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -3473,22 +3331,17 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 8000000,
-                details: [
-                  "An estimate, since official numbers are hard to find",
-                ],
-              },
-            ],
+            history: [{ value: 5000000, details: ["Estimate ≈5.0 million unique DAU; plausible range 3,000,000–8,000,000 after assumed cross-platform overlap."] }],
           },
           {
             id: "vr-3",
             title: "Longest continuous session in a VR environment",
-            currentValue: 168,
+            currentValue: undefined,
+            valueStatus: "unknown",
+            displayValue: "UNKNOWN",
             baseValue: 0,
             unit: "hours",
-            lastUpdated: "2026-04-19",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -3568,23 +3421,17 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 168,
-                details: [
-                  "In February 2019, Jak Wilmot (co-founder of Disrupt VR) set the widely recognized record by spending 168 continuous hours (exactly 7 days) living, sleeping, and working inside a VR headset",
-                ],
-              },
-            ],
+            history: [{ value: undefined, details: ["Unknown under the strict ≤1-minute disconnect definition. A 55-hour candidate was excluded because its rules allowed breaks up to five minutes per accumulated hour."] }],
           },
           {
             id: "vr-4",
             title:
               "Number of Senses fully replicated (simultaneously) by brain stimulation",
             currentValue: 0,
+            valueStatus: "zero",
             baseValue: 0,
             unit: "senses",
-            lastUpdated: "2026-04-18",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -3657,23 +3504,17 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 0,
-                details: [
-                  "Only touch and vision have been partially achieved thus far. Taste, smell, hearing, proprioception and balance have not.",
-                ],
-              },
-            ],
+            history: [{ value: 0, details: ["0 / 7 senses = 0%."] }],
           },
           {
             id: "vr-6",
             title:
               "Maximum Concurrent Users in a Single, Un-sharded VR Instance",
-            currentValue: 100000,
+            currentValue: 82,
+            valueStatus: "verified",
             baseValue: 0,
             unit: "users",
-            lastUpdated: "2026-04-18",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -3753,14 +3594,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 100000,
-                details: [
-                  "This is the highest number officially claimed as of 2026 by RP1 (a metaverse/spatial internet platform with full VR support via WebXR, 6DOF tracking, spatial audio, and full-fidelity avatars).",
-                ],
-              },
-            ],
+            history: [{ value: 82, details: ["VRChat: 80 configured users plus reserved access for the instance owner and group owner."] }],
           },
         ],
       },
@@ -3783,10 +3617,12 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           {
             id: "cultured-meat-1",
             title: "Global Market Share of Meat Consumed",
-            currentValue: 0.001,
+            currentValue: undefined,
+            valueStatus: "unknown",
+            displayValue: "UNKNOWN",
             baseValue: 0,
             unit: "%",
-            lastUpdated: "2026-04-19",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -3859,16 +3695,17 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [{ value: 0.001 }],
+            history: [{ value: undefined, details: ["Unknown; the noncanonical 0.00238% proxy compares incompatible market-estimate datasets and is not the measurement value."] }],
           },
           {
             id: "cultured-meat-3",
             title:
               "Countries that have approved or legally permitted cultivated meat for pet consumption",
-            currentValue: 29,
+            currentValue: 1,
+            valueStatus: "verified",
             baseValue: 0,
             unit: "countries",
-            lastUpdated: "2026-07-19",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -3941,26 +3778,17 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 29,
-                details: [
-                  "EU, except Italy. A total of 26 countries (2023)",
-                  "UK (2024)",
-                  "Singapore (2025)",
-                  "Australia (2026)",
-                ],
-              },
-            ],
+            history: [{ value: 1, details: ["United Kingdom (0.513% of 195)."] }],
           },
           {
             id: "cultured-meat-2",
             title:
               "Countries that have approved or legally permitted cultivated meat for human consumption",
-            currentValue: 5,
+            currentValue: 3,
+            valueStatus: "verified",
             baseValue: 0,
             unit: "countries",
-            lastUpdated: "2026-07-19",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -4033,26 +3861,16 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [
-              {
-                value: 5,
-                details: [
-                  "Singapore (2020)",
-                  "USA (2023)",
-                  "Israel (2024)",
-                  "Australia (2025)",
-                  "New Zealand (2025)",
-                ],
-              },
-            ],
+            history: [{ value: 3, details: ["Singapore, United States, and Australia (1.54% of 195)."] }],
           },
           {
             id: "cultured-meat-4",
             title: "Countries where non-cultivated meat is banned",
             currentValue: 0,
+            valueStatus: "zero",
             baseValue: 0,
             unit: "countries",
-            lastUpdated: "2026-04-19",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -4125,7 +3943,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [{ value: 0 }],
+            history: [{ value: 0, details: ["0 countries."] }],
           },
         ],
       },
@@ -4144,9 +3962,10 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             id: "fusion-1",
             title: "Number of commercial fusion power plants on the grid",
             currentValue: 0,
+            valueStatus: "zero",
             baseValue: 0,
             unit: "plants",
-            lastUpdated: "2026-04-19",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -4219,15 +4038,16 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [{ value: 0 }],
+            history: [{ value: 0, details: ["0 commercial plants exporting electricity to a grid."] }],
           },
           {
             id: "fusion-2",
             title: "Global share of electricity generated by fusion",
             currentValue: 0,
+            valueStatus: "zero",
             baseValue: 0,
             unit: "%",
-            lastUpdated: "2026-04-19",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -4300,15 +4120,17 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [{ value: 0 }],
+            history: [{ value: 0, details: ["0% of world electricity."] }],
           },
           {
             id: "fusion-3",
             title: "Longest continuous operation of a net-positive reactor",
-            currentValue: 0,
+            currentValue: undefined,
+            valueStatus: "unknown",
+            displayValue: "UNKNOWN",
             baseValue: 0,
             unit: "hours",
-            lastUpdated: "2026-04-19",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -4388,15 +4210,16 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [{ value: 0 }],
+            history: [{ value: undefined, details: ["Unknown. The April 2025 NIF shot yielded 8.6 MJ from 2.08 MJ (shot-integrated Qtarget ≈4.13), but its ≈100 ps burn does not verify Q>1 continuously at every instant."] }],
           },
           {
             id: "fusion-4",
             title: "Maximum net electrical output of a single fusion plant",
             currentValue: 0,
+            valueStatus: "zero",
             baseValue: 0,
             unit: "MWe",
-            lastUpdated: "2026-04-19",
+            lastUpdated: "2026-08-10",
             levels: [
               {
                 level: 1,
@@ -4469,7 +4292,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [{ value: 0 }],
+            history: [{ value: 0, details: ["0 MWe net electrical fusion export."] }],
           },
         ],
       },

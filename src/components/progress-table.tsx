@@ -778,14 +778,16 @@ export function ProgressTable() {
 
 function MeasurementCard({ measurement }: { measurement: Measurement }) {
   const isLowerBetter = measurement.isLowerBetter;
+  const hasNumericValue = typeof measurement.currentValue === "number" && Number.isFinite(measurement.currentValue);
+  const numericValue: number = hasNumericValue ? measurement.currentValue! : 0;
 
   // Memoize level-related values
   const { activeLevelIdx, actualCurrentLevel, allGoalsAchieved } = React.useMemo(() => {
-    const activeIdx = measurement.levels.findIndex(level => {
+    const activeIdx = hasNumericValue ? measurement.levels.findIndex(level => {
       return isLowerBetter
-        ? measurement.currentValue > level.goal
-        : measurement.currentValue < level.goal;
-    });
+        ? numericValue > level.goal
+        : numericValue < level.goal;
+    }) : 0;
 
     let actualLevel = 0;
     if (activeIdx === -1) {
@@ -801,7 +803,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
       actualCurrentLevel: actualLevel,
       allGoalsAchieved: activeIdx === -1
     };
-  }, [measurement.currentValue, measurement.levels, isLowerBetter]);
+  }, [numericValue, measurement.levels, isLowerBetter, hasNumericValue]);
 
   const initialLevelIdx = activeLevelIdx === -1 ? measurement.levels.length - 1 : activeLevelIdx;
   const [viewLevelIdx, setViewLevelIdx] = useState(initialLevelIdx);
@@ -823,13 +825,12 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
 
   // Calculate percentage for the currently viewed level
   let percentage = 0;
-  let displayValue = measurement.currentValue;
 
   const isQc3 = measurement.id === "qc-3";
   const powerMarkers: number[] = [];
 
   if (isQc3) {
-    const logCurrent = Math.log2(measurement.currentValue);
+    const logCurrent = Math.log2(numericValue);
     const logGoal = Math.log2(currentLevelGoal.goal);
     const logPrevious = Math.log2(previousGoalValue || 1); // fallback to 1 to avoid log2(0)
 
@@ -841,50 +842,41 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
       }
     }
 
-    if (measurement.currentValue >= currentLevelGoal.goal) {
+    if (numericValue >= currentLevelGoal.goal) {
       percentage = 100;
-      displayValue = currentLevelGoal.goal;
-    } else if (measurement.currentValue <= previousGoalValue) {
+    } else if (numericValue <= previousGoalValue) {
       percentage = 0;
-      displayValue = previousGoalValue;
     } else {
       const range = logGoal - logPrevious;
       const progress = logCurrent - logPrevious;
       percentage = Math.max(0, Math.min(100, (progress / range) * 100));
     }
   } else if (isLowerBetter) {
-    if (measurement.currentValue <= currentLevelGoal.goal) {
+    if (numericValue <= currentLevelGoal.goal) {
       percentage = 100;
-      displayValue = currentLevelGoal.goal;
-    } else if (measurement.currentValue >= previousGoalValue) {
+    } else if (numericValue >= previousGoalValue) {
       percentage = 0;
-      displayValue = previousGoalValue;
     } else {
       const range = previousGoalValue - currentLevelGoal.goal;
-      const progress = previousGoalValue - measurement.currentValue;
+      const progress = previousGoalValue - numericValue;
       percentage = Math.max(0, Math.min(100, (progress / range) * 100));
     }
   } else {
-    if (measurement.currentValue >= currentLevelGoal.goal) {
+    if (numericValue >= currentLevelGoal.goal) {
       percentage = 100;
-      displayValue = currentLevelGoal.goal; // Cap display at 100% of this level
-    } else if (measurement.currentValue <= previousGoalValue) {
+    } else if (numericValue <= previousGoalValue) {
       percentage = 0;
-      displayValue = previousGoalValue;
     } else {
       const range = currentLevelGoal.goal - previousGoalValue;
-      const progress = measurement.currentValue - previousGoalValue;
+      const progress = numericValue - previousGoalValue;
       percentage = Math.max(0, Math.min(100, (progress / range) * 100));
     }
   }
 
   // Should we show the actual current value marker, or just a generic completion marker?
-  const isViewingCompletedLevel = isLowerBetter
-    ? measurement.currentValue <= currentLevelGoal.goal
-    : measurement.currentValue >= currentLevelGoal.goal;
-  const isViewingFutureLevel = isLowerBetter
-    ? measurement.currentValue >= previousGoalValue
-    : measurement.currentValue <= previousGoalValue;
+  const isViewingFutureLevel = hasNumericValue && (isLowerBetter
+    ? numericValue >= previousGoalValue
+    : numericValue <= previousGoalValue);
 
   const getLevelMedalInfo = (level: number) => {
     switch (level) {
@@ -947,9 +939,9 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                   <div className="flex flex-col items-center">
                     <div className="bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 px-3 py-1.5 rounded-md text-sm font-bold shadow-md whitespace-nowrap relative flex flex-col items-center z-10">
                       {isQc3 ? (
-                        <span>2<sup>{Math.log2(measurement.currentValue)}</sup> <span className="font-normal text-xs">{measurement.unit}</span></span>
+                        <span>2<sup>{Math.log2(numericValue)}</sup> <span className="font-normal text-xs">{measurement.unit}</span></span>
                       ) : (
-                        <span>{measurement.currentValue === Infinity ? '∞' : measurement.currentValue} <span className="font-normal text-xs">{measurement.unit}</span></span>
+                        <span>{measurement.displayValue ?? numericValue.toLocaleString()} <span className="font-normal text-xs">{measurement.unit}</span></span>
                       )}
                       {/* Little triangle pointing down */}
                       <div className="absolute -bottom-1 w-2 h-2 bg-slate-800 dark:bg-slate-200 rotate-45"></div>
@@ -968,7 +960,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                 {isQc3 && powerMarkers.map((power) => {
                   const logGoal = Math.log2(currentLevelGoal.goal);
                   const logPrevious = Math.log2(previousGoalValue || 1);
-                  const logCurrent = Math.log2(measurement.currentValue);
+                  const logCurrent = Math.log2(numericValue);
                   const posPercent = ((power - logPrevious) / (logGoal - logPrevious)) * 100;
 
                   const isReached = logCurrent >= power;
