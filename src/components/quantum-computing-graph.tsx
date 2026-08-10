@@ -65,7 +65,7 @@ export function QuantumComputingGraph({ lastUpdated }: { lastUpdated?: string })
         <div>
           <div className="flex items-center gap-2">
             <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            Maximum Logical Qubits
+            Maximum Encoded Logical Qubits Used in a Programmable Quantum Computation
             <span className="text-xs font-semibold px-2 py-1 bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400 rounded-full uppercase tracking-wider">
               North Star
             </span>
@@ -79,7 +79,7 @@ export function QuantumComputingGraph({ lastUpdated }: { lastUpdated?: string })
             </div>
           </div>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-            Tracking the realization of error-corrected, fault-tolerant quantum memory.
+            Tracks the raw maximum number of encoded logical qubits used together in programmable computation; historical results may use different encoding and protection standards.
           </p>
         </div>
         <div className="flex-shrink-0 mt-1">

@@ -143,6 +143,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .civilization-map__score strong { display: block; font: 650 clamp(1.6rem, 3vw, 2.5rem) var(--font-mono); letter-spacing: -.07em; }
 .civilization-map__score strong span { color: #8a96a5; font-size: .6em; }
 .civilization-map__score small { font: 650 9px var(--font-mono); letter-spacing: .12em; color: #748092; }
+.civilization-map__score p { max-width: 260px; margin-top: 5px; color: #748092; font: 500 10px/1.4 var(--font-sans); }
 .era-track { display: grid; grid-template-columns: repeat(8, minmax(110px, 1fr)); gap: 0; overflow-x: auto; padding: 8px 0 4px; }
 .era-node { min-width: 110px; padding: 0 12px 12px; border-right: 1px solid var(--line); }
 .era-node:first-child { padding-left: 0; }.era-node:nth-child(8) { border: 0; }
