@@ -105,15 +105,15 @@ export function FictionalFuture({ domainId }: { domainId: string }) {
   return (
     <aside className="future-brief relative" aria-labelledby={`future-${domainId}`}>
       {/* Decorative top bar */}
-      <div className="h-1.5 w-full bg-gradient-to-r from-indigo-500 to-purple-500"></div>
+      <div className="future-brief__beam"></div>
 
       <div className="p-6 md:p-8 relative">
         <div className="flex items-center gap-3 mb-4">
-          <div className="flex-shrink-0 bg-indigo-100 dark:bg-indigo-900/50 p-2 rounded-lg text-indigo-600 dark:text-indigo-400">
+          <div className="future-brief__icon flex-shrink-0 p-2 rounded-lg">
             <BookOpenIcon className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest mb-1">
+            <h3 className="future-brief__label text-xs font-bold uppercase tracking-widest mb-1">
               Fictional Future
             </h3>
             <h4 id={`future-${domainId}`} className="text-xl md:text-2xl font-extrabold text-slate-900 dark:text-white">
