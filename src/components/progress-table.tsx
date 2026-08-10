@@ -24,7 +24,7 @@ export function formatDateStr(dateStr?: string) {
   return `${months[month]} ${day}${getOrdinalSuffix(day)}, ${year}`;
 }
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ChevronLeftIcon, ChevronRightIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 import { FireIcon, SparklesIcon, XMarkIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { LevProgressGraph } from "./lev-progress-graph";
@@ -47,6 +47,20 @@ import { EDITORIAL_BRIEFS } from "@/lib/editorial-content";
 
 const DOMAIN_ICONS = [Bot, Earth, Cpu, BrainCircuit, Leaf];
 
+function getInitialTabIndexes(initialSubdomainId?: string) {
+  const targetId = initialSubdomainId?.toLowerCase();
+  if (targetId) {
+    for (let mainIndex = 0; mainIndex < MAIN_DOMAINS.length; mainIndex++) {
+      const subIndex = MAIN_DOMAINS[mainIndex].subdomains.findIndex(
+        (subdomain) => subdomain.id.toLowerCase() === targetId,
+      );
+      if (subIndex !== -1) return { mainIndex, subIndex };
+    }
+  }
+
+  return { mainIndex: 0, subIndex: 0 };
+}
+
 function DomainGlyph({ id }: { id: string }) {
   const Glyph = id.includes("space") ? Rocket : id.includes("quantum") || id.includes("fusion") ? Atom : id.includes("ai") || id.includes("robot") ? Bot : id.includes("bci") || id.includes("mind") ? BrainCircuit : id.includes("lev") || id.includes("meat") ? Leaf : id.includes("vr") ? Orbit : Waypoints;
   return <Glyph aria-hidden="true" />;
@@ -55,11 +69,9 @@ function DomainGlyph({ id }: { id: string }) {
 
 export function ProgressTable({ initialSubdomainId }: { initialSubdomainId?: string }) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const tabParam = searchParams.get('tab');
-
-  const [activeMainTab, setActiveMainTab] = useState(-1);
-  const [activeSubTab, setActiveSubTab] = useState(-1);
+  const initialTabs = getInitialTabIndexes(initialSubdomainId);
+  const [activeMainTab, setActiveMainTab] = useState(initialTabs.mainIndex);
+  const [activeSubTab, setActiveSubTab] = useState(initialTabs.subIndex);
   const [isPredictionsModalOpen, setIsPredictionsModalOpen] = useState(false);
   const [isRetiredModalOpen, setIsRetiredModalOpen] = useState(false);
 
@@ -97,41 +109,24 @@ export function ProgressTable({ initialSubdomainId }: { initialSubdomainId?: str
   }, [hasLoadedUserPredictions, userPredictions]);
 
   useEffect(() => {
-    // Only run this once on mount or when tabParam changes, but use setTimeout to avoid synchronous setState warning
+    // Canonical progress routes are fixed by their slug. On the homepage only,
+    // restore a visitor preference after hydration; server HTML always starts at AI.
     const timeoutId = setTimeout(() => {
-      let initialMainTab = 0; // Default AUTOMATION
-      let initialSubTab = 0; // Default AI
-
-      let targetSubId = null;
-
       if (initialSubdomainId) {
-        targetSubId = initialSubdomainId.toLowerCase();
-      } else if (tabParam) {
-        targetSubId = tabParam.toLowerCase();
-      } else {
-        const savedTabId = localStorage.getItem('lastActiveTab');
-        if (savedTabId) {
-          targetSubId = savedTabId.toLowerCase();
-        }
+        const routeTabs = getInitialTabIndexes(initialSubdomainId);
+        setActiveMainTab(routeTabs.mainIndex);
+        setActiveSubTab(routeTabs.subIndex);
+        return;
       }
-
-      if (targetSubId) {
-        for (let mIndex = 0; mIndex < MAIN_DOMAINS.length; mIndex++) {
-          const sIndex = MAIN_DOMAINS[mIndex].subdomains.findIndex(s => s.id.toLowerCase() === targetSubId);
-          if (sIndex !== -1) {
-            initialMainTab = mIndex;
-            initialSubTab = sIndex;
-            break;
-          }
-        }
-      }
-
-      setActiveMainTab(initialMainTab);
-      setActiveSubTab(initialSubTab);
+      const savedTabId = localStorage.getItem('lastActiveTab');
+      if (!savedTabId) return;
+      const savedTabs = getInitialTabIndexes(savedTabId);
+      setActiveMainTab(savedTabs.mainIndex);
+      setActiveSubTab(savedTabs.subIndex);
     }, 0);
 
     return () => clearTimeout(timeoutId);
-  }, [tabParam, initialSubdomainId]);
+  }, [initialSubdomainId]);
 
   const handleMainTabClick = (index: number) => {
     setActiveMainTab(index);
@@ -150,17 +145,17 @@ export function ProgressTable({ initialSubdomainId }: { initialSubdomainId?: str
 
   };
 
-  const activeMainDomain = activeMainTab !== -1 ? MAIN_DOMAINS[activeMainTab] : null;
-  const activeDomain = activeMainDomain && activeSubTab !== -1 ? activeMainDomain.subdomains[activeSubTab] : null;
-  const editorialBrief = activeDomain ? EDITORIAL_BRIEFS[activeDomain.id] : null;
+  const activeMainDomain = MAIN_DOMAINS[activeMainTab];
+  const activeDomain = activeMainDomain.subdomains[activeSubTab];
+  const editorialBrief = EDITORIAL_BRIEFS[activeDomain.id];
 
-  const domainTheme = activeMainDomain ? ({
+  const domainTheme = ({
     AUTOMATION: { accent: "#ff5f6d", accentRgb: "255 95 109" },
     CIVILIZATION: { accent: "#b58cff", accentRgb: "181 140 255" },
     HARDWARE: { accent: "#f6c85f", accentRgb: "246 200 95" },
     NEURO: { accent: "#55b8ff", accentRgb: "85 184 255" },
     SUSTAINABILITY: { accent: "#4dd9a7", accentRgb: "77 217 167" },
-  }[activeMainDomain.name] ?? { accent: "#7d93ff", accentRgb: "125 147 255" }) : null;
+  }[activeMainDomain.name] ?? { accent: "#7d93ff", accentRgb: "125 147 255" });
 
 
   const toggleYear = (year: number) => {
@@ -359,10 +354,6 @@ export function ProgressTable({ initialSubdomainId }: { initialSubdomainId?: str
 
     return { sortedYears, groupedByYear };
   }, [predictionFilter, userPredictions, predictionSearchQuery]);
-
-  // Don't render until we know the initial tab (to avoid hydration mismatch or flash of wrong tab)
-  if (activeMainTab === -1 || !activeDomain || !activeMainDomain) return null;
-
 
   return (
     <div className="w-full mx-auto p-4 md:p-6 lg:p-8">

@@ -17,4 +17,5 @@ export const DOMAIN_ID_TO_SLUG = Object.fromEntries(
 ) as Record<string, string>;
 
 export const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT?.trim();
-export const adsenseEnabled = process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true" && /^ca-pub-\d+$/.test(adsenseClient ?? "");
+export const adsenseConfigured = /^ca-pub-\d+$/.test(adsenseClient ?? "");
+export const adsenseServingEnabled = adsenseConfigured && process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true";

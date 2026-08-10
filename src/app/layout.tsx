@@ -4,8 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { DigitalClock } from "@/components/digital-clock";
 import { Footer } from "@/components/footer";
 import { SiteHeader } from "@/components/site-header";
-import { AdSenseScript } from "@/components/adsense";
-import { SITE_URL, adsenseClient, adsenseEnabled } from "@/lib/site";
+import { SITE_URL, adsenseClient, adsenseConfigured } from "@/lib/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -13,7 +12,7 @@ export const metadata: Metadata = {
   description: "A living quantitative map of humanity's technological progress, from the Stone Age toward an Antimatter Age.",
   alternates: { canonical: "/" },
   openGraph: { type: "website", siteName: "Future Progress Bar", title: "Future Progress Bar", description: "An interactive atlas of humanity's technological future.", url: "/" },
-  ...(adsenseEnabled && adsenseClient ? { other: { "google-adsense-account": adsenseClient } } : {}),
+  ...(adsenseConfigured && adsenseClient ? { other: { "google-adsense-account": adsenseClient } } : {}),
 };
 
 export default function RootLayout({
@@ -38,7 +37,6 @@ export default function RootLayout({
           <SiteHeader />
           {children}
           <Footer />
-          <AdSenseScript />
         </ThemeProvider>
       </body>
     </html>

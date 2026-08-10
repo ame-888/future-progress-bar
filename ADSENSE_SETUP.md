@@ -4,21 +4,36 @@ Advertising is **off by default**. The publication, field guides, legal pages an
 
 ## Environment variables
 
-| Variable | Required to activate | Purpose |
+| Variable | Required | Purpose |
 | --- | --- | --- |
-| `NEXT_PUBLIC_ADSENSE_CLIENT` | Yes | The real AdSense client in `ca-pub-…` format. Find it in AdSense under **Account → Settings → Account information** or copy it from Google's site connection code. |
-| `NEXT_PUBLIC_ADSENSE_ENABLED` | Yes | Must be exactly `true`. Remove it or set it to any other value for the global kill switch. |
+| `NEXT_PUBLIC_ADSENSE_CLIENT` | For verification | The real AdSense client in `ca-pub-…` format. Find it in AdSense under **Account → Settings → Account information** or copy it from Google's site connection code. A valid value enables verification metadata and `ads.txt`, but does not serve ads by itself. |
+| `NEXT_PUBLIC_ADSENSE_ENABLED` | For ad serving only | Must be exactly `true` before advertising code can load. Keep it `false` during site preparation and review. |
 | Manual slot variables | Not implemented until slots exist | Add a separately named public variable for each real slot, then pass it to `AdSlot`. Never reuse or guess an ID. |
 
-Both activation variables are required. An absent, disabled or malformed client means no Google script, account meta tag, manual unit or authorized `ads.txt` record is emitted.
+A valid client ID means AdSense is **configured**. Ad serving is a separate state that additionally requires `NEXT_PUBLIC_ADSENSE_ENABLED=true`. An absent or malformed client means no Google script, account meta tag, manual unit or authorized `ads.txt` record is emitted, regardless of the enabled flag.
 
 ## Script and site verification
 
-`AdSenseScript` inserts Google's script once, after the interactive page content, only when activation succeeds. The root metadata emits `google-adsense-account` under the same condition. Add both environment variables in the production deployment and redeploy after AdSense supplies the real client.
+The root metadata emits `google-adsense-account` whenever a valid client is configured, including while serving is disabled. `AdSenseScript` requires serving to be enabled and is mounted only by the homepage and canonical `/progress/[slug]` publication routes. It is not present on editorial, legal, utility, error, or 404 routes. No Auto Ads setting is enabled by this code.
 
 ## `ads.txt`
 
-`/ads.txt` is generated from the validated client ID. While advertising is off it returns `404` and no authorization line. Once enabled it emits Google's standard DIRECT record with the publisher number extracted from the real client. After deployment, request `https://future-progress-bar.vercel.app/ads.txt`, confirm the number exactly matches AdSense, then use AdSense's site-status tools to request another check. Do not create a competing static `public/ads.txt`.
+`/ads.txt` is generated from the validated client ID whether or not serving is enabled. It emits Google's standard DIRECT record with the publisher number extracted from the real client. With no valid client it returns `404`. After deployment, request `https://future-progress-bar.vercel.app/ads.txt` and confirm the number exactly matches AdSense. Do not create a competing static `public/ads.txt`.
+
+## Recommended site-review workflow
+
+1. Configure the real `NEXT_PUBLIC_ADSENSE_CLIENT`.
+2. Keep `NEXT_PUBLIC_ADSENSE_ENABLED=false` while preparing and requesting review.
+3. Deploy.
+4. Confirm the `google-adsense-account` meta tag exists in page source.
+5. Confirm `/ads.txt` returns HTTP 200 with the correct publisher number.
+6. Confirm no `pagead2.googlesyndication.com` ad-serving script loads while serving is disabled.
+7. Request and complete AdSense site review using this verification setup.
+8. Configure the appropriate certified CMP and regional privacy messages in AdSense.
+9. Only after approval and privacy configuration, set `NEXT_PUBLIC_ADSENSE_ENABLED=true` if ads are wanted.
+10. Verify that, even when enabled, advertising code remains limited to `/` and `/progress/[slug]`.
+
+This workflow supports verification and controlled activation; it does not guarantee AdSense approval.
 
 ## Consent and privacy messages
 
