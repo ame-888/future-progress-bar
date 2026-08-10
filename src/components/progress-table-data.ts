@@ -25,6 +25,9 @@ export type Measurement = {
   baseValue?: number; // Starting value before level 1
   unit: string;
   isLowerBetter?: boolean; // If true, reaching a lower value means progress
+  temporalType?: "record" | "current";
+  indicatorType?: "capability" | "adoption" | "policy" | "market" | "outcome" | "proxy";
+  methodNote?: string;
   levels: MeasurementLevel[];
   history: MeasurementHistory[];
 };
@@ -37,79 +40,17 @@ export type SubDomainData = {
   measurements: Measurement[];
 };
 
-const cachedEthelAgeString = (function getEthelAgeStringCached() {
-  const birthDate = new Date(1909, 7, 21); // August 21, 1909
-  const today = new Date();
-  let years = today.getFullYear() - birthDate.getFullYear();
-  let lastBirthday = new Date(
-    today.getFullYear(),
-    birthDate.getMonth(),
-    birthDate.getDate(),
-  );
-
-  if (today < lastBirthday) {
-    years--;
-    lastBirthday = new Date(
-      today.getFullYear() - 1,
-      birthDate.getMonth(),
-      birthDate.getDate(),
-    );
-  }
-
-  const diffDays = Math.floor(
-    (today.getTime() - lastBirthday.getTime()) / (1000 * 60 * 60 * 24),
-  );
-  return `Ethel Caterham (alive): ${years} years and ${diffDays} days`;
-})();
-
-function getEthelAgeString() {
-  return cachedEthelAgeString;
-}
-
-const cachedDynamicDateString = (function getDynamicDateStringCached() {
-  const today = new Date();
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  const day = today.getDate();
-  const getOrdinalSuffix = (d: number) => {
-    if (d > 3 && d < 21) return "th";
-    switch (d % 10) {
-      case 1:
-        return "st";
-      case 2:
-        return "nd";
-      case 3:
-        return "rd";
-      default:
-        return "th";
-    }
-  };
-
-  return `Last Updated on ${months[today.getMonth()]} ${day}${getOrdinalSuffix(day)}, ${today.getFullYear()}`;
-})();
-
-function getDynamicDateString() {
-  return cachedDynamicDateString;
-}
-
 export type MainDomainData = {
   id: string;
   name: string;
   subdomains: SubDomainData[];
 };
+
+export function hasQualifyingNumericValue(measurement: Measurement): boolean {
+  return ["zero", "verified", "estimate", "lower-bound"].includes(measurement.valueStatus ?? "verified")
+    && typeof measurement.currentValue === "number"
+    && Number.isFinite(measurement.currentValue);
+}
 
 export const MAIN_DOMAINS: MainDomainData[] = [
   {
@@ -120,7 +61,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
         id: "ai",
         name: "AI",
         northStar: {
-          title: "Maximum AI capability",
+          title: "10 PFLOP/s Dense FP32 Hardware Cost",
           lastUpdated: "2026-08-10",
         },
         description:
@@ -134,6 +75,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "problems",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "capability",
             levels: [
               {
                 level: 1,
@@ -225,6 +168,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "universities",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "capability",
             levels: [
               {
                 level: 1,
@@ -308,6 +253,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "companies",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "adoption",
             levels: [
               {
                 level: 1,
@@ -390,6 +337,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "countries",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "policy",
             levels: [
               {
                 level: 1,
@@ -484,6 +433,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "robots",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "adoption",
             levels: [
               {
                 level: 1,
@@ -561,12 +512,14 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           {
             id: "robotics-2",
             title:
-              "Global share of households with Humanoid General-purpose Robots",
+              "Global Share of Households with a General-Purpose Humanoid Robot Assigned for Routine Household Use",
             currentValue: 0,
             valueStatus: "zero",
             baseValue: 0,
             unit: "%",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "adoption",
             levels: [
               {
                 level: 1,
@@ -639,90 +592,30 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [{ value: 0, details: ["0%; denominator ≈2.40 billion households."] }],
+            methodNote: "Denominator: all households worldwide. A household counts once when at least one qualifying humanoid general-purpose robot is normally resident at or assigned to it for routine household use. Hotel/service robots, community or shared public robots, occasional rentals, one-time access, and workplace encounters are excluded.",
+            history: [{ value: 0, details: ["0%; no qualifying household adoption identified at the 2026-08-10 cutoff."] }],
           },
           {
-            id: "robotics-4",
-            title:
-              "Global Share of Humanoid Robots acting as independent police officers or security guards",
+            id: "robotics-police-countries",
+            title: "Countries with Humanoid Robots in Ordinary Independent Police or Security Duty",
             currentValue: 0,
             valueStatus: "zero",
             baseValue: 0,
-            unit: "%",
+            unit: "countries",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "policy",
+            methodNote: "Count a sovereign country only when a general-purpose humanoid robot performs ordinary operational police/security service with lawful independent authority to detain without human approval of each detention. Surveillance, information, telepresence, bomb-disposal, traffic-direction, demonstration, research-pilot, non-detaining patrol, and human-decided detention systems are excluded.",
             levels: [
-              {
-                level: 1,
-                goal: 0.001,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2031 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2032 },
-                  { name: "Claude 4.6 Sonnet", year: 2033 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2038 },
-                ],
-              },
-              {
-                level: 2,
-                goal: 0.05,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2038 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2038 },
-                  { name: "Claude 4.6 Sonnet", year: 2040 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2048 },
-                ],
-              },
-              {
-                level: 3,
-                goal: 1,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2045 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2047 },
-                  { name: "Claude 4.6 Sonnet", year: 2048 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2065 },
-                ],
-              },
-              {
-                level: 4,
-                goal: 5,
-                aiPredictions: [
-                  { name: "Gemini 3.1 Pro Preview", year: 2055 },
-                  { name: "Claude 4.6 Sonnet", year: 2055 },
-                  { name: "Grok 4.20", year: 2055 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2082 },
-                ],
-              },
-              {
-                level: 5,
-                goal: 33,
-                aiPredictions: [
-                  { name: "Claude 4.6 Sonnet", year: 2065 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2075 },
-                  { name: "Grok 4.20", year: 2075 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2145 },
-                ],
-              },
-              {
-                level: 6,
-                goal: 66,
-                aiPredictions: [
-                  { name: "Claude 4.6 Sonnet", year: 2073 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2090 },
-                  { name: "Grok 4.20", year: 2100 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2205 },
-                ],
-              },
-              {
-                level: 7,
-                goal: 99,
-                aiPredictions: [
-                  { name: "Claude 4.6 Sonnet", year: 2084 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2125 },
-                  { name: "Grok 4.20", year: 2150 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2300 },
-                ],
-              },
+              { level: 1, goal: 1 },
+              { level: 2, goal: 3 },
+              { level: 3, goal: 10 },
+              { level: 4, goal: 30 },
+              { level: 5, goal: 75 },
+              { level: 6, goal: 150 },
+              { level: 7, goal: 195 }
             ],
-            history: [{ value: 0, details: ["0%; human-equivalent role denominator ≈30 million (plausible range 25–35 million)."] }],
+            history: [{ value: 0, details: ["No qualifying country exists under the strict independent-authority definition at the 2026-08-10 research cutoff."] }],
           },
           {
             id: "robotics-3",
@@ -732,6 +625,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "%",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "adoption",
             levels: [
               {
                 level: 1,
@@ -828,6 +723,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "countries",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "policy",
             levels: [
               {
                 level: 1,
@@ -911,6 +808,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "countries",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "policy",
             levels: [
               {
                 level: 1,
@@ -993,6 +892,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "countries",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "policy",
             levels: [
               {
                 level: 1,
@@ -1075,6 +976,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "vehicles",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "adoption",
             levels: [
               {
                 level: 1,
@@ -1176,6 +1079,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 70,
             unit: "years",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "outcome",
             levels: [
               {
                 level: 1,
@@ -1259,6 +1164,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 80,
             unit: "years",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "outcome",
             levels: [
               {
                 level: 1,
@@ -1335,13 +1242,15 @@ export const MAIN_DOMAINS: MainDomainData[] = [
           },
           {
             id: "lev-3",
-            title: "Oldest verified human",
-            currentValue: 116.96986301369863,
+            title: "Oldest Verified Human Ever",
+            currentValue: 122.45,
             valueStatus: "verified",
-            displayValue: "116 years, 354 days",
+            displayValue: "122 years, 164 days",
             baseValue: 120,
             unit: "years",
             lastUpdated: "2026-08-10",
+            temporalType: "record",
+            indicatorType: "outcome",
             levels: [
               {
                 level: 1,
@@ -1414,16 +1323,19 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [{ value: 116.96986301369863, details: ["Ethel Caterham: 116 years, 354 days at the 2026-08-10 UTC cutoff."] }],
+            history: [{ value: 122.45, details: ["Jeanne Louise Calment of France; died 1997-08-04; verified all-time human longevity record of 122 years, 164 days."] }],
           },
           {
             id: "lev-4",
-            title: "Number of supercentenarians alive",
+            title: "Verified Minimum Living Supercentenarians Worldwide",
             currentValue: 206,
-            valueStatus: "verified",
+            valueStatus: "lower-bound",
+            displayValue: "≥206",
             baseValue: 200,
             unit: "people",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "outcome",
             levels: [
               {
                 level: 1,
@@ -1496,7 +1408,7 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [{ value: 206, details: ["206 GRG-validated living supercentenarians."] }],
+            history: [{ value: 206, details: ["206 GRG-validated living cases at the 2026-08-10 cutoff; this is a verified minimum, not necessarily a complete census of all living supercentenarians."] }],
           },
         ],
       },
@@ -1518,6 +1430,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "humans",
             lastUpdated: "2026-08-10",
+            temporalType: "record",
+            indicatorType: "adoption",
             levels: [
               {
                 level: 1,
@@ -1600,6 +1514,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "humans",
             lastUpdated: "2026-08-10",
+            temporalType: "record",
+            indicatorType: "adoption",
             levels: [
               {
                 level: 1,
@@ -1682,6 +1598,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "humans",
             lastUpdated: "2026-08-10",
+            temporalType: "record",
+            indicatorType: "adoption",
             levels: [
               {
                 level: 1,
@@ -1763,6 +1681,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             valueStatus: "verified",
             baseValue: 0,
             unit: "metric tonnes",
+            temporalType: "current",
+            indicatorType: "capability",
             levels: [
               {
                 level: 1,
@@ -1850,175 +1770,56 @@ export const MAIN_DOMAINS: MainDomainData[] = [
         id: "quantum-computing",
         name: "QUANTUM COMPUTING",
         northStar: {
-          title: "Maximum Physical Qubit Count in a Single System",
+          title: "Maximum Encoded Logical Qubits Used in a Programmable Quantum Computation",
           lastUpdated: "2026-04-21",
         },
         description:
           "A new paradigm of computation utilizing quantum mechanics to solve problems exponentially faster than classical computers, opening doors to advanced materials, chemistry, and cryptography.",
         measurements: [
           {
-            id: "qc-1",
-            title: "Physical Qubit Count",
-            currentValue: 5627,
-            valueStatus: "verified",
+            id: "qc-gate-model-physical-qubits",
+            title: "Maximum Physical Qubits in an Operational Universal Gate-Model Quantum Computer",
+            currentValue: 1200,
+            displayValue: ">1,200",
+            valueStatus: "lower-bound",
             baseValue: 0,
-            unit: "qubits",
+            unit: "physical qubits",
             lastUpdated: "2026-08-10",
+            temporalType: "record",
+            indicatorType: "capability",
+            methodNote: "Largest single operational programmable universal gate-model system. Qubits must be present and usable; coherent modules may count together. Annealers, analogue-only simulators, future announcements, non-operational fabricated qubits, and logical qubits counted again as physical qubits are excluded.",
             levels: [
-              {
-                level: 1,
-                goal: 10000,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2026 },
-                  { name: "Claude 4.6 Sonnet", year: 2027 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2027 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2030 },
-                ],
-              },
-              {
-                level: 2,
-                goal: 50000,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2028 },
-                  { name: "Claude 4.6 Sonnet", year: 2029 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2030 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2032 },
-                ],
-              },
-              {
-                level: 3,
-                goal: 100000,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2029 },
-                  { name: "Claude 4.6 Sonnet", year: 2031 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2033 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2033 },
-                ],
-              },
-              {
-                level: 4,
-                goal: 500000,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2031 },
-                  { name: "Claude 4.6 Sonnet", year: 2033 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2036 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2038 },
-                ],
-              },
-              {
-                level: 5,
-                goal: 1000000,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2032 },
-                  { name: "Claude 4.6 Sonnet", year: 2035 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2039 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2041 },
-                ],
-              },
-              {
-                level: 6,
-                goal: 10000000,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2035 },
-                  { name: "Claude 4.6 Sonnet", year: 2039 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2048 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2050 },
-                ],
-              },
-              {
-                level: 7,
-                goal: 1000000000,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2040 },
-                  { name: "Claude 4.6 Sonnet", year: 2047 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2065 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2065 },
-                ],
-              },
+              { level: 1, goal: 10000 },
+              { level: 2, goal: 50000 },
+              { level: 3, goal: 100000 },
+              { level: 4, goal: 500000 },
+              { level: 5, goal: 1000000 },
+              { level: 6, goal: 10000000 },
+              { level: 7, goal: 1000000000 }
             ],
-            history: [{ value: 5627, details: ["D-Wave Advantage_system4.1; annealing qubits, not universal gate-model qubits."] }],
+            history: [{ value: 1200, details: ["Atom Computing AC1000: a neutral-atom universal gate-based machine documented as having more than 1,200 physical qubits."] }],
           },
           {
-            id: "qc-2",
-            title: "Two-Qubit Gate Fidelity - Physical Qubits",
-            currentValue: 99.9916,
-            valueStatus: "estimate",
+            id: "qc-system-two-qubit-fidelity",
+            title: "Best Processor-Wide Average Two-Qubit Gate Fidelity",
+            currentValue: 99.921,
+            valueStatus: "verified",
             baseValue: 99.9,
             unit: "%",
             lastUpdated: "2026-08-10",
+            temporalType: "record",
+            indicatorType: "capability",
+            methodNote: "Future Progress Bar requires a programmable universal gate-model processor with at least 50 physical qubits, experimental measurement of normal-operation two-qubit gates, a processor-wide average rather than a best pair, and sufficient benchmarking disclosure. The 50-qubit minimum is a project convention.",
             levels: [
-              {
-                level: 1,
-                goal: 99.999,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2027 },
-                  { name: "Claude 4.6 Sonnet", year: 2028 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2028 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2031 },
-                ],
-              },
-              {
-                level: 2,
-                goal: 99.9999,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2029 },
-                  { name: "Claude 4.6 Sonnet", year: 2032 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2032 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2037 },
-                ],
-              },
-              {
-                level: 3,
-                goal: 99.99999,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2031 },
-                  { name: "Claude 4.6 Sonnet", year: 2037 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2037 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2044 },
-                ],
-              },
-              {
-                level: 4,
-                goal: 99.999999,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2033 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2043 },
-                  { name: "Claude 4.6 Sonnet", year: 2044 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2051 },
-                ],
-              },
-              {
-                level: 5,
-                goal: 99.9999999,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2035 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2050 },
-                  { name: "Claude 4.6 Sonnet", year: 2052 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2059 },
-                ],
-              },
-              {
-                level: 6,
-                goal: 99.99999999,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2037 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2058 },
-                  { name: "Claude 4.6 Sonnet", year: 2062 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2068 },
-                ],
-              },
-              {
-                level: 7,
-                goal: 99.999999999,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2039 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2067 },
-                  { name: "Claude 4.6 Sonnet", year: 2075 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2078 },
-                ],
-              },
+              { level: 1, goal: 99.99 },
+              { level: 2, goal: 99.999 },
+              { level: 3, goal: 99.9999 },
+              { level: 4, goal: 99.99999 },
+              { level: 5, goal: 99.999999 },
+              { level: 6, goal: 99.9999999 },
+              { level: 7, goal: 99.99999999 }
             ],
-            history: [{ value: 99.9916, details: ["Estimate/preprint: trapped-ion entangling gate; ±0.0007 percentage points; reported error 8.4(7) × 10^-5."] }],
+            history: [{ value: 99.921, details: ["Quantinuum Helios: 98 trapped-ion qubits with average two-qubit infidelity of approximately 7.9 × 10^-4."] }],
           },
           {
             id: "qc-3",
@@ -2028,6 +1829,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 16777216, // 2^24
             unit: "",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "capability",
             levels: [
               {
                 level: 1,
@@ -2110,6 +1913,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 200000,
             unit: "CLOPS",
             lastUpdated: "2026-08-10",
+            temporalType: "record",
+            indicatorType: "capability",
             levels: [
               {
                 level: 1,
@@ -2207,6 +2012,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             unit: "GPa",
             lastUpdated: "2026-08-10",
             isLowerBetter: true,
+            temporalType: "current",
+            indicatorType: "capability",
             levels: [
               {
                 level: 1,
@@ -2285,86 +2092,27 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             history: [{ value: undefined, details: ["No verified qualifying Tc ≥293 K result. The supplied ambient-pressure record is 151 K, 142 K below 293 K."] }],
           },
           {
-            id: "superconductor-2",
-            title: "Highest Critical Current Density",
-            currentValue: 150,
-            valueStatus: "verified",
+            id: "superconductor-je-20k-20t",
+            title: "Maximum Engineering Current Density of Commercial REBCO Wire at 20 K, 20 T",
+            currentValue: 1400,
+            displayValue: "≈1,400",
+            valueStatus: "estimate",
             baseValue: 0,
-            unit: "MA/cm²",
+            unit: "A/mm²",
             lastUpdated: "2026-08-10",
+            temporalType: "record",
+            indicatorType: "capability",
+            methodNote: "Commercial production-scale REBCO/YBCO coated conductor at 20 K and 20 T, with B || c (perpendicular to the tape face), using transport critical current divided by the entire conductor cross-section. Non-scalable laboratory microfilms are excluded.",
             levels: [
-              {
-                level: 1,
-                goal: 175,
-                aiPredictions: [
-                  { name: "GPT-5.4 Thinking Mini", year: 2028 },
-                  { name: "Claude 4.6 Sonnet", year: 2029 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2032 },
-                  { name: "Grok 4.20", year: 2033 },
-                ],
-              },
-              {
-                level: 2,
-                goal: 300,
-                aiPredictions: [
-                  { name: "GPT-5.4 Thinking Mini", year: 2031 },
-                  { name: "Claude 4.6 Sonnet", year: 2040 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2040 },
-                  { name: "Grok 4.20", year: 2042 },
-                ],
-              },
-              {
-                level: 3,
-                goal: 600,
-                aiPredictions: [
-                  { name: "GPT-5.4 Thinking Mini", year: 2037 },
-                  { name: "Claude 4.6 Sonnet", year: 2051 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2055 },
-                  { name: "Grok 4.20", year: 2065 },
-                ],
-              },
-              {
-                level: 4,
-                goal: 1500,
-                aiPredictions: [
-                  { name: "GPT-5.4 Thinking Mini", year: 2047 },
-                  { name: "Claude 4.6 Sonnet", year: 2066 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2072 },
-                  { name: "Grok 4.20", year: 2105 },
-                ],
-              },
-              {
-                level: 5,
-                goal: 4000,
-                aiPredictions: [
-                  { name: "GPT-5.4 Thinking Mini", year: 2058 },
-                  { name: "Claude 4.6 Sonnet", year: 2081 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2090 },
-                  { name: "Grok 4.20", year: 2155 },
-                ],
-              },
-              {
-                level: 6,
-                goal: 12000,
-                aiPredictions: [
-                  { name: "GPT-5.4 Thinking Mini", year: 2072 },
-                  { name: "Claude 4.6 Sonnet", year: 2097 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2115 },
-                  { name: "Grok 4.20", year: 2255 },
-                ],
-              },
-              {
-                level: 7,
-                goal: 50000,
-                aiPredictions: [
-                  { name: "GPT-5.4 Thinking Mini", year: 2090 },
-                  { name: "Claude 4.6 Sonnet", year: 2126 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2145 },
-                  { name: "Grok 4.20", year: 2350 },
-                ],
-              },
+              { level: 1, goal: 1500 },
+              { level: 2, goal: 2000 },
+              { level: 3, goal: 3000 },
+              { level: 4, goal: 5000 },
+              { level: 5, goal: 10000 },
+              { level: 6, goal: 20000 },
+              { level: 7, goal: 50000 }
             ],
-            history: [{ value: 150, details: ["150 MA/cm² at 4.2 K, self-field, in a (Y,Gd)BCO+BHO film; verified. A 130 MA/cm² coated-conductor result is additional context."] }],
+            history: [{ value: 1400, details: ["Commercial YBCO/REBCO production wire; approximately 1,400 A/mm² under the standardized 20 K, 20 T, B || c condition in published production-wire data."] }],
           },
           {
             id: "superconductor-3",
@@ -2374,6 +2122,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 20,
             unit: "Tesla",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "capability",
             levels: [
               {
                 level: 1,
@@ -2449,87 +2199,27 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             history: [{ value: 48.7, details: ["48.7 T total: 17.6 T REBCO superconducting insert plus 31.1 T resistive outsert."] }],
           },
           {
-            id: "superconductor-4",
-            title: "Continuous Piece Length (HTS Tape)",
-            currentValue: undefined,
-            valueStatus: "unknown",
-            displayValue: "UNKNOWN",
-            baseValue: 0.5,
+            id: "superconductor-commercial-piece-length",
+            title: "Maximum Published Continuous Piece Length of Commercial Production-Scale 2G HTS Tape",
+            currentValue: 1,
+            displayValue: "1.0 km",
+            valueStatus: "verified",
+            baseValue: 0,
             unit: "km",
             lastUpdated: "2026-08-10",
+            temporalType: "record",
+            indicatorType: "capability",
+            methodNote: "A commercially offered production-scale REBCO/2G HTS conductor must be one continuous splice-free piece whose qualifying length is published by the manufacturer; use a no-Ic-dropout or equivalent specification where provided. Laboratory one-offs are excluded.",
             levels: [
-              {
-                level: 1,
-                goal: 5,
-                aiPredictions: [
-                  { name: "Gemini 3.1 Pro Preview", year: 2028 },
-                  { name: "Claude 4.6 Sonnet", year: 2029 },
-                  { name: "Grok 4.20", year: 2029 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2054 },
-                ],
-              },
-              {
-                level: 2,
-                goal: 15,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2033 },
-                  { name: "Claude 4.6 Sonnet", year: 2034 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2034 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2071 },
-                ],
-              },
-              {
-                level: 3,
-                goal: 40,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2038 },
-                  { name: "Claude 4.6 Sonnet", year: 2040 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2042 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2088 },
-                ],
-              },
-              {
-                level: 4,
-                goal: 100,
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2045 },
-                  { name: "Claude 4.6 Sonnet", year: 2047 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2055 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2110 },
-                ],
-              },
-              {
-                level: 5,
-                goal: 1000,
-                aiPredictions: [
-                  { name: "Claude 4.6 Sonnet", year: 2058 },
-                  { name: "Grok 4.20", year: 2060 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2085 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2178 },
-                ],
-              },
-              {
-                level: 6,
-                goal: 10000,
-                aiPredictions: [
-                  { name: "Claude 4.6 Sonnet", year: 2071 },
-                  { name: "Grok 4.20", year: 2085 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2130 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2251 },
-                ],
-              },
-              {
-                level: 7,
-                goal: 40000,
-                aiPredictions: [
-                  { name: "Claude 4.6 Sonnet", year: 2087 },
-                  { name: "Grok 4.20", year: 2120 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2175 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2328 },
-                ],
-              },
+              { level: 1, goal: 2 },
+              { level: 2, goal: 5 },
+              { level: 3, goal: 10 },
+              { level: 4, goal: 25 },
+              { level: 5, goal: 50 },
+              { level: 6, goal: 100 },
+              { level: 7, goal: 500 }
             ],
-            history: [{ value: undefined, details: ["Unknown under the strict uniform full-length Ic definition. A 1,300 m SuperPower tape is the strongest public candidate, but is not verified as qualifying."] }],
+            history: [{ value: 1, details: ["Shanghai Superconductor publishes a 100–1000 m single-piece specification without Ic dropout for commercial 2G HTS tape."] }],
           },
         ],
       },
@@ -2559,6 +2249,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "people",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "adoption",
             levels: [
               {
                 level: 1,
@@ -2641,6 +2333,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "countries",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "policy",
             levels: [
               {
                 level: 1,
@@ -2724,6 +2418,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "countries",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "policy",
             levels: [
               {
                 level: 1,
@@ -2807,6 +2503,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "countries",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "policy",
             levels: [
               {
                 level: 1,
@@ -2903,6 +2601,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             unit: "dollars",
             lastUpdated: "2026-08-10",
             isLowerBetter: true,
+            temporalType: "current",
+            indicatorType: "market",
             levels: [
               {
                 level: 1,
@@ -2985,6 +2685,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "minds",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "capability",
             levels: [
               {
                 level: 1,
@@ -3067,6 +2769,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "countries",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "policy",
             levels: [
               {
                 level: 1,
@@ -3149,6 +2853,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "neurons",
             lastUpdated: "2026-08-10",
+            temporalType: "record",
+            indicatorType: "capability",
             levels: [
               {
                 level: 1,
@@ -3252,6 +2958,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "users",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "adoption",
             levels: [
               {
                 level: 1,
@@ -3334,94 +3042,26 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             history: [{ value: 5000000, details: ["Estimate ≈5.0 million unique DAU; plausible range 3,000,000–8,000,000 after assumed cross-platform overlap."] }],
           },
           {
-            id: "vr-3",
-            title: "Longest continuous session in a VR environment",
-            currentValue: undefined,
-            valueStatus: "unknown",
-            displayValue: "UNKNOWN",
+            id: "vr-commercial-ppd",
+            title: "Maximum Native Central Pixel Density in a Shipping VR Headset (≥100° Horizontal FOV)",
+            currentValue: 57,
+            valueStatus: "verified",
             baseValue: 0,
-            unit: "hours",
+            unit: "PPD",
             lastUpdated: "2026-08-10",
+            temporalType: "record",
+            indicatorType: "capability",
+            methodNote: "Use native central optical/display PPD in a commercially shipping immersive VR headset whose same shipping configuration has at least 100° horizontal FOV. Supersampled render resolution, prototypes, demos, and announced products are excluded.",
             levels: [
-              {
-                level: 1,
-                goal: 360,
-                label: "15 days",
-                aiPredictions: [
-                  { name: "Gemini 3.1 Pro Preview", year: 2026 },
-                  { name: "Claude 4.6 Sonnet", year: 2027 },
-                  { name: "Grok 4.20", year: 2028 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2029 },
-                ],
-              },
-              {
-                level: 2,
-                goal: 720,
-                label: "30 days",
-                aiPredictions: [
-                  { name: "Gemini 3.1 Pro Preview", year: 2028 },
-                  { name: "Claude 4.6 Sonnet", year: 2029 },
-                  { name: "Grok 4.20", year: 2030 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2034 },
-                ],
-              },
-              {
-                level: 3,
-                goal: 1440,
-                label: "60 days",
-                aiPredictions: [
-                  { name: "Gemini 3.1 Pro Preview", year: 2032 },
-                  { name: "Claude 4.6 Sonnet", year: 2033 },
-                  { name: "Grok 4.20", year: 2035 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2040 },
-                ],
-              },
-              {
-                level: 4,
-                goal: 2400,
-                label: "100 days",
-                aiPredictions: [
-                  { name: "Claude 4.6 Sonnet", year: 2037 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2038 },
-                  { name: "Grok 4.20", year: 2040 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2047 },
-                ],
-              },
-              {
-                level: 5,
-                goal: 4800,
-                label: "200 days",
-                aiPredictions: [
-                  { name: "Claude 4.6 Sonnet", year: 2043 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2045 },
-                  { name: "Grok 4.20", year: 2050 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2058 },
-                ],
-              },
-              {
-                level: 6,
-                goal: 9600,
-                label: "400 days",
-                aiPredictions: [
-                  { name: "Claude 4.6 Sonnet", year: 2051 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2055 },
-                  { name: "Grok 4.20", year: 2065 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2072 },
-                ],
-              },
-              {
-                level: 7,
-                goal: 24000,
-                label: "1,000 days",
-                aiPredictions: [
-                  { name: "Claude 4.6 Sonnet", year: 2067 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2080 },
-                  { name: "Grok 4.20", year: 2090 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2096 },
-                ],
-              },
+              { level: 1, goal: 60 },
+              { level: 2, goal: 70 },
+              { level: 3, goal: 80 },
+              { level: 4, goal: 90 },
+              { level: 5, goal: 100 },
+              { level: 6, goal: 110 },
+              { level: 7, goal: 120 }
             ],
-            history: [{ value: undefined, details: ["Unknown under the strict ≤1-minute disconnect definition. A 55-hour candidate was excluded because its rules allowed breaks up to five minutes per accumulated hour."] }],
+            history: [{ value: 57, details: ["Pimax Crystal Super 57-PPD optical configuration: 3840 × 3840 pixels per eye, approximately 106° horizontal FOV, and commercially shipping."] }],
           },
           {
             id: "vr-4",
@@ -3432,6 +3072,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "senses",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "capability",
             levels: [
               {
                 level: 1,
@@ -3504,97 +3146,30 @@ export const MAIN_DOMAINS: MainDomainData[] = [
                 ],
               },
             ],
-            history: [{ value: 0, details: ["0 / 7 senses = 0%."] }],
+            methodNote: "Vision, hearing, smell, taste, touch, balance and proprioception are the seven senses selected by Future Progress Bar for this metric. This is a project convention, not a claim that biology has exactly seven uniquely canonical senses.",
+            history: [{ value: 0, details: ["0 / 7 project-selected senses = 0%."] }],
           },
           {
-            id: "vr-6",
-            title:
-              "Maximum Concurrent Users in a Single, Un-sharded VR Instance",
+            id: "vr-shared-world-concurrency",
+            title: "Maximum Officially Supported Users in One Mutually Interactive VR World/Session",
             currentValue: 82,
             valueStatus: "verified",
             baseValue: 0,
             unit: "users",
             lastUpdated: "2026-08-10",
+            temporalType: "record",
+            indicatorType: "capability",
+            methodNote: "Count normal officially supported capacity in one coherent, mutually interactive VR world/session. Distributed or sharded internals are allowed, but separate copies, mirrors, non-interacting zones, and unsupported one-time stress tests are excluded.",
             levels: [
-              {
-                level: 1,
-                goal: 500000,
-                label: "500k",
-                aiPredictions: [
-                  { name: "GPT-5.4 Thinking Mini", year: 2032 },
-                  { name: "Grok 4.20", year: 2032 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2036 },
-                  { name: "Claude 4.6 Sonnet", year: 2042 },
-                ],
-              },
-              {
-                level: 2,
-                goal: 1000000,
-                label: "1M",
-                aiPredictions: [
-                  { name: "GPT-5.4 Thinking Mini", year: 2035 },
-                  { name: "Grok 4.20", year: 2035 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2039 },
-                  { name: "Claude 4.6 Sonnet", year: 2048 },
-                ],
-              },
-              {
-                level: 3,
-                goal: 3000000,
-                label: "3M",
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2039 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2040 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2043 },
-                  { name: "Claude 4.6 Sonnet", year: 2053 },
-                ],
-              },
-              {
-                level: 4,
-                goal: 10000000,
-                label: "10M",
-                aiPredictions: [
-                  { name: "Grok 4.20", year: 2045 },
-                  { name: "Gemini 3.1 Pro Preview", year: 2048 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2048 },
-                  { name: "Claude 4.6 Sonnet", year: 2059 },
-                ],
-              },
-              {
-                level: 5,
-                goal: 50000000,
-                label: "50M",
-                aiPredictions: [
-                  { name: "Gemini 3.1 Pro Preview", year: 2055 },
-                  { name: "Grok 4.20", year: 2055 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2060 },
-                  { name: "Claude 4.6 Sonnet", year: 2067 },
-                ],
-              },
-              {
-                level: 6,
-                goal: 300000000,
-                label: "300M",
-                aiPredictions: [
-                  { name: "Gemini 3.1 Pro Preview", year: 2064 },
-                  { name: "Grok 4.20", year: 2075 },
-                  { name: "Claude 4.6 Sonnet", year: 2078 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2085 },
-                ],
-              },
-              {
-                level: 7,
-                goal: 1000000000,
-                label: "1B",
-                aiPredictions: [
-                  { name: "Gemini 3.1 Pro Preview", year: 2072 },
-                  { name: "Claude 4.6 Sonnet", year: 2090 },
-                  { name: "Grok 4.20", year: 2100 },
-                  { name: "GPT-5.4 Thinking Mini", year: 2115 },
-                ],
-              },
+              { level: 1, goal: 100 },
+              { level: 2, goal: 250 },
+              { level: 3, goal: 1000 },
+              { level: 4, goal: 10000 },
+              { level: 5, goal: 100000 },
+              { level: 6, goal: 1000000 },
+              { level: 7, goal: 100000000 }
             ],
-            history: [{ value: 82, details: ["VRChat: 80 configured users plus reserved access for the instance owner and group owner."] }],
+            history: [{ value: 82, details: ["VRChat documents an ordinary configured capacity of 80 users plus reserved owner slots, yielding an effective maximum of 82."] }],
           },
         ],
       },
@@ -3623,6 +3198,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "%",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "market",
             levels: [
               {
                 level: 1,
@@ -3706,6 +3283,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "countries",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "policy",
             levels: [
               {
                 level: 1,
@@ -3789,6 +3368,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "countries",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "policy",
             levels: [
               {
                 level: 1,
@@ -3871,6 +3452,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "countries",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "policy",
             levels: [
               {
                 level: 1,
@@ -3966,6 +3549,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "plants",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "capability",
             levels: [
               {
                 level: 1,
@@ -4048,6 +3633,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "%",
             lastUpdated: "2026-08-10",
+            temporalType: "current",
+            indicatorType: "adoption",
             levels: [
               {
                 level: 1,
@@ -4131,6 +3718,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "hours",
             lastUpdated: "2026-08-10",
+            temporalType: "record",
+            indicatorType: "capability",
             levels: [
               {
                 level: 1,
@@ -4220,6 +3809,8 @@ export const MAIN_DOMAINS: MainDomainData[] = [
             baseValue: 0,
             unit: "MWe",
             lastUpdated: "2026-08-10",
+            temporalType: "record",
+            indicatorType: "capability",
             levels: [
               {
                 level: 1,

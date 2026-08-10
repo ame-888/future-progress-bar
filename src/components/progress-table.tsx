@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { MAIN_DOMAINS, Measurement } from "./progress-table-data";
+import { hasQualifyingNumericValue, MAIN_DOMAINS, Measurement } from "./progress-table-data";
+import { RETIRED_MEASUREMENTS } from "./retired-measurements";
 
 export function formatDateStr(dateStr?: string) {
   if (!dateStr) return undefined;
@@ -63,6 +64,7 @@ export function ProgressTable() {
 
   // User predictions and filters state
   const [userPredictions, setUserPredictions] = useState<Record<string, { year: number; timestamp: number }>>({});
+  const [hasLoadedUserPredictions, setHasLoadedUserPredictions] = useState(false);
   const [predictionFilter, setPredictionFilter] = useState<'both' | 'ai' | 'mine'>('both');
 
   // Load user predictions from localStorage
@@ -71,10 +73,16 @@ export function ProgressTable() {
     try {
       const saved = localStorage.getItem('userPredictions');
       if (saved) {
-        setUserPredictions(JSON.parse(saved));
+        const parsed = JSON.parse(saved) as Record<string, { year: number; timestamp: number }>;
+        const validKeys = new Set(MAIN_DOMAINS.flatMap(domain => domain.subdomains.flatMap(subdomain => subdomain.measurements.flatMap(measurement => measurement.levels.map(level => `${measurement.id}_${level.level}`)))));
+        const cleaned = Object.fromEntries(Object.entries(parsed).filter(([key]) => validKeys.has(key)));
+        localStorage.setItem('userPredictions', JSON.stringify(cleaned));
+        setUserPredictions(cleaned);
       }
     } catch (e) {
       console.error('Failed to load user predictions:', e);
+    } finally {
+      setHasLoadedUserPredictions(true);
     }
     }, 0);
     return () => window.clearTimeout(timer);
@@ -82,8 +90,9 @@ export function ProgressTable() {
 
   // Save user predictions to localStorage
   useEffect(() => {
+    if (!hasLoadedUserPredictions) return;
     localStorage.setItem('userPredictions', JSON.stringify(userPredictions));
-  }, [userPredictions]);
+  }, [hasLoadedUserPredictions, userPredictions]);
 
   useEffect(() => {
     // Only run this once on mount or when tabParam changes, but use setTimeout to avoid synchronous setState warning
@@ -394,12 +403,16 @@ export function ProgressTable() {
                 </button>
               </div>
               <div className="p-4 md:p-6 overflow-y-auto flex-1 bg-slate-50/30 dark:bg-slate-900/20">
-                <div className="text-center py-12 px-4">
-                  <TrashIcon className="w-16 h-16 mx-auto text-slate-300 dark:text-slate-700 mb-4" />
-                  <h3 className="text-lg font-bold text-slate-700 dark:text-slate-300 mb-2">No retired metrics yet</h3>
-                  <p className="text-slate-500 dark:text-slate-500 max-w-md mx-auto">
-                    Metrics will appear here if they reach Level 7 or become conceptually outdated.
-                  </p>
+                <p className="mb-5 text-sm text-slate-600 dark:text-slate-300">The metric was replaced because its methodology no longer represented the phenomenon cleanly. Retirement is not the same as reaching Level 7.</p>
+                <div className="space-y-3">
+                  {RETIRED_MEASUREMENTS.map(metric => (
+                    <article key={metric.id} className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950">
+                      <div className="flex flex-wrap items-center gap-2"><h3 className="font-semibold text-slate-900 dark:text-white">{metric.title}</h3><span className="rounded-full bg-slate-100 px-2 py-0.5 font-mono text-[10px] text-slate-500 dark:bg-slate-800 dark:text-slate-400">{metric.id}</span></div>
+                      <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{metric.reason}</p>
+                      {metric.replacementTitle && <p className="mt-2 text-xs text-indigo-600 dark:text-indigo-300"><strong>Replacement:</strong> {metric.replacementTitle}</p>}
+                      <p className="mt-2 text-[10px] uppercase tracking-wider text-slate-400">Retired {formatDateStr(metric.retiredOn)}</p>
+                    </article>
+                  ))}
                 </div>
               </div>
             </div>
@@ -778,7 +791,7 @@ export function ProgressTable() {
 
 function MeasurementCard({ measurement }: { measurement: Measurement }) {
   const isLowerBetter = measurement.isLowerBetter;
-  const hasNumericValue = typeof measurement.currentValue === "number" && Number.isFinite(measurement.currentValue);
+  const hasNumericValue = hasQualifyingNumericValue(measurement);
   const numericValue: number = hasNumericValue ? measurement.currentValue! : 0;
 
   // Memoize level-related values
@@ -902,6 +915,8 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
             <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white">
               {measurement.title}
             </h3>
+            {measurement.temporalType && <span className="rounded-full border border-slate-200 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500 dark:border-slate-700 dark:text-slate-400">{measurement.temporalType}</span>}
+            {measurement.indicatorType && <span title={`Indicator type: ${measurement.indicatorType}`} className="rounded-full border border-slate-200 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500 dark:border-slate-700 dark:text-slate-400">{measurement.indicatorType}</span>}
             <div className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${currentMedal.className}`}>
               Current Level: {allGoalsAchieved ? `${measurement.levels.length} - MAX` : actualCurrentLevel} ({currentMedal.name})
             </div>
@@ -1013,6 +1028,7 @@ function MeasurementCard({ measurement }: { measurement: Measurement }) {
                           </div>
                         );
                       })}
+                      {measurement.methodNote && <div className="mt-1 rounded-md border border-slate-200 bg-slate-50 p-2 text-left text-xs leading-relaxed text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"><strong>Method:</strong> {measurement.methodNote}</div>}
                       {measurement.lastUpdated && (
                         <div className="mt-2 w-full flex justify-start">
                           <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/50 shadow-sm transition-all hover:bg-indigo-100 dark:hover:bg-indigo-900/50">

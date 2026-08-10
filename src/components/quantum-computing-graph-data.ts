@@ -8,36 +8,36 @@ export const QUANTUM_COMPUTING_DATA: QuantumComputingDataPoint[] = [
   {
     year: 2001,
     logicalQubits: 0,
-    description: 'For two decades, physicists are just trying to get physical hardware to work. "Logical" error-corrected qubits exist entirely on chalkboards as theoretical math.',
+    description: 'No qualifying multi-qubit encoded logical computation is included for this baseline year.',
   },
   {
     year: 2021,
-    logicalQubits: 1,
-    description: 'A team at the University of Maryland/IonQ manages to create a single fault-tolerant logical qubit, proving the math actually works in the real world.',
+    logicalQubits: 2,
+    description: 'An experimental lattice-surgery result demonstrated a logical operation between two encoded logical qubits.',
   },
   {
     year: 2022,
     logicalQubits: 2,
-    description: 'Google and other labs manage to string together a couple of logical qubits, proving that adding more physical qubits can actively reduce error rates.',
+    description: 'The standing raw maximum remained two encoded logical qubits; protection and experimental standards varied across implementations.',
   },
   {
     year: 2023,
     logicalQubits: 48,
-    description: 'A massive paradigm shift. A joint team from Harvard, MIT, and QuEra abandons superconducting chips, uses lasers to trap neutral atoms, and suddenly jumps the world record to 48.',
+    description: 'Harvard, MIT, and QuEra used up to 48 encoded logical qubits in programmable neutral-atom computations with logical encoding and error-detection techniques.',
   },
   {
     year: 2024,
     logicalQubits: 48,
-    description: 'The industry spends the year focusing on quality over quantity. Microsoft partners with Atom Computing and Quantinuum to create 24 logical qubits with record-shattering low error rates, though Harvard\'s 48 remains the raw volume record.',
+    description: 'The raw maximum remained 48. Other systems reported smaller logical-qubit counts with different protection and error-characterization approaches.',
   },
   {
     year: 2025,
     logicalQubits: 96,
-    description: 'Harvard and QuEra scale up their architecture, publishing a landmark paper demonstrating algorithms running on 96 logical qubits, proving that scaling the system up continues to drive errors down.',
+    description: 'Neutral-atom fault-tolerant work operated with up to 96 simultaneously active encoded logical qubits in programmable computations.',
   },
   {
     year: 2026,
     logicalQubits: 96,
-    description: 'The standing record as of early 2026. IBM, Google, Microsoft, and QuEra are now in an all-out sprint to be the first to reach the 1,000 Logical Qubit Holy Grail by the end of the decade.',
+    description: 'The raw maximum remained 96 encoded logical qubits at the 2026-08-10 research cutoff.',
   },
 ];

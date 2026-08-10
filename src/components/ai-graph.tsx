@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 import {
   LineChart,
@@ -9,7 +9,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  ReferenceLine,
   ResponsiveContainer,
 } from "recharts";
 import { aiGraphData } from "./ai-graph-data";
@@ -36,8 +35,6 @@ const formatYAxisTick = (value: number) => {
 const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
-    const isExplosion = data.cost <= 1000;
-
     return (
       <div className="bg-slate-900/95 backdrop-blur-md border border-slate-700 p-3 rounded-xl shadow-2xl">
         <p className="text-slate-300 font-mono text-sm mb-2">{label}</p>
@@ -45,13 +42,10 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
           <div className="flex flex-col gap-1">
             <div className="flex items-center gap-2">
               <div
-                className={`w-2 h-2 rounded-full ${isExplosion ? "bg-amber-400" : "bg-indigo-400"}`}
+                className="w-2 h-2 rounded-full bg-indigo-400"
               />
               <span className="text-slate-100 font-bold font-mono text-lg">
                 ${data.cost.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
-              </span>
-              <span className="text-slate-400 text-xs font-semibold tracking-wider">
-                / HR
               </span>
             </div>
             {data.note && (
@@ -77,7 +71,7 @@ export const AiGraph = ({ lastUpdated }: { lastUpdated?: string }) => {
         <div>
           <div className="flex items-center gap-2">
             <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              Human-Equivalent Brain-Hour Cost (HEBC)
+              10 PFLOP/s Dense FP32 Hardware Cost
               <span className="text-xs font-semibold px-2 py-1 bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400 rounded-full uppercase tracking-wider">
                 North Star
               </span>
@@ -93,7 +87,7 @@ export const AiGraph = ({ lastUpdated }: { lastUpdated?: string }) => {
             </div>
           </div>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-            Tracking the cost to generate the same number of calculations as a human brain, in an hour, over the years (using the best hardware available)
+            <strong>Brain-scale compute proxy.</strong> Capital purchase-cost proxy for enough commercially available dense-FP32 hardware to sustain 10^16 floating-point operations per second. Future Progress Bar uses 10^16 FLOP/s as a conventional brain-scale compute reference; this is not a scientifically established equivalence between FLOPs and human cognition.
           </p>
         </div>
         <div className="flex-shrink-0 mt-1">
@@ -146,23 +140,6 @@ export const AiGraph = ({ lastUpdated }: { lastUpdated?: string }) => {
                   stroke: "rgba(99, 102, 241, 0.2)",
                   strokeWidth: 2,
                   strokeDasharray: "4 4",
-                }}
-              />
-
-              <ReferenceLine
-                y={1000}
-                stroke="#fbbf24"
-                strokeDasharray="4 4"
-                strokeWidth={2}
-                label={{
-                  position: "insideBottomLeft",
-                  value: "Intelligence Explosion",
-                  fill: "#fbbf24",
-                  fontSize: 12,
-                  fontWeight: 700,
-                  className:
-                    "uppercase tracking-widest drop-shadow-md bg-black/50 px-1 rounded",
-                  dy: 15,
                 }}
               />
 

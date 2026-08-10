@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { MAIN_DOMAINS } from "./progress-table-data";
+import { hasQualifyingNumericValue, MAIN_DOMAINS } from "./progress-table-data";
 
 const ERAS = [
   { name: "Stone", symbol: "ST", horizon: "Origins", x: 4, y: 82 },
@@ -25,7 +25,7 @@ export function MainProgressBar() {
           if (level.level < 1 || level.level > 7) return;
           totals[level.level]++;
           const value = measurement.currentValue;
-          if (typeof value === "number" && Number.isFinite(value) &&
+          if (hasQualifyingNumericValue(measurement) && typeof value === "number" &&
               (measurement.isLowerBetter ? value <= level.goal : value >= level.goal)) {
             completed[level.level]++;
           }
@@ -46,8 +46,9 @@ export function MainProgressBar() {
           <h2 id="civilization-heading">A mountain still being climbed</h2>
           <p>Thousands of discoveries, one shared trajectory—from tools shaped by hand to control over matter itself.</p>
         </div>
-        <div className="civilization-map__score" aria-label={`${achieved} of ${possible} era milestones reached`}>
-          <strong>{achieved}<span>/{possible}</span></strong><small>milestones reached</small>
+        <div className="civilization-map__score" aria-label={`Future Progress Bar index: ${achieved} of ${possible} era milestones reached`} title="A project-defined index in which each active measurement contributes one milestone at each era level. It is a comparative tracking framework, not an objective percentage of civilization completion.">
+          <strong>{achieved}<span>/{possible}</span></strong><small>Future Progress Bar index — milestones reached</small>
+          <p>A project-defined comparative tracking framework, not an objective percentage of civilization completion.</p>
         </div>
       </div>
 
