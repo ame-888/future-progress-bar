@@ -40,6 +40,14 @@ import { SelfDrivingCarGraph } from "./self-driving-car-graph";
 import { CulturedMeatGraph } from "./cultured-meat-graph";
 import { FictionalFuture } from "./fictional-future";
 import { MainProgressBar } from "./main-progress-bar";
+import { Atom, Bot, BrainCircuit, Cpu, Earth, Leaf, Orbit, Rocket, Waypoints } from "lucide-react";
+
+const DOMAIN_ICONS = [Bot, Earth, Cpu, BrainCircuit, Leaf];
+
+function DomainGlyph({ id }: { id: string }) {
+  const Glyph = id.includes("space") ? Rocket : id.includes("quantum") || id.includes("fusion") ? Atom : id.includes("ai") || id.includes("robot") ? Bot : id.includes("bci") || id.includes("mind") ? BrainCircuit : id.includes("lev") || id.includes("meat") ? Leaf : id.includes("vr") ? Orbit : Waypoints;
+  return <Glyph aria-hidden="true" />;
+}
 
 
 export function ProgressTable() {
@@ -347,11 +355,10 @@ export function ProgressTable() {
       <div className="dashboard-top">
         <header className="mission-header">
           <div className="mission-header__identity">
-            <div className="mission-mark" aria-hidden="true"><span>FP</span><i /></div>
             <div>
-              <p className="eyebrow">Human capability observatory · v2.0</p>
+              <p className="atlas-kicker">An interactive atlas of tomorrow</p>
               <h1>Future Progress Bar</h1>
-              <p className="mission-subtitle">A living quantitative map of humanity’s technological progress—from the Stone Age toward an Antimatter Age.</p>
+              <p className="mission-subtitle">Follow the evidence of humanity becoming more capable—from intelligent machines and longer lives to fusion power and the stars.</p>
             </div>
           </div>
           <nav className="mission-actions" aria-label="Project actions">
@@ -362,7 +369,7 @@ export function ProgressTable() {
               <TrashIcon className="w-4 h-4" /><span>Retired metrics</span>
             </button>
             <button onClick={() => setIsPredictionsModalOpen(true)} className="mission-action mission-action--primary">
-              <SparklesIcon className="w-4 h-4" /><span>Open predictions</span>
+              <SparklesIcon className="w-4 h-4" /><span>Explore the future</span>
             </button>
           </nav>
         </header>
@@ -689,55 +696,16 @@ export function ProgressTable() {
           <nav className="domain-rail" aria-label="Main domains">
             {MAIN_DOMAINS.map((domain, index) => {
               const isActive = index === activeMainTab;
-
-              let activeClasses = "text-white dark:text-slate-900 border-slate-900 dark:border-white bg-slate-900 dark:bg-white";
-              if (isActive) {
-                switch (domain.name) {
-                  case "AUTOMATION":
-                    activeClasses = "text-white border-red-600 bg-red-600 dark:border-red-500 dark:bg-red-500";
-                    break;
-                  case "CIVILIZATION":
-                    activeClasses = "text-white border-slate-500 bg-slate-500 dark:border-slate-400 dark:bg-slate-400";
-                    break;
-                  case "HARDWARE":
-                    activeClasses = "text-slate-900 border-yellow-400 bg-yellow-400 dark:border-yellow-500 dark:bg-yellow-500";
-                    break;
-                  case "NEURO":
-                    activeClasses = "text-white border-blue-600 bg-blue-600 dark:border-blue-500 dark:bg-blue-500";
-                    break;
-                  case "SUSTAINABILITY":
-                    activeClasses = "text-white border-emerald-600 bg-emerald-600 dark:border-emerald-500 dark:bg-emerald-500";
-                    break;
-                  default:
-                    break;
-                }
-              }
+              const Icon = DOMAIN_ICONS[index];
 
               return (
                 <button
                   key={`main-header-${index}`}
                   onClick={() => handleMainTabClick(index)}
-                  className={`
-                    flex-1 min-w-fit
-                    py-2 px-1 sm:py-3 sm:px-2
-                    flex items-center justify-center
-                    text-center whitespace-nowrap sm:whitespace-normal sm:break-words sm:hyphens-auto leading-tight
-                    text-[9px] sm:text-[10px] md:text-[11px] lg:text-xs
-                    font-bold tracking-wider sm:tracking-widest
-                    uppercase transition-all duration-200
-                    active:scale-95
-                    border-b-2 cursor-pointer
-                    ${
-                      isActive
-                        ? activeClasses
-                        : "text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/50"
-                    }
-                    ${index !== MAIN_DOMAINS.length - 1 ? "border-r border-slate-200 dark:border-slate-800" : ""}
-                  `}
+                  className={isActive ? "domain-tab domain-tab--active" : "domain-tab"}
                   style={{ wordBreak: 'break-word', hyphens: 'auto' }}
                 >
-                  <span className="domain-tab__signal" aria-hidden="true" />
-                  {domain.name}
+                  <span className="domain-tab__icon"><Icon aria-hidden="true" /></span><span>{domain.name.toLowerCase()}</span>
                 </button>
               );
             })}
@@ -751,25 +719,9 @@ export function ProgressTable() {
                 <button
                   key={`sub-header-${index}`}
                   onClick={() => handleSubTabClick(index)}
-                  className={`
-                    flex-1 min-w-fit
-                    py-2 px-2 sm:py-2 sm:px-4
-                    flex items-center justify-center
-                    text-center whitespace-nowrap
-                    text-[10px] sm:text-xs
-                    font-bold tracking-wide
-                    uppercase transition-all duration-200
-                    active:scale-95
-                    border-b-2 cursor-pointer
-                    ${
-                      isActive
-                        ? "subdomain-active"
-                        : "text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800/60"
-                    }
-                    ${index !== activeMainDomain.subdomains.length - 1 ? "border-r border-slate-200 dark:border-slate-800" : ""}
-                  `}
+                  className={isActive ? "subdomain-tab subdomain-active" : "subdomain-tab"}
                 >
-                  {subdomain.name}
+                  <DomainGlyph id={subdomain.id} />{subdomain.name}
                 </button>
               );
             })}
