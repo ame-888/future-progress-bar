@@ -1,4 +1,5 @@
 "use client";
+import { NORTH_STARS } from "@/lib/north-stars";
 
 import React, { useState } from "react";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
@@ -81,7 +82,7 @@ export function NuclearFusionGraph({ lastUpdated }: { lastUpdated?: string }) {
         <div>
           <div className="flex items-center gap-2">
             <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              Lawson Criterion
+              {NORTH_STARS["nuclear-fusion"].title}
               <span className="text-xs font-semibold px-2 py-1 bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400 rounded-full uppercase tracking-wider">
                 North Star
               </span>

@@ -28,9 +28,6 @@ export function MainProgressBar() {
     }));
     return { completed, totals, totalNorthStars, ...getGlobalProgress(MAIN_DOMAINS) };
   }, []);
-  const nextSharedLevel = completed.slice(1).findIndex((count, index) => count < totals[index + 1]) + 1;
-  const currentSharedLevel = nextSharedLevel > 0 ? nextSharedLevel - 1 : 7;
-
   return (
     <section className="civilization-map" aria-labelledby="civilization-heading">
       <div className="civilization-map__header">
@@ -45,12 +42,6 @@ export function MainProgressBar() {
         </div>
       </div>
 
-      <div className="era-readout" aria-label={`Current shared era: ${ERAS[currentSharedLevel].name}. Next shared era: ${nextSharedLevel > 0 ? ERAS[nextSharedLevel].name : "all eras reached"}.`}>
-        <div><small>Current shared era</small><strong>{ERAS[currentSharedLevel].name} · L{currentSharedLevel}</strong></div>
-        <span aria-hidden="true">→</span>
-        <div><small>Next shared era</small><strong>{nextSharedLevel > 0 ? `${ERAS[nextSharedLevel].name} · L${nextSharedLevel}` : "All eras reached"}</strong>{nextSharedLevel > 0 && <em>{completed[nextSharedLevel]} / {totals[nextSharedLevel]} measurements at threshold</em>}</div>
-      </div>
-
       <div className="era-landscape" role="list" aria-label="Civilization eras">
         <svg className="era-landscape__path" viewBox="0 0 1000 270" preserveAspectRatio="none" aria-hidden="true">
           <path className="era-landscape__terrain" d="M0 245 C80 238 110 193 175 199 S255 227 310 207 S380 159 440 165 S525 146 575 135 S650 111 705 96 S785 79 835 66 S925 39 1000 13 L1000 270 L0 270Z" />
@@ -61,7 +52,7 @@ export function MainProgressBar() {
           return (
             <div className={`era-waypoint era-waypoint--${index}`} style={{ left: `${era.x}%`, top: `${era.y}%` }} role="listitem" key={era.name}>
               <span className="era-waypoint__node"><i style={{ "--completion": `${percentage}%` } as React.CSSProperties}>{era.symbol}</i></span>
-              <div className="era-waypoint__label"><small>L{index} · {percentage}%</small><strong>{era.name}</strong><em>{era.horizon}</em></div>
+              <div className="era-waypoint__label"><small>{index === 0 ? "L0 · BASELINE" : `L${index} · ${percentage}%`}</small><strong>{era.name}</strong><em>{era.horizon}</em></div>
             </div>
           );
         })}

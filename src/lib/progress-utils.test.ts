@@ -11,6 +11,7 @@ test("canonical catalogue is structurally valid", () => assert.deepEqual(validat
 test("Stone is baseline and denominator is derived as 336", () => {
   assert.deepEqual(getCatalogueCounts(MAIN_DOMAINS), { domains: 5, subdomains: 12, measurements: 48, milestones: 336, northStars: 12 });
   assert.equal(getGlobalProgress(MAIN_DOMAINS).possible, 336);
+  assert.equal(getGlobalProgress(MAIN_DOMAINS).achieved, 0);
   assert.ok(MAIN_DOMAINS.every((d) => d.subdomains.every((s) => s.measurements.every((m) => m.levels.every((l) => l.level >= 1)))));
 });
 test("nonnumeric epistemic states cannot score or masquerade as zero", () => {

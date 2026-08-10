@@ -1,4 +1,5 @@
 "use client";
+import { NORTH_STARS } from "@/lib/north-stars";
 
 import React, { useState } from "react";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
@@ -66,7 +67,7 @@ export function SelfDrivingCarGraph({ lastUpdated }: { lastUpdated?: string }) {
         <div>
           <div className="flex items-center gap-2">
             <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              Global Share of distance traveled by Self-Driving Vehicles (LVL 4 and LVL 5)
+              {NORTH_STARS["self-driving-car"].title}
               <span className="text-xs font-semibold px-2 py-1 bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400 rounded-full uppercase tracking-wider">
                 North Star
               </span>
