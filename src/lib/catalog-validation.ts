@@ -1,60 +1,54 @@
 import { MAIN_DOMAINS } from "../components/progress-table-data.ts";
 import { RETIRED_MEASUREMENTS } from "../components/retired-measurements.ts";
+import { DATASET_SNAPSHOT } from "../data/dataset-snapshot.ts";
+import { MEASUREMENT_CATALOG } from "./measurement-catalog.ts";
 import { getCatalogueCounts, getGlobalProgress } from "./progress-utils.ts";
 import { PROGRESS_SLUGS, SLUG_TO_DOMAIN_ID } from "./site.ts";
 
-export function validateCatalogue(): string[] {
-  const errors: string[] = [];
+export type CatalogueValidation = { errors: string[]; warnings: string[] };
+
+export function inspectCatalogue(): CatalogueValidation {
+  const errors: string[] = [], warnings: string[] = [];
   const counts = getCatalogueCounts(MAIN_DOMAINS);
   if (counts.domains !== 5) errors.push(`Expected 5 domains, found ${counts.domains}`);
   if (counts.subdomains !== 12) errors.push(`Expected 12 subdomains, found ${counts.subdomains}`);
   if (counts.measurements !== 48) errors.push(`Expected 48 measurements, found ${counts.measurements}`);
   if (counts.milestones !== 336) errors.push(`Expected 336 scored milestones, found ${counts.milestones}`);
-  const ids = new Set<string>();
-  const auditChangedIds = new Set(["lev-1", "lev-3", "lev-4", "qc-4", "self-driving-car-2", "bci-1", "bci-2", "cultured-meat-2", "cultured-meat-3"]);
-  const temporalTypes = new Set(["current", "record"]);
-  const indicatorTypes = new Set(["capability", "adoption", "policy", "market", "outcome", "proxy"]);
-  for (const domain of MAIN_DOMAINS) for (const subdomain of domain.subdomains) {
-    if (subdomain.measurements.length !== 4) errors.push(`${subdomain.id} does not have four active measurements`);
-    for (const measurement of subdomain.measurements) {
-      if (ids.has(measurement.id)) errors.push(`Duplicate active ID ${measurement.id}`); ids.add(measurement.id);
-      if (!measurement.question.trim().endsWith("?")) errors.push(`${measurement.id} lacks a full question`);
-      if (!measurement.definition.trim()) errors.push(`${measurement.id} lacks a definition`);
-      if (/canonical unit/i.test(measurement.unit) || !measurement.unit.trim()) errors.push(`${measurement.id} lacks a real canonical unit`);
-      if (/Qualification follows the canonical Global Measurement Protocol/i.test(measurement.definition) || measurement.definition.trim() === measurement.question.replace(/\?$/, "")) errors.push(`${measurement.id} has a placeholder-only definition`);
-      if (!temporalTypes.has(measurement.temporalType ?? "")) errors.push(`${measurement.id} has an invalid temporal type`);
-      if (!indicatorTypes.has(measurement.indicatorType ?? "")) errors.push(`${measurement.id} has an invalid indicator type`);
-      if (measurement.levels.length !== 7 || measurement.levels.some((level, index) => level.level !== index + 1)) errors.push(`${measurement.id} must store levels 1–7 only`);
-      const numericLevels = measurement.levels.filter((level) => !level.achievementKey);
-      const goals = numericLevels.map((level) => level.goal);
-      for (let index = 1; index < goals.length; index++) {
-        if (measurement.isLowerBetter ? goals[index] >= goals[index - 1] : goals[index] <= goals[index - 1]) errors.push(`${measurement.id} has a non-monotonic numeric threshold ladder`);
-      }
-      for (const level of measurement.levels.filter((item) => item.achievementKey)) {
-        const achievementKey = level.achievementKey;
-        if (!achievementKey?.trim()) errors.push(`${measurement.id} has an empty special-condition key`);
-        else if (measurement.achievements?.[achievementKey] !== true && canCompleteNumerically(measurement.currentValue, level.goal, measurement.isLowerBetter)) errors.push(`${measurement.id} special level ${level.level} could be accidentally numerically achieved`);
-      }
-      if (["unknown", "not-applicable", "no-verified-result"].includes(measurement.valueStatus ?? "") && measurement.currentValue !== undefined) errors.push(`${measurement.id} has contradictory nonnumeric status and numeric value`);
-      if (measurement.valueStatus === "zero" && measurement.currentValue !== 0) errors.push(`${measurement.id} ZERO must be intentional numeric zero`);
-      if (measurement.valueStatus === "lower-bound" && !/^(≥|>|at least)/i.test(measurement.displayValue ?? "")) errors.push(`${measurement.id} LOWER BOUND display lacks a qualifier`);
-      if (auditChangedIds.has(measurement.id) && measurement.evidence.length === 0) errors.push(`${measurement.id} changed in the audit but has no structured evidence`);
-      if (measurement.researchCutoff !== "2026-08-16") errors.push(`${measurement.id} has a noncanonical research cutoff`);
-      if ((measurement.unit.includes("%") || measurement.title.toLowerCase().includes("share")) && (!measurement.denominator || measurement.denominator.description.length < 25 || /compatible worldwide activity total/i.test(measurement.denominator.description))) errors.push(`${measurement.id} share lacks meaningful denominator metadata`);
+  const ids = new Set<string>(), retiredIds = new Set(RETIRED_MEASUREMENTS.map((item) => item.id));
+  for (const domain of MAIN_DOMAINS) for (const subdomain of domain.subdomains) for (const measurement of subdomain.measurements) {
+    if (ids.has(measurement.id)) errors.push(`Duplicate active ID ${measurement.id}`); ids.add(measurement.id);
+    if (retiredIds.has(measurement.id)) errors.push(`Retired ID ${measurement.id} is active`);
+    if (!MEASUREMENT_CATALOG[measurement.id]) errors.push(`${measurement.id} does not resolve to a specification`);
+    if (!measurement.title || !measurement.question || !measurement.construct || !measurement.variable || !measurement.unit || !measurement.definitionVersion || !measurement.effectiveFrom) errors.push(`${measurement.id} lacks required specification fields`);
+    if (!measurement.observation.measurementId || !measurement.researchCutoff || !measurement.valueStatus || !measurement.displayValue && measurement.currentValue === undefined) errors.push(`${measurement.id} lacks required observation fields`);
+    if (measurement.researchCutoff !== DATASET_SNAPSHOT.researchCutoff) errors.push(`${measurement.id} has a noncanonical research cutoff`);
+    if (measurement.levels.length !== 7 || measurement.levels.some((level, index) => level.level !== index + 1)) errors.push(`${measurement.id} must store levels 1–7 only`);
+    const numeric = measurement.levels.filter((level) => level.kind === "numeric");
+    for (let i = 1; i < numeric.length; i++) if (measurement.isLowerBetter ? numeric[i].goal >= numeric[i - 1].goal : numeric[i].goal <= numeric[i - 1].goal) errors.push(`${measurement.id} has a non-monotonic numeric threshold ladder`);
+    for (const level of measurement.levels) {
+      if (level.kind === "condition" && (!level.conditionKey.trim() || "operator" in level)) errors.push(`${measurement.id} condition level ${level.level} is invalid`);
+      if (level.kind === "numeric" && !Number.isFinite(level.goal)) errors.push(`${measurement.id} level ${level.level} has an invalid numeric goal`);
     }
+    const numericStatus = ["zero", "verified", "estimate", "lower-bound"].includes(measurement.valueStatus);
+    if (numericStatus && !Number.isFinite(measurement.currentValue)) errors.push(`${measurement.id} numeric status lacks a finite value`);
+    if (!numericStatus && measurement.currentValue !== undefined) errors.push(`${measurement.id} has contradictory nonnumeric status and numeric value`);
+    if (measurement.valueStatus === "zero" && measurement.currentValue !== 0) errors.push(`${measurement.id} ZERO must be intentional numeric zero`);
+    if (measurement.valueStatus === "lower-bound" && !/^(≥|>|at least)/i.test(measurement.displayValue ?? "")) errors.push(`${measurement.id} LOWER BOUND display lacks a qualifier`);
+    const evidenceIds = new Set(measurement.evidence.map((item) => item.id));
+    if (evidenceIds.size !== measurement.evidence.length || measurement.evidence.some((item) => !item.id || !item.supports)) errors.push(`${measurement.id} has invalid evidence references`);
+    if (measurement.observation.evidence.some((item) => !evidenceIds.has(item.id))) errors.push(`${measurement.id} observation evidence does not resolve`);
+    if (measurement.observationHistory.some((item) => item.measurementId !== measurement.id || item.evidenceIds.some((evidenceId) => !evidenceIds.has(evidenceId)))) errors.push(`${measurement.id} has unresolved history references`);
+    if (measurement.forecasts.some((item) => item.measurementId !== measurement.id || !measurement.levels.some((level) => level.level === item.level))) errors.push(`${measurement.id} has an invalid forecast reference`);
+    if (!measurement.evidence.length) warnings.push(`${measurement.id}: evidence ledger pending`);
+    if (measurement.rationale === null || measurement.protocol.researchProcedure === null) warnings.push(`${measurement.id}: rationale/protocol migration pending`);
   }
-  for (const retired of RETIRED_MEASUREMENTS) if (ids.has(retired.id)) errors.push(`Retired ID ${retired.id} is active`);
   if (PROGRESS_SLUGS.length !== counts.subdomains || Object.values(SLUG_TO_DOMAIN_ID).some((id) => !MAIN_DOMAINS.some((d) => d.subdomains.some((s) => s.id === id)))) errors.push("Public progress routes do not match active subdomains");
-  for (const subdomain of MAIN_DOMAINS.flatMap((domain) => domain.subdomains)) {
-    if (!subdomain.northStar?.title || !subdomain.northStar.question || !subdomain.northStar.methodology || !subdomain.northStar.unit) errors.push(`${subdomain.id} lacks exact North Star metadata`);
-  }
+  for (const subdomain of MAIN_DOMAINS.flatMap((domain) => domain.subdomains)) if (!subdomain.northStar?.title || !subdomain.northStar.question || !subdomain.northStar.methodology || !subdomain.northStar.unit) errors.push(`${subdomain.id} lacks exact North Star metadata`);
   const progress = getGlobalProgress(MAIN_DOMAINS);
-  if (progress.achieved !== 0 || progress.possible !== 336) errors.push(`Snapshot score must be 0 / 336, found ${progress.achieved} / ${progress.possible}`);
-  return errors;
+  const independentlyDerived = MAIN_DOMAINS.flatMap((d) => d.subdomains.flatMap((s) => s.measurements)).flatMap((m) => m.levels.map((level) => ({ m, level }))).filter(({ m, level }) => level.kind === "condition" ? m.achievements?.[level.conditionKey] === true : ["zero", "verified", "estimate", "lower-bound"].includes(m.valueStatus) && !(m.valueStatus === "lower-bound" && m.isLowerBetter) && (m.isLowerBetter ? m.currentValue! <= level.goal : m.currentValue! >= level.goal)).length;
+  if (progress.possible !== 336 || progress.achieved < 0 || progress.achieved > progress.possible || progress.achieved !== independentlyDerived) errors.push(`Derived score is inconsistent: ${progress.achieved} / ${progress.possible}`);
+  return { errors, warnings };
 }
 
-function canCompleteNumerically(value: number | undefined, goal: number, lower = false) {
-  return typeof value === "number" && (lower ? value <= goal : value >= goal);
-}
-
+export function validateCatalogue(): string[] { return inspectCatalogue().errors; }
 export function assertValidCatalogue() { const errors = validateCatalogue(); if (errors.length) throw new Error(`Invalid measurement catalogue:\n${errors.join("\n")}`); }

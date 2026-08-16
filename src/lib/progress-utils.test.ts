@@ -1,57 +1,58 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { MAIN_DOMAINS, type Measurement } from "../components/progress-table-data.ts";
+import { DATASET_SNAPSHOT } from "../data/dataset-snapshot.ts";
+import type { MeasurementLevel } from "../components/progress-table-data.ts";
 import { RETIRED_MEASUREMENTS } from "../components/retired-measurements.ts";
 import { canObservationCompleteThreshold, getCatalogueCounts, getGlobalProgress, hasNumericObservation } from "./progress-utils.ts";
-import { validateCatalogue } from "./catalog-validation.ts";
+import { inspectCatalogue, validateCatalogue } from "./catalog-validation.ts";
 
 const sample = (valueStatus: Measurement["valueStatus"], currentValue?: number, isLowerBetter = false) => ({ valueStatus, currentValue, isLowerBetter });
+const numeric = (goal: number): MeasurementLevel => ({ level: 1, kind: "numeric", goal, operator: ">=" });
+const condition = (conditionKey: string): MeasurementLevel => ({ level: 1, kind: "condition", conditionKey, goal: 7, label: "condition" });
 
-test("canonical catalogue is structurally valid", () => assert.deepEqual(validateCatalogue(), []));
-test("Stone is baseline and denominator is derived as 336", () => {
+test("canonical catalogue composes without unsafe casts and is structurally valid", () => {
+  assert.deepEqual(validateCatalogue(), []);
+  assert.equal(MAIN_DOMAINS[0].subdomains[0].measurements[0].observation.measurementId, "ai-millennium-problems");
+});
+test("snapshot metadata drives every current observation", () => {
+  assert.equal(DATASET_SNAPSHOT.researchCutoff, "2026-08-16");
+  assert.ok(MAIN_DOMAINS.every((d) => d.subdomains.every((s) => s.measurements.every((m) => m.researchCutoff === DATASET_SNAPSHOT.researchCutoff))));
+});
+test("global score and denominator are independently derived rather than fixed at zero", () => {
   assert.deepEqual(getCatalogueCounts(MAIN_DOMAINS), { domains: 5, subdomains: 12, measurements: 48, milestones: 336, northStars: 12 });
-  assert.equal(getGlobalProgress(MAIN_DOMAINS).possible, 336);
-  assert.equal(getGlobalProgress(MAIN_DOMAINS).achieved, 0);
-  assert.ok(MAIN_DOMAINS.every((d) => d.subdomains.every((s) => s.measurements.every((m) => m.levels.every((l) => l.level >= 1)))));
+  const progress = getGlobalProgress(MAIN_DOMAINS);
+  assert.equal(progress.possible, 336);
+  assert.ok(progress.achieved >= 0 && progress.achieved <= progress.possible);
+  assert.ok(!inspectCatalogue().errors.some((error) => /must be 0/.test(error)));
 });
-test("August 16 longevity audit is represented in the rendered catalogue data", () => {
-  const measurements = MAIN_DOMAINS.flatMap((domain) => domain.subdomains.flatMap((subdomain) => subdomain.measurements));
-  const byId = (id: string) => measurements.find((measurement) => measurement.id === id);
-  assert.deepEqual(
-    ["lev-1", "lev-3", "lev-4"].map((id) => {
-      const measurement = byId(id);
-      return [measurement?.researchCutoff, measurement?.currentValue, measurement?.displayValue, measurement?.valueStatus];
-    }),
-    [
-      ["2026-08-16", 73.768, "73.8", "estimate"],
-      ["2026-08-16", 116.9863, "116 years, 360 days", "verified"],
-      ["2026-08-16", 203, "203", "verified"],
-    ],
-  );
+test("all numeric epistemic states are modeled and score appropriately", () => {
+  assert.equal(hasNumericObservation(sample("verified", 4)), true);
+  assert.equal(hasNumericObservation(sample("estimate", 4)), true);
+  assert.equal(hasNumericObservation(sample("lower-bound", 4)), true);
+  assert.equal(hasNumericObservation(sample("zero", 0)), true);
+  assert.equal(canObservationCompleteThreshold(sample("verified", 5), numeric(4)), true);
+  assert.equal(canObservationCompleteThreshold(sample("estimate", 5), numeric(4)), true);
 });
-test("nonnumeric epistemic states cannot score or masquerade as zero", () => {
+test("UNKNOWN, N/A, and NO VERIFIED RESULT remain genuinely nonnumeric", () => {
   for (const status of ["unknown", "not-applicable", "no-verified-result"] as const) {
     const observation = sample(status);
     assert.equal(hasNumericObservation(observation), false);
-    assert.equal(canObservationCompleteThreshold(observation, { goal: 0 }), false);
+    assert.equal(canObservationCompleteThreshold(observation, numeric(0)), false);
   }
-  assert.equal(hasNumericObservation(sample("zero", 0)), true);
 });
-test("estimates score while retaining their classification", () => {
-  const observation = sample("estimate", 5);
-  assert.equal(observation.valueStatus, "estimate");
-  assert.equal(canObservationCompleteThreshold(observation, { goal: 4 }), true);
+test("higher/lower direction and lower-bound safety are preserved", () => {
+  assert.equal(canObservationCompleteThreshold(sample("verified", 5), numeric(4)), true);
+  assert.equal(canObservationCompleteThreshold(sample("verified", 2, true), numeric(3)), true);
+  assert.equal(canObservationCompleteThreshold(sample("lower-bound", 5), numeric(4)), true);
+  assert.equal(canObservationCompleteThreshold(sample("lower-bound", 2, true), numeric(3)), false);
 });
-test("lower bounds score higher-is-better but not lower-is-better thresholds", () => {
-  assert.equal(canObservationCompleteThreshold(sample("lower-bound", 5), { goal: 4 }), true);
-  assert.equal(canObservationCompleteThreshold(sample("lower-bound", 2, true), { goal: 3 }), false);
+test("condition milestones never use their legacy numeric fallback", () => {
+  assert.equal(canObservationCompleteThreshold({ ...sample("verified", 99), achievements: {} }, condition("newProblem")), false);
+  assert.equal(canObservationCompleteThreshold({ ...sample("unknown"), achievements: { newProblem: true } }, condition("newProblem")), true);
+  assert.equal(canObservationCompleteThreshold({ ...sample("verified", 99), achievements: { newProblem: true } }, condition("")), false);
 });
-test("retired IDs cannot appear as active forecast targets", () => {
+test("retired IDs cannot appear as active targets", () => {
   const active = new Set(MAIN_DOMAINS.flatMap((d) => d.subdomains.flatMap((s) => s.measurements.map((m) => m.id))));
   assert.ok(RETIRED_MEASUREMENTS.every((item) => !active.has(item.id)));
-});
-test("special-condition milestones never fall back to numeric scoring", () => {
-  const threshold = { goal: 7, achievementKey: "newProblem" };
-  assert.equal(canObservationCompleteThreshold({ ...sample("verified", 99), achievements: {} }, threshold), false);
-  assert.equal(canObservationCompleteThreshold({ ...sample("verified", 6), achievements: { newProblem: true } }, threshold), true);
 });

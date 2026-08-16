@@ -1,7 +1,9 @@
 import type { EvidenceReference } from "./measurement-types.ts";
+import { DATASET_SNAPSHOT } from "../data/dataset-snapshot.ts";
 
-const checked = "2026-08-16";
-const ref = (title: string, organization: string, url: string, sourceType: EvidenceReference["sourceType"], supports: string, publicationDate?: string): EvidenceReference => ({ title, organization, url, sourceType, supports, publicationDate, accessedDate: checked });
+const checked = DATASET_SNAPSHOT.researchCutoff;
+const evidenceId = (url: string) => `source-${url.replace(/^https?:\/\//, "").replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase()}`;
+const ref = (title: string, organization: string, url: string, sourceType: EvidenceReference["sourceType"], supports: string, publicationDate?: string): EvidenceReference => ({ id: evidenceId(url), title, organization, url, sourceType, supports, publicationDate, accessedDate: checked });
 
 /** Production evidence ledger for the August 16, 2026 observation snapshot. */
 export const MEASUREMENT_EVIDENCE: Record<string, EvidenceReference[]> = {

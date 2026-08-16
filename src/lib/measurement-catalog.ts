@@ -1,7 +1,7 @@
-import type { MeasurementDefinition } from "./measurement-types.ts";
+import type { LegacyMeasurementDefinition, MeasurementSpec } from "./measurement-types.ts";
 
 /** Stable operational definitions. Observations, ladders, forecasts, and history are composed separately. */
-const definitions: MeasurementDefinition[] = [
+const definitions: LegacyMeasurementDefinition[] = [
   {
     "id": "ai-millennium-problems",
     "title": "Millennium Prize Problems Solved",
@@ -519,4 +519,18 @@ const definitions: MeasurementDefinition[] = [
   }
 ];
 
-export const MEASUREMENT_CATALOG: Record<string, MeasurementDefinition> = Object.fromEntries(definitions.map((definition) => [definition.id, definition]));
+function migrateLegacyDefinition(definition: LegacyMeasurementDefinition): MeasurementSpec {
+  return {
+    id: definition.id, title: definition.title, definitionVersion: "legacy-1", effectiveFrom: "2026-08-16", state: "active",
+    question: definition.question, construct: definition.definition, rationale: null, variable: definition.title, unit: definition.unit,
+    isLowerBetter: definition.isLowerBetter, indicatorType: definition.indicatorType, temporalType: definition.temporalType,
+    scope: { geographic: definition.geographicScope },
+    ratio: definition.denominator ? { denominatorDefinition: definition.denominator.description, denominatorValue: definition.denominator.value, period: definition.denominator.period, geography: definition.denominator.geography } : undefined,
+    qualification: { inclusionCriteria: [], exclusionCriteria: [], boundaryRules: [], glossaryReferences: [] },
+    protocol: { updateCadence: "legacy", preferredSourceTypes: [], researchProcedure: null, zeroRule: null, unknownRule: null, sourceConflictRule: null },
+    ladder: { pattern: definition.isLowerBetter ? "descending" : "ascending", rationale: null },
+    legacy: { operationalDefinition: definition.definition, metadataPending: true },
+  };
+}
+
+export const MEASUREMENT_CATALOG: Readonly<Record<string, MeasurementSpec>> = Object.fromEntries(definitions.map((definition) => [definition.id, migrateLegacyDefinition(definition)]));
