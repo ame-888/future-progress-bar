@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --experimental-strip-types --test src/lib/progress-utils.test.ts"
+    "test": "node --experimental-strip-types --test src/lib/*.test.ts",
+    "data:validate": "node --experimental-strip-types scripts/data-tools.ts validate",
+    "data:audit": "node --experimental-strip-types scripts/data-tools.ts audit",
+    "data:summary": "node --experimental-strip-types scripts/data-tools.ts summary"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
