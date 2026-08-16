@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { DigitalClock } from "@/components/digital-clock";
 import { Footer } from "@/components/footer";
 import { SiteHeader } from "@/components/site-header";
 import { SITE_URL, adsenseClient, adsenseConfigured } from "@/lib/site";
@@ -33,7 +32,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <DigitalClock />
           <SiteHeader />
           {children}
           <Footer />
