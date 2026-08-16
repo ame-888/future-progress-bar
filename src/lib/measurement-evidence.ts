@@ -1,12 +1,13 @@
 import type { EvidenceReference } from "./measurement-types.ts";
 
-const checked = "2026-08-10";
+const checked = "2026-08-16";
 const ref = (title: string, organization: string, url: string, sourceType: EvidenceReference["sourceType"], supports: string, publicationDate?: string): EvidenceReference => ({ title, organization, url, sourceType, supports, publicationDate, accessedDate: checked });
 
-/** Production evidence ledger for the August 10, 2026 observation snapshot. */
+/** Production evidence ledger for the August 16, 2026 observation snapshot. */
 export const MEASUREMENT_EVIDENCE: Record<string, EvidenceReference[]> = {
-  "lev-3": [ref("Oldest person living", "Guinness World Records", "https://www.guinnessworldrecords.com/world-records/67479-oldest-person-living", "official", "Ethel Caterham is the verified oldest living person and was born 21 August 1909.")],
-  "lev-4": [ref("World Supercentenarian Rankings List", "Gerontology Research Group", "https://www.grg-supercentenarians.org/world-supercentenarian-rankings-list/", "official", "The cutoff count is the number of living validated entries on the GRG list, not a census estimate.")],
+  "lev-1": [ref("World Population Prospects 2024", "United Nations, Department of Economic and Social Affairs, Population Division", "https://population.un.org/wpp/Download/Standard/MostUsed/", "official", "The 2026 world estimate for life expectancy at birth, both sexes combined, is 73.768 years.")],
+  "lev-3": [ref("Oldest person living", "Guinness World Records", "https://www.guinnessworldrecords.com/world-records/67479-oldest-person-living", "official", "Ethel Caterham, born 21 August 1909, remained the verified oldest living person and was 116 years, 360 days old at the cutoff.")],
+  "lev-4": [ref("World Supercentenarian Rankings List", "Gerontology Research Group", "https://www.grg-supercentenarians.org/world-supercentenarian-rankings-list/", "official", "The 203 living validated entries at the cutoff are an exact GRG list count, not a census estimate of the world's true living supercentenarian population.")],
   "qc-4": [ref("IBM Quantum system performance", "IBM Quantum", "https://quantum.cloud.ibm.com/services/resources", "technical", "IBM's published system metrics report approximately 340K hardware-aware CLOPS_h for a Heron system.")],
   "self-driving-car-2": [ref("Autonomous Vehicle Deployment Program", "California Public Utilities Commission", "https://www.cpuc.ca.gov/regulatory-services/licensing/transportation-licensing-and-analysis-branch/autonomous-vehicle-programs", "official", "Ordinary paid driverless passenger service is authorized in parts of the United States."), ref("Beijing opens autonomous driving service area", "Beijing Municipal Government", "https://english.beijing.gov.cn/latest/news/202503/t20250304_4023444.html", "official", "China permits public autonomous-driving services in a defined city area.")],
   "bci-1": [

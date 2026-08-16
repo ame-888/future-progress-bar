@@ -38,6 +38,6 @@ export const QUANTUM_COMPUTING_DATA: QuantumComputingDataPoint[] = [
   {
     year: 2026,
     logicalQubits: 96,
-    description: 'The raw maximum remained 96 encoded logical qubits at the 2026-08-10 research cutoff.',
+    description: 'The raw maximum remained 96 encoded logical qubits at the 2026-08-16 research cutoff.',
   },
 ];

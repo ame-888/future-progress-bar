@@ -43,7 +43,7 @@ export const MEASUREMENT_HISTORY = {
     {
       "value": 0,
       "details": [
-        "0%; no qualifying household adoption identified at the 2026-08-10 cutoff."
+        "0%; no qualifying household adoption identified at the 2026-08-16 cutoff, including under the clarified treatment of early-access deployments."
       ]
     }
   ],
@@ -51,7 +51,7 @@ export const MEASUREMENT_HISTORY = {
     {
       "value": 0,
       "details": [
-        "No qualifying country exists under the strict independent-authority definition at the 2026-08-10 research cutoff."
+        "No qualifying country exists under the strict independent-authority definition at the 2026-08-16 research cutoff."
       ]
     }
   ],
@@ -97,9 +97,9 @@ export const MEASUREMENT_HISTORY = {
   ],
   "lev-1": [
     {
-      "value": 73.66,
+      "value": 73.768,
       "details": [
-        "Model estimate for 2026; displayed as 73.7 years."
+        "UN World Population Prospects 2024 world estimate for 2026; displayed as 73.8 years."
       ]
     }
   ],
@@ -113,17 +113,17 @@ export const MEASUREMENT_HISTORY = {
   ],
   "lev-3": [
     {
-      "value": 116.9699,
+      "value": 116.9863,
       "details": [
-        "Ethel Caterham (born 1909-08-21) was the oldest verified living person at the cutoff: 116 years, 354 days. This current-population result is not the all-time longevity record."
+        "Ethel Caterham (born 1909-08-21) was the oldest verified living person at the 2026-08-16 cutoff: 116 years, 360 days. This current-population result is not the all-time longevity record."
       ]
     }
   ],
   "lev-4": [
     {
-      "value": 206,
+      "value": 203,
       "details": [
-        "206 living validated entries on the GRG list at the 2026-08-10 cutoff. This is an exact list count, not an estimate of every living supercentenarian worldwide."
+        "203 living validated entries on the GRG list at the 2026-08-16 cutoff. This is an exact list count, not an estimate of every living supercentenarian worldwide."
       ]
     }
   ],

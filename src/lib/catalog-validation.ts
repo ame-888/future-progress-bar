@@ -11,7 +11,7 @@ export function validateCatalogue(): string[] {
   if (counts.measurements !== 48) errors.push(`Expected 48 measurements, found ${counts.measurements}`);
   if (counts.milestones !== 336) errors.push(`Expected 336 scored milestones, found ${counts.milestones}`);
   const ids = new Set<string>();
-  const auditChangedIds = new Set(["lev-3", "lev-4", "qc-4", "self-driving-car-2", "bci-1", "bci-2", "cultured-meat-2", "cultured-meat-3"]);
+  const auditChangedIds = new Set(["lev-1", "lev-3", "lev-4", "qc-4", "self-driving-car-2", "bci-1", "bci-2", "cultured-meat-2", "cultured-meat-3"]);
   const temporalTypes = new Set(["current", "record"]);
   const indicatorTypes = new Set(["capability", "adoption", "policy", "market", "outcome", "proxy"]);
   for (const domain of MAIN_DOMAINS) for (const subdomain of domain.subdomains) {
@@ -39,7 +39,7 @@ export function validateCatalogue(): string[] {
       if (measurement.valueStatus === "zero" && measurement.currentValue !== 0) errors.push(`${measurement.id} ZERO must be intentional numeric zero`);
       if (measurement.valueStatus === "lower-bound" && !/^(≥|>|at least)/i.test(measurement.displayValue ?? "")) errors.push(`${measurement.id} LOWER BOUND display lacks a qualifier`);
       if (auditChangedIds.has(measurement.id) && measurement.evidence.length === 0) errors.push(`${measurement.id} changed in the audit but has no structured evidence`);
-      if (measurement.researchCutoff !== "2026-08-10") errors.push(`${measurement.id} has a noncanonical research cutoff`);
+      if (measurement.researchCutoff !== "2026-08-16") errors.push(`${measurement.id} has a noncanonical research cutoff`);
       if ((measurement.unit.includes("%") || measurement.title.toLowerCase().includes("share")) && (!measurement.denominator || measurement.denominator.description.length < 25 || /compatible worldwide activity total/i.test(measurement.denominator.description))) errors.push(`${measurement.id} share lacks meaningful denominator metadata`);
     }
   }
