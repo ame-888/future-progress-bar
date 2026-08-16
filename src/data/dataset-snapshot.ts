@@ -1,8 +1,8 @@
 export const DATASET_SNAPSHOT = {
   id: "fpb-2026-08-16",
   researchCutoff: "2026-08-16",
-  standardVersion: "FPB-MS-draft-phase-1",
-  auditDocument: "docs/data-audit-2026-08-16.md",
+  standardVersion: "FPB-MS-1.0",
+  auditDocument: "docs/fpb-ms-v1-migration.md",
 } as const;
 
 export type DatasetSnapshot = typeof DATASET_SNAPSHOT;

@@ -28,7 +28,7 @@ export const DOMAIN_STRUCTURE = [
       {
         "id": "self-driving-car",
         "name": "SELF-DRIVING CAR",
-        "description": "Vehicles equipped with sensors and AI that can navigate and operate safely without human intervention across all driving conditions.",
+        "description": "Road vehicles with automated-driving systems, described consistently by their SAE automation level and operational design domain rather than a generic self-driving label.",
         "measurementIds": [
           "self-driving-car-2",
           "self-driving-car-3",
@@ -45,7 +45,7 @@ export const DOMAIN_STRUCTURE = [
       {
         "id": "lev",
         "name": "LEV",
-        "description": "Stands for Longevity Escape Velocity, the point at which life expectancy increases longer than the time that is passing, effectively meaning humans can theoretically live indefinitely.",
+        "description": "Tracks population and frontier-age indicators relevant to longevity and the longevity-escape-velocity hypothesis; these indicators do not by themselves establish that escape velocity has been reached.",
         "measurementIds": [
           "lev-1",
           "lev-2",
@@ -73,7 +73,7 @@ export const DOMAIN_STRUCTURE = [
       {
         "id": "quantum-computing",
         "name": "QUANTUM COMPUTING",
-        "description": "A new paradigm of computation utilizing quantum mechanics to solve problems exponentially faster than classical computers, opening doors to advanced materials, chemistry, and cryptography.",
+        "description": "Computing systems that use quantum effects to pursue advantages on selected problems; speedups depend on the algorithm, hardware, error rates, and comparison method.",
         "measurementIds": [
           "qc-gate-model-physical-qubits",
           "qc-system-two-qubit-fidelity",
@@ -101,7 +101,7 @@ export const DOMAIN_STRUCTURE = [
       {
         "id": "bci",
         "name": "BCI",
-        "description": "Stands for Brain-Machine Interface, a piece of tech that directly communicates with the human brain, capable of receiving signals, sending them, or sometimes both.",
+        "description": "Brain-computer interfaces exchange information with neural activity by recording signals, stimulating neural tissue, or both.",
         "measurementIds": [
           "bci-1",
           "bci-2",
@@ -140,7 +140,7 @@ export const DOMAIN_STRUCTURE = [
       {
         "id": "cultured-meat",
         "name": "CULTURED MEAT",
-        "description": "Real meat produced by cultivating animal cells directly, eliminating the need to raise and slaughter animals while significantly reducing environmental impact.",
+        "description": "Animal tissue produced by cultivating cells rather than raising and slaughtering a whole animal; environmental outcomes depend on energy, inputs, process, and scale.",
         "measurementIds": [
           "cultured-meat-1",
           "cultured-meat-3",
@@ -151,7 +151,7 @@ export const DOMAIN_STRUCTURE = [
       {
         "id": "nuclear-fusion",
         "name": "NUCLEAR FUSION",
-        "description": "The process that powers the sun, merging atomic nuclei to release massive amounts of clean, boundless energy. We track the race to make it a practical power source on Earth.",
+        "description": "The process that powers the sun, merging atomic nuclei and releasing energy. We track the technical and commercial evidence needed for practical electricity generation, without assuming unlimited supply or zero impact.",
         "measurementIds": [
           "fusion-1",
           "fusion-2",
