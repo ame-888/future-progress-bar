@@ -33,8 +33,7 @@ export const MEASUREMENT_LEVELS = {
     {
       "level": 7,
       "goal": 7,
-      "achievementKey": "aiCreatedAndSolvedNewMillenniumLevelProblem",
-      "label": "Able to create and solve a brand-new Millennium Prize-level problem"
+      "label": "Qualifying AI solutions to all 7 named problems"
     }
   ],
   "ai-exclusively-professors": [

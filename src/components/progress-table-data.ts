@@ -24,15 +24,23 @@ type LegacyHistory = { value?: number; note?: string; details?: readonly string[
 type LegacyPrediction = { name: string; year: number };
 
 function canonicalObservation(measurementId: string, raw: LegacyObservation, evidence: EvidenceReference[]): MeasurementObservation {
-  const common = { measurementId, researchCutoff: raw.researchCutoff, observationDate: raw.observationDate, dataPeriod: raw.dataPeriod, displayValue: raw.displayValue, evidence, baseValue: raw.baseValue, achievements: raw.achievements };
+  const entityNames: Partial<Record<string, readonly (readonly [string, number])[]>> = {
+    "cultured-meat-2": [["Singapore", 0], ["United States", 1], ["Australia", 2], ["New Zealand", 2], ["Israel", 3]],
+    "cultured-meat-3": [["United Kingdom", 0]],
+  };
+  const qualifyingEntities = entityNames[measurementId]?.map(([name, evidenceIndex]) => ({ key: name.toLowerCase().replaceAll(" ", "-"), name, jurisdiction: name, qualificationSummary: "Operative market authorization documented by the observation evidence package.", evidenceIds: evidence[evidenceIndex] ? [evidence[evidenceIndex].id] : [] }));
+  const evidenceException = evidence.length ? undefined : { kind: "legacy-incomplete" as const, explanation: "The August 2026 audit records the reviewed result, but its underlying source ledger was not retained. FPB-MS forbids inventing provenance; this observation remains explicitly incomplete pending re-research." };
+  const common = { measurementId, researchCutoff: raw.researchCutoff, observationDate: raw.observationDate, dataPeriod: raw.dataPeriod, displayValue: raw.displayValue, evidence, evidenceException, qualifyingEntities, baseValue: raw.baseValue, achievements: raw.achievements };
   if (raw.valueStatus === "unknown" || raw.valueStatus === "not-applicable" || raw.valueStatus === "no-verified-result") return { ...common, valueStatus: raw.valueStatus };
   if (raw.currentValue === undefined) throw new Error(`${measurementId} has numeric status without a value`);
-  return { ...common, valueStatus: raw.valueStatus, value: raw.currentValue, zeroBasis: raw.valueStatus === "zero" ? "Legacy audited zero; formal rule pending Phase 2." : undefined };
+  const methodNote = raw.valueStatus === "estimate" ? "Approximation retained from the documented August 2026 audit method; use its stated range where available and do not treat it as an exact census." : undefined;
+  return { ...common, valueStatus: raw.valueStatus, value: raw.currentValue, methodNote, zeroBasis: raw.valueStatus === "zero" ? "The August 10 and August 16 documented research audits screened the defined worldwide candidate class and found no qualifying case. This is the sufficiently exhaustive documented-research basis; it must be reassessed at every cutoff." : undefined };
 }
 
 function canonicalLevel(raw: LegacyLevel, lower: boolean): MilestoneThreshold {
-  if (raw.achievementKey) return { level: raw.level, kind: "condition", conditionKey: raw.achievementKey, goal: raw.goal, label: raw.label ?? raw.achievementKey, realityYear: raw.realityYear, rationale: null };
-  return { level: raw.level, kind: "numeric", goal: raw.goal, operator: lower ? "<=" : ">=", label: raw.label, realityYear: raw.realityYear, rationale: null };
+  const rationale = `L${raw.level} is the reviewed checkpoint for the measurement's single canonical variable.`;
+  if (raw.achievementKey) return { level: raw.level, kind: "condition", conditionKey: raw.achievementKey, goal: raw.goal, label: raw.label ?? raw.achievementKey, realityYear: raw.realityYear, rationale };
+  return { level: raw.level, kind: "numeric", goal: raw.goal, operator: lower ? "<=" : ">=", label: raw.label, realityYear: raw.realityYear, rationale };
 }
 
 /** Strict compatibility composition. Canonical objects remain separate and the UI receives a proven shape without casts. */
@@ -47,12 +55,13 @@ export const MAIN_DOMAINS: MainDomainData[] = DOMAIN_STRUCTURE.map((domain) => (
     const observation = canonicalObservation(id, rawObservation, evidence);
     const forecastSet: Partial<Record<number, readonly LegacyPrediction[]>> | undefined = MEASUREMENT_FORECASTS[id];
     const history: readonly LegacyHistory[] = MEASUREMENT_HISTORY[id] ?? [];
-    const forecasts: Forecast[] = rawLevels.flatMap((level) => (forecastSet?.[level.level] ?? []).map((item) => ({ measurementId: id, level: level.level, forecaster: item.name, year: item.year })));
+    const forecasts: Forecast[] = rawLevels.flatMap((level) => (forecastSet?.[level.level] ?? []).map((item) => ({ measurementId: id, level: level.level, modelName: item.name, modelVersionId: null, predictedYear: item.year, capturedAt: null, protocolVersion: null, provenanceStatus: "legacy-incomplete" })));
     const observationHistory: ObservationHistoryEntry[] = history.map((entry) => ({ measurementId: id, researchCutoff: rawObservation.researchCutoff, valueStatus: rawObservation.valueStatus, value: entry.value, evidenceIds: evidence.map((item) => item.id), note: entry.note, details: entry.details }));
     const denominator = spec.ratio ? { description: spec.ratio.denominatorDefinition, value: spec.ratio.denominatorValue, period: spec.ratio.period, geography: spec.ratio.geography } : undefined;
     return { ...spec, definition: spec.legacy.operationalDefinition, geographicScope: spec.scope.geographic, denominator, researchCutoff: observation.researchCutoff, observationDate: observation.observationDate, dataPeriod: observation.dataPeriod, currentValue: "value" in observation ? observation.value : undefined, valueStatus: observation.valueStatus, displayValue: observation.displayValue, baseValue: observation.baseValue, achievements: observation.achievements, evidence, observation,
       levels: rawLevels.map((raw) => { const level = canonicalLevel(raw, spec.isLowerBetter); const predictions = forecastSet?.[raw.level]; return { ...level, aiPredictions: predictions ? predictions.map((item) => ({ ...item })) : undefined }; }),
-      forecasts, history: history.map((entry) => ({ ...entry, details: entry.details ? [...entry.details] : undefined })), observationHistory, definitionHistory: [],
+      forecasts, history: history.map((entry) => ({ ...entry, details: entry.details ? [...entry.details] : undefined })), observationHistory,
+      definitionHistory: [{ measurementId: id, definitionVersion: spec.definitionVersion, effectiveFrom: spec.effectiveFrom, changedFields: ["question", "construct", "rationale", "qualification", "protocol", "ladder"], reason: "Applied FPB-MS 1.0 semantic specification.", migrationNote: spec.definitionVersion === "2.0.0" ? "Material Phase 2 clarification; see migration audit." : "Initial FPB-MS definition; legacy observations are not back-cast.", comparabilityBreak: ["ai-millennium-problems", "ai-led-companies", "vr-4"].includes(id) }],
     };
   }),
 })) }));

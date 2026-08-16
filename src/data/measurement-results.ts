@@ -3,26 +3,26 @@ import { DATASET_SNAPSHOT } from "./dataset-snapshot.ts";
 export const MEASUREMENT_OBSERVATIONS = {
   "ai-millennium-problems": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
-    "currentValue": 0,
-    "valueStatus": "zero",
+    "valueStatus": "no-verified-result",
+    "displayValue": "NO VERIFIED RESULT",
     "baseValue": 0
   },
   "ai-exclusively-professors": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
-    "currentValue": 0,
-    "valueStatus": "zero",
+    "valueStatus": "no-verified-result",
+    "displayValue": "NO VERIFIED RESULT",
     "baseValue": 0
   },
   "ai-led-companies": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
-    "currentValue": 0,
-    "valueStatus": "zero",
+    "valueStatus": "no-verified-result",
+    "displayValue": "NO VERIFIED RESULT",
     "baseValue": 0
   },
   "ai-led-countries-1": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
-    "currentValue": 0,
-    "valueStatus": "zero",
+    "valueStatus": "no-verified-result",
+    "displayValue": "NO VERIFIED RESULT",
     "baseValue": 0
   },
   "robotics-1": {
@@ -33,20 +33,20 @@ export const MEASUREMENT_OBSERVATIONS = {
   },
   "robotics-2": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
-    "currentValue": 0,
-    "valueStatus": "zero",
+    "valueStatus": "unknown",
+    "displayValue": "UNKNOWN",
     "baseValue": 0
   },
   "robotics-police-countries": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
-    "currentValue": 0,
-    "valueStatus": "zero",
+    "valueStatus": "no-verified-result",
+    "displayValue": "NO VERIFIED RESULT",
     "baseValue": 0
   },
   "robotics-3": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
-    "currentValue": 0,
-    "valueStatus": "zero",
+    "valueStatus": "unknown",
+    "displayValue": "UNKNOWN",
     "baseValue": 0
   },
   "self-driving-car-2": {
@@ -58,20 +58,20 @@ export const MEASUREMENT_OBSERVATIONS = {
   },
   "self-driving-car-3": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
-    "currentValue": 0,
-    "valueStatus": "zero",
+    "valueStatus": "no-verified-result",
+    "displayValue": "NO VERIFIED RESULT",
     "baseValue": 0
   },
   "self-driving-car-1": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
-    "currentValue": 0,
-    "valueStatus": "zero",
+    "valueStatus": "no-verified-result",
+    "displayValue": "NO VERIFIED RESULT",
     "baseValue": 0
   },
   "self-driving-car-4": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
-    "currentValue": 0,
-    "valueStatus": "zero",
+    "valueStatus": "no-verified-result",
+    "displayValue": "NO VERIFIED RESULT",
     "baseValue": 0
   },
   "lev-1": {
@@ -198,13 +198,14 @@ export const MEASUREMENT_OBSERVATIONS = {
   "bci-3": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
     "currentValue": 1,
-    "valueStatus": "verified",
+    "valueStatus": "lower-bound",
+    "displayValue": "≥1",
     "baseValue": 0
   },
   "bci-4": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
-    "currentValue": 0,
-    "valueStatus": "zero",
+    "valueStatus": "no-verified-result",
+    "displayValue": "NO VERIFIED RESULT",
     "baseValue": 0
   },
   "mind-upload-price-1": {
@@ -215,14 +216,14 @@ export const MEASUREMENT_OBSERVATIONS = {
   },
   "mind-upload-adoption-1": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
-    "currentValue": 0,
-    "valueStatus": "zero",
+    "valueStatus": "no-verified-result",
+    "displayValue": "NO VERIFIED RESULT",
     "baseValue": 0
   },
   "mind-upload-adoption-2": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
-    "currentValue": 0,
-    "valueStatus": "zero",
+    "valueStatus": "no-verified-result",
+    "displayValue": "NO VERIFIED RESULT",
     "baseValue": 0
   },
   "mind-upload-1": {
@@ -246,8 +247,8 @@ export const MEASUREMENT_OBSERVATIONS = {
   },
   "vr-4": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
-    "currentValue": 0,
-    "valueStatus": "zero",
+    "valueStatus": "no-verified-result",
+    "displayValue": "NO VERIFIED RESULT",
     "baseValue": 0
   },
   "vr-shared-world-concurrency": {
@@ -278,8 +279,8 @@ export const MEASUREMENT_OBSERVATIONS = {
   },
   "cultured-meat-4": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
-    "currentValue": 0,
-    "valueStatus": "zero",
+    "valueStatus": "no-verified-result",
+    "displayValue": "NO VERIFIED RESULT",
     "baseValue": 0
   },
   "fusion-1": {

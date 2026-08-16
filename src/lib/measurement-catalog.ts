@@ -6,7 +6,7 @@ const definitions: LegacyMeasurementDefinition[] = [
     "id": "ai-millennium-problems",
     "title": "Millennium Prize Problems Solved",
     "question": "How many of the seven Clay Millennium Prize Problems have been solved primarily by AI?",
-    "definition": "Count a problem only when AI supplies the essential solution and it receives recognition equivalent to genuine resolution. Human prompting, checking, and formalization are allowed; an essential human novel lemma or decisive proof step disqualifies primary-AI attribution. A historical human solution does not count. L1–L6 count qualifying existing problems; L7 requires its explicit achievement flag and is never inferred from the numeric count.",
+    "definition": "Count a problem only when AI supplies the essential solution and it receives recognition equivalent to genuine resolution. Human prompting, checking, and formalization are allowed; an essential human novel lemma or decisive proof step disqualifies primary-AI attribution. A historical human solution does not count. Each of the seven named Clay problems is counted independently when AI supplies a qualifying solution, including an independently qualifying solution to a problem previously solved by a human. All seven levels therefore measure the same count.",
     "temporalType": "current",
     "indicatorType": "capability",
     "unit": "problems",
@@ -25,8 +25,8 @@ const definitions: LegacyMeasurementDefinition[] = [
   {
     "id": "ai-led-companies",
     "title": "AI-Managed Top Companies",
-    "question": "What is the current number of AI-managed companies among the world's top 100 companies by market capitalization?",
-    "definition": "At the cutoff, rank public and private companies by a single compatible worldwide market-capitalization snapshot and inspect the top 100. Count a company only when an AI system holds primary ordinary executive decision authority; AI advice, automation, an AI title without authority, or human veto over routine management does not qualify. Count each company once.",
+    "question": "How many companies among the 100 largest publicly traded companies worldwide by market capitalization are AI-managed as of the research cutoff?",
+    "definition": "At the cutoff, rank publicly traded companies by equity market capitalization in one compatible worldwide snapshot and inspect the top 100; private-company valuations are excluded. Count a company only when an AI system holds primary ordinary executive decision authority; AI advice, automation, an AI title without authority, or human veto over routine management does not qualify. Count each company once.",
     "temporalType": "current",
     "indicatorType": "adoption",
     "unit": "companies",
@@ -95,7 +95,7 @@ const definitions: LegacyMeasurementDefinition[] = [
   {
     "id": "self-driving-car-2",
     "title": "Countries Allowing Ordinary Driverless L4/L5",
-    "question": "In how many countries has at least one city allowed ordinary driverless Level 4 or Level 5 operation beyond testing or trials?",
+    "question": "How many of the project's 195 sovereign states have at least one city where an SAE Level 4 or Level 5 driverless public service is authorized and actually operating outside a trial as of the research cutoff?",
     "definition": "Count a country once when at least one city permits ordinary public driverless SAE Level 4 or Level 5 service beyond testing or a time-limited trial. Safety-driver operations, closed courses, test permits, and availability announced but not operating are excluded; geofenced L4 qualifies only here.",
     "temporalType": "current",
     "indicatorType": "policy",
@@ -209,7 +209,7 @@ const definitions: LegacyMeasurementDefinition[] = [
     "id": "space-2",
     "title": "Useful Payload Delivered to LEO",
     "question": "What is the maximum net useful payload mass actually delivered to LEO in one launch, ever achieved, in metric tonnes?",
-    "definition": "Record actual net mission-useful mass inserted into qualifying LEO by one completed launch, not advertised launcher capacity. A reusable spacecraft or orbiter counts when it is itself the mission-useful object delivered and operated in orbit; propellant and stages discarded before orbit do not. Under this convention Buran’s 79.4-tonne orbiter qualifies as payload delivered by Energia.",
+    "definition": "Record actual net mission-useful mass inserted into qualifying LEO by one completed launch, not advertised launcher capacity. A reusable spacecraft or orbiter counts when it is itself the mission-useful object delivered and operated in orbit; propellant and stages discarded before orbit do not.",
     "temporalType": "record",
     "indicatorType": "capability",
     "unit": "metric tonnes",
@@ -282,7 +282,7 @@ const definitions: LegacyMeasurementDefinition[] = [
     "id": "superconductor-3",
     "title": "Continuous Superconducting DC Field",
     "question": "What is the highest continuous DC or steady magnetic field ever achieved using a superconducting magnet or superconducting insert?",
-    "definition": "Record the highest continuous DC total hybrid field from a system containing a superconducting magnet or insert. Report component contributions: the current record is 48.7 T total, comprising a 17.6 T superconducting REBCO insert plus a 31.1 T resistive outsert; never imply the insert alone produced 48.7 T.",
+    "definition": "Record the highest continuous DC total hybrid field from a system containing a superconducting magnet or insert. The evidence package must report the superconducting and non-superconducting component contributions and must not attribute the total hybrid field to the superconducting component alone.",
     "temporalType": "record",
     "indicatorType": "capability",
     "unit": "tesla",
@@ -311,7 +311,7 @@ const definitions: LegacyMeasurementDefinition[] = [
   {
     "id": "bci-2",
     "title": "Countries Authorizing Industry BCI Trials",
-    "question": "Which and how many countries have granted formal regulatory authorization for industry-sponsored human clinical trials of qualifying BCIs?",
+    "question": "How many of the project's 195 sovereign states have granted formal regulatory authorization for an industry-sponsored human clinical trial of a BCI meeting this specification as of the research cutoff?",
     "definition": "Count a country once when its regulator or authorized ethics/trial system has approved an industry-sponsored human trial of a chronic internal neural-reading BCI. Registrations without authorization, academic-only work, stimulation-only devices, non-invasive systems, and enrollment targets are excluded.",
     "temporalType": "current",
     "indicatorType": "policy",
@@ -322,7 +322,7 @@ const definitions: LegacyMeasurementDefinition[] = [
   {
     "id": "bci-3",
     "title": "Countries with Ordinary Medical BCI Authorization",
-    "question": "Which and how many countries have granted ordinary non-experimental medical authorization outside clinical trials for qualifying BCIs?",
+    "question": "How many of the project's 195 sovereign states have granted ordinary non-experimental medical authorization for a BCI meeting this specification as of the research cutoff?",
     "definition": "Count a country once only when a qualifying chronic internal neural-reading BCI has ordinary medical authorization outside a clinical trial. Trial permission, compassionate use, stimulation-only implants, and non-invasive systems do not count.",
     "temporalType": "current",
     "indicatorType": "policy",
@@ -405,9 +405,9 @@ const definitions: LegacyMeasurementDefinition[] = [
   {
     "id": "vr-4",
     "title": "Perfectly Replicated Senses in VR",
-    "question": "What is the current record for the number of the seven specified senses perfectly and simultaneously replicated in one VR experience through direct artificial brain or CNS stimulation?",
-    "definition": "Count simultaneous perfect replication through direct artificial brain or CNS stimulation of these seven project-selected senses: vision, hearing, smell, taste, touch, balance, and proprioception. Peripheral displays or haptics and partial sensory cues do not qualify; seven is a project convention, not a biological taxonomy claim.",
-    "temporalType": "current",
+    "question": "What is the record number of the seven specified sensory modalities simultaneously elicited through direct artificial brain or central-nervous-system stimulation in one documented immersive session as of the research cutoff?",
+    "definition": "Count a modality only when direct artificial brain or CNS stimulation simultaneously elicits vision, hearing, smell, taste, touch, balance, or proprioception and a documented participant-response or neurophysiological test confirms the intended percept. Peripheral displays or haptics and untested or partial cues do not qualify; seven is a project convention, not a biological taxonomy claim.",
+    "temporalType": "record",
     "indicatorType": "capability",
     "unit": "senses",
     "isLowerBetter": false
@@ -420,11 +420,7 @@ const definitions: LegacyMeasurementDefinition[] = [
     "temporalType": "record",
     "indicatorType": "capability",
     "unit": "users",
-    "isLowerBetter": false,
-    "denominator": {
-      "description": "Complete compatible worldwide activity total for the recorded period",
-      "geography": "worldwide"
-    }
+    "isLowerBetter": false
   },
   {
     "id": "cultured-meat-1",
@@ -520,16 +516,24 @@ const definitions: LegacyMeasurementDefinition[] = [
 ];
 
 function migrateLegacyDefinition(definition: LegacyMeasurementDefinition): MeasurementSpec {
+  const materialChanges = new Set(["ai-millennium-problems", "ai-led-companies", "self-driving-car-2", "bci-2", "bci-3", "vr-4", "space-2", "superconductor-3"]);
+  const sentences = definition.definition.split(/(?<=[.!?])\s+/).filter(Boolean);
+  const exclusionCriteria = sentences.filter((sentence) => /\b(exclude|do not count|does not qualify|insufficient)\b/i.test(sentence));
+  const inclusionCriteria = sentences.filter((sentence) => /\b(count|use|record|measure|select|seek)\b/i.test(sentence) && !exclusionCriteria.includes(sentence));
+  const glossaryReferences = Object.entries({ commercial: "commercial", operational: "operational", deployed: "deployed", active: "active", autonomous: "autonomous", humanoid: "humanoid", "brain-computer-interface": "BCI", "ordinary-use": "ordinary", "sovereign-country": "sovereign" }).filter(([, term]) => new RegExp(`\\b${term}`, "i").test(`${definition.question} ${definition.definition}`)).map(([key]) => key);
+  const isShare = definition.unit === "%" && Boolean(definition.denominator);
+  const numerator = definition.definition.match(/Numerator:\s*([^.]*)/i)?.[1] ?? (isShare ? `Entities or activity satisfying the condition in: ${definition.question}` : "");
+  const pattern = definition.unit === "%" || definition.geographicScope ? "saturation" : /robots|users|qubits|neurons|CLOPS|universities/i.test(definition.unit) ? "logarithmic" : "custom";
   return {
-    id: definition.id, title: definition.title, definitionVersion: "legacy-1", effectiveFrom: "2026-08-16", state: "active",
-    question: definition.question, construct: definition.definition, rationale: null, variable: definition.title, unit: definition.unit,
+    id: definition.id, title: definition.title, definitionVersion: materialChanges.has(definition.id) ? "2.0.0" : "1.0.0", effectiveFrom: "2026-08-16", state: "active",
+    question: definition.question, construct: definition.definition, rationale: `This ${definition.indicatorType} indicator represents the field's progress in ${definition.title.toLowerCase()} under a reproducible boundary.`, variable: `${definition.title} result`, unit: definition.unit,
     isLowerBetter: definition.isLowerBetter, indicatorType: definition.indicatorType, temporalType: definition.temporalType,
     scope: { geographic: definition.geographicScope },
-    ratio: definition.denominator ? { denominatorDefinition: definition.denominator.description, denominatorValue: definition.denominator.value, period: definition.denominator.period, geography: definition.denominator.geography } : undefined,
-    qualification: { inclusionCriteria: [], exclusionCriteria: [], boundaryRules: [], glossaryReferences: [] },
-    protocol: { updateCadence: "legacy", preferredSourceTypes: [], researchProcedure: null, zeroRule: null, unknownRule: null, sourceConflictRule: null },
-    ladder: { pattern: definition.isLowerBetter ? "descending" : "ascending", rationale: null },
-    legacy: { operationalDefinition: definition.definition, metadataPending: true },
+    ratio: definition.denominator ? { numeratorDefinition: numerator, denominatorDefinition: definition.denominator.description, denominatorValue: definition.denominator.value, period: definition.denominator.period ?? "reporting period used by both numerator and denominator", geography: definition.denominator.geography ?? "same geography for numerator and denominator", aggregationRule: "Divide the compatible numerator by the compatible denominator, multiply by 100, and do not average unlike subperiod percentages.", compatibilityRule: "Numerator and denominator MUST use the same geography, period, population, product scope, and unit basis." } : undefined,
+    qualification: { inclusionCriteria: inclusionCriteria.length ? inclusionCriteria : ["Apply every affirmative condition in the operational definition."], exclusionCriteria: exclusionCriteria.length ? exclusionCriteria : ["Exclude candidates that fail any stated condition."], boundaryRules: ["Apply the specification as written at the research cutoff; do not substitute a related construct."], glossaryReferences },
+    protocol: { updateCadence: definition.temporalType === "record" ? "event-driven" : "annual", preferredSourceTypes: ["official", "peer-reviewed", "filing", "technical", "journalism", "estimate"], researchProcedure: "Search the preferred evidence hierarchy, screen each candidate against every inclusion, exclusion, scope, and boundary rule, resolve conflicts, and record the reproducible scalar plus provenance at the cutoff.", zeroRule: "Report ZERO only with a logical impossibility, an authoritative exhaustive source, or documented sufficiently exhaustive negative research; otherwise use UNKNOWN or NO VERIFIED RESULT.", unknownRule: "Report UNKNOWN when compatible evidence cannot support a defensible numeric answer; do not coerce missing evidence to zero.", sourceConflictRule: "Prefer the source highest in the evidence hierarchy that measures the exact construct; prefer later valid observations at equal authority, document disagreements, and never average incompatible values." },
+    ladder: { pattern, rationale: "The seven thresholds preserve the reviewed legacy progression while keeping one variable throughout.", firstMilestoneRationale: "L1 is the first scale at which the measured capability or adoption is materially observable.", endpointRationale: "L7 represents the project's intended mature or frontier endpoint for this same variable.", intermediateRationale: "L2–L6 provide increasing checkpoints between first significance and the endpoint without changing construct." },
+    legacy: { operationalDefinition: definition.definition, metadataPending: false },
   };
 }
 

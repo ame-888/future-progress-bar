@@ -1,6 +1,12 @@
 import type { NorthStarDefinition } from "./measurement-types.ts";
 
-const make = (id: string, title: string, question: string, unit: string, methodology: string, temporalType: "current" | "record" = "record"): NorthStarDefinition => ({ id, title, question, unit, methodology, temporalType, researchCutoff: "2026-08-10", series: { sourceModule: `src/components/${id}-graph-data.ts`, frequency: "annual" } });
+const make = (id: string, title: string, question: string, unit: string, methodology: string, temporalType: "current" | "record" = "record"): NorthStarDefinition => ({
+  id, title, question, construct: methodology, variable: title, unit, methodology, temporalType,
+  researchCutoff: "2026-08-16", definitionVersion: "1.0.0", effectiveFrom: "2026-08-16",
+  evidenceRequirements: ["Every plotted point MUST retain its source, observation year, retrieval date, value, and calculation note in the series module."],
+  knownLimitations: ["Historical series may mix source vintages; missing point-level provenance is a disclosed legacy limitation and MUST NOT be silently invented."],
+  series: { sourceModule: `src/components/${id}-graph-data.ts`, frequency: "annual", provenance: "Point provenance is retained in the named graph-data module; legacy points without complete citations remain explicitly incomplete." },
+});
 
 /** Canonical identity for the 12 contextual, non-scoring graph series. */
 export const NORTH_STARS: Record<string, NorthStarDefinition> = {
