@@ -57,7 +57,7 @@ const definitions: MeasurementDefinition[] = [
     "id": "robotics-2",
     "title": "Household Humanoid Robot Share",
     "question": "What is the global share of households with a general-purpose humanoid robot assigned for routine household use or qualifying regular household access?",
-    "definition": "Denominator: all households worldwide at the cutoff. Count a household once when a qualifying general-purpose humanoid robot is normally resident or assigned for routine household use. Hotel, workplace, public/shared robots, occasional rentals, and one-time access are excluded.",
+    "definition": "Denominator: all households worldwide at the cutoff. Count a household once when a qualifying general-purpose humanoid robot is physically resident there and routinely available to that household for useful household tasks. Paid or contracted early-access deployments may qualify. Manufacturer-controlled R&D placements whose principal purpose is testing or data collection do not qualify. Hotel, workplace, public/shared robots, occasional rentals, and one-time access are excluded.",
     "temporalType": "current",
     "indicatorType": "adoption",
     "unit": "%",

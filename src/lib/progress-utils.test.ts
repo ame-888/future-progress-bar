@@ -14,6 +14,21 @@ test("Stone is baseline and denominator is derived as 336", () => {
   assert.equal(getGlobalProgress(MAIN_DOMAINS).achieved, 0);
   assert.ok(MAIN_DOMAINS.every((d) => d.subdomains.every((s) => s.measurements.every((m) => m.levels.every((l) => l.level >= 1)))));
 });
+test("August 16 longevity audit is represented in the rendered catalogue data", () => {
+  const measurements = MAIN_DOMAINS.flatMap((domain) => domain.subdomains.flatMap((subdomain) => subdomain.measurements));
+  const byId = (id: string) => measurements.find((measurement) => measurement.id === id);
+  assert.deepEqual(
+    ["lev-1", "lev-3", "lev-4"].map((id) => {
+      const measurement = byId(id);
+      return [measurement?.researchCutoff, measurement?.currentValue, measurement?.displayValue, measurement?.valueStatus];
+    }),
+    [
+      ["2026-08-16", 73.768, "73.8", "estimate"],
+      ["2026-08-16", 116.9863, "116 years, 360 days", "verified"],
+      ["2026-08-16", 203, "203", "verified"],
+    ],
+  );
+});
 test("nonnumeric epistemic states cannot score or masquerade as zero", () => {
   for (const status of ["unknown", "not-applicable", "no-verified-result"] as const) {
     const observation = sample(status);
