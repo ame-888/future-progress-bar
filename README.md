@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Future Progress Bar maintainer handbook
 
-## Getting Started
+Future Progress Bar tracks 48 active measurements under FPB-MS 1.0. `src/lib/measurement-catalog.ts`, the observation/evidence/level/history modules, and their composition in `progress-table-data.ts` are the canonical source. Pages, APIs, score, ledger, manifest, changelog, and audits derive from it.
 
-First, run the development server:
+## Default two-pass update workflow
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **Research:** download `/api/update-manifest`, give ChatGPT the generic prompt on `/update-guide`, and request `FPB-update-proposal-1.0`. Research each cadence independently; never infer ZERO from silence.
+2. **Implementation:** review the proposal, then ask Codex to apply only approved observation/evidence changes, append observation history, advance snapshot metadata, validate, test, and report score impact. Do not blindly import arbitrary JSON.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Updating values
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Obtain the manifest; research the canonical question; prepare and human-review a proposal; edit the canonical observation and evidence modules; append observation history; advance `dataset-snapshot.ts`; run `npm run data:validate`, `npm test`, `npm run lint`, and `npm run build`; inspect `/audit`; deploy.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Semantic maintenance
 
-## Learn More
+- **Add a measurement:** add a stable ID/spec, observation, seven levels, evidence, history, domain membership, and tests. Active count changes require an intentional policy/test change.
+- **Change a definition:** increment semantic `definitionVersion`, set `effectiveFrom`, append definition history, name changed fields, and flag comparability/series breaks. Never disguise this as an observation update.
+- **Change a ladder:** preserve one variable, document every threshold rationale and score effect, and version the definition.
+- **ZERO:** store numeric `0`, status `zero`, and a cutoff-specific `zeroBasis` grounded in logical, authoritative-exhaustive, or documented exhaustive evidence.
+- **UNKNOWN / NO VERIFIED RESULT:** store no numeric value. UNKNOWN means no defensible answer; NO VERIFIED RESULT means candidates exist but fail verification.
+- **ESTIMATE:** store method and structured uncertainty range where available. **LOWER BOUND:** prefix display with `≥`/“at least,” explain non-exhaustiveness, and link enumerated cases when available.
+- **Evidence/entities:** create stable evidence IDs, exact supported claims, access dates and publication dates when known; entity and near-miss evidence IDs must resolve.
+- **Retire/replace:** remove from active domain composition, add the archival record and replacement link/reason, and preserve history.
+- **North Star:** update definition, cutoff, methodology, limitations, series provenance and point sources; it remains non-scoring.
+- **AI forecast:** record model/version, captured date, protocol/prompt version, level/year, and source. Mark older incomplete records `legacy-incomplete`; forecasts never count as observations.
 
-To learn more about Next.js, take a look at the following resources:
+## Commands
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`npm run data:summary` prints the snapshot, all IDs/questions/answers, freshness, evidence coverage, and score. `npm run data:audit` emits structured quality signals. `npm run data:validate` enforces FPB-MS invariants. `npm test`, `npm run lint`, and `npm run build` are release gates.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Maintainer checklist
 
-## Deploy on Vercel
+- [ ] Observation and definition changes separated
+- [ ] Status/value/evidence/entity relationships valid
+- [ ] History appended and snapshot advanced
+- [ ] Score effect reviewed
+- [ ] Validation, tests, lint, build passed
+- [ ] Public specification, API, source ledger, changelog, and audit inspected
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See `docs/fpb-ms-phase-3-maintenance.md` for route and proposal details.
