@@ -28,6 +28,7 @@ export type RatioMetadata = {
   compatibilityRule: string;
 };
 export type StructuredEntity = { key: string; name: string; jurisdiction?: string; qualificationSummary: string; evidenceIds: readonly string[] };
+export type QualifyingCohort = StructuredEntity & { count: number };
 export type NearMiss = { name: string; exclusionReason: string; evidenceIds: readonly string[] };
 export type EvidenceException = { kind: "legacy-incomplete" | "definition-based"; explanation: string };
 
@@ -56,7 +57,7 @@ export type MeasurementSpec = {
 
 export type NumericObservationStatus = "zero" | "verified" | "estimate" | "lower-bound";
 export type NonnumericObservationStatus = "unknown" | "not-applicable" | "no-verified-result";
-type ObservationCommon = { measurementId: string; researchCutoff: string; observationDate?: string; dataPeriod?: string; displayValue?: string; answerSummary?: string; methodNote?: string; qualifyingEntities?: readonly StructuredEntity[]; nearMisses?: readonly NearMiss[]; evidence: readonly EvidenceReference[]; evidenceException?: EvidenceException; baseValue?: number | null; achievements?: Readonly<Record<string, boolean>> };
+type ObservationCommon = { measurementId: string; researchCutoff: string; observationDate?: string; dataPeriod?: string; displayValue?: string; answerSummary?: string; methodNote?: string; qualifyingEntities?: readonly StructuredEntity[]; qualifyingCohorts?: readonly QualifyingCohort[]; nearMisses?: readonly NearMiss[]; evidence: readonly EvidenceReference[]; evidenceException?: EvidenceException; baseValue?: number | null; achievements?: Readonly<Record<string, boolean>> };
 export type MeasurementObservation = ObservationCommon & (
   | { valueStatus: NumericObservationStatus; value: number; uncertainty?: { low?: number; high?: number; note?: string }; zeroBasis?: string }
   | { valueStatus: NonnumericObservationStatus; value?: never; uncertainty?: never; zeroBasis?: never }
@@ -68,6 +69,8 @@ export type MilestoneThreshold = NumericMilestone | ConditionMilestone;
 export type Forecast = { measurementId: string; level: number; modelName: string; modelVersionId: string | null; predictedYear: number; capturedAt: string | null; protocolVersion: string | null; notes?: string; sourceReference?: string; provenanceStatus: "complete" | "legacy-incomplete" };
 export type ObservationHistoryEntry = { measurementId: string; researchCutoff: string; valueStatus: ResultStatus; value?: number; observationDate?: string; dataPeriod?: string; reasonForRevision?: string; evidenceIds: readonly string[]; note?: string; details?: readonly string[] };
 export type DefinitionHistoryEntry = { measurementId: string; definitionVersion: string; effectiveFrom: string; changedFields: readonly (keyof MeasurementSpec)[]; reason: string; migrationNote?: string; comparabilityBreak?: boolean };
+export type ResearchAuditRecord = { id:string; measurementId:string; researchCutoff:string; methodVersion:string; completeness:"exhaustive"|"systematic-nonexhaustive"|"targeted"; searchScope:string; candidateClassesChecked:readonly string[]; registriesOrSourceFamiliesChecked:readonly string[]; sourceIdsReviewed:readonly string[]; candidatesReviewed:readonly string[]; nearMissesReviewed:readonly string[]; conclusion:string; limitations:string; supportsStatus:ResultStatus; performedAt:string };
+export type NorthStarProvenanceStatus = "sourced" | "derived-from-sourced" | "legacy-unverified";
 
 export type NorthStarDefinition = { id: string; title: string; question: string; construct: string; variable: string; methodology: string; unit: string; researchCutoff: string; temporalType: TemporalType; definitionVersion: string; effectiveFrom: string; evidenceRequirements: readonly string[]; knownLimitations: readonly string[]; series: { sourceModule: string; frequency: "annual" | "event"; startYear?: number; provenance: string } };
 

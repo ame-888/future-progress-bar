@@ -4,7 +4,7 @@ import { MAIN_DOMAINS, type Measurement } from "../components/progress-table-dat
 import { DATASET_SNAPSHOT } from "../data/dataset-snapshot.ts";
 import type { MeasurementLevel } from "../components/progress-table-data.ts";
 import { RETIRED_MEASUREMENTS } from "../components/retired-measurements.ts";
-import { canObservationCompleteThreshold, getCatalogueCounts, getGlobalProgress, hasNumericObservation } from "./progress-utils.ts";
+import { canObservationCompleteThreshold, getCatalogueCounts, getGlobalProgress, hasNumericObservation, progressToFirstMilestone } from "./progress-utils.ts";
 import { inspectCatalogue, validateCatalogue } from "./catalog-validation.ts";
 
 const sample = (valueStatus: Measurement["valueStatus"], currentValue?: number, isLowerBetter = false) => ({ valueStatus, currentValue, isLowerBetter });
@@ -55,4 +55,12 @@ test("condition milestones never use their legacy numeric fallback", () => {
 test("retired IDs cannot appear as active targets", () => {
   const active = new Set(MAIN_DOMAINS.flatMap((d) => d.subdomains.flatMap((s) => s.measurements.map((m) => m.id))));
   assert.ok(RETIRED_MEASUREMENTS.every((item) => !active.has(item.id)));
+});
+
+test("nearest-L1 proximity is normalized, sorted independently of catalogue order, and qualified", () => {
+  const eligible=MAIN_DOMAINS.flatMap(d=>d.subdomains.flatMap(s=>s.measurements)).map(m=>({m,p:progressToFirstMilestone(m)})).filter((x):x is {m:Measurement,p:NonNullable<ReturnType<typeof progressToFirstMilestone>>}=>x.p!==null).sort((a,b)=>b.p.progress-a.p.progress);
+  assert.ok(eligible.length>=4);
+  assert.ok(eligible.every((x,i)=>i===0||eligible[i-1].p.progress>=x.p.progress));
+  assert.equal(eligible.find(x=>x.m.id==="robotics-1")?.p.qualifier,"at-least");
+  assert.equal(progressToFirstMilestone(MAIN_DOMAINS.flatMap(d=>d.subdomains.flatMap(s=>s.measurements)).find(m=>m.id==="vr-5")!),null);
 });
