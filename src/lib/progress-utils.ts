@@ -23,6 +23,22 @@ export function getMeasurementProgress(measurement: Measurement) {
   return { achieved: getCompletedLevelCount(measurement), possible: measurement.levels.length };
 }
 
+export type L1Proximity = { progress:number; qualifier:"exact"|"at-least"|"estimate" };
+/** Unitless, direction-aware progress from the declared baseline to L1. */
+export function progressToFirstMilestone(measurement:Measurement):L1Proximity|null {
+  if (!hasNumericObservation(measurement) || getCompletedLevelCount(measurement)>0) return null;
+  const first=measurement.levels[0]; if(!first || first.kind!=="numeric") return null;
+  const current=measurement.currentValue!; const baseline=measurement.baseValue;
+  let progress:number;
+  if(typeof baseline==="number" && baseline!==first.goal){
+    progress=measurement.isLowerBetter ? (baseline-current)/(baseline-first.goal) : (current-baseline)/(first.goal-baseline);
+  } else if(measurement.isLowerBetter){
+    return null; // Lower-is-better needs a declared starting baseline; raw reciprocal units are not comparable.
+  } else progress=current/first.goal;
+  if(!Number.isFinite(progress))return null;
+  return {progress:Math.max(0,Math.min(1,progress)),qualifier:measurement.valueStatus==="lower-bound"?"at-least":measurement.valueStatus==="estimate"?"estimate":"exact"};
+}
+
 export function getGlobalProgress(domains: MainDomainData[]) {
   const measurements = domains.flatMap((domain) => domain.subdomains.flatMap((subdomain) => subdomain.measurements));
   return measurements.reduce((total, measurement) => {

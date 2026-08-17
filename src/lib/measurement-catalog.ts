@@ -234,12 +234,12 @@ const MEASUREMENT_SPECS = [
   },
   {
     "id": "robotics-1",
-    "title": "Deployed Humanoid General-Purpose Robots",
-    "definitionVersion": "1.0.0",
+    "title": "Customer-Delivered Humanoid General-Purpose Robots",
+    "definitionVersion": "2.0.0",
     "effectiveFrom": "2026-08-16",
     "state": "active",
-    "question": "How many humanoid, general-purpose robots are currently deployed worldwide?",
-    "construct": "Count currently active, physically deployed humanoid robots able to perform multiple materially different useful tasks. Laboratory prototypes, single-purpose machines, inactive units, duplicate reports of the same fleet, and teleoperated demonstrations are excluded; estimates must disclose fleet-count uncertainty.",
+    "question": "How many qualifying general-purpose-platform humanoid robots have been delivered to external end customers worldwide as of the research cutoff?",
+    "construct": "Count each physical humanoid once after delivery to an external customer when its platform is designed or sold as multi-purpose or general-purpose. Exclude vendor-internal R&D and demo inventory, undelivered production, orders and preorders, fixed single-task machines, wheeled dual-arm and non-humanoid platforms. This is cumulative delivery, not installed-active population.",
     "rationale": "This adoption indicator represents the field's progress in deployed humanoid general-purpose robots under a reproducible boundary.",
     "variable": "Deployed Humanoid General-Purpose Robots result",
     "unit": "robots",
@@ -265,7 +265,7 @@ const MEASUREMENT_SPECS = [
       ]
     },
     "protocol": {
-      "updateCadence": "annual",
+      "updateCadence": "monthly",
       "preferredSourceTypes": [
         "official",
         "peer-reviewed",
@@ -287,7 +287,7 @@ const MEASUREMENT_SPECS = [
       "intermediateRationale": "L2–L6 provide increasing checkpoints between first significance and the endpoint without changing construct."
     },
     "legacy": {
-      "operationalDefinition": "Count currently active, physically deployed humanoid robots able to perform multiple materially different useful tasks. Laboratory prototypes, single-purpose machines, inactive units, duplicate reports of the same fleet, and teleoperated demonstrations are excluded; estimates must disclose fleet-count uncertainty.",
+      "operationalDefinition": "Count each physical humanoid once after delivery to an external customer when its platform is designed or sold as multi-purpose or general-purpose. Exclude vendor-internal R&D and demo inventory, undelivered production, orders and preorders, fixed single-task machines, wheeled dual-arm and non-humanoid platforms. This is cumulative delivery, not installed-active population.",
       "metadataPending": false
     }
   },
@@ -1603,12 +1603,12 @@ const MEASUREMENT_SPECS = [
   },
   {
     "id": "bci-1",
-    "title": "Living People with Qualifying BCIs",
-    "definitionVersion": "1.0.0",
+    "title": "People Ever Implanted with Qualifying BCIs",
+    "definitionVersion": "2.0.0",
     "effectiveFrom": "2026-08-16",
     "state": "active",
-    "question": "How many living humans are currently implanted with qualifying fully internal chronic invasive or semi-invasive BCIs?",
-    "construct": "Count each living person once only when evidence supports a currently retained, fully internal chronic invasive or semi-invasive implant that reads neural signals. Temporary intraoperative electrodes, stimulation-only devices, non-invasive EEG, enrollment targets, explanted implants, deceased participants, and duplicate cohort reports are excluded. Public reporting is incomplete, so the result is a defensible lower bound.",
+    "question": "How many people worldwide have ever received a qualifying chronic internal neural-reading BCI implant as of the research cutoff?",
+    "construct": "Count cumulative unique recipients after a qualifying chronic internal implant that reads neural signals. Later explant or death does not erase the historical implantation. Exclude temporary intraoperative or recording sessions, stimulation-only implants, non-invasive EEG, peripheral-only interfaces, enrollment targets, and duplicate cohort reports. Public reporting is not an exhaustive worldwide registry, so the result is a lower bound.",
     "rationale": "This adoption indicator represents the field's progress in living people with qualifying bcis under a reproducible boundary.",
     "variable": "Living People with Qualifying BCIs result",
     "unit": "people",
@@ -1631,7 +1631,7 @@ const MEASUREMENT_SPECS = [
       ]
     },
     "protocol": {
-      "updateCadence": "annual",
+      "updateCadence": "monthly",
       "preferredSourceTypes": [
         "official",
         "peer-reviewed",
@@ -1653,7 +1653,7 @@ const MEASUREMENT_SPECS = [
       "intermediateRationale": "L2–L6 provide increasing checkpoints between first significance and the endpoint without changing construct."
     },
     "legacy": {
-      "operationalDefinition": "Count each living person once only when evidence supports a currently retained, fully internal chronic invasive or semi-invasive implant that reads neural signals. Temporary intraoperative electrodes, stimulation-only devices, non-invasive EEG, enrollment targets, explanted implants, deceased participants, and duplicate cohort reports are excluded. Public reporting is incomplete, so the result is a defensible lower bound.",
+      "operationalDefinition": "Count cumulative unique recipients after a qualifying chronic internal implant that reads neural signals. Later explant or death does not erase the historical implantation. Exclude temporary intraoperative or recording sessions, stimulation-only implants, non-invasive EEG, peripheral-only interfaces, enrollment targets, and duplicate cohort reports. Public reporting is not an exhaustive worldwide registry, so the result is a lower bound.",
       "metadataPending": false
     }
   },
@@ -2227,11 +2227,11 @@ const MEASUREMENT_SPECS = [
   {
     "id": "vr-shared-world-concurrency",
     "title": "Interactive VR World Concurrency",
-    "definitionVersion": "1.0.0",
+    "definitionVersion": "1.1.0",
     "effectiveFrom": "2026-08-16",
     "state": "active",
     "question": "What is the maximum officially supported number of users in one mutually interactive VR world or session under the current standardized shared-world-concurrency metric?",
-    "construct": "Record normal officially supported capacity in one coherent mutually interactive immersive-VR world or session. A distributed backend is allowed, but separate instances, mirrors, non-interacting zones, flat-screen-only participation, and unsupported stress tests are excluded; reserved slots count only if they add to normal simultaneous capacity.",
+    "construct": "Record normal officially supported capacity in one coherent mutually interactive immersive-VR world or session. A distributed backend is allowed, but separate instances, mirrors, non-interacting zones, flat-screen-only participation, staff-only manual overrides, system accounts, event overrides, and stress tests are excluded; normal reserved creator and world-author access counts when it adds to simultaneous capacity.",
     "rationale": "This capability indicator represents the field's progress in interactive vr world concurrency under a reproducible boundary.",
     "variable": "Interactive VR World Concurrency result",
     "unit": "users",
@@ -2242,7 +2242,7 @@ const MEASUREMENT_SPECS = [
     "qualification": {
       "inclusionCriteria": [
         "Record normal officially supported capacity in one coherent mutually interactive immersive-VR world or session.",
-        "A distributed backend is allowed, but separate instances, mirrors, non-interacting zones, flat-screen-only participation, and unsupported stress tests are excluded; reserved slots count only if they add to normal simultaneous capacity."
+        "A distributed backend is allowed, but separate instances, mirrors, non-interacting zones, flat-screen-only participation, staff-only manual overrides, system accounts, event overrides, and stress tests are excluded; normal reserved creator and world-author access counts when it adds to simultaneous capacity."
       ],
       "exclusionCriteria": [
         "Exclude candidates that fail any stated condition."
@@ -2275,7 +2275,7 @@ const MEASUREMENT_SPECS = [
       "intermediateRationale": "L2–L6 provide increasing checkpoints between first significance and the endpoint without changing construct."
     },
     "legacy": {
-      "operationalDefinition": "Record normal officially supported capacity in one coherent mutually interactive immersive-VR world or session. A distributed backend is allowed, but separate instances, mirrors, non-interacting zones, flat-screen-only participation, and unsupported stress tests are excluded; reserved slots count only if they add to normal simultaneous capacity.",
+      "operationalDefinition": "Record normal officially supported capacity in one coherent mutually interactive immersive-VR world or session. A distributed backend is allowed, but separate instances, mirrors, non-interacting zones, flat-screen-only participation, staff-only manual overrides, system accounts, event overrides, and stress tests are excluded; normal reserved creator and world-author access counts when it adds to simultaneous capacity.",
       "metadataPending": false
     }
   },
@@ -2639,12 +2639,12 @@ const MEASUREMENT_SPECS = [
   },
   {
     "id": "fusion-3",
-    "title": "Sustained Scientific Fusion Gain",
-    "definitionVersion": "1.0.0",
+    "title": "Sustained Magnetic-Confinement Plasma Gain",
+    "definitionVersion": "2.0.0",
     "effectiveFrom": "2026-08-16",
     "state": "active",
-    "question": "What is the longest continuous operation ever achieved while maintaining scientific fusion gain Q > 1 under a consistent boundary?",
-    "construct": "Record the longest continuous interval maintaining scientific fusion gain Q > 1 under one consistently documented system boundary. Target gain and plasma gain must not be mixed, and scientific Q > 1 is distinct from plant net electricity or wall-plug gain.",
+    "question": "What is the longest continuous interval ever achieved in a magnetic-confinement fusion device while maintaining plasma fusion gain Q_plasma > 1?",
+    "construct": "Record the longest continuous interval in a magnetic-confinement fusion device maintaining Q_plasma > 1, where Q_plasma is fusion power divided by externally injected plasma-heating power. Exclude NIF target gain, laser energy delivered to target, wall-plug or engineering breakeven, projections, and isolated instantaneous ratios.",
     "rationale": "This capability indicator represents the field's progress in sustained scientific fusion gain under a reproducible boundary.",
     "variable": "Sustained Scientific Fusion Gain result",
     "unit": "hours",
@@ -2687,7 +2687,7 @@ const MEASUREMENT_SPECS = [
       "intermediateRationale": "L2–L6 provide increasing checkpoints between first significance and the endpoint without changing construct."
     },
     "legacy": {
-      "operationalDefinition": "Record the longest continuous interval maintaining scientific fusion gain Q > 1 under one consistently documented system boundary. Target gain and plasma gain must not be mixed, and scientific Q > 1 is distinct from plant net electricity or wall-plug gain.",
+      "operationalDefinition": "Record the longest continuous interval in a magnetic-confinement fusion device maintaining Q_plasma > 1, where Q_plasma is fusion power divided by externally injected plasma-heating power. Exclude NIF target gain, laser energy delivered to target, wall-plug or engineering breakeven, projections, and isolated instantaneous ratios.",
       "metadataPending": false
     }
   },

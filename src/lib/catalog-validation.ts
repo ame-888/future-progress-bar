@@ -4,6 +4,7 @@ import { DATASET_SNAPSHOT } from "../data/dataset-snapshot.ts";
 import { MEASUREMENT_CATALOG } from "./measurement-catalog.ts";
 import { getCatalogueCounts, getGlobalProgress } from "./progress-utils.ts";
 import { FPB_GLOSSARY } from "./fpb-measurement-standard.ts";
+import { RESEARCH_AUDITS, researchAuditFor } from "./research-audits.ts";
 import { PROGRESS_SLUGS, SLUG_TO_DOMAIN_ID } from "./site.ts";
 
 export type CatalogueValidation = { errors: string[]; warnings: string[] };
@@ -48,13 +49,15 @@ export function inspectCatalogue(): CatalogueValidation {
     if (measurement.valueStatus === "lower-bound" && entities.length && entities.length < (measurement.currentValue ?? 0)) errors.push(`${measurement.id} LOWER BOUND entity list is below its evidenced minimum`);
     if (measurement.observationHistory.some((item) => item.measurementId !== measurement.id || item.evidenceIds.some((evidenceId) => !evidenceIds.has(evidenceId)))) errors.push(`${measurement.id} has unresolved history references`);
     if (measurement.forecasts.some((item) => item.measurementId !== measurement.id || !measurement.levels.some((level) => level.level === item.level))) errors.push(`${measurement.id} has an invalid forecast reference`);
-    if (!measurement.evidence.length && !measurement.observation.evidenceException) errors.push(`${measurement.id}: evidence or an explicit permitted exception is required`);
-    if (!measurement.evidence.length) warnings.push(`${measurement.id}: legacy evidence package remains incomplete and requires re-research`);
+    if (!measurement.evidence.length && !researchAuditFor(measurement.id) && !measurement.observation.evidenceException) errors.push(`${measurement.id}: evidence or an explicit permitted exception is required`);
+    if (!measurement.evidence.length && !researchAuditFor(measurement.id)) warnings.push(`${measurement.id}: legacy evidence package remains incomplete and requires re-research`);
     if (measurement.valueStatus === "estimate" && !measurement.observation.methodNote) errors.push(`${measurement.id}: ESTIMATE lacks methodology`);
     if (measurement.levels.some((level) => !level.rationale)) errors.push(`${measurement.id}: milestone rationale missing`);
     if (measurement.definitionHistory.some((entry, index, all) => index > 0 && entry.effectiveFrom < all[index - 1].effectiveFrom)) errors.push(`${measurement.id}: definition history is not chronological`);
     if (measurement.forecasts.some((forecast) => forecast.provenanceStatus === "complete" ? !forecast.capturedAt || !forecast.protocolVersion || !forecast.modelVersionId : forecast.provenanceStatus !== "legacy-incomplete")) errors.push(`${measurement.id}: invalid forecast provenance`);
   }
+  for (const audit of RESEARCH_AUDITS) { if (!ids.has(audit.measurementId)) errors.push(`${audit.id} has unresolved measurement`); if (audit.researchCutoff !== DATASET_SNAPSHOT.researchCutoff) errors.push(`${audit.id} has wrong cutoff`); }
+  const bci=MAIN_DOMAINS.flatMap(d=>d.subdomains.flatMap(s=>s.measurements)).find(m=>m.id==="bci-1"); if((bci?.observation.qualifyingCohorts?.reduce((n,c)=>n+c.count,0)??0)!==95) errors.push("bci-1 cohort arithmetic must equal 95");
   if (PROGRESS_SLUGS.length !== counts.subdomains || Object.values(SLUG_TO_DOMAIN_ID).some((id) => !MAIN_DOMAINS.some((d) => d.subdomains.some((s) => s.id === id)))) errors.push("Public progress routes do not match active subdomains");
   for (const subdomain of MAIN_DOMAINS.flatMap((domain) => domain.subdomains)) if (!subdomain.northStar?.title || !subdomain.northStar.question || !subdomain.northStar.construct || !subdomain.northStar.variable || !subdomain.northStar.methodology || !subdomain.northStar.unit || !subdomain.northStar.definitionVersion || !subdomain.northStar.evidenceRequirements.length || !subdomain.northStar.knownLimitations.length || !subdomain.northStar.series.provenance) errors.push(`${subdomain.id} lacks exact North Star metadata`);
   const progress = getGlobalProgress(MAIN_DOMAINS);

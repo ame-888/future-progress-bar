@@ -27,8 +27,9 @@ export const MEASUREMENT_OBSERVATIONS = {
   },
   "robotics-1": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
-    "currentValue": 1500,
-    "valueStatus": "estimate",
+    "currentValue": 5500,
+    "valueStatus": "lower-bound",
+    "displayValue": "≥5,500",
     "baseValue": 0
   },
   "robotics-2": {
@@ -85,7 +86,7 @@ export const MEASUREMENT_OBSERVATIONS = {
   "lev-2": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
     "dataPeriod": "2026 model estimate",
-    "currentValue": 86.73,
+    "currentValue": 86.734,
     "valueStatus": "estimate",
     "displayValue": "86.7",
     "baseValue": 80
@@ -163,9 +164,9 @@ export const MEASUREMENT_OBSERVATIONS = {
   },
   "superconductor-je-20k-20t": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
-    "currentValue": 1400,
-    "valueStatus": "estimate",
-    "displayValue": "≈1,400",
+    "currentValue": 1200,
+    "valueStatus": "lower-bound",
+    "displayValue": "≥1,200",
     "baseValue": 0
   },
   "superconductor-3": {
@@ -183,9 +184,9 @@ export const MEASUREMENT_OBSERVATIONS = {
   },
   "bci-1": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
-    "currentValue": 81,
+    "currentValue": 95,
     "valueStatus": "lower-bound",
-    "displayValue": "≥81",
+    "displayValue": "≥95",
     "baseValue": 0
   },
   "bci-2": {
@@ -198,8 +199,8 @@ export const MEASUREMENT_OBSERVATIONS = {
   "bci-3": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
     "currentValue": 1,
-    "valueStatus": "lower-bound",
-    "displayValue": "≥1",
+    "valueStatus": "verified",
+    "displayValue": "1",
     "baseValue": 0
   },
   "bci-4": {
@@ -228,15 +229,14 @@ export const MEASUREMENT_OBSERVATIONS = {
   },
   "mind-upload-1": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
-    "currentValue": 166691,
+    "currentValue": 166694,
     "valueStatus": "verified",
     "baseValue": 0
   },
   "vr-5": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
-    "currentValue": 5000000,
-    "valueStatus": "estimate",
-    "displayValue": "≈5.0 million",
+    "valueStatus": "unknown",
+    "displayValue": "UNKNOWN",
     "baseValue": 0
   },
   "vr-commercial-ppd": {
@@ -297,8 +297,9 @@ export const MEASUREMENT_OBSERVATIONS = {
   },
   "fusion-3": {
     "researchCutoff": DATASET_SNAPSHOT.researchCutoff,
-    "valueStatus": "unknown",
-    "displayValue": "UNKNOWN",
+    "currentValue": 0,
+    "valueStatus": "zero",
+    "displayValue": "0 hours",
     "baseValue": 0
   },
   "fusion-4": {

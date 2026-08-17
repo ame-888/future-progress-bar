@@ -7,7 +7,7 @@ export type AiGraphDataPoint = {
   gflopsPerDollar: number;
 };
 
-/** Human-equivalent brain cost: 10^7 / dense peak FP32 GFLOP/s/$. */
+/** Cost of commercially available hardware capable of 10^16 dense FP32 FLOP/s. */
 export const aiGraphData: AiGraphDataPoint[] = [
   { year: 2001, cost: 176786000, note: "AMD Athlon 1.4 GHz", fp32Gflops: 5.60, priceUsd: 99, gflopsPerDollar: 0.0566 },
   { year: 2002, cost: 123077000, note: "AMD Duron 1.3 GHz", fp32Gflops: 5.20, priceUsd: 64, gflopsPerDollar: 0.0813 },
