@@ -1,3 +1,0 @@
-import type { Metadata } from "next"; import { ForecastsWorkspace } from "@/components/forecasts-workspace";
-export const metadata: Metadata = { title: "Forecasts", description: "Explore AI model scenarios and create browser-local personal forecasts for Future Progress Bar milestones.", alternates: { canonical: "/forecasts" } };
-export default function ForecastsPage() { return <main className="forecasts-page editorial-page"><header><p className="atlas-kicker">What do we think happens next?</p><h1>Forecast desk</h1><p>Compare attributed AI model scenarios with your own predictions. Nothing on this page is an observed result or contributes to the progress index.</p></header><ForecastsWorkspace /></main>; }
